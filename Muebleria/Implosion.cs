@@ -44,7 +44,8 @@ namespace Muebleria
             var query = from tradu in testcontext.traduccion
                         from prod in testcontext.producto
                         where tradu.idDescriptionT.Equals(prod.idDescriptionP)
-                        && tradu.idLanguageT == LogIn.IdIdioma && (prod.idTipo==2 || prod.idTipo == 4) //2 es buy y 4 es bruto
+                        && tradu.idLanguageT == LogIn.IdIdioma 
+                        && (prod.idTipo==2 || prod.idTipo == 3 || prod.idTipo == 4) //2 es buy y 4 es bruto
                         select tradu.Traduccion_str;
 
             cbProductosBuscados.DataSource = query.ToList();
@@ -89,7 +90,7 @@ namespace Muebleria
             }
 
             else
-                MessageBox.Show("no anduvo");
+                MessageBox.Show("No existe ningun producto que se pueda fabricar con los productos seleccionados");
         }
 
         private void Implosion_FormClosed(object sender, FormClosedEventArgs e)
