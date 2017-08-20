@@ -31,7 +31,7 @@ namespace Muebleria
             var query = from t in db.traduccion
                         from p in subquery
                         where t.idDescriptionT == p &&
-                        t.idLanguageT == 2
+                        t.idLanguageT == LogIn.IdIdioma
                         select t.Traduccion_str;
 
             cbProductos.DataSource = query.ToList();

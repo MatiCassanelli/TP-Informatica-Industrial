@@ -44,7 +44,7 @@ namespace Muebleria
             var query = from tradu in testcontext.traduccion
                         from prod in testcontext.producto
                         where tradu.idDescriptionT.Equals(prod.idDescriptionP)
-                        && tradu.idLanguageT == LogIn.IdIdioma//&& prod.idTipo==2 && prod.idTipo == 4 //2 es buy y 4 es bruto
+                        && tradu.idLanguageT == LogIn.IdIdioma && (prod.idTipo==2 || prod.idTipo == 4) //2 es buy y 4 es bruto
                         select tradu.Traduccion_str;
 
             cbProductosBuscados.DataSource = query.ToList();
@@ -69,6 +69,7 @@ namespace Muebleria
                            from trad in testcontext.traduccion
                            where pc.idHijo == prod.idProducto &&
                                prod.idDescriptionP == trad.idDescriptionT &&
+                                trad.idLanguageT == LogIn.IdIdioma &&
                            trad.Traduccion_str == prodBuscado &&
                            pc.Cantidad <= cantIngresada
                            select pc.idPadre;
@@ -77,6 +78,7 @@ namespace Muebleria
                         from p in testcontext.producto
                         from n in subquery
                         where t.idDescriptionT == p.idDescriptionP &&
+                        t.idLanguageT == LogIn.IdIdioma &&
                             n == p.idProducto
                         select t.Traduccion_str;
 
