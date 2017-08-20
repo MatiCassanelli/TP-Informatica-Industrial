@@ -95,6 +95,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Explosion";
             this.Text = "Explosion";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Explosion_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

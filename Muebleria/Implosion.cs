@@ -91,6 +91,14 @@ namespace Muebleria
             else
                 MessageBox.Show("no anduvo");
         }
+
+        private void Implosion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu menu = new Menu();
+            this.Hide();
+            //this.Close();
+            menu.ShowDialog();
+        }
     }
     
 }

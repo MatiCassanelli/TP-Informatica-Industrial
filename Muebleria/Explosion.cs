@@ -83,5 +83,13 @@ namespace Muebleria
                 lbComponentes.Items.Add(item);
             }
         }
+
+        private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu menu = new Menu();
+            this.Hide();
+            //this.Close();
+            menu.ShowDialog();
+        }
     }
 }

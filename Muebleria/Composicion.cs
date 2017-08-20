@@ -282,5 +282,13 @@ namespace Muebleria
         {
             this.Close();
         }
+
+        private void Composicion_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Menu menu = new Menu();
+            this.Hide();
+            menu.ShowDialog();
+        }
+
     }
 }

@@ -42,9 +42,10 @@ namespace Muebleria
         private void btnCargar_Click(object sender, EventArgs e)
         {
             Composicion composicion = new Composicion();
+            this.Close();
             this.Hide();
             composicion.ShowDialog();
-            this.Close();
+            
         }
         
         private void btnExplosionar_Click(object sender, EventArgs e)

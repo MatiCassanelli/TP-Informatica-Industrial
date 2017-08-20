@@ -172,6 +172,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Implosion";
             this.Text = "Implosion";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Implosion_FormClosed);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

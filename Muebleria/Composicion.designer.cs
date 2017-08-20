@@ -238,6 +238,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Composicion";
             this.Text = "Composición de los Productos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Composicion_FormClosed);
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.panelComponentes.ResumeLayout(false);
