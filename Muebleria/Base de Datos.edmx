@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="conversion">
           <Key>
             <PropertyRef Name="U_medida_default" />
@@ -124,6 +124,7 @@
           <Property Name="Interno" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Mail" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="idLanguage" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <Association Name="Direccion_fac_id">
           <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
@@ -397,8 +398,7 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="padre-componente" EntitySet="padre-componente" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -551,6 +551,7 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <NavigationProperty Name="language" Relationship="Self.idLanguage" FromRole="users" ToRole="language" />
           <NavigationProperty Name="padre_componente" Relationship="Self.User_Upd" FromRole="users" ToRole="padre_componente" />
           <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="U_medida">
           <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
@@ -930,6 +931,7 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="Model.users">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="idUsers" ColumnName="idUsers" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
