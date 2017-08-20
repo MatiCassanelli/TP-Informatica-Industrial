@@ -203,7 +203,7 @@ namespace Muebleria
                     U_medida_default = UMD[0],
                     U_medida_used = UMU[0],
                     Last_Upd = DateTime.Now,
-                    User_Upd = 1                        //FALTA PONER EL ID DE USUARIO QUE SE TOMA CUANDO INICIA SESIÓN
+                    User_Upd = LogIn.IdUsuario                        //FALTA PONER EL ID DE USUARIO QUE SE TOMA CUANDO INICIA SESIÓN
                 };
 
                 //Intenta realizar un UPDATE en la tabla padre-componente
