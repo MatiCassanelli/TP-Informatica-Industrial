@@ -33,8 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,14 +54,105 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Base de Datos.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base de Datos.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Base de Datos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Base de Datos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base de Datos.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Composicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Composicion.designer.cs">
+      <DependentUpon>Composicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="conversion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="direccion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Explosion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Explosion.designer.cs">
+      <DependentUpon>Explosion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="externo.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Implosion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Implosion.designer.cs">
+      <DependentUpon>Implosion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogIn.Designer.cs">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="language.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="padre_componente.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="producto.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegexUtilities.cs" />
+    <Compile Include="role.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tipo_externo.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tipo_producto.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="traduccion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="unidad_medida.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Composicion.resx">
+      <DependentUpon>Composicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Explosion.resx">
+      <DependentUpon>Explosion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implosion.resx">
+      <DependentUpon>Implosion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogIn.resx">
+      <DependentUpon>LogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +162,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EntityDeploy Include="Base de Datos.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Base de Datos.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Base de Datos.edmx.diagram">
+      <DependentUpon>Base de Datos.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,7 +181,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Base de Datos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Base de Datos.edmx</DependentUpon>
+      <LastGenOutput>Base de Datos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Base de Datos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Base de Datos.edmx</DependentUpon>
+      <LastGenOutput>Base de Datos.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

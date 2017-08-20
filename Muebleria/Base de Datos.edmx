@@ -1,0 +1,967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="conversion">
+          <Key>
+            <PropertyRef Name="U_medida_default" />
+            <PropertyRef Name="U_medida" />
+          </Key>
+          <Property Name="U_medida_default" Type="int" Nullable="false" />
+          <Property Name="U_medida" Type="int" Nullable="false" />
+          <Property Name="Coeficiente" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="direccion">
+          <Key>
+            <PropertyRef Name="idDireccion" />
+          </Key>
+          <Property Name="idDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="Barrio" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Pais" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="CodigoPostal" Type="int" Nullable="false" />
+          <Property Name="Direccioncol" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="externo">
+          <Key>
+            <PropertyRef Name="idExterno" />
+          </Key>
+          <Property Name="idExterno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipo_Externo" Type="int" Nullable="false" />
+          <Property Name="Description_id" Type="int" Nullable="false" />
+          <Property Name="CUIT" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Direcion_id" Type="int" Nullable="false" />
+          <Property Name="Direcion_ent_id" Type="int" Nullable="false" />
+          <Property Name="Direcion_fac_id" Type="int" Nullable="false" />
+          <Property Name="Nac_Ext" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="idLanguage" />
+          </Key>
+          <Property Name="idLanguage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Language_Desc" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="padre-componente">
+          <Key>
+            <PropertyRef Name="idPadre" />
+            <PropertyRef Name="idHijo" />
+          </Key>
+          <Property Name="idPadre" Type="int" Nullable="false" />
+          <Property Name="idHijo" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="float" Nullable="false" />
+          <Property Name="U_medida_default" Type="int" Nullable="false" />
+          <Property Name="U_medida_used" Type="int" Nullable="false" />
+          <Property Name="Last_Upd" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="User_Upd" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDescriptionP" Type="int" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+          <Property Name="Unidad_id_Purchase" Type="int" Nullable="false" />
+          <Property Name="Unidad_id_Aplication" Type="int" Nullable="false" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="End_Date" Type="date" />
+          <Property Name="Last_Upd" Type="timestamp" Precision="0" />
+          <Property Name="User_Upd" Type="int" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDescriptionR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_externo">
+          <Key>
+            <PropertyRef Name="idTipo_Externo" />
+          </Key>
+          <Property Name="idTipo_Externo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDescriptionTE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_producto">
+          <Key>
+            <PropertyRef Name="idTipo_Producto" />
+          </Key>
+          <Property Name="idTipo_Producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDescriptionTP" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="traduccion">
+          <Key>
+            <PropertyRef Name="idDescriptionT" />
+            <PropertyRef Name="idLanguageT" />
+          </Key>
+          <Property Name="idDescriptionT" Type="int" Nullable="false" />
+          <Property Name="idLanguageT" Type="int" Nullable="false" />
+          <Property Name="Traduccion_str" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="unidad_medida">
+          <Key>
+            <PropertyRef Name="idUnidad_Medida" />
+          </Key>
+          <Property Name="idUnidad_Medida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDescriptionUM" Type="int" Nullable="false" />
+          <Property Name="Factor_N" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Sector" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+          <Property Name="Interno" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idLanguage" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Direccion_fac_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_fac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Direccion_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Direcion_ent_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_ent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionE' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionE" />-->
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionP" />-->
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionR' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionR" />-->
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionTE' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionTE" />-->
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionTP' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionTP" />-->
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="idDescriptionUM" />-->
+        <Association Name="idHijo">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre-componente">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idLanguage">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="idLanguage" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="idLanguage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idLanguageT">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="traduccion" Type="Self.traduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="idLanguage" />
+            </Principal>
+            <Dependent Role="traduccion">
+              <PropertyRef Name="idLanguageT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadre">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre-componente">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRole">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idTipo">
+          <End Role="tipo_producto" Type="Self.tipo_producto" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_producto">
+              <PropertyRef Name="idTipo_Producto" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idTipo_Externo">
+          <End Role="tipo_externo" Type="Self.tipo_externo" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_externo">
+              <PropertyRef Name="idTipo_Externo" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="idTipo_Externo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="U_medida">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="conversion">
+              <PropertyRef Name="U_medida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="U_medida_default">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="conversion">
+              <PropertyRef Name="U_medida_default" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Unidad_id_Aplication">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="Unidad_id_Aplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Unidad_id_Purchase">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="Unidad_id_Purchase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Upd">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="padre-componente">
+              <PropertyRef Name="User_Upd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="conversion" EntityType="Self.conversion" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="direccion" EntityType="Self.direccion" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="externo" EntityType="Self.externo" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="language" EntityType="Self.language" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="padre-componente" EntityType="Self.padre-componente" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="tipo_externo" EntityType="Self.tipo_externo" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="tipo_producto" EntityType="Self.tipo_producto" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="traduccion" EntityType="Self.traduccion" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="informatica industrial db" store:Type="Tables" />
+          <AssociationSet Name="Direccion_fac_id" Association="Self.Direccion_fac_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direccion_id" Association="Self.Direccion_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direcion_ent_id" Association="Self.Direcion_ent_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="idHijo" Association="Self.idHijo">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre-componente" EntitySet="padre-componente" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguage" Association="Self.idLanguage">
+            <End Role="language" EntitySet="language" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguageT" Association="Self.idLanguageT">
+            <End Role="language" EntitySet="language" />
+            <End Role="traduccion" EntitySet="traduccion" />
+          </AssociationSet>
+          <AssociationSet Name="idPadre" Association="Self.idPadre">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre-componente" EntitySet="padre-componente" />
+          </AssociationSet>
+          <AssociationSet Name="idRole" Association="Self.idRole">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo" Association="Self.idTipo">
+            <End Role="tipo_producto" EntitySet="tipo_producto" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo_Externo" Association="Self.idTipo_Externo">
+            <End Role="tipo_externo" EntitySet="tipo_externo" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="U_medida" Association="Self.U_medida">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="U_medida_default" Association="Self.U_medida_default">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Aplication" Association="Self.Unidad_id_Aplication">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Purchase" Association="Self.Unidad_id_Purchase">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="User_Upd" Association="Self.User_Upd">
+            <End Role="users" EntitySet="users" />
+            <End Role="padre-componente" EntitySet="padre-componente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="conversion">
+          <Key>
+            <PropertyRef Name="U_medida_default" />
+            <PropertyRef Name="U_medida" />
+          </Key>
+          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
+          <Property Name="U_medida" Type="Int32" Nullable="false" />
+          <Property Name="Coeficiente" Type="Single" Nullable="false" />
+          <NavigationProperty Name="unidad_medida" Relationship="Self.U_medida" FromRole="conversion" ToRole="unidad_medida" />
+          <NavigationProperty Name="unidad_medida1" Relationship="Self.U_medida_default" FromRole="conversion" ToRole="unidad_medida" />
+        </EntityType>
+        <EntityType Name="direccion">
+          <Key>
+            <PropertyRef Name="idDireccion" />
+          </Key>
+          <Property Name="idDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="Barrio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pais" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoPostal" Type="Int32" Nullable="false" />
+          <Property Name="Direccioncol" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="externo" Relationship="Self.Direccion_fac_id" FromRole="direccion" ToRole="externo" />
+          <NavigationProperty Name="externo1" Relationship="Self.Direccion_id" FromRole="direccion" ToRole="externo" />
+          <NavigationProperty Name="externo2" Relationship="Self.Direcion_ent_id" FromRole="direccion" ToRole="externo" />
+        </EntityType>
+        <EntityType Name="externo">
+          <Key>
+            <PropertyRef Name="idExterno" />
+          </Key>
+          <Property Name="idExterno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipo_Externo" Type="Int32" Nullable="false" />
+          <Property Name="Description_id" Type="Int32" Nullable="false" />
+          <Property Name="CUIT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direcion_id" Type="Int32" Nullable="false" />
+          <Property Name="Direcion_ent_id" Type="Int32" Nullable="false" />
+          <Property Name="Direcion_fac_id" Type="Int32" Nullable="false" />
+          <Property Name="Nac_Ext" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="direccion" Relationship="Self.Direccion_fac_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="direccion1" Relationship="Self.Direccion_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="direccion2" Relationship="Self.Direcion_ent_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="tipo_externo" Relationship="Self.idTipo_Externo" FromRole="externo" ToRole="tipo_externo" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="idLanguage" />
+          </Key>
+          <Property Name="idLanguage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Language_Desc" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users" Relationship="Self.idLanguage" FromRole="language" ToRole="users" />
+          <NavigationProperty Name="traduccion" Relationship="Self.idLanguageT" FromRole="language" ToRole="traduccion" />
+        </EntityType>
+        <EntityType Name="padre_componente">
+          <Key>
+            <PropertyRef Name="idPadre" />
+            <PropertyRef Name="idHijo" />
+          </Key>
+          <Property Name="idPadre" Type="Int32" Nullable="false" />
+          <Property Name="idHijo" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Single" Nullable="false" />
+          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
+          <Property Name="U_medida_used" Type="Int32" Nullable="false" />
+          <Property Name="Last_Upd" Type="DateTime" Nullable="false" />
+          <Property Name="User_Upd" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.idHijo" FromRole="padre_componente" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.idPadre" FromRole="padre_componente" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Self.User_Upd" FromRole="padre_componente" ToRole="users" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDescriptionP" Type="Int32" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <Property Name="Unidad_id_Purchase" Type="Int32" Nullable="false" />
+          <Property Name="Unidad_id_Aplication" Type="Int32" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" />
+          <Property Name="End_Date" Type="DateTime" />
+          <Property Name="Last_Upd" Type="DateTime" />
+          <Property Name="User_Upd" Type="Int32" />
+          <NavigationProperty Name="padre_componente" Relationship="Self.idHijo" FromRole="producto" ToRole="padre_componente" />
+          <NavigationProperty Name="padre_componente1" Relationship="Self.idPadre" FromRole="producto" ToRole="padre_componente" />
+          <NavigationProperty Name="tipo_producto" Relationship="Self.idTipo" FromRole="producto" ToRole="tipo_producto" />
+          <NavigationProperty Name="unidad_medida" Relationship="Self.Unidad_id_Aplication" FromRole="producto" ToRole="unidad_medida" />
+          <NavigationProperty Name="unidad_medida1" Relationship="Self.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDescriptionR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.idRole" FromRole="role" ToRole="users" />
+        </EntityType>
+        <EntityType Name="tipo_externo">
+          <Key>
+            <PropertyRef Name="idTipo_Externo" />
+          </Key>
+          <Property Name="idTipo_Externo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDescriptionTE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="externo" Relationship="Self.idTipo_Externo" FromRole="tipo_externo" ToRole="externo" />
+        </EntityType>
+        <EntityType Name="tipo_producto">
+          <Key>
+            <PropertyRef Name="idTipo_Producto" />
+          </Key>
+          <Property Name="idTipo_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDescriptionTP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.idTipo" FromRole="tipo_producto" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="traduccion">
+          <Key>
+            <PropertyRef Name="idDescriptionT" />
+            <PropertyRef Name="idLanguageT" />
+          </Key>
+          <Property Name="idDescriptionT" Type="Int32" Nullable="false" />
+          <Property Name="idLanguageT" Type="Int32" Nullable="false" />
+          <Property Name="Traduccion_str" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="language" Relationship="Self.idLanguageT" FromRole="traduccion" ToRole="language" />
+        </EntityType>
+        <EntityType Name="unidad_medida">
+          <Key>
+            <PropertyRef Name="idUnidad_Medida" />
+          </Key>
+          <Property Name="idUnidad_Medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDescriptionUM" Type="Int32" Nullable="false" />
+          <Property Name="Factor_N" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="conversion" Relationship="Self.U_medida" FromRole="unidad_medida" ToRole="conversion" />
+          <NavigationProperty Name="conversion1" Relationship="Self.U_medida_default" FromRole="unidad_medida" ToRole="conversion" />
+          <NavigationProperty Name="producto" Relationship="Self.Unidad_id_Aplication" FromRole="unidad_medida" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.Unidad_id_Purchase" FromRole="unidad_medida" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sector" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <Property Name="Interno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mail" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idLanguage" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="language" Relationship="Self.idLanguage" FromRole="users" ToRole="language" />
+          <NavigationProperty Name="padre_componente" Relationship="Self.User_Upd" FromRole="users" ToRole="padre_componente" />
+          <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
+        </EntityType>
+        <Association Name="U_medida">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="conversion">
+              <PropertyRef Name="U_medida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="U_medida_default">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="conversion">
+              <PropertyRef Name="U_medida_default" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Direccion_fac_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_fac_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Direccion_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Direcion_ent_id">
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="direccion">
+              <PropertyRef Name="idDireccion" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="Direcion_ent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idTipo_Externo">
+          <End Role="tipo_externo" Type="Self.tipo_externo" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_externo">
+              <PropertyRef Name="idTipo_Externo" />
+            </Principal>
+            <Dependent Role="externo">
+              <PropertyRef Name="idTipo_Externo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idLanguage">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="idLanguage" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="idLanguage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idLanguageT">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="traduccion" Type="Self.traduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="idLanguage" />
+            </Principal>
+            <Dependent Role="traduccion">
+              <PropertyRef Name="idLanguageT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idHijo">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadre">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Upd">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="padre_componente">
+              <PropertyRef Name="User_Upd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idTipo">
+          <End Role="tipo_producto" Type="Self.tipo_producto" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_producto">
+              <PropertyRef Name="idTipo_Producto" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Unidad_id_Aplication">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="Unidad_id_Aplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Unidad_id_Purchase">
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unidad_medida">
+              <PropertyRef Name="idUnidad_Medida" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="Unidad_id_Purchase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRole">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="informatica_industrial_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="conversion" EntityType="Self.conversion" />
+          <EntitySet Name="direccion" EntityType="Self.direccion" />
+          <EntitySet Name="externo" EntityType="Self.externo" />
+          <EntitySet Name="language" EntityType="Self.language" />
+          <EntitySet Name="padre_componente" EntityType="Self.padre_componente" />
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="tipo_externo" EntityType="Self.tipo_externo" />
+          <EntitySet Name="tipo_producto" EntityType="Self.tipo_producto" />
+          <EntitySet Name="traduccion" EntityType="Self.traduccion" />
+          <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="U_medida" Association="Self.U_medida">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="U_medida_default" Association="Self.U_medida_default">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="Direccion_fac_id" Association="Self.Direccion_fac_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direccion_id" Association="Self.Direccion_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direcion_ent_id" Association="Self.Direcion_ent_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo_Externo" Association="Self.idTipo_Externo">
+            <End Role="tipo_externo" EntitySet="tipo_externo" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguage" Association="Self.idLanguage">
+            <End Role="language" EntitySet="language" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguageT" Association="Self.idLanguageT">
+            <End Role="language" EntitySet="language" />
+            <End Role="traduccion" EntitySet="traduccion" />
+          </AssociationSet>
+          <AssociationSet Name="idHijo" Association="Self.idHijo">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente" EntitySet="padre_componente" />
+          </AssociationSet>
+          <AssociationSet Name="idPadre" Association="Self.idPadre">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente" EntitySet="padre_componente" />
+          </AssociationSet>
+          <AssociationSet Name="User_Upd" Association="Self.User_Upd">
+            <End Role="users" EntitySet="users" />
+            <End Role="padre_componente" EntitySet="padre_componente" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo" Association="Self.idTipo">
+            <End Role="tipo_producto" EntitySet="tipo_producto" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Aplication" Association="Self.Unidad_id_Aplication">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Purchase" Association="Self.Unidad_id_Purchase">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="idRole" Association="Self.idRole">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="informatica_industrial_dbEntities">
+          <EntitySetMapping Name="conversion">
+            <EntityTypeMapping TypeName="Model.conversion">
+              <MappingFragment StoreEntitySet="conversion">
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="U_medida" ColumnName="U_medida" />
+                <ScalarProperty Name="Coeficiente" ColumnName="Coeficiente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="direccion">
+            <EntityTypeMapping TypeName="Model.direccion">
+              <MappingFragment StoreEntitySet="direccion">
+                <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Barrio" ColumnName="Barrio" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Direccioncol" ColumnName="Direccioncol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="externo">
+            <EntityTypeMapping TypeName="Model.externo">
+              <MappingFragment StoreEntitySet="externo">
+                <ScalarProperty Name="idExterno" ColumnName="idExterno" />
+                <ScalarProperty Name="idTipo_Externo" ColumnName="idTipo_Externo" />
+                <ScalarProperty Name="Description_id" ColumnName="Description_id" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="Direcion_id" ColumnName="Direcion_id" />
+                <ScalarProperty Name="Direcion_ent_id" ColumnName="Direcion_ent_id" />
+                <ScalarProperty Name="Direcion_fac_id" ColumnName="Direcion_fac_id" />
+                <ScalarProperty Name="Nac_Ext" ColumnName="Nac_Ext" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="language">
+            <EntityTypeMapping TypeName="Model.language">
+              <MappingFragment StoreEntitySet="language">
+                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
+                <ScalarProperty Name="Language_Desc" ColumnName="Language_Desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="padre_componente">
+            <EntityTypeMapping TypeName="Model.padre_componente">
+              <MappingFragment StoreEntitySet="padre-componente">
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="U_medida_used" ColumnName="U_medida_used" />
+                <ScalarProperty Name="Last_Upd" ColumnName="Last_Upd" />
+                <ScalarProperty Name="User_Upd" ColumnName="User_Upd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="Model.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idDescriptionP" ColumnName="idDescriptionP" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="Unidad_id_Purchase" ColumnName="Unidad_id_Purchase" />
+                <ScalarProperty Name="Unidad_id_Aplication" ColumnName="Unidad_id_Aplication" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Last_Upd" ColumnName="Last_Upd" />
+                <ScalarProperty Name="User_Upd" ColumnName="User_Upd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role">
+            <EntityTypeMapping TypeName="Model.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="idDescriptionR" ColumnName="idDescriptionR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_externo">
+            <EntityTypeMapping TypeName="Model.tipo_externo">
+              <MappingFragment StoreEntitySet="tipo_externo">
+                <ScalarProperty Name="idTipo_Externo" ColumnName="idTipo_Externo" />
+                <ScalarProperty Name="idDescriptionTE" ColumnName="idDescriptionTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_producto">
+            <EntityTypeMapping TypeName="Model.tipo_producto">
+              <MappingFragment StoreEntitySet="tipo_producto">
+                <ScalarProperty Name="idTipo_Producto" ColumnName="idTipo_Producto" />
+                <ScalarProperty Name="idDescriptionTP" ColumnName="idDescriptionTP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="traduccion">
+            <EntityTypeMapping TypeName="Model.traduccion">
+              <MappingFragment StoreEntitySet="traduccion">
+                <ScalarProperty Name="idDescriptionT" ColumnName="idDescriptionT" />
+                <ScalarProperty Name="idLanguageT" ColumnName="idLanguageT" />
+                <ScalarProperty Name="Traduccion_str" ColumnName="Traduccion_str" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="unidad_medida">
+            <EntityTypeMapping TypeName="Model.unidad_medida">
+              <MappingFragment StoreEntitySet="unidad_medida">
+                <ScalarProperty Name="idUnidad_Medida" ColumnName="idUnidad_Medida" />
+                <ScalarProperty Name="idDescriptionUM" ColumnName="idDescriptionUM" />
+                <ScalarProperty Name="Factor_N" ColumnName="Factor_N" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Model.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="Interno" ColumnName="Interno" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

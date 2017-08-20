@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55623b116dd9447ca532bdf29eb78c13" Name="Diagram1" ZoomLevel="40">
+        <EntityTypeShape EntityType="Model.conversion" Width="1.5" PointX="1" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="8.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="11" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.padre_componente" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="8.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.traduccion" Width="1.5" PointX="1.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.unidad_medida" Width="1.5" PointX="3.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="Model.U_medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.U_medida_default" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direccion_fac_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direccion_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direcion_ent_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idTipo_Externo" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idLanguageT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idHijo" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idPadre" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.User_Upd" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Unidad_id_Aplication" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Unidad_id_Purchase" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idRole" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
