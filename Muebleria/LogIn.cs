@@ -61,12 +61,12 @@ namespace Muebleria
                                 where usuarios.Mail == tbUsername.Text &&
                                 usuarios.Password == tbpass.Text
                                 select new { id = usuarios.idUsers, idioma = usuarios.idLanguage };
-                    
-                    if (query.ToList().Count > 0)   //si existe algun dato en la lista, es xq el mail existe
+
+                    try   //si existe algun dato en la lista, es xq el mail existe
                     {
-                        foreach(var c in query)
+                        foreach (var c in query)
                         {
-                            IdUsuario=c.id;
+                            IdUsuario = c.id;
                             idIdioma = c.idioma;
                         }
                         Menu menu = new Menu();
@@ -75,8 +75,11 @@ namespace Muebleria
                         this.Close();
 
                     }
-                    else
+                    catch
+                    {
                         MessageBox.Show("Compruebe los datos y vuelva a intentarlo.");
+                        return;
+                    }
                 }
                 else
                     MessageBox.Show("Compruebe los datos y vuelva a intentarlo.");
