@@ -23,6 +23,7 @@ namespace Muebleria
         private void btnImplosionar_Click(object sender, EventArgs e)
         {
             lbprodfinales.Items.Clear();
+            tbCantidad.Clear();
             if (!String.IsNullOrEmpty(tbCantidad.Text))
             {
                 implosionar();
@@ -99,6 +100,10 @@ namespace Muebleria
             this.Hide();
             //this.Close();
             menu.ShowDialog();
+        }
+        private void convertirUM()
+        {
+
         }
     }
     
