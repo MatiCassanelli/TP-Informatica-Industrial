@@ -46,8 +46,8 @@ namespace Muebleria
         public LogIn()
         {
             InitializeComponent();
-            tbUsername.Text = "mati@gmail.com";
-            tbpass.Text = "ab";
+            //tbUsername.Text = "mati@gmail.com";
+            //tbpass.Text = "ab";
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -58,7 +58,8 @@ namespace Muebleria
                 if (utilities.IsValidEmail(tbUsername.Text))
                 {
                     var query = from usuarios in db.users
-                                where usuarios.Mail == tbUsername.Text
+                                where usuarios.Mail == tbUsername.Text &&
+                                usuarios.Password == tbpass.Text
                                 select new { id = usuarios.idUsers, idioma = usuarios.idLanguage };
                     
                     if (query.ToList().Count > 0)   //si existe algun dato en la lista, es xq el mail existe
