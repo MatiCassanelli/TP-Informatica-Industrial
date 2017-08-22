@@ -155,7 +155,18 @@ namespace Muebleria
             //this.Close();
             menu.ShowDialog();
         }
-       
+
+        private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Back))
+                return;
+
+            if (!char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
     }
     
 }

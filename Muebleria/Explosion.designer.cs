@@ -33,6 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.lbComponentes = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbCantidad = new System.Windows.Forms.TextBox();
+            this.btnExplosionar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,19 +44,22 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnExplosionar);
+            this.panel1.Controls.Add(this.tbCantidad);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbProductos);
             this.panel1.Controls.Add(this.lbComponentes);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(397, 263);
+            this.panel1.Size = new System.Drawing.Size(373, 284);
             this.panel1.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 71);
+            this.label2.Location = new System.Drawing.Point(27, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(205, 13);
             this.label2.TabIndex = 3;
@@ -81,21 +87,49 @@
             // lbComponentes
             // 
             this.lbComponentes.FormattingEnabled = true;
-            this.lbComponentes.Location = new System.Drawing.Point(30, 104);
+            this.lbComponentes.Location = new System.Drawing.Point(30, 134);
             this.lbComponentes.Name = "lbComponentes";
             this.lbComponentes.Size = new System.Drawing.Size(320, 134);
             this.lbComponentes.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Cantidad";
+            // 
+            // tbCantidad
+            // 
+            this.tbCantidad.Location = new System.Drawing.Point(93, 55);
+            this.tbCantidad.Name = "tbCantidad";
+            this.tbCantidad.Size = new System.Drawing.Size(100, 20);
+            this.tbCantidad.TabIndex = 5;
+            this.tbCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidad_KeyPress);
+            // 
+            // btnExplosionar
+            // 
+            this.btnExplosionar.Location = new System.Drawing.Point(275, 89);
+            this.btnExplosionar.Name = "btnExplosionar";
+            this.btnExplosionar.Size = new System.Drawing.Size(75, 23);
+            this.btnExplosionar.TabIndex = 6;
+            this.btnExplosionar.Text = "BOOM";
+            this.btnExplosionar.UseVisualStyleBackColor = true;
+            this.btnExplosionar.Click += new System.EventHandler(this.btnExplosionar_Click);
             // 
             // Explosion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(421, 287);
+            this.ClientSize = new System.Drawing.Size(397, 308);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Explosion";
             this.Text = "Explosion";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Explosion_FormClosed);
+            this.Load += new System.EventHandler(this.Explosion_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -109,5 +143,8 @@
         private System.Windows.Forms.ComboBox cbProductos;
         private System.Windows.Forms.ListBox lbComponentes;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnExplosionar;
+        private System.Windows.Forms.TextBox tbCantidad;
+        private System.Windows.Forms.Label label3;
     }
 }

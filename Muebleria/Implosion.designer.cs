@@ -52,7 +52,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(837, 360);
+            this.panel1.Size = new System.Drawing.Size(403, 360);
             this.panel1.TabIndex = 0;
             // 
             // groupBox1
@@ -69,7 +69,7 @@
             this.lbprodfinales.FormattingEnabled = true;
             this.lbprodfinales.Location = new System.Drawing.Point(0, 16);
             this.lbprodfinales.Name = "lbprodfinales";
-            this.lbprodfinales.Size = new System.Drawing.Size(395, 199);
+            this.lbprodfinales.Size = new System.Drawing.Size(395, 186);
             this.lbprodfinales.TabIndex = 3;
             // 
             // panel2
@@ -111,6 +111,7 @@
             this.tbCantidad.Name = "tbCantidad";
             this.tbCantidad.Size = new System.Drawing.Size(85, 20);
             this.tbCantidad.TabIndex = 23;
+            this.tbCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidad_KeyPress);
             // 
             // label2
             // 
@@ -168,7 +169,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 384);
+            this.ClientSize = new System.Drawing.Size(427, 374);
             this.Controls.Add(this.panel1);
             this.Name = "Implosion";
             this.Text = "Implosion";

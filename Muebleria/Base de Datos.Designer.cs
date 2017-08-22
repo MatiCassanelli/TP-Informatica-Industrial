@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Felipe\Desktop\Ingeniería\4to año 2do semestre\Informática Industrial\TP 1\Solucion\Muebleria\Base de Datos.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'D:\Mati\Facu\4° Año\2° Semestre\Informatica Industrial\TP Informatica Industrial\Muebleria\Base de Datos.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

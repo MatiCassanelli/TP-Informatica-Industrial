@@ -39,7 +39,7 @@ namespace Muebleria
 
         private void cbComponentes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ActualizarListBox();
+            
         }
 
         private void ActualizarListBox()
@@ -47,7 +47,7 @@ namespace Muebleria
             lbComponentes.Items.Clear();
 
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-
+            int cantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
             var query = from ph in db.padre_componente
                         from t in db.traduccion
@@ -56,7 +56,7 @@ namespace Muebleria
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad*cantRequerida };
 
             //Obtener las descripciones de las unidades de medida de la cantidad de aplicacion
             var subquery = from um in db.unidad_medida
@@ -90,6 +90,33 @@ namespace Muebleria
             this.Hide();
             //this.Close();
             menu.ShowDialog();
+        }
+
+        private void Explosion_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExplosionar_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(tbCantidad.Text))
+            {
+                ActualizarListBox();
+            }
+            else
+                MessageBox.Show("Complete los datos para continuar");            
+        }
+
+        private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Back))
+                return;
+
+            if (!char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
         }
     }
 }
