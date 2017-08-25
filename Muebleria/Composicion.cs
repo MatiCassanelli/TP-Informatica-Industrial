@@ -223,16 +223,36 @@ namespace Muebleria
             }
         }
 
-        
+
 
         private void tbCantidad_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            if (e.KeyChar == 8)
             {
-                MessageBox.Show("Solo se permiten valores numéricos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
+                e.Handled = false;
                 return;
             }
+            bool IsDec = false;
+            int nroDec = 0;
+
+            for (int i = 0; i < tbCantidad.Text.Length; i++)
+            {
+                if (tbCantidad.Text[i] == '.')
+                    IsDec = true;
+
+                if (IsDec && nroDec++ >= 2)
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)
+                e.Handled = false;
+            else if (e.KeyChar == 46)
+                e.Handled = (IsDec) ? true : false;
+            else
+                e.Handled = true;
         }
 
         private void btn_Eliminar_Click(object sender, EventArgs e)
