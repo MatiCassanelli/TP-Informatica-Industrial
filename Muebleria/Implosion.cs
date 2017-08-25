@@ -17,16 +17,25 @@ namespace Muebleria
         {
             InitializeComponent();
             completarProductos();
+            completarUM();
         }
 
         private void btnImplosionar_Click(object sender, EventArgs e)
         {
             lbprodfinales.Items.Clear();
-            implosionar();                      
+            if (!String.IsNullOrEmpty(tbCantidad.Text))
+            {
+                implosionar();
+            }
+            else
+                MessageBox.Show("Complete los datos para continuar");
+                      
         }
 
         private void cbProductosBuscados_SelectedIndexChanged(object sender, EventArgs e)
         {
+            panelCantidades.Enabled = true;
+            tbCantidad.Clear();
             lbprodfinales.Items.Clear();
         }
 
@@ -36,14 +45,80 @@ namespace Muebleria
                         from prod in testcontext.producto
                         where tradu.idDescriptionT.Equals(prod.idDescriptionP)
                         && tradu.idLanguageT == LogIn.IdIdioma 
-                        && (prod.idTipo==2 || prod.idTipo == 3 || prod.idTipo == 4) //2 es buy y 4 es bruto
+                        //&& (prod.idTipo==2 || prod.idTipo == 3 || prod.idTipo == 4) //2 es buy y 4 es bruto
                         select tradu.Traduccion_str;
 
             cbProductosBuscados.DataSource = query.ToList();
         }
-        
+
+        public void completarUM()
+        {
+            var query = from trad in testcontext.traduccion
+                        from um in testcontext.unidad_medida
+                        where trad.idDescriptionT.Equals(um.idDescriptionUM)
+                        && trad.idLanguageT == LogIn.IdIdioma
+                        select trad.Traduccion_str;
+            cbUM.DataSource = query.ToList();
+        }
         private void implosionar()  
-        {            
+        {
+            float cant = float.Parse(tbCantidad.Text);
+            //Obtener el id del producto Componente que coincide con el nombre seleccionado en el combo
+            var queryC = from p in testcontext.producto
+                         from t in testcontext.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductosBuscados.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> C = queryC.ToList();
+
+            //Obtener el id de la unidad de medida de aplicacion del producto
+            var pppp = C[0];        //Los casteos tienen que estar fuera de la consulta LINQ
+            var queryUMD = from pUMD in testcontext.producto
+                           where pUMD.idProducto == pppp
+                           select pUMD.Unidad_id_Aplication;
+            List<int> UMD = queryUMD.ToList();
+
+
+            //Obtener el id de la unidad de medida usada por el usuario
+            var queryUMU = from uMU in testcontext.unidad_medida
+                           from t in testcontext.traduccion
+                           where uMU.idDescriptionUM == t.idDescriptionT &&
+                           t.Traduccion_str == cbUM.SelectedItem.ToString() &&
+                           t.idLanguageT == LogIn.IdIdioma
+                           select uMU.idUnidad_Medida;
+            List<int> UMU = queryUMU.ToList();
+
+            //Conversión de unidad
+            float coeficiente = 1;
+            int auxD = UMD[0];
+            int auxU = UMU[0];
+            if (UMD[0] != UMU[0])
+            {
+                try
+                {
+                    var query = from conv in testcontext.conversion
+                                where conv.U_medida_default == auxD &&
+                                conv.U_medida == auxU
+                                select conv.Coeficiente;
+                    coeficiente = query.ToList()[0];
+                }
+                catch
+                {
+                    int aux = UMD[0];
+                    var query = from um in testcontext.unidad_medida
+                                from t in testcontext.traduccion
+                                where um.idDescriptionUM == t.idDescriptionT &&
+                                um.idUnidad_Medida == aux &&
+                                t.idLanguageT == LogIn.IdIdioma
+                                select t.Traduccion_str;
+
+                    MessageBox.Show("Unidad de medida inválida para este producto. Intente con: " + query.ToList()[0].ToString());
+                    return;
+                }
+            }
+            cant/=coeficiente;
+
             string prodBuscado = cbProductosBuscados.SelectedItem.ToString();
             var queryhijo = from pc in testcontext.padre_componente
                             from prod in testcontext.producto
@@ -51,7 +126,8 @@ namespace Muebleria
                             where pc.idHijo == prod.idProducto &&
                                 prod.idDescriptionP == trad.idDescriptionT &&
                                  trad.idLanguageT == LogIn.IdIdioma &&
-                            trad.Traduccion_str == prodBuscado 
+                            trad.Traduccion_str == prodBuscado &&
+                            pc.Cantidad <= cant
                             select pc.idPadre;
 
             var final = from t in testcontext.traduccion
