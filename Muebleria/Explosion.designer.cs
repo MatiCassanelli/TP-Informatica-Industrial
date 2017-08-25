@@ -82,7 +82,6 @@
             this.cbProductos.Name = "cbProductos";
             this.cbProductos.Size = new System.Drawing.Size(257, 21);
             this.cbProductos.TabIndex = 1;
-            this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbComponentes_SelectedIndexChanged);
             // 
             // lbComponentes
             // 
@@ -129,7 +128,6 @@
             this.Name = "Explosion";
             this.Text = "Explosion";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Explosion_FormClosed);
-            this.Load += new System.EventHandler(this.Explosion_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
