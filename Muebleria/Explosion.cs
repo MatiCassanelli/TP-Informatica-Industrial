@@ -22,7 +22,7 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             
-            //Consulta para traer la lista de los nombres de los productos de "intermedio by", "intermedio make" y "bruto"
+            //Consulta para traer la lista de los nombres de los productos de "intermedio buy", "intermedio make" y "bruto"
             var subquery = from p in db.producto
                            where p.idTipo == 1 || p.idTipo == 3
                            select p.idDescriptionP;
@@ -35,11 +35,6 @@ namespace Muebleria
                         select t.Traduccion_str;
 
             cbProductos.DataSource = query.ToList();
-        }
-
-        private void cbComponentes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void ActualizarListBox()
@@ -90,11 +85,6 @@ namespace Muebleria
             this.Hide();
             //this.Close();
             menu.ShowDialog();
-        }
-
-        private void Explosion_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnExplosionar_Click(object sender, EventArgs e)

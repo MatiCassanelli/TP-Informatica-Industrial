@@ -21,7 +21,7 @@ namespace Muebleria
 
         private string CortarCadena (string c)
         {
-            String[] substrings = c.Split(new string[] { "  x" }, StringSplitOptions.None);
+            String[] substrings = c.Split(new string[] { " x" }, StringSplitOptions.None);
             return substrings[0];
         }
 
@@ -273,10 +273,6 @@ namespace Muebleria
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
