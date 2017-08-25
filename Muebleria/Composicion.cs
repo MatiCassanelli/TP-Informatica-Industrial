@@ -21,7 +21,7 @@ namespace Muebleria
 
         private string CortarCadena (string c)
         {
-            String[] substrings = c.Split(new string[] { " x" }, StringSplitOptions.None);
+            String[] substrings = c.Split(new string[] { "  -->" }, StringSplitOptions.None);
             return substrings[0];
         }
 
