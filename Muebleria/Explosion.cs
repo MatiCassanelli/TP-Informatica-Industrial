@@ -51,7 +51,7 @@ namespace Muebleria
         {
             int CantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
-            var query = from ph in db.padre_componente
+            var query = from ph in db.padre_componente_temporal
                         from t in db.traduccion
                         from p in db.producto
                         where p.idProducto == ph.idPadre &&

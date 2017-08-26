@@ -40,7 +40,7 @@ namespace Muebleria
         private void implosionar()  
         {            
             string prodBuscado = cbProductosBuscados.SelectedItem.ToString();
-            var queryhijo = from pc in testcontext.padre_componente
+            var queryhijo = from pc in testcontext.padre_componente_temporal
                             from prod in testcontext.producto
                             from trad in testcontext.traduccion
                             where pc.idHijo == prod.idProducto &&
