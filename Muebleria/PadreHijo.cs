@@ -8,11 +8,10 @@ namespace Muebleria
 {
     class PadreHijo
     {
-        private
-            string padre;
-        string hijo;
-        int cantidad;
-        string um;
+        private string padre;
+        private string hijo;
+        private int cantidad;
+        private string um;
 
         public string Padre
         {

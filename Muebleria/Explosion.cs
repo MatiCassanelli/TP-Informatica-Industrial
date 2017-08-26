@@ -44,9 +44,12 @@ namespace Muebleria
         private void ActualizarListBox()
         {
             lbComponentes.Items.Clear();
-            List<PadreHijo> ph = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
-            for(int i=0;i<ph.Count;i++)
-                lbComponentes.Items.Add(ph[i].Hijo + " x "+ ph[i].Cantidad + ph[i].Um);
+            ConsultarRecursivo(cbProductos.SelectedItem.ToString(), cbProductos.SelectedItem.ToString());
+            //List<PadreHijo> ph = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
+            //for (int i = 0; i < ph.Count; i++)
+            //{
+            //    lbComponentes.Items.Add(ph[i].Hijo + " x " + ph[i].Cantidad + ' ' + ph[i].Um);
+            //}
         }
                 
         private List<PadreHijo> consultarPadre(string padre)
@@ -90,33 +93,37 @@ namespace Muebleria
         }
 
         List<PadreHijo> hijos = new List<PadreHijo>();
-        private List<PadreHijo> ConsultarRecursivo(string padre)
+        //private List<PadreHijo> ConsultarRecursivo(string padre)
+        //{
+        //    List<PadreHijo> aux = consultarPadre(padre);
+        //    if (aux.Count > 0)
+        //    {
+        //        foreach (PadreHijo item in aux)
+        //        {
+        //            hijos.Add(item);
+        //            ConsultarRecursivo(item.Hijo);
+        //        }
+        //    }
+        //    return hijos;
+        //}
+
+        private void ConsultarRecursivo(string padre, string prodfinal)
         {            
             List<PadreHijo> aux = consultarPadre(padre);
             if (aux.Count > 0)
             {
                 foreach (PadreHijo item in aux)
                 {
-                    hijos.Add(item);
-                    ConsultarRecursivo(item.Hijo);                    
+                    string tabs = "";
+                    if (prodfinal != item.Padre)
+                        tabs += '\t';
+
+                    lbComponentes.Items.Add(tabs+item.Hijo + " x " + item.Cantidad + ' ' + item.Um);
+                    ConsultarRecursivo(item.Hijo,prodfinal);
                 }
             }
-            return hijos;
-        }
 
-        //List<string> lista = new List<string>();
-        //List<string> hijos = new List<string>();
-        //List<PadreHijo> aux = new List<PadreHijo>();
-        //foreach (string j in lista)
-        //{
-        //    aux = consultarPadre(j);
-        //    if (aux.Count > 0)
-        //        foreach (PadreHijo i in aux)
-        //            hijos.Add();
-        //    else
-        //        hijos.Add(j);
-        //}
-        //return hijos;
+        }
 
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
         {
