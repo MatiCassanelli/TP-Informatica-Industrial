@@ -32,7 +32,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_Eliminar = new System.Windows.Forms.Button();
             this.lbCargadas = new System.Windows.Forms.ListBox();
-            this.btnFinalizar = new System.Windows.Forms.Button();
             this.panelComponentes = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.cbComponentes = new System.Windows.Forms.ComboBox();
@@ -56,29 +55,28 @@
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.btnFinalizar);
             this.panel1.Controls.Add(this.panelComponentes);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(824, 463);
+            this.panel1.Size = new System.Drawing.Size(824, 413);
             this.panel1.TabIndex = 0;
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox2.Controls.Add(this.btn_Eliminar);
             this.groupBox2.Controls.Add(this.lbCargadas);
-            this.groupBox2.Location = new System.Drawing.Point(3, 172);
+            this.groupBox2.Location = new System.Drawing.Point(6, 203);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(818, 217);
+            this.groupBox2.Size = new System.Drawing.Size(818, 183);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Componentes";
             // 
             // btn_Eliminar
             // 
-            this.btn_Eliminar.Location = new System.Drawing.Point(701, 96);
+            this.btn_Eliminar.Location = new System.Drawing.Point(669, 105);
             this.btn_Eliminar.Name = "btn_Eliminar";
             this.btn_Eliminar.Size = new System.Drawing.Size(93, 23);
             this.btn_Eliminar.TabIndex = 4;
@@ -88,21 +86,12 @@
             // 
             // lbCargadas
             // 
+            this.lbCargadas.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbCargadas.FormattingEnabled = true;
-            this.lbCargadas.Location = new System.Drawing.Point(9, 29);
+            this.lbCargadas.Location = new System.Drawing.Point(0, 19);
             this.lbCargadas.Name = "lbCargadas";
-            this.lbCargadas.Size = new System.Drawing.Size(660, 173);
+            this.lbCargadas.Size = new System.Drawing.Size(660, 147);
             this.lbCargadas.TabIndex = 0;
-            // 
-            // btnFinalizar
-            // 
-            this.btnFinalizar.Location = new System.Drawing.Point(704, 412);
-            this.btnFinalizar.Name = "btnFinalizar";
-            this.btnFinalizar.Size = new System.Drawing.Size(93, 23);
-            this.btnFinalizar.TabIndex = 2;
-            this.btnFinalizar.Text = "Finalizar";
-            this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
             // panelComponentes
             // 
@@ -110,9 +99,9 @@
             this.panelComponentes.Controls.Add(this.cbComponentes);
             this.panelComponentes.Controls.Add(this.panelCantidades);
             this.panelComponentes.Enabled = false;
-            this.panelComponentes.Location = new System.Drawing.Point(0, 85);
+            this.panelComponentes.Location = new System.Drawing.Point(6, 63);
             this.panelComponentes.Name = "panelComponentes";
-            this.panelComponentes.Size = new System.Drawing.Size(824, 81);
+            this.panelComponentes.Size = new System.Drawing.Size(821, 134);
             this.panelComponentes.TabIndex = 1;
             // 
             // label4
@@ -130,7 +119,7 @@
             this.cbComponentes.FormattingEnabled = true;
             this.cbComponentes.Location = new System.Drawing.Point(86, 14);
             this.cbComponentes.Name = "cbComponentes";
-            this.cbComponentes.Size = new System.Drawing.Size(273, 21);
+            this.cbComponentes.Size = new System.Drawing.Size(286, 21);
             this.cbComponentes.TabIndex = 14;
             this.cbComponentes.SelectedIndexChanged += new System.EventHandler(this.cbComponentes_SelectedIndexChanged);
             // 
@@ -142,9 +131,9 @@
             this.panelCantidades.Controls.Add(this.label1);
             this.panelCantidades.Controls.Add(this.cbUM);
             this.panelCantidades.Enabled = false;
-            this.panelCantidades.Location = new System.Drawing.Point(413, 0);
+            this.panelCantidades.Location = new System.Drawing.Point(9, 41);
             this.panelCantidades.Name = "panelCantidades";
-            this.panelCantidades.Size = new System.Drawing.Size(411, 81);
+            this.panelCantidades.Size = new System.Drawing.Size(363, 81);
             this.panelCantidades.TabIndex = 21;
             // 
             // tbCantidad
@@ -157,7 +146,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(291, 55);
+            this.btnCargar.Location = new System.Drawing.Point(270, 55);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(93, 23);
             this.btnCargar.TabIndex = 20;
@@ -195,7 +184,7 @@
             this.cbUM.FormattingEnabled = true;
             this.cbUM.Location = new System.Drawing.Point(251, 14);
             this.cbUM.Name = "cbUM";
-            this.cbUM.Size = new System.Drawing.Size(133, 21);
+            this.cbUM.Size = new System.Drawing.Size(112, 21);
             this.cbUM.TabIndex = 20;
             // 
             // groupBox1
@@ -203,9 +192,9 @@
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.Controls.Add(this.cbProductos);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(0, 3);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(824, 76);
+            this.groupBox1.Size = new System.Drawing.Size(821, 54);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -215,7 +204,7 @@
             this.cbProductos.FormattingEnabled = true;
             this.cbProductos.Location = new System.Drawing.Point(86, 19);
             this.cbProductos.Name = "cbProductos";
-            this.cbProductos.Size = new System.Drawing.Size(273, 21);
+            this.cbProductos.Size = new System.Drawing.Size(289, 21);
             this.cbProductos.TabIndex = 0;
             this.cbProductos.Tag = "";
             this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbProductos_SelectedIndexChanged);
@@ -233,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(848, 487);
+            this.ClientSize = new System.Drawing.Size(848, 400);
             this.Controls.Add(this.panel1);
             this.Name = "Composicion";
             this.Text = "Composición de los Productos";
@@ -259,7 +248,6 @@
         private System.Windows.Forms.ComboBox cbComponentes;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListBox lbCargadas;
-        private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.Panel panelCantidades;
         private System.Windows.Forms.TextBox tbCantidad;
