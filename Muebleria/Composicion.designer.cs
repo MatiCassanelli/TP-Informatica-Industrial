@@ -30,6 +30,9 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblProdSeleccionado = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,29 +53,26 @@
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblProdSeleccionado = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelComponentes.SuspendLayout();
             this.panelCantidades.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.panelComponentes);
-            this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1007, 692);
+            this.panel1.Size = new System.Drawing.Size(850, 692);
             this.panel1.TabIndex = 0;
             // 
             // groupBox3
@@ -88,6 +88,33 @@
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Sustitutos";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(177, 41);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(226, 21);
+            this.comboBox1.TabIndex = 24;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 44);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(165, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Seleccione un producto sustituto:";
+            // 
+            // lblProdSeleccionado
+            // 
+            this.lblProdSeleccionado.AutoSize = true;
+            this.lblProdSeleccionado.Location = new System.Drawing.Point(172, 16);
+            this.lblProdSeleccionado.Name = "lblProdSeleccionado";
+            this.lblProdSeleccionado.Size = new System.Drawing.Size(35, 13);
+            this.lblProdSeleccionado.TabIndex = 6;
+            this.lblProdSeleccionado.Text = "label8";
+            this.lblProdSeleccionado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button2
             // 
@@ -109,7 +136,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(782, 633);
+            this.button1.Location = new System.Drawing.Point(461, 174);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 23);
             this.button1.TabIndex = 22;
@@ -242,7 +269,7 @@
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(521, 494);
+            this.monthCalendar1.Location = new System.Drawing.Point(188, 35);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 1;
             // 
@@ -279,50 +306,33 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(518, 472);
+            this.label5.Location = new System.Drawing.Point(6, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(176, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Seleccione la fecha de publicación:";
             // 
-            // lblProdSeleccionado
+            // groupBox4
             // 
-            this.lblProdSeleccionado.AutoSize = true;
-            this.lblProdSeleccionado.Location = new System.Drawing.Point(172, 16);
-            this.lblProdSeleccionado.Name = "lblProdSeleccionado";
-            this.lblProdSeleccionado.Size = new System.Drawing.Size(35, 13);
-            this.lblProdSeleccionado.TabIndex = 6;
-            this.lblProdSeleccionado.Text = "label8";
-            this.lblProdSeleccionado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 41);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(165, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Seleccione un producto sustituto:";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(177, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(226, 21);
-            this.comboBox1.TabIndex = 24;
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.monthCalendar1);
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Location = new System.Drawing.Point(134, 471);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(579, 207);
+            this.groupBox4.TabIndex = 24;
+            this.groupBox4.TabStop = false;
             // 
             // Composicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 716);
+            this.ClientSize = new System.Drawing.Size(880, 716);
             this.Controls.Add(this.panel1);
             this.Name = "Composicion";
             this.Text = "Composición de los Productos";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Composicion_FormClosed);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -332,6 +342,8 @@
             this.panelCantidades.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -363,6 +375,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblProdSeleccionado;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
 

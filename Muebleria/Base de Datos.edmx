@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="conversion">
           <Key>
             <PropertyRef Name="U_medida_default" />
@@ -47,7 +47,22 @@
           <Property Name="idLanguage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Language_Desc" Type="varchar" MaxLength="45" />
         </EntityType>
-        <EntityType Name="padre-componente">
+        <EntityType Name="padre-componente-publicado">
+          <Key>
+            <PropertyRef Name="idPadreP" />
+            <PropertyRef Name="idHijoP" />
+            <PropertyRef Name="fecha_aplicacion" />
+          </Key>
+          <Property Name="idPadreP" Type="int" Nullable="false" />
+          <Property Name="idHijoP" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="float" Nullable="false" />
+          <Property Name="U_medida_default" Type="int" Nullable="false" />
+          <Property Name="U_medida_usada" Type="int" Nullable="false" />
+          <Property Name="fecha_aplicacion" Type="date" Nullable="false" />
+          <Property Name="last_upd" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="user_upd" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="padre-componente-temporal">
           <Key>
             <PropertyRef Name="idPadre" />
             <PropertyRef Name="idHijo" />
@@ -56,9 +71,7 @@
           <Property Name="idHijo" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="float" Nullable="false" />
           <Property Name="U_medida_default" Type="int" Nullable="false" />
-          <Property Name="U_medida_used" Type="int" Nullable="false" />
-          <Property Name="Last_Upd" Type="timestamp" Precision="0" Nullable="false" />
-          <Property Name="User_Upd" Type="int" Nullable="false" />
+          <Property Name="U_medida_usada" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="producto">
           <Key>
@@ -73,6 +86,17 @@
           <Property Name="End_Date" Type="date" />
           <Property Name="Last_Upd" Type="timestamp" Precision="0" />
           <Property Name="User_Upd" Type="int" />
+        </EntityType>
+        <EntityType Name="producto-sustituto">
+          <Key>
+            <PropertyRef Name="idPadre" />
+            <PropertyRef Name="idHijo" />
+            <PropertyRef Name="sustituto" />
+          </Key>
+          <Property Name="idPadre" Type="int" Nullable="false" />
+          <Property Name="idHijo" Type="int" Nullable="false" />
+          <Property Name="sustituto" Type="int" Nullable="false" />
+          <Property Name="activado" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -163,31 +187,40 @@
           </ReferentialConstraint>
         </Association>
         <!--Errores durante la generación:
-advertencia 6035: La relación 'idDescriptionE' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="idDescriptionE" />-->
-        <!--Errores durante la generación:
 advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
         <Association Name="idDescriptionP" />-->
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'idDescriptionR' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="idDescriptionR" />-->
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'idDescriptionTE' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="idDescriptionTE" />-->
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'idDescriptionTP' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="idDescriptionTP" />-->
-        <!--Errores durante la generación:
-advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="idDescriptionUM" />-->
-        <Association Name="idHijo">
+        <Association Name="idHijoP">
           <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <End Role="padre-componente-publicado" Type="Self.padre-componente-publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
             </Principal>
-            <Dependent Role="padre-componente">
+            <Dependent Role="padre-componente-publicado">
+              <PropertyRef Name="idHijoP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idHijoPS">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto-sustituto">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idHijoT">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre-componente-temporal" Type="Self.padre-componente-temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre-componente-temporal">
               <PropertyRef Name="idHijo" />
             </Dependent>
           </ReferentialConstraint>
@@ -216,14 +249,38 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idPadre">
+        <Association Name="idPadreP">
           <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <End Role="padre-componente-publicado" Type="Self.padre-componente-publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
             </Principal>
-            <Dependent Role="padre-componente">
+            <Dependent Role="padre-componente-publicado">
+              <PropertyRef Name="idPadreP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadrePS">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto-sustituto">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadreT">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre-componente-temporal" Type="Self.padre-componente-temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre-componente-temporal">
               <PropertyRef Name="idPadre" />
             </Dependent>
           </ReferentialConstraint>
@@ -261,6 +318,18 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             </Principal>
             <Dependent Role="externo">
               <PropertyRef Name="idTipo_Externo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sustituto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto-sustituto">
+              <PropertyRef Name="sustituto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -312,15 +381,15 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="User_Upd">
+        <Association Name="user_upd">
           <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="padre-componente" Type="Self.padre-componente" Multiplicity="*" />
+          <End Role="padre-componente-publicado" Type="Self.padre-componente-publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
             </Principal>
-            <Dependent Role="padre-componente">
-              <PropertyRef Name="User_Upd" />
+            <Dependent Role="padre-componente-publicado">
+              <PropertyRef Name="user_upd" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -329,8 +398,10 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <EntitySet Name="direccion" EntityType="Self.direccion" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="externo" EntityType="Self.externo" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="language" EntityType="Self.language" Schema="informatica industrial db" store:Type="Tables" />
-          <EntitySet Name="padre-componente" EntityType="Self.padre-componente" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="padre-componente-publicado" EntityType="Self.padre-componente-publicado" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="padre-componente-temporal" EntityType="Self.padre-componente-temporal" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto" EntityType="Self.producto" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="producto-sustituto" EntityType="Self.producto-sustituto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="role" EntityType="Self.role" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="tipo_externo" EntityType="Self.tipo_externo" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="tipo_producto" EntityType="Self.tipo_producto" Schema="informatica industrial db" store:Type="Tables" />
@@ -349,9 +420,17 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="direccion" EntitySet="direccion" />
             <End Role="externo" EntitySet="externo" />
           </AssociationSet>
-          <AssociationSet Name="idHijo" Association="Self.idHijo">
+          <AssociationSet Name="idHijoP" Association="Self.idHijoP">
             <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente" EntitySet="padre-componente" />
+            <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoPS" Association="Self.idHijoPS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoT" Association="Self.idHijoT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre-componente-temporal" EntitySet="padre-componente-temporal" />
           </AssociationSet>
           <AssociationSet Name="idLanguage" Association="Self.idLanguage">
             <End Role="language" EntitySet="language" />
@@ -361,9 +440,17 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="language" EntitySet="language" />
             <End Role="traduccion" EntitySet="traduccion" />
           </AssociationSet>
-          <AssociationSet Name="idPadre" Association="Self.idPadre">
+          <AssociationSet Name="idPadreP" Association="Self.idPadreP">
             <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente" EntitySet="padre-componente" />
+            <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idPadrePS" Association="Self.idPadrePS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreT" Association="Self.idPadreT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre-componente-temporal" EntitySet="padre-componente-temporal" />
           </AssociationSet>
           <AssociationSet Name="idRole" Association="Self.idRole">
             <End Role="role" EntitySet="role" />
@@ -376,6 +463,10 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <AssociationSet Name="idTipo_Externo" Association="Self.idTipo_Externo">
             <End Role="tipo_externo" EntitySet="tipo_externo" />
             <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="sustituto" Association="Self.sustituto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
           </AssociationSet>
           <AssociationSet Name="U_medida" Association="Self.U_medida">
             <End Role="unidad_medida" EntitySet="unidad_medida" />
@@ -393,13 +484,12 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="unidad_medida" EntitySet="unidad_medida" />
             <End Role="producto" EntitySet="producto" />
           </AssociationSet>
-          <AssociationSet Name="User_Upd" Association="Self.User_Upd">
+          <AssociationSet Name="user_upd" Association="Self.user_upd">
             <End Role="users" EntitySet="users" />
-            <End Role="padre-componente" EntitySet="padre-componente" />
+            <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -456,22 +546,6 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <NavigationProperty Name="users" Relationship="Self.idLanguage" FromRole="language" ToRole="users" />
           <NavigationProperty Name="traduccion" Relationship="Self.idLanguageT" FromRole="language" ToRole="traduccion" />
         </EntityType>
-        <EntityType Name="padre_componente">
-          <Key>
-            <PropertyRef Name="idPadre" />
-            <PropertyRef Name="idHijo" />
-          </Key>
-          <Property Name="idPadre" Type="Int32" Nullable="false" />
-          <Property Name="idHijo" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Single" Nullable="false" />
-          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
-          <Property Name="U_medida_used" Type="Int32" Nullable="false" />
-          <Property Name="Last_Upd" Type="DateTime" Nullable="false" />
-          <Property Name="User_Upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Self.idHijo" FromRole="padre_componente" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Self.idPadre" FromRole="padre_componente" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Self.User_Upd" FromRole="padre_componente" ToRole="users" />
-        </EntityType>
         <EntityType Name="producto">
           <Key>
             <PropertyRef Name="idProducto" />
@@ -485,11 +559,16 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <Property Name="End_Date" Type="DateTime" />
           <Property Name="Last_Upd" Type="DateTime" />
           <Property Name="User_Upd" Type="Int32" />
-          <NavigationProperty Name="padre_componente" Relationship="Self.idHijo" FromRole="producto" ToRole="padre_componente" />
-          <NavigationProperty Name="padre_componente1" Relationship="Self.idPadre" FromRole="producto" ToRole="padre_componente" />
           <NavigationProperty Name="tipo_producto" Relationship="Self.idTipo" FromRole="producto" ToRole="tipo_producto" />
           <NavigationProperty Name="unidad_medida" Relationship="Self.Unidad_id_Aplication" FromRole="producto" ToRole="unidad_medida" />
           <NavigationProperty Name="unidad_medida1" Relationship="Self.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
+          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="padre_componente_temporal" Relationship="Model.idHijoT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="padre_componente_temporal1" Relationship="Model.idPadreT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="producto_sustituto" Relationship="Model.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
+          <NavigationProperty Name="producto_sustituto1" Relationship="Model.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
+          <NavigationProperty Name="producto_sustituto2" Relationship="Model.sustituto" FromRole="producto" ToRole="producto_sustituto" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -551,8 +630,8 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <Property Name="idLanguage" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="language" Relationship="Self.idLanguage" FromRole="users" ToRole="language" />
-          <NavigationProperty Name="padre_componente" Relationship="Self.User_Upd" FromRole="users" ToRole="padre_componente" />
           <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
+          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
         </EntityType>
         <Association Name="U_medida">
           <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
@@ -650,42 +729,6 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idHijo">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre_componente">
-              <PropertyRef Name="idHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idPadre">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre_componente">
-              <PropertyRef Name="idPadre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="User_Upd">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="padre_componente" Type="Self.padre_componente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="idUsers" />
-            </Principal>
-            <Dependent Role="padre_componente">
-              <PropertyRef Name="User_Upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idTipo">
           <End Role="tipo_producto" Type="Self.tipo_producto" Multiplicity="1" />
           <End Role="producto" Type="Self.producto" Multiplicity="*" />
@@ -739,7 +782,6 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
           <EntitySet Name="direccion" EntityType="Self.direccion" />
           <EntitySet Name="externo" EntityType="Self.externo" />
           <EntitySet Name="language" EntityType="Self.language" />
-          <EntitySet Name="padre_componente" EntityType="Self.padre_componente" />
           <EntitySet Name="producto" EntityType="Self.producto" />
           <EntitySet Name="role" EntityType="Self.role" />
           <EntitySet Name="tipo_externo" EntityType="Self.tipo_externo" />
@@ -779,18 +821,6 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="language" EntitySet="language" />
             <End Role="traduccion" EntitySet="traduccion" />
           </AssociationSet>
-          <AssociationSet Name="idHijo" Association="Self.idHijo">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente" EntitySet="padre_componente" />
-          </AssociationSet>
-          <AssociationSet Name="idPadre" Association="Self.idPadre">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente" EntitySet="padre_componente" />
-          </AssociationSet>
-          <AssociationSet Name="User_Upd" Association="Self.User_Upd">
-            <End Role="users" EntitySet="users" />
-            <End Role="padre_componente" EntitySet="padre_componente" />
-          </AssociationSet>
           <AssociationSet Name="idTipo" Association="Self.idTipo">
             <End Role="tipo_producto" EntitySet="tipo_producto" />
             <End Role="producto" EntitySet="producto" />
@@ -807,7 +837,183 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
             <End Role="role" EntitySet="role" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
+          <EntitySet Name="padre_componente_publicado" EntityType="Model.padre_componente_publicado" />
+          <EntitySet Name="padre_componente_temporal" EntityType="Model.padre_componente_temporal" />
+          <EntitySet Name="producto_sustituto" EntityType="Model.producto_sustituto" />
+          <AssociationSet Name="idHijoP" Association="Model.idHijoP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreP" Association="Model.idPadreP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="user_upd" Association="Model.user_upd">
+            <End Role="users" EntitySet="users" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoT" Association="Model.idHijoT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreT" Association="Model.idPadreT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoPS" Association="Model.idHijoPS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idPadrePS" Association="Model.idPadrePS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="sustituto" Association="Model.sustituto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="padre_componente_publicado">
+          <Key>
+            <PropertyRef Name="idPadreP" />
+            <PropertyRef Name="idHijoP" />
+            <PropertyRef Name="fecha_aplicacion" />
+          </Key>
+          <Property Name="idPadreP" Type="Int32" Nullable="false" />
+          <Property Name="idHijoP" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Single" Nullable="false" />
+          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
+          <Property Name="U_medida_usada" Type="Int32" Nullable="false" />
+          <Property Name="fecha_aplicacion" Type="DateTime" Nullable="false" />
+          <Property Name="last_upd" Type="DateTime" Nullable="false" />
+          <Property Name="user_upd" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idHijoP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Model.idPadreP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Model.user_upd" FromRole="padre_componente_publicado" ToRole="users" />
+        </EntityType>
+        <EntityType Name="padre_componente_temporal">
+          <Key>
+            <PropertyRef Name="idPadre" />
+            <PropertyRef Name="idHijo" />
+          </Key>
+          <Property Name="idPadre" Type="Int32" Nullable="false" />
+          <Property Name="idHijo" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Single" Nullable="false" />
+          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
+          <Property Name="U_medida_usada" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idHijoT" FromRole="padre_componente_temporal" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Model.idPadreT" FromRole="padre_componente_temporal" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="producto_sustituto">
+          <Key>
+            <PropertyRef Name="idPadre" />
+            <PropertyRef Name="idHijo" />
+            <PropertyRef Name="sustituto" />
+          </Key>
+          <Property Name="idPadre" Type="Int32" Nullable="false" />
+          <Property Name="idHijo" Type="Int32" Nullable="false" />
+          <Property Name="sustituto" Type="Int32" Nullable="false" />
+          <Property Name="activado" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idHijoPS" FromRole="producto_sustituto" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Model.idPadrePS" FromRole="producto_sustituto" ToRole="producto" />
+          <NavigationProperty Name="producto2" Relationship="Model.sustituto" FromRole="producto_sustituto" ToRole="producto" />
+        </EntityType>
+        <Association Name="idHijoP">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="idHijoP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadreP">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="idPadreP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_upd">
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="user_upd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idHijoT">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_temporal" Role="padre_componente_temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_temporal">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadreT">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_temporal" Role="padre_componente_temporal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_temporal">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idHijoPS">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto_sustituto">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadrePS">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto_sustituto">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sustituto">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="producto_sustituto">
+              <PropertyRef Name="sustituto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -856,19 +1062,6 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
               <MappingFragment StoreEntitySet="language">
                 <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
                 <ScalarProperty Name="Language_Desc" ColumnName="Language_Desc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="padre_componente">
-            <EntityTypeMapping TypeName="Model.padre_componente">
-              <MappingFragment StoreEntitySet="padre-componente">
-                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
-                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
-                <ScalarProperty Name="U_medida_used" ColumnName="U_medida_used" />
-                <ScalarProperty Name="Last_Upd" ColumnName="Last_Upd" />
-                <ScalarProperty Name="User_Upd" ColumnName="User_Upd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -941,6 +1134,41 @@ advertencia 6035: La relación 'idDescriptionUM' tiene columnas que no forman pa
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="padre_componente_publicado">
+            <EntityTypeMapping TypeName="Model.padre_componente_publicado">
+              <MappingFragment StoreEntitySet="padre-componente-publicado">
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
+                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idHijoP" ColumnName="idHijoP" />
+                <ScalarProperty Name="idPadreP" ColumnName="idPadreP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="padre_componente_temporal">
+            <EntityTypeMapping TypeName="Model.padre_componente_temporal">
+              <MappingFragment StoreEntitySet="padre-componente-temporal">
+                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto_sustituto">
+            <EntityTypeMapping TypeName="Model.producto_sustituto">
+              <MappingFragment StoreEntitySet="producto-sustituto">
+                <ScalarProperty Name="activado" ColumnName="activado" />
+                <ScalarProperty Name="sustituto" ColumnName="sustituto" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
