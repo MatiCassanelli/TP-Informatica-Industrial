@@ -126,6 +126,7 @@
     <Compile Include="Menu.designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="PadreHijo.cs" />
     <Compile Include="padre_componente.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>

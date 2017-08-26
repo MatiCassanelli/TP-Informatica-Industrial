@@ -46,8 +46,8 @@ namespace Muebleria
         public LogIn()
         {
             InitializeComponent();
-            //tbUsername.Text = "mati@gmail.com";
-            //tbpass.Text = "ab";
+            tbUsername.Text = "mati@gmail.com";
+            tbpass.Text = "mati";
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
