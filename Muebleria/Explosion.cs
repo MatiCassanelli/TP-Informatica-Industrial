@@ -58,7 +58,7 @@ namespace Muebleria
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == padre &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU = ph.U_medida_used };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU = ph.U_medida_usada };
 
             //Obtener las descripciones de las unidades de medidas
             var subquery = from um in db.unidad_medida
