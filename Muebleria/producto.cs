@@ -17,13 +17,8 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public producto()
         {
-            this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
-            this.padre_componente_publicado1 = new HashSet<padre_componente_publicado>();
-            this.producto_sustituto = new HashSet<producto_sustituto>();
-            this.producto_sustituto1 = new HashSet<producto_sustituto>();
-            this.producto_sustituto2 = new HashSet<producto_sustituto>();
-            this.padre_componente_temporal = new HashSet<padre_componente_temporal>();
-            this.padre_componente_temporal1 = new HashSet<padre_componente_temporal>();
+            this.padre_componente = new HashSet<padre_componente>();
+            this.padre_componente1 = new HashSet<padre_componente>();
         }
     
         public int idProducto { get; set; }
@@ -36,22 +31,12 @@ namespace Muebleria
         public Nullable<System.DateTime> Last_Upd { get; set; }
         public Nullable<int> User_Upd { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<padre_componente> padre_componente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<padre_componente> padre_componente1 { get; set; }
         public virtual tipo_producto tipo_producto { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
         public virtual unidad_medida unidad_medida1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_publicado> padre_componente_publicado1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto_sustituto> producto_sustituto1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto_sustituto> producto_sustituto2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_temporal> padre_componente_temporal { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_temporal> padre_componente_temporal1 { get; set; }
     }
 }

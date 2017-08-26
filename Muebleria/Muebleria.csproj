@@ -126,16 +126,10 @@
     <Compile Include="Menu.designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
-    <Compile Include="padre_componente_publicado.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="padre_componente_temporal.cs">
+    <Compile Include="padre_componente.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="producto.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="producto_sustituto.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />

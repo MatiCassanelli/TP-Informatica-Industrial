@@ -12,15 +12,18 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class padre_componente_temporal
+    public partial class padre_componente
     {
         public int idPadre { get; set; }
         public int idHijo { get; set; }
         public float Cantidad { get; set; }
         public int U_medida_default { get; set; }
-        public int U_medida_usada { get; set; }
+        public int U_medida_used { get; set; }
+        public System.DateTime Last_Upd { get; set; }
+        public int User_Upd { get; set; }
     
         public virtual producto producto { get; set; }
         public virtual producto producto1 { get; set; }
+        public virtual users users { get; set; }
     }
 }
