@@ -12,6 +12,8 @@ namespace Muebleria
 {
     public partial class Explosion : Form
     {
+
+        informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         public Explosion()
         {
             InitializeComponent();
@@ -19,9 +21,7 @@ namespace Muebleria
         }
 
         private void LlenarCombos()
-        {
-            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-            
+        {           
             //Consulta para traer la lista de los nombres de los productos de "intermedio buy", "intermedio make" y "bruto"
             var subquery = from p in db.producto
                            where p.idTipo == 1 || p.idTipo == 3
@@ -43,19 +43,33 @@ namespace Muebleria
             lbComponentes.DataSource = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
         }
 
-        private List<string> ConsultarRecursivo(string padre)
+        List<string> hijos = new List<string>();
+
+        int cantRequerida;
+        public int CantRequerida
         {
-            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-            int cantRequerida = Convert.ToInt32(tbCantidad.Text);
+            get
+            {
+                return cantRequerida;
+            }
+
+            set
+            {
+                cantRequerida = Convert.ToInt32(tbCantidad.Text);
+            }
+        }
+
+        private List<string> ConsultarRecursivo(string padre)
+        {            
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
             var query = from ph in db.padre_componente
                         from t in db.traduccion
                         from p in db.producto
                         where p.idProducto == ph.idPadre &&
                         p.idDescriptionP == t.idDescriptionT &&
-                        t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                        t.Traduccion_str == padre &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad * cantRequerida };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad * CantRequerida };
 
             //Obtener las descripciones de las unidades de medida de la cantidad de aplicacion
             var subquery = from um in db.unidad_medida
@@ -75,14 +89,17 @@ namespace Muebleria
                          t.idLanguageT == LogIn.IdIdioma
                          select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
             //select new { Componente = t.Traduccion_str, Cantidad = n.cant };
-            List<string> resultadoquery = query2.ToList();
-            List<string> hijos = new List<string>();
-
-            foreach (string item in resultadoquery)
+            List<string> resultadoquery = new List<string>();
+            if(query2 != null)
             {
-                hijos.Add(item);
-                hijos.AddRange(ConsultarRecursivo(item));
-            }
+                resultadoquery = query2.ToList();
+                foreach (string item in resultadoquery)
+                {
+                    hijos.AddRange(ConsultarRecursivo(item));
+                    hijos.Add(item);
+                }
+            }              
+            
             return hijos;
         }
 
