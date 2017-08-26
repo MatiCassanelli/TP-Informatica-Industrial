@@ -111,14 +111,14 @@
     <Compile Include="Implosion.designer.cs">
       <DependentUpon>Implosion.cs</DependentUpon>
     </Compile>
+    <Compile Include="language.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="language.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
@@ -201,6 +201,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Base de Datos.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Base de Datos.edmx</DependentUpon>
@@ -211,9 +214,6 @@
       <DependentUpon>Base de Datos.edmx</DependentUpon>
       <LastGenOutput>Base de Datos.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
