@@ -58,9 +58,9 @@ namespace Muebleria
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == padre &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad * CantRequerida };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU = ph.U_medida_used };
 
-            //Obtener las descripciones de las unidades de medida de la cantidad de aplicacion
+            //Obtener las descripciones de las unidades de medidas
             var subquery = from um in db.unidad_medida
                            from t in db.traduccion
                            where um.idDescriptionUM == t.idDescriptionT &&
@@ -74,10 +74,11 @@ namespace Muebleria
                          from p in db.producto
                          where p.idProducto == n.id_Hijo &&
                          p.idDescriptionP == t.idDescriptionT &&
-                         sq.id == p.Unidad_id_Aplication &&
+                         sq.id == n.UMU &&
                          t.idLanguageT == LogIn.IdIdioma
                          //select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
                          select new { nombre = t.Traduccion_str, cant = n.cant.ToString(), um = sq.t };
+
             List<PadreHijo> lista = new List<PadreHijo>();
 
             foreach (var item in query2)

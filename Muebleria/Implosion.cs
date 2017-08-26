@@ -18,16 +18,11 @@ namespace Muebleria
             InitializeComponent();
             completarProductos();
         }
-
-        private void btnImplosionar_Click(object sender, EventArgs e)
-        {
-            lbprodfinales.Items.Clear();
-            implosionar();                      
-        }
-
+        
         private void cbProductosBuscados_SelectedIndexChanged(object sender, EventArgs e)
         {
             lbprodfinales.Items.Clear();
+            implosionar();
         }
 
         public void completarProductos()
