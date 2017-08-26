@@ -28,17 +28,17 @@
         <AssociationConnector Association="Model.Unidad_id_Aplication" ManuallyRouted="false" />
         <AssociationConnector Association="Model.Unidad_id_Purchase" ManuallyRouted="false" />
         <AssociationConnector Association="Model.idRole" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="11" PointY="3.625" />
-        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="8.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="11.25" PointY="2.875" />
+        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="15.375" />
+        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="8.25" PointY="2.375" />
         <AssociationConnector Association="Model.idHijoP" />
         <AssociationConnector Association="Model.idPadreP" />
-        <AssociationConnector Association="Model.user_upd1" />
+        <AssociationConnector Association="Model.user_upd" />
+        <AssociationConnector Association="Model.idHijoT" />
+        <AssociationConnector Association="Model.idPadreT" />
         <AssociationConnector Association="Model.idHijoPS" />
         <AssociationConnector Association="Model.idPadrePS" />
         <AssociationConnector Association="Model.sustituto" />
-        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="3.875" />
-        <AssociationConnector Association="Model.idHijoT" />
-        <AssociationConnector Association="Model.idPadreT" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
