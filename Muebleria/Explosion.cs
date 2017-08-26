@@ -35,32 +35,23 @@ namespace Muebleria
 
             cbProductos.DataSource = query.ToList();
         }
+        private string CortarCadena(string c)
+        {
+            String[] substrings = c.Split(new string[] { "  x" }, StringSplitOptions.None);
+            return substrings[0];
+        }
 
         private void ActualizarListBox()
         {
             lbComponentes.Items.Clear();
-
-            lbComponentes.DataSource = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
+            List<PadreHijo> ph = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
+            for(int i=0;i<ph.Count;i++)
+                lbComponentes.Items.Add(ph[i].Hijo + " x "+ ph[i].Cantidad + ph[i].Um);
         }
-
-        List<string> hijos = new List<string>();
-
-        int cantRequerida;
-        public int CantRequerida
+                
+        private List<PadreHijo> consultarPadre(string padre)
         {
-            get
-            {
-                return cantRequerida;
-            }
-
-            set
-            {
-                cantRequerida = Convert.ToInt32(tbCantidad.Text);
-            }
-        }
-
-        private List<string> ConsultarRecursivo(string padre)
-        {            
+            int CantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
             var query = from ph in db.padre_componente
                         from t in db.traduccion
@@ -77,7 +68,7 @@ namespace Muebleria
                            where um.idDescriptionUM == t.idDescriptionT &&
                            t.idLanguageT == LogIn.IdIdioma
                            select new { id = um.idUnidad_Medida, t = t.Traduccion_str };
-
+            
             //Obtener las descripciones de los productos seleccionados en la consulta anterior
             var query2 = from n in query
                          from sq in subquery
@@ -87,21 +78,45 @@ namespace Muebleria
                          p.idDescriptionP == t.idDescriptionT &&
                          sq.id == p.Unidad_id_Aplication &&
                          t.idLanguageT == LogIn.IdIdioma
-                         select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
-            //select new { Componente = t.Traduccion_str, Cantidad = n.cant };
-            List<string> resultadoquery = new List<string>();
-            if(query2 != null)
-            {
-                resultadoquery = query2.ToList();
-                foreach (string item in resultadoquery)
-                {
-                    hijos.AddRange(ConsultarRecursivo(item));
-                    hijos.Add(item);
-                }
-            }              
+                         //select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
+                         select new {nombre = t.Traduccion_str, cant = n.cant.ToString(), um = sq.t };
+            List<PadreHijo> lista = new List<PadreHijo>();
             
+            foreach (var item in query2)
+            {
+                lista.Add(new PadreHijo(padre, item.nombre, Convert.ToInt32(item.cant), item.um));
+            }
+            return lista;
+        }
+
+        List<PadreHijo> hijos = new List<PadreHijo>();
+        private List<PadreHijo> ConsultarRecursivo(string padre)
+        {            
+            List<PadreHijo> aux = consultarPadre(padre);
+            if (aux.Count > 0)
+            {
+                foreach (PadreHijo item in aux)
+                {
+                    hijos.Add(item);
+                    ConsultarRecursivo(item.Hijo);                    
+                }
+            }
             return hijos;
         }
+
+        //List<string> lista = new List<string>();
+        //List<string> hijos = new List<string>();
+        //List<PadreHijo> aux = new List<PadreHijo>();
+        //foreach (string j in lista)
+        //{
+        //    aux = consultarPadre(j);
+        //    if (aux.Count > 0)
+        //        foreach (PadreHijo i in aux)
+        //            hijos.Add();
+        //    else
+        //        hijos.Add(j);
+        //}
+        //return hijos;
 
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
         {
