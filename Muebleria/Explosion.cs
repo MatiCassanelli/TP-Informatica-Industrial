@@ -21,12 +21,12 @@ namespace Muebleria
         }
 
         private void LlenarCombos()
-        {           
+        {
             //Consulta para traer la lista de los nombres de los productos de "intermedio buy", "intermedio make" y "bruto"
             var subquery = from p in db.producto
                            where p.idTipo == 1 || p.idTipo == 3
                            select p.idDescriptionP;
-            
+
             var query = from t in db.traduccion
                         from p in subquery
                         where t.idDescriptionT == p &&
@@ -46,7 +46,7 @@ namespace Muebleria
             lbComponentes.Items.Clear();
             ConsultarRecursivo(cbProductos.SelectedItem.ToString(), cbProductos.SelectedItem.ToString());
         }
-                
+
         private List<PadreHijo> consultarPadre(string padre)
         {
             int CantRequerida = Convert.ToInt32(tbCantidad.Text);
@@ -58,15 +58,15 @@ namespace Muebleria
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == padre &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad * CantRequerida };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU = ph.U_medida_used };
 
-            //Obtener las descripciones de las unidades de medida de la cantidad de aplicacion
+            //Obtener las descripciones de las unidades de medidas
             var subquery = from um in db.unidad_medida
                            from t in db.traduccion
                            where um.idDescriptionUM == t.idDescriptionT &&
                            t.idLanguageT == LogIn.IdIdioma
                            select new { id = um.idUnidad_Medida, t = t.Traduccion_str };
-            
+
             //Obtener las descripciones de los productos seleccionados en la consulta anterior
             var query2 = from n in query
                          from sq in subquery
@@ -74,12 +74,13 @@ namespace Muebleria
                          from p in db.producto
                          where p.idProducto == n.id_Hijo &&
                          p.idDescriptionP == t.idDescriptionT &&
-                         sq.id == p.Unidad_id_Aplication &&
+                         sq.id == n.UMU &&
                          t.idLanguageT == LogIn.IdIdioma
                          //select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
-                         select new {nombre = t.Traduccion_str, cant = n.cant.ToString(), um = sq.t };
+                         select new { nombre = t.Traduccion_str, cant = n.cant.ToString(), um = sq.t };
+
             List<PadreHijo> lista = new List<PadreHijo>();
-            
+
             foreach (var item in query2)
             {
                 lista.Add(new PadreHijo(padre, item.nombre, Convert.ToInt32(item.cant), item.um));
@@ -90,7 +91,7 @@ namespace Muebleria
         List<PadreHijo> hijos = new List<PadreHijo>();
 
         private void ConsultarRecursivo(string padre, string prodfinal)
-        {            
+        {
             List<PadreHijo> aux = consultarPadre(padre);
             if (aux.Count > 0)
             {
@@ -100,8 +101,8 @@ namespace Muebleria
                     if (prodfinal != item.Padre)
                         tabs += '\t';
 
-                    lbComponentes.Items.Add(tabs+item.Hijo + " x " + item.Cantidad + ' ' + item.Um);
-                    ConsultarRecursivo(item.Hijo,prodfinal);
+                    lbComponentes.Items.Add(tabs + item.Hijo + " x " + item.Cantidad + ' ' + item.Um);
+                    ConsultarRecursivo(item.Hijo, prodfinal);
                 }
             }
 
@@ -122,7 +123,7 @@ namespace Muebleria
                 ActualizarListBox();
             }
             else
-                MessageBox.Show("Complete los datos para continuar");            
+                MessageBox.Show("Complete los datos para continuar");
         }
 
         private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
