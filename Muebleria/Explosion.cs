@@ -51,7 +51,7 @@ namespace Muebleria
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad*cantRequerida };
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad * cantRequerida };
 
             //Obtener las descripciones de las unidades de medida de la cantidad de aplicacion
             var subquery = from um in db.unidad_medida
@@ -79,6 +79,12 @@ namespace Muebleria
             }
         }
 
+        //private List<string> BuscarRecursivo(string padre)
+        //{
+        //    List<string> hijos;
+            
+        //    return hijos;
+        //}
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
         {
             Menu menu = new Menu();
