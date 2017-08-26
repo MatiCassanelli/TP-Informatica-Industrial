@@ -144,11 +144,11 @@ namespace Muebleria
                 List<int> C = queryC.ToList();
                 
 
-                //Obtener el id de la unidad de medida de aplicacion del producto
+                //Obtener el id de la unidad de medida de Compra del producto
                 var pppp = C[0];        //Los casteos tienen que estar fuera de la consulta LINQ
                 var queryUMD = from pUMD in db.producto   
                                where pUMD.idProducto == pppp
-                               select pUMD.Unidad_id_Aplication;
+                               select pUMD.Unidad_id_Purchase;
                 List<int> UMD = queryUMD.ToList();
 
 
