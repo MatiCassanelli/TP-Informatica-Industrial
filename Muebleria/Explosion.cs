@@ -26,8 +26,7 @@ namespace Muebleria
             var subquery = from p in db.producto
                            where p.idTipo == 1 || p.idTipo == 3
                            select p.idDescriptionP;
-
-
+            
             var query = from t in db.traduccion
                         from p in subquery
                         where t.idDescriptionT == p &&
@@ -41,6 +40,11 @@ namespace Muebleria
         {
             lbComponentes.Items.Clear();
 
+            lbComponentes.DataSource = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
+        }
+
+        private List<string> ConsultarRecursivo(string padre)
+        {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             int cantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
@@ -71,20 +75,17 @@ namespace Muebleria
                          t.idLanguageT == LogIn.IdIdioma
                          select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
             //select new { Componente = t.Traduccion_str, Cantidad = n.cant };
-            List<string> q2 = query2.ToList();
+            List<string> resultadoquery = query2.ToList();
+            List<string> hijos = new List<string>();
 
-            foreach (string item in q2)
+            foreach (string item in resultadoquery)
             {
-                lbComponentes.Items.Add(item);
+                hijos.Add(item);
+                hijos.AddRange(ConsultarRecursivo(item));
             }
+            return hijos;
         }
 
-        //private List<string> BuscarRecursivo(string padre)
-        //{
-        //    List<string> hijos;
-            
-        //    return hijos;
-        //}
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
         {
             Menu menu = new Menu();
