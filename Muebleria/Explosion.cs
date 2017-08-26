@@ -45,11 +45,6 @@ namespace Muebleria
         {
             lbComponentes.Items.Clear();
             ConsultarRecursivo(cbProductos.SelectedItem.ToString(), cbProductos.SelectedItem.ToString());
-            //List<PadreHijo> ph = ConsultarRecursivo(cbProductos.SelectedItem.ToString());
-            //for (int i = 0; i < ph.Count; i++)
-            //{
-            //    lbComponentes.Items.Add(ph[i].Hijo + " x " + ph[i].Cantidad + ' ' + ph[i].Um);
-            //}
         }
                 
         private List<PadreHijo> consultarPadre(string padre)
@@ -93,19 +88,6 @@ namespace Muebleria
         }
 
         List<PadreHijo> hijos = new List<PadreHijo>();
-        //private List<PadreHijo> ConsultarRecursivo(string padre)
-        //{
-        //    List<PadreHijo> aux = consultarPadre(padre);
-        //    if (aux.Count > 0)
-        //    {
-        //        foreach (PadreHijo item in aux)
-        //        {
-        //            hijos.Add(item);
-        //            ConsultarRecursivo(item.Hijo);
-        //        }
-        //    }
-        //    return hijos;
-        //}
 
         private void ConsultarRecursivo(string padre, string prodfinal)
         {            
