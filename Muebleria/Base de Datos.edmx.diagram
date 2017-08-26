@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="8.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="11" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.padre_componente" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="8.75" PointY="12" IsExpanded="true" />
@@ -25,13 +24,21 @@
         <AssociationConnector Association="Model.idTipo_Externo" ManuallyRouted="false" />
         <AssociationConnector Association="Model.idLanguage" ManuallyRouted="false" />
         <AssociationConnector Association="Model.idLanguageT" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.idHijo" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.idPadre" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.User_Upd" ManuallyRouted="false" />
         <AssociationConnector Association="Model.idTipo" ManuallyRouted="false" />
         <AssociationConnector Association="Model.Unidad_id_Aplication" ManuallyRouted="false" />
         <AssociationConnector Association="Model.Unidad_id_Purchase" ManuallyRouted="false" />
         <AssociationConnector Association="Model.idRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="11" PointY="3.625" />
+        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="8.25" PointY="0.5" />
+        <AssociationConnector Association="Model.idHijoP" />
+        <AssociationConnector Association="Model.idPadreP" />
+        <AssociationConnector Association="Model.user_upd1" />
+        <AssociationConnector Association="Model.idHijoPS" />
+        <AssociationConnector Association="Model.idPadrePS" />
+        <AssociationConnector Association="Model.sustituto" />
+        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="3.875" />
+        <AssociationConnector Association="Model.idHijoT" />
+        <AssociationConnector Association="Model.idPadreT" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

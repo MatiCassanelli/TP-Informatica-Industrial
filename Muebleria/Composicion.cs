@@ -32,14 +32,14 @@ namespace Muebleria
 
 
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
-            var query = from ph in db.padre_componente
+            var query = from ph in db.padre_componente_temporal
                         from t in db.traduccion
                         from p in db.producto
                         where p.idProducto == ph.idPadre &&
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU =ph.U_medida_used};
+                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU =ph.U_medida_usada};
 
             //Obtener las descripciones de las unidades de medidas
             var subquery = from um in db.unidad_medida
@@ -192,21 +192,21 @@ namespace Muebleria
                 //cant = cant / coeficiente;
                 //Agregar nueva fila a la tabla "Padre-Componente"
 
-                padre_componente nuevoPC = new padre_componente()
+                padre_componente_temporal nuevoPC = new padre_componente_temporal()
                 {
                     idPadre = P[0],
                     idHijo = C[0],
                     Cantidad = cant,                     //cant AHORA no incluye la cantidad modificada por el coeficiente de la tabla conversion
                     U_medida_default = UMD[0],
-                    U_medida_used = UMU[0],
-                    Last_Upd = DateTime.Now,
-                    User_Upd = LogIn.IdUsuario                        
+                    U_medida_usada = UMU[0],
+                    //Last_Upd = DateTime.Now,
+                    //User_Upd = LogIn.IdUsuario                        
                 };
 
                 //Intenta realizar un UPDATE en la tabla padre-componente
                 try
                 {
-                    db.padre_componente.Add(nuevoPC);
+                    db.padre_componente_temporal.Add(nuevoPC);
                     db.SaveChanges();
                 }
                 catch
@@ -263,7 +263,7 @@ namespace Muebleria
             {
                 //producto seleccionado en el lbcargadas
                 var aux = CortarCadena(lbCargadas.SelectedItem.ToString());
-                var query = from pc in db.padre_componente
+                var query = from pc in db.padre_componente_temporal
                             from t in db.traduccion
                             from p in db.producto
                             where pc.idHijo == p.idProducto &&
@@ -271,12 +271,12 @@ namespace Muebleria
                             t.Traduccion_str == aux &&
                             t.idLanguageT == LogIn.IdIdioma
                             select pc;
-                List<padre_componente> lPC = query.ToList();
+                List<padre_componente_temporal> lPC = query.ToList();
 
                 //Intenta hacer un delete en la tabla padre-componente
                 try
                 {
-                    db.padre_componente.Remove(lPC[0]);
+                    db.padre_componente_temporal.Remove(lPC[0]);
                     db.SaveChanges();
                 }
                 catch

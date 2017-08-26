@@ -29,7 +29,6 @@ namespace Muebleria
         public virtual DbSet<direccion> direccion { get; set; }
         public virtual DbSet<externo> externo { get; set; }
         public virtual DbSet<language> language { get; set; }
-        public virtual DbSet<padre_componente> padre_componente { get; set; }
         public virtual DbSet<producto> producto { get; set; }
         public virtual DbSet<role> role { get; set; }
         public virtual DbSet<tipo_externo> tipo_externo { get; set; }
@@ -37,5 +36,8 @@ namespace Muebleria
         public virtual DbSet<traduccion> traduccion { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<padre_componente_publicado> padre_componente_publicado { get; set; }
+        public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
+        public virtual DbSet<padre_componente_temporal> padre_componente_temporal { get; set; }
     }
 }
