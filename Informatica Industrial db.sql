@@ -166,7 +166,7 @@ CREATE TABLE `padre-componente` (
 
 LOCK TABLES `padre-componente` WRITE;
 /*!40000 ALTER TABLE `padre-componente` DISABLE KEYS */;
-INSERT INTO `padre-componente` VALUES (10056456,10056460,6,1,1,'2017-08-18 19:31:51',1),(10056456,10056495,8.02,5,4,'2017-08-18 19:32:33',1),(10056456,10056496,45,2,2,'2017-08-18 19:33:05',1),(10056468,10056468,1,1,1,'2017-08-19 03:16:36',1),(10056468,10056486,5,12,12,'2017-08-19 03:17:00',1);
+INSERT INTO `padre-componente` VALUES (10056456,10056460,6,1,1,'2017-08-18 19:31:51',1),(10056456,10056472,60,1,3,'2017-08-20 20:06:33',1),(10056456,10056495,8.02,5,4,'2017-08-18 19:32:33',1),(10056456,10056496,45,2,2,'2017-08-18 19:33:05',1),(10056468,10056468,1,1,1,'2017-08-19 03:16:36',1),(10056468,10056486,5,12,12,'2017-08-19 03:17:00',1);
 /*!40000 ALTER TABLE `padre-componente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,6 +357,7 @@ CREATE TABLE `users` (
   `Interno` varchar(15) NOT NULL,
   `Mail` varchar(45) NOT NULL,
   `idLanguage` int(11) NOT NULL,
+  `Password` varchar(30) NOT NULL,
   PRIMARY KEY (`idUsers`),
   KEY `idRole_idx` (`idRole`),
   KEY `idLanguage_idx` (`idLanguage`),
@@ -371,7 +372,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Matias','Cassanelli','sw',1,'3512253697','mati@gmail.com',1),(2,'Felipe','Toledo','sw',1,'3516581627','feli@gmail.com',2);
+INSERT INTO `users` VALUES (1,'Matias','Cassanelli','sw',1,'3512253697','mati@gmail.com',1,'mati'),(2,'Felipe','Toledo','sw',1,'3516581627','feli@gmail.com',2,'feli');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -384,4 +385,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-20 14:44:47
+-- Dump completed on 2017-08-20 18:31:43
