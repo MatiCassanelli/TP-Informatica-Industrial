@@ -29,13 +29,17 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnCargarSustituto = new System.Windows.Forms.Button();
+            this.cbProductosSustitutos = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lblProdSeleccionado = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEliminar_Sustituto = new System.Windows.Forms.Button();
+            this.lbSustitutos = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_Eliminar = new System.Windows.Forms.Button();
             this.lbCargadas = new System.Windows.Forms.ListBox();
@@ -48,19 +52,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbUM = new System.Windows.Forms.ComboBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelComponentes.SuspendLayout();
             this.panelCantidades.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -68,71 +69,37 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.panelComponentes);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(850, 692);
+            this.panel1.Size = new System.Drawing.Size(856, 665);
             this.panel1.TabIndex = 0;
             // 
-            // groupBox3
+            // groupBox4
             // 
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.lblProdSeleccionado);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.listBox1);
-            this.groupBox3.Location = new System.Drawing.Point(433, 205);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(409, 260);
-            this.groupBox3.TabIndex = 23;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Sustitutos";
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.monthCalendar1);
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Location = new System.Drawing.Point(133, 450);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(579, 207);
+            this.groupBox4.TabIndex = 24;
+            this.groupBox4.TabStop = false;
             // 
-            // comboBox1
+            // label5
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(177, 41);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(226, 21);
-            this.comboBox1.TabIndex = 24;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(176, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Seleccione la fecha de publicación:";
             // 
-            // label9
+            // monthCalendar1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 44);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(165, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Seleccione un producto sustituto:";
-            // 
-            // lblProdSeleccionado
-            // 
-            this.lblProdSeleccionado.AutoSize = true;
-            this.lblProdSeleccionado.Location = new System.Drawing.Point(172, 16);
-            this.lblProdSeleccionado.Name = "lblProdSeleccionado";
-            this.lblProdSeleccionado.Size = new System.Drawing.Size(35, 13);
-            this.lblProdSeleccionado.TabIndex = 6;
-            this.lblProdSeleccionado.Text = "label8";
-            this.lblProdSeleccionado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(291, 231);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Eliminar";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // listBox1
-            // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 80);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(397, 130);
-            this.listBox1.TabIndex = 0;
+            this.monthCalendar1.Location = new System.Drawing.Point(188, 35);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 1;
             // 
             // button1
             // 
@@ -142,21 +109,97 @@
             this.button1.TabIndex = 22;
             this.button1.Text = "Publicar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnCargarSustituto);
+            this.groupBox3.Controls.Add(this.cbProductosSustitutos);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.lblProdSeleccionado);
+            this.groupBox3.Controls.Add(this.btnEliminar_Sustituto);
+            this.groupBox3.Controls.Add(this.lbSustitutos);
+            this.groupBox3.Location = new System.Drawing.Point(8, 255);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(834, 189);
+            this.groupBox3.TabIndex = 23;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Sustitutos";
+            // 
+            // btnCargarSustituto
+            // 
+            this.btnCargarSustituto.Location = new System.Drawing.Point(303, 107);
+            this.btnCargarSustituto.Name = "btnCargarSustituto";
+            this.btnCargarSustituto.Size = new System.Drawing.Size(93, 23);
+            this.btnCargarSustituto.TabIndex = 25;
+            this.btnCargarSustituto.Text = "Cargar Sustituto";
+            this.btnCargarSustituto.UseVisualStyleBackColor = true;
+            this.btnCargarSustituto.Click += new System.EventHandler(this.btnCargarSustituto_Click);
+            // 
+            // cbProductosSustitutos
+            // 
+            this.cbProductosSustitutos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProductosSustitutos.FormattingEnabled = true;
+            this.cbProductosSustitutos.Location = new System.Drawing.Point(188, 68);
+            this.cbProductosSustitutos.Name = "cbProductosSustitutos";
+            this.cbProductosSustitutos.Size = new System.Drawing.Size(208, 21);
+            this.cbProductosSustitutos.TabIndex = 24;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(165, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Seleccione un producto sustituto:";
+            // 
+            // lblProdSeleccionado
+            // 
+            this.lblProdSeleccionado.AutoSize = true;
+            this.lblProdSeleccionado.Location = new System.Drawing.Point(15, 37);
+            this.lblProdSeleccionado.Name = "lblProdSeleccionado";
+            this.lblProdSeleccionado.Size = new System.Drawing.Size(35, 13);
+            this.lblProdSeleccionado.TabIndex = 6;
+            this.lblProdSeleccionado.Text = "label8";
+            this.lblProdSeleccionado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnEliminar_Sustituto
+            // 
+            this.btnEliminar_Sustituto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar_Sustituto.Location = new System.Drawing.Point(716, 160);
+            this.btnEliminar_Sustituto.Name = "btnEliminar_Sustituto";
+            this.btnEliminar_Sustituto.Size = new System.Drawing.Size(112, 23);
+            this.btnEliminar_Sustituto.TabIndex = 4;
+            this.btnEliminar_Sustituto.Text = "Eliminar";
+            this.btnEliminar_Sustituto.UseVisualStyleBackColor = true;
+            this.btnEliminar_Sustituto.Click += new System.EventHandler(this.btnEliminar_Sustituto_Click);
+            // 
+            // lbSustitutos
+            // 
+            this.lbSustitutos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbSustitutos.FormattingEnabled = true;
+            this.lbSustitutos.Location = new System.Drawing.Point(431, 19);
+            this.lbSustitutos.Name = "lbSustitutos";
+            this.lbSustitutos.Size = new System.Drawing.Size(397, 130);
+            this.lbSustitutos.TabIndex = 0;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btn_Eliminar);
             this.groupBox2.Controls.Add(this.lbCargadas);
-            this.groupBox2.Location = new System.Drawing.Point(8, 205);
+            this.groupBox2.Controls.Add(this.panelComponentes);
+            this.groupBox2.Location = new System.Drawing.Point(8, 73);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 260);
+            this.groupBox2.Size = new System.Drawing.Size(834, 176);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Componentes";
             // 
             // btn_Eliminar
             // 
-            this.btn_Eliminar.Location = new System.Drawing.Point(291, 231);
+            this.btn_Eliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Eliminar.Location = new System.Drawing.Point(716, 147);
             this.btn_Eliminar.Name = "btn_Eliminar";
             this.btn_Eliminar.Size = new System.Drawing.Size(112, 23);
             this.btn_Eliminar.TabIndex = 4;
@@ -168,10 +211,11 @@
             // 
             this.lbCargadas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbCargadas.FormattingEnabled = true;
-            this.lbCargadas.Location = new System.Drawing.Point(6, 41);
+            this.lbCargadas.Location = new System.Drawing.Point(431, 19);
             this.lbCargadas.Name = "lbCargadas";
-            this.lbCargadas.Size = new System.Drawing.Size(397, 169);
+            this.lbCargadas.Size = new System.Drawing.Size(397, 117);
             this.lbCargadas.TabIndex = 0;
+            this.lbCargadas.SelectedIndexChanged += new System.EventHandler(this.lbCargadas_SelectedIndexChanged);
             // 
             // panelComponentes
             // 
@@ -179,15 +223,15 @@
             this.panelComponentes.Controls.Add(this.cbComponentes);
             this.panelComponentes.Controls.Add(this.panelCantidades);
             this.panelComponentes.Enabled = false;
-            this.panelComponentes.Location = new System.Drawing.Point(8, 73);
+            this.panelComponentes.Location = new System.Drawing.Point(6, 13);
             this.panelComponentes.Name = "panelComponentes";
-            this.panelComponentes.Size = new System.Drawing.Size(409, 126);
+            this.panelComponentes.Size = new System.Drawing.Size(409, 143);
             this.panelComponentes.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 17);
+            this.label4.Location = new System.Drawing.Point(8, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 21;
@@ -197,7 +241,7 @@
             // 
             this.cbComponentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbComponentes.FormattingEnabled = true;
-            this.cbComponentes.Location = new System.Drawing.Point(86, 14);
+            this.cbComponentes.Location = new System.Drawing.Point(86, 6);
             this.cbComponentes.Name = "cbComponentes";
             this.cbComponentes.Size = new System.Drawing.Size(304, 21);
             this.cbComponentes.TabIndex = 14;
@@ -213,7 +257,7 @@
             this.panelCantidades.Enabled = false;
             this.panelCantidades.Location = new System.Drawing.Point(5, 41);
             this.panelCantidades.Name = "panelCantidades";
-            this.panelCantidades.Size = new System.Drawing.Size(395, 81);
+            this.panelCantidades.Size = new System.Drawing.Size(395, 91);
             this.panelCantidades.TabIndex = 21;
             // 
             // tbCantidad
@@ -226,7 +270,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(292, 55);
+            this.btnCargar.Location = new System.Drawing.Point(292, 59);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(93, 23);
             this.btnCargar.TabIndex = 20;
@@ -267,12 +311,6 @@
             this.cbUM.Size = new System.Drawing.Size(134, 21);
             this.cbUM.TabIndex = 20;
             // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(188, 35);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 1;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cbProductos);
@@ -293,6 +331,7 @@
             this.cbProductos.TabIndex = 0;
             this.cbProductos.Tag = "";
             this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbProductos_SelectedIndexChanged);
+            this.cbProductos.Click += new System.EventHandler(this.cbProductos_Click);
             // 
             // label3
             // 
@@ -303,36 +342,18 @@
             this.label3.TabIndex = 22;
             this.label3.Text = "Productos";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(176, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Seleccione la fecha de publicación:";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.monthCalendar1);
-            this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Location = new System.Drawing.Point(134, 471);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(579, 207);
-            this.groupBox4.TabIndex = 24;
-            this.groupBox4.TabStop = false;
-            // 
             // Composicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 716);
+            this.ClientSize = new System.Drawing.Size(880, 686);
             this.Controls.Add(this.panel1);
             this.Name = "Composicion";
             this.Text = "Composición de los Productos";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Composicion_FormClosed);
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -342,8 +363,6 @@
             this.panelCantidades.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -370,12 +389,13 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnEliminar_Sustituto;
+        private System.Windows.Forms.ListBox lbSustitutos;
+        private System.Windows.Forms.ComboBox cbProductosSustitutos;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblProdSeleccionado;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnCargarSustituto;
     }
 }
 
