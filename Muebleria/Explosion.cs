@@ -35,11 +35,6 @@ namespace Muebleria
 
             cbProductos.DataSource = query.ToList();
         }
-        private string CortarCadena(string c)
-        {
-            String[] substrings = c.Split(new string[] { "  x" }, StringSplitOptions.None);
-            return substrings[0];
-        }
 
         private void ActualizarListBox()
         {
@@ -98,14 +93,115 @@ namespace Muebleria
                 foreach (PadreHijo item in aux)
                 {
                     string tabs = "";
+                    string sustitutos = "";
                     if (prodfinal != item.Padre)
                         tabs += '\t';
+                    UM_valor umv = consultarUM(item.Hijo);
+                    List<string> SustitutosList = buscarSustitutos(item.Padre, item.Hijo);
+                    if(SustitutosList.Count>0)
+                    {
+                        foreach (string sust in SustitutosList)
+                            sustitutos += sust + ", ";
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '('+sustitutos+')');
+                    }
+                    else
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um);
 
-                    lbComponentes.Items.Add(tabs + item.Hijo + " x " + item.Cantidad + ' ' + item.Um);
                     ConsultarRecursivo(item.Hijo, prodfinal);
                 }
             }
 
+        }
+
+        private List<string> buscarSustitutos(string padre, string hijo)
+        {
+            var query = from s in db.producto_sustituto
+                        from p in db.producto
+                        from t in db.traduccion
+                        where s.idPadre == p.idProducto && s.idHijo == p.idProducto &&
+                        p.idDescriptionP == t.idDescriptionT && padre == t.Traduccion_str && hijo == t.Traduccion_str && s.activado == 1
+                        select s.sustituto;
+
+            var qfinal = from t in db.traduccion
+                         from p in db.producto
+                         from n in query
+                         where t.idDescriptionT == p.idDescriptionP && p.idProducto == n
+                         select t.Traduccion_str;
+
+            return qfinal.ToList();
+        }
+        private UM_valor consultarUM(string prod)
+        {
+            if (!String.IsNullOrEmpty(tbCantidad.Text))
+            {
+                float cant = int.Parse(tbCantidad.Text);
+                tbCantidad.Clear();
+
+                //Obtener el id del producto seleccionado en el combo
+                var queryC = from p in db.producto
+                             from t in db.traduccion
+                             where p.idDescriptionP == t.idDescriptionT &&
+                             t.Traduccion_str == prod &&
+                             t.idLanguageT == LogIn.IdIdioma
+                             select p.idProducto;
+                List<int> C = queryC.ToList();
+
+
+                //Obtener el id de la unidad de medida de Compra del producto
+                var pppp = C[0];
+                var queryUMD = from pUMD in db.producto
+                               where pUMD.idProducto == pppp
+                               select pUMD.Unidad_id_Purchase;
+                List<int> UMD = queryUMD.ToList();
+
+                //Obtener el id de la unidad de medida cargada por el usuario en la tabla pc publicada
+                var queryUMU = from uMU in db.unidad_medida
+                               from pc in db.padre_componente_publicado
+                               where uMU.idUnidad_Medida == pc.U_medida_usada
+                               select pc.U_medida_usada;
+                List<int> UMU = queryUMU.ToList();
+
+
+                //Conversión de unidad para guardar en tabla
+                float coeficiente = 1;
+                int auxD = UMD[0];
+                int auxU = UMU[0];
+                if (UMD[0] != UMU[0])
+                {
+                    try
+                    {
+                        var query = from conv in db.conversion
+                                    where conv.U_medida_default == auxD &&
+                                    conv.U_medida == auxU
+                                    select conv.Coeficiente;
+                        coeficiente = query.ToList()[0];
+                        cant /= coeficiente;
+
+                        var desc = from t in db.traduccion
+                                   where t.idDescriptionT == auxD
+                                   select t.Traduccion_str;
+                        return new UM_valor(desc.ToList()[0], cant);
+                    }
+                    catch
+                    {
+                        var desc = from t in db.traduccion
+                                   where t.idDescriptionT == auxU
+                                   select t.Traduccion_str;
+                        return new UM_valor(desc.ToList()[0], cant);
+                        //int aux = UMD[0];
+                        //var query = from um in db.unidad_medida
+                        //            from t in db.traduccion
+                        //            where um.idDescriptionUM == t.idDescriptionT &&
+                        //            um.idUnidad_Medida == aux &&
+                        //            t.idLanguageT == LogIn.IdIdioma
+                        //            select t.Traduccion_str;
+
+                        //MessageBox.Show("Unidad de medida inválida para este producto. Intente con: " + query.ToList()[0].ToString());
+                        //return;
+                    }
+                }                
+            }
+            return new UM_valor();
         }
 
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)

@@ -154,6 +154,7 @@
     <Compile Include="traduccion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="UM_valor.cs" />
     <Compile Include="unidad_medida.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
