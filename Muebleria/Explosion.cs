@@ -12,7 +12,6 @@ namespace Muebleria
 {
     public partial class Explosion : Form
     {
-
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         public Explosion()
         {
@@ -115,7 +114,6 @@ namespace Muebleria
                     ConsultarRecursivo(item.Hijo, prodfinal);
                 }
             }
-
         }
 
         private List<string> buscarSustitutos(string padre, string hijo)
@@ -183,13 +181,7 @@ namespace Muebleria
                                from p in db.padre_componente_publicado
                                where c == p.idHijoP
                                select p.U_medida_usada;
-                               //from pc in db.padre_componente_publicado
-                               //from p in db.producto
-                               //from t in db.traduccion
-                               //where p.idProducto==pc.idPadreP && uMU.idUnidad_Medida == pc.U_medida_usada && 
-                               // p.idDescriptionP==t.idDescriptionT && t.Traduccion_str==prod
-                               //select pc.U_medida_usada;
-                List < int > UMU = queryUMU.ToList();
+                List <int> UMU = queryUMU.ToList();
 
 
                 //Conversión de unidad para guardar en tabla
@@ -228,16 +220,6 @@ namespace Muebleria
                                    where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida == auxU
                                    select t.Traduccion_str;
                         return new UM_valor(desc.ToList()[0], cant);
-                        //int aux = UMD[0];
-                        //var query = from um in db.unidad_medida
-                        //            from t in db.traduccion
-                        //            where um.idDescriptionUM == t.idDescriptionT &&
-                        //            um.idUnidad_Medida == aux &&
-                        //            t.idLanguageT == LogIn.IdIdioma
-                        //            select t.Traduccion_str;
-
-                        //MessageBox.Show("Unidad de medida inválida para este producto. Intente con: " + query.ToList()[0].ToString());
-                        //return;
                     }
                 }
                 var d = from t in db.traduccion
