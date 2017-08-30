@@ -96,7 +96,7 @@ namespace Muebleria
                     string sustitutos = "";
                     if (prodfinal != item.Padre)
                         tabs += '\t';
-                    UM_valor umv = consultarUM(item.Padre);
+                    UM_valor umv = consultarUM(item.Hijo);
                     List<string> SustitutosList = buscarSustitutos(item.Padre, item.Hijo);
                     if(SustitutosList.Count>0)
                     {
@@ -107,10 +107,10 @@ namespace Muebleria
                             else
                                 sustitutos = sust;
                         }
-                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + /*umv.Conversion + ' ' + umv.Um +*/ '('+sustitutos+')');
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '('+sustitutos+')');
                     }
                     else
-                        lbComponentes.Items.Add(tabs + item.Hijo + " x " /*+ umv.Conversion + ' ' + umv.Um */);
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um);
 
                     ConsultarRecursivo(item.Hijo, prodfinal);
                 }
@@ -160,7 +160,6 @@ namespace Muebleria
             if (!String.IsNullOrEmpty(tbCantidad.Text))
             {
                 float cant = int.Parse(tbCantidad.Text);
-                tbCantidad.Clear();
 
                 //Obtener el id del producto seleccionado en el combo
                 var queryC = from p in db.producto
@@ -182,7 +181,7 @@ namespace Muebleria
                 //Obtener el id de la unidad de medida cargada por el usuario en la tabla pc publicada
                 var queryUMU = from c in queryC
                                from p in db.padre_componente_publicado
-                               where c == p.idPadreP
+                               where c == p.idHijoP
                                select p.U_medida_usada;
                                //from pc in db.padre_componente_publicado
                                //from p in db.producto
@@ -197,6 +196,15 @@ namespace Muebleria
                 float coeficiente = 1;
                 int auxD = UMD[0];
                 int auxU = UMU[0];
+
+                var cantpc = from pc in db.padre_componente_publicado
+                             from c in C
+                             where pc.idHijoP == c
+                             select pc.Cantidad;
+                float cantidadPC = cantpc.ToList()[0];
+
+                cant = (cantidadPC / coeficiente) * cant;
+
                 if (UMD[0] != UMU[0])
                 {
                     try
@@ -206,11 +214,10 @@ namespace Muebleria
                                     conv.U_medida == auxU
                                     select conv.Coeficiente;
                         coeficiente = query.ToList()[0];
-                        cant /= coeficiente;
 
                         var desc = from t in db.traduccion
                                    from um in db.unidad_medida
-                                   where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida==auxD
+                                   where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida==auxD && t.idLanguageT==LogIn.IdIdioma
                                    select t.Traduccion_str;
                         return new UM_valor(desc.ToList()[0], cant);
                     }
@@ -232,9 +239,14 @@ namespace Muebleria
                         //MessageBox.Show("Unidad de medida inválida para este producto. Intente con: " + query.ToList()[0].ToString());
                         //return;
                     }
-                }                
+                }
+                var d = from t in db.traduccion
+                           from um in db.unidad_medida
+                           where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida == auxD && t.idLanguageT == LogIn.IdIdioma
+                           select t.Traduccion_str;
+                return new UM_valor(d.ToList()[0], cant);
             }
-            return new UM_valor();
+            return new UM_valor();            
         }
 
         private void Explosion_FormClosed(object sender, FormClosedEventArgs e)
