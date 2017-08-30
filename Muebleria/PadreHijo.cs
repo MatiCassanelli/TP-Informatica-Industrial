@@ -64,6 +64,7 @@ namespace Muebleria
                 um = value;
             }
         }
+        
         public PadreHijo(string cpadre, string chijo, int ccant, string cum)
         {
             padre = cpadre;
