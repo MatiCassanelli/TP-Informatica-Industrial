@@ -46,14 +46,14 @@ namespace Muebleria
         {
             int CantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
-            var query = from ph in db.padre_componente_temporal
+            var query = from ph in db.padre_componente_publicado
                         from t in db.traduccion
                         from p in db.producto
-                        where p.idProducto == ph.idPadre &&
+                        where p.idProducto == ph.idPadreP &&
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == padre &&
                         t.idLanguageT == LogIn.IdIdioma
-                        select new { id_Hijo = ph.idHijo, cant = ph.Cantidad, UMU = ph.U_medida_usada };
+                        select new { id_Hijo = ph.idHijoP, cant = ph.Cantidad, UMU = ph.U_medida_usada };
 
             //Obtener las descripciones de las unidades de medidas
             var subquery = from um in db.unidad_medida
@@ -96,16 +96,21 @@ namespace Muebleria
                     string sustitutos = "";
                     if (prodfinal != item.Padre)
                         tabs += '\t';
-                    UM_valor umv = consultarUM(item.Hijo);
+                    UM_valor umv = consultarUM(item.Padre);
                     List<string> SustitutosList = buscarSustitutos(item.Padre, item.Hijo);
                     if(SustitutosList.Count>0)
                     {
                         foreach (string sust in SustitutosList)
-                            sustitutos += sust + ", ";
-                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '('+sustitutos+')');
+                        {
+                            if (SustitutosList.Count > 1)
+                                sustitutos += sust + ", ";
+                            else
+                                sustitutos = sust;
+                        }
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + /*umv.Conversion + ' ' + umv.Um +*/ '('+sustitutos+')');
                     }
                     else
-                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um);
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " /*+ umv.Conversion + ' ' + umv.Um */);
 
                     ConsultarRecursivo(item.Hijo, prodfinal);
                 }
@@ -115,20 +120,40 @@ namespace Muebleria
 
         private List<string> buscarSustitutos(string padre, string hijo)
         {
-            var query = from s in db.producto_sustituto
-                        from p in db.producto
-                        from t in db.traduccion
-                        where s.idPadre == p.idProducto && s.idHijo == p.idProducto &&
-                        p.idDescriptionP == t.idDescriptionT && padre == t.Traduccion_str && hijo == t.Traduccion_str && s.activado == 1
-                        select s.sustituto;
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == padre &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
 
-            var qfinal = from t in db.traduccion
-                         from p in db.producto
-                         from n in query
-                         where t.idDescriptionT == p.idDescriptionP && p.idProducto == n
-                         select t.Traduccion_str;
+            var queryC = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == hijo &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> C = queryC.ToList();
 
-            return qfinal.ToList();
+            //Obtener id de los productos sustitutos
+            var plista = P[0];
+            var hlista = C[0];
+            var queryS = from ps in db.producto_sustituto
+                         where ps.idPadre == plista &&
+                         ps.idHijo == hlista &&
+                         ps.activado == 1
+                         select ps.sustituto;
+
+            var queryFinal = from s in queryS
+                             from t in db.traduccion
+                             from p in db.producto
+                             where s == p.idProducto &&
+                             p.idDescriptionP == t.idDescriptionT &&
+                             t.idLanguageT == LogIn.IdIdioma
+                             select t.Traduccion_str;
+
+            return queryFinal.ToList();
         }
         private UM_valor consultarUM(string prod)
         {
@@ -155,11 +180,17 @@ namespace Muebleria
                 List<int> UMD = queryUMD.ToList();
 
                 //Obtener el id de la unidad de medida cargada por el usuario en la tabla pc publicada
-                var queryUMU = from uMU in db.unidad_medida
-                               from pc in db.padre_componente_publicado
-                               where uMU.idUnidad_Medida == pc.U_medida_usada
-                               select pc.U_medida_usada;
-                List<int> UMU = queryUMU.ToList();
+                var queryUMU = from c in queryC
+                               from p in db.padre_componente_publicado
+                               where c == p.idPadreP
+                               select p.U_medida_usada;
+                               //from pc in db.padre_componente_publicado
+                               //from p in db.producto
+                               //from t in db.traduccion
+                               //where p.idProducto==pc.idPadreP && uMU.idUnidad_Medida == pc.U_medida_usada && 
+                               // p.idDescriptionP==t.idDescriptionT && t.Traduccion_str==prod
+                               //select pc.U_medida_usada;
+                List < int > UMU = queryUMU.ToList();
 
 
                 //Conversión de unidad para guardar en tabla
@@ -178,14 +209,16 @@ namespace Muebleria
                         cant /= coeficiente;
 
                         var desc = from t in db.traduccion
-                                   where t.idDescriptionT == auxD
+                                   from um in db.unidad_medida
+                                   where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida==auxD
                                    select t.Traduccion_str;
                         return new UM_valor(desc.ToList()[0], cant);
                     }
                     catch
                     {
                         var desc = from t in db.traduccion
-                                   where t.idDescriptionT == auxU
+                                   from um in db.unidad_medida
+                                   where t.idDescriptionT == um.idDescriptionUM && um.idUnidad_Medida == auxU
                                    select t.Traduccion_str;
                         return new UM_valor(desc.ToList()[0], cant);
                         //int aux = UMD[0];
