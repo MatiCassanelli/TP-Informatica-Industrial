@@ -32,7 +32,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPublicar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnCargarSustituto = new System.Windows.Forms.Button();
             this.cbProductosSustitutos = new System.Windows.Forms.ComboBox();
@@ -55,6 +55,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblFechaAplicacion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -79,7 +81,7 @@
             // 
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.monthCalendar1);
-            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.btnPublicar);
             this.groupBox4.Location = new System.Drawing.Point(133, 450);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(579, 207);
@@ -100,16 +102,17 @@
             this.monthCalendar1.Location = new System.Drawing.Point(188, 35);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 1;
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
             // 
-            // button1
+            // btnPublicar
             // 
-            this.button1.Location = new System.Drawing.Point(461, 174);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Publicar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnPublicar.Location = new System.Drawing.Point(461, 174);
+            this.btnPublicar.Name = "btnPublicar";
+            this.btnPublicar.Size = new System.Drawing.Size(112, 23);
+            this.btnPublicar.TabIndex = 22;
+            this.btnPublicar.Text = "Publicar";
+            this.btnPublicar.UseVisualStyleBackColor = true;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // groupBox3
             // 
@@ -313,6 +316,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblFechaAplicacion);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cbProductos);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(8, 9);
@@ -341,6 +346,24 @@
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Productos";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(428, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(110, 13);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Fecha de Aplicación: ";
+            // 
+            // lblFechaAplicacion
+            // 
+            this.lblFechaAplicacion.AutoSize = true;
+            this.lblFechaAplicacion.Location = new System.Drawing.Point(544, 22);
+            this.lblFechaAplicacion.Name = "lblFechaAplicacion";
+            this.lblFechaAplicacion.Size = new System.Drawing.Size(35, 13);
+            this.lblFechaAplicacion.TabIndex = 25;
+            this.lblFechaAplicacion.Text = "label6";
             // 
             // Composicion
             // 
@@ -386,7 +409,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_Eliminar;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPublicar;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnEliminar_Sustituto;
@@ -396,6 +419,8 @@
         private System.Windows.Forms.Label lblProdSeleccionado;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnCargarSustituto;
+        private System.Windows.Forms.Label lblFechaAplicacion;
+        private System.Windows.Forms.Label label7;
     }
 }
 
