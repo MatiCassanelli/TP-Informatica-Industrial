@@ -45,13 +45,15 @@ namespace Muebleria
         {
             int CantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
+            DateTime fecha = traerFechas(padre);
             var query = from ph in db.padre_componente_publicado
                         from t in db.traduccion
                         from p in db.producto
                         where p.idProducto == ph.idPadreP &&
                         p.idDescriptionP == t.idDescriptionT &&
                         t.Traduccion_str == padre &&
-                        t.idLanguageT == LogIn.IdIdioma
+                        t.idLanguageT == LogIn.IdIdioma &&
+                        ph.fecha_aplicacion == fecha
                         select new { id_Hijo = ph.idHijoP, cant = ph.Cantidad, UMU = ph.U_medida_usada };
 
             //Obtener las descripciones de las unidades de medidas
@@ -72,7 +74,6 @@ namespace Muebleria
                          t.idLanguageT == LogIn.IdIdioma
                          //select t.Traduccion_str + "  x" + n.cant.ToString() + " " + sq.t;
                          select new { nombre = t.Traduccion_str, cant = n.cant.ToString(), um = sq.t };
-
             List<PadreHijo> lista = new List<PadreHijo>();
 
             foreach (var item in query2)
@@ -80,6 +81,38 @@ namespace Muebleria
                 lista.Add(new PadreHijo(padre, item.nombre, Convert.ToInt32(item.cant), item.um));
             }
             return lista;
+        }
+
+        private DateTime traerFechas(string prod)
+        {
+            DateTime dateCargada = monthCalendar1.SelectionRange.Start.Date;
+            //var subquery = db.padre_componente_publicado.SqlQuery("select distinct `padre-componente-publicado`.fecha_aplicacion from `padre-componente-publicado` order by fecha_aplicacion desc");
+            var QueryidPadre = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == prod &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+
+            var subquery = from pc in db.padre_componente_publicado
+                           from qinp in QueryidPadre
+                           where pc.idPadreP==qinp
+                           orderby pc.fecha_aplicacion descending
+                           select pc.fecha_aplicacion;
+            List<DateTime> fechasconsulta = subquery.ToList();
+            
+            //List<int> C = QueryidPadre.ToList();
+            DateTime fechaAplicacion = new DateTime();
+            for (int i = 0; i < fechasconsulta.Count; i++)
+            {
+                if(dateCargada>=fechasconsulta[i])
+                {
+                    fechaAplicacion = fechasconsulta[i];
+                    i = fechasconsulta.Count;
+                }
+            }
+
+            return fechaAplicacion;        
         }
 
         List<PadreHijo> hijos = new List<PadreHijo>();
@@ -97,15 +130,8 @@ namespace Muebleria
                         tabs += '\t';
                     UM_valor umv = consultarUM(item.Hijo);
                     List<string> SustitutosList = buscarSustitutos(item.Padre, item.Hijo);
-                    if(SustitutosList.Count>0)
+                    if (SustitutosList.Count > 0)
                     {
-                        //foreach (string sust in SustitutosList)
-                        //{
-                        //    if (SustitutosList.Count > 1)
-                        //        sustitutos += sust + ", ";
-                        //    else
-                        //        sustitutos = sust;
-                        //}
                         for (int i = 0; i < SustitutosList.Count; i++)
                         {
                             if (i >= 1)
@@ -113,7 +139,7 @@ namespace Muebleria
                             else
                                 sustitutos += SustitutosList[i];
                         }
-                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '('+sustitutos+')');
+                        lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '(' + sustitutos + ')');
                     }
                     else
                         lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um);
@@ -266,6 +292,16 @@ namespace Muebleria
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbComponentes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

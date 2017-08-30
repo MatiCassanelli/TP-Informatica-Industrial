@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExplosionar = new System.Windows.Forms.Button();
+            this.tbCantidad = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.lbComponentes = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbCantidad = new System.Windows.Forms.TextBox();
-            this.btnExplosionar = new System.Windows.Forms.Button();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Controls.Add(this.btnExplosionar);
             this.panel1.Controls.Add(this.tbCantidad);
             this.panel1.Controls.Add(this.label3);
@@ -53,17 +55,45 @@
             this.panel1.Controls.Add(this.lbComponentes);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(373, 284);
+            this.panel1.Size = new System.Drawing.Size(715, 377);
             this.panel1.TabIndex = 0;
+            // 
+            // btnExplosionar
+            // 
+            this.btnExplosionar.Location = new System.Drawing.Point(610, 23);
+            this.btnExplosionar.Name = "btnExplosionar";
+            this.btnExplosionar.Size = new System.Drawing.Size(75, 23);
+            this.btnExplosionar.TabIndex = 6;
+            this.btnExplosionar.Text = "BOOM";
+            this.btnExplosionar.UseVisualStyleBackColor = true;
+            this.btnExplosionar.Click += new System.EventHandler(this.btnExplosionar_Click);
+            // 
+            // tbCantidad
+            // 
+            this.tbCantidad.Location = new System.Drawing.Point(93, 55);
+            this.tbCantidad.Name = "tbCantidad";
+            this.tbCantidad.Size = new System.Drawing.Size(100, 20);
+            this.tbCantidad.TabIndex = 5;
+            this.tbCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidad_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Cantidad";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 118);
+            this.label2.Location = new System.Drawing.Point(27, 193);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(205, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Se necesitan los siguientes componentes:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -86,43 +116,23 @@
             // lbComponentes
             // 
             this.lbComponentes.FormattingEnabled = true;
-            this.lbComponentes.Location = new System.Drawing.Point(30, 134);
+            this.lbComponentes.Location = new System.Drawing.Point(30, 209);
             this.lbComponentes.Name = "lbComponentes";
-            this.lbComponentes.Size = new System.Drawing.Size(320, 134);
+            this.lbComponentes.Size = new System.Drawing.Size(655, 147);
             this.lbComponentes.TabIndex = 0;
+            this.lbComponentes.SelectedIndexChanged += new System.EventHandler(this.lbComponentes_SelectedIndexChanged);
             // 
-            // label3
+            // monthCalendar1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Cantidad";
-            // 
-            // tbCantidad
-            // 
-            this.tbCantidad.Location = new System.Drawing.Point(93, 55);
-            this.tbCantidad.Name = "tbCantidad";
-            this.tbCantidad.Size = new System.Drawing.Size(100, 20);
-            this.tbCantidad.TabIndex = 5;
-            this.tbCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidad_KeyPress);
-            // 
-            // btnExplosionar
-            // 
-            this.btnExplosionar.Location = new System.Drawing.Point(275, 89);
-            this.btnExplosionar.Name = "btnExplosionar";
-            this.btnExplosionar.Size = new System.Drawing.Size(75, 23);
-            this.btnExplosionar.TabIndex = 6;
-            this.btnExplosionar.Text = "BOOM";
-            this.btnExplosionar.UseVisualStyleBackColor = true;
-            this.btnExplosionar.Click += new System.EventHandler(this.btnExplosionar_Click);
+            this.monthCalendar1.Location = new System.Drawing.Point(371, 23);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 7;
             // 
             // Explosion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(397, 308);
+            this.ClientSize = new System.Drawing.Size(737, 401);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Explosion";
@@ -144,5 +154,6 @@
         private System.Windows.Forms.Button btnExplosionar;
         private System.Windows.Forms.TextBox tbCantidad;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
     }
 }
