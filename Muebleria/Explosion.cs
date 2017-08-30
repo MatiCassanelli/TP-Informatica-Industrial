@@ -99,12 +99,19 @@ namespace Muebleria
                     List<string> SustitutosList = buscarSustitutos(item.Padre, item.Hijo);
                     if(SustitutosList.Count>0)
                     {
-                        foreach (string sust in SustitutosList)
+                        //foreach (string sust in SustitutosList)
+                        //{
+                        //    if (SustitutosList.Count > 1)
+                        //        sustitutos += sust + ", ";
+                        //    else
+                        //        sustitutos = sust;
+                        //}
+                        for (int i = 0; i < SustitutosList.Count; i++)
                         {
-                            if (SustitutosList.Count > 1)
-                                sustitutos += sust + ", ";
+                            if (i >= 1)
+                                sustitutos += ", " + SustitutosList[i];
                             else
-                                sustitutos = sust;
+                                sustitutos += SustitutosList[i];
                         }
                         lbComponentes.Items.Add(tabs + item.Hijo + " x " + umv.Conversion + ' ' + umv.Um + '('+sustitutos+')');
                     }
