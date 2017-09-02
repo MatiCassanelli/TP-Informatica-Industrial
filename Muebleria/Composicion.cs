@@ -23,6 +23,22 @@ namespace Muebleria
         {
             InitializeComponent();
             LlenarCombos();
+            CargarListaPS();
+        }
+
+        private void CargarListaPS()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            //HACER CONSULTA QUE TRAIGA LOS SUSTITUTOS CARGADOS EN EL LISTBOX DE CARGADOS
+
+            var query = from ps in db.producto_sustituto
+                        select ps;
+
+            //foreach (producto_sustituto tupla in query)
+            //{
+
+            //}
         }
 
         private string CortarCadena (string c)
@@ -386,10 +402,16 @@ namespace Muebleria
                 user_upd = LogIn.IdUsuario
             };
 
-            if(ListaPS.Contains(NuevoPS) == true)
+            if(ListaPS.Exists(delegate (producto_sustituto ps)
+            {return ps.idPadre == P[0] && ps.idHijo == C[0] && ps.sustituto == S[0];}) == true)
                 MessageBox.Show("El componente ya ha sido agregado");
             else
                 ListaPS.Add(NuevoPS);
+
+            //if (ListaPS.Contains(NuevoPS) == true)
+            //    MessageBox.Show("El componente ya ha sido agregado");
+            //else
+            //    ListaPS.Add(NuevoPS);
             /* TENGO Q MANEJAR TODO CON UNA LISTA INTERNA DEL PROGRAMA
             
             //Obtener tupla indicada de la tabla producto_sustituto
@@ -468,59 +490,32 @@ namespace Muebleria
                 user_upd = LogIn.IdUsuario
             };
 
-            List<producto_sustituto> ListaPSMostrar = new List<producto_sustituto>();
+            List<producto_sustituto> ListaSustitutos = new List<producto_sustituto>();
 
-            ListaPSMostrar = ListaPS.FindAll(
+            ListaSustitutos = ListaPS.FindAll(
                 delegate (producto_sustituto ps)
                 {
                     return ps.idPadre == P[0] && ps.idHijo == C[0];
                 }
             );
-            
-            //var asdasd = from a in ListaPSMostrar
-            //             select a.sustituto;
 
-            //foreach (producto_sustituto a in ListaPSMostrar)
-            //{
-            //    lbSustitutos.Items.Add(a.sustituto.ToString());
-            //}
+            List<string> ListaPSMostrar = new List<string>();
+            foreach (producto_sustituto ps in ListaSustitutos)
+            {
+                var queryFinal = from t in db.traduccion
+                                 from p in db.producto
+                                 where ps.sustituto == p.idProducto &&
+                                 p.idDescriptionP == t.idDescriptionT &&
+                                 t.idLanguageT == LogIn.IdIdioma
+                                 select t.Traduccion_str;
+                ListaPSMostrar.Add(queryFinal.ToList()[0].ToString());
+            }
 
-            var queryFinal = from s in ListaPSMostrar
-                             from t in db.traduccion
-                             from p in db.producto
-                             where s.sustituto == p.idProducto &&
-                             p.idDescriptionP == t.idDescriptionT &&
-                             t.idLanguageT == LogIn.IdIdioma
-                             select t.Traduccion_str;
-
-            foreach (string item in queryFinal)
+            foreach (string item in ListaPSMostrar)
             {
                 lbSustitutos.Items.Add(item);
             }
-            /*
-            //Obtener id de los productos sustitutos
-            var padre = P[0];
-            var hijo = C[0];
-            var queryS = from ps in db.producto_sustituto
-                         where ps.idPadre == padre &&
-                         ps.idHijo == hijo &&
-                         ps.activado == 1
-                         select ps.sustituto;
 
-            var queryFinal = from s in queryS
-                             from t in db.traduccion
-                             from p in db.producto
-                             where s == p.idProducto &&
-                             p.idDescriptionP == t.idDescriptionT &&
-                             t.idLanguageT == LogIn.IdIdioma
-                             select t.Traduccion_str;
-
-
-            foreach (string item in queryFinal)
-            {
-                lbSustitutos.Items.Add(item);
-            }
-            */
         }
 
         //MODIFICAR
@@ -562,16 +557,22 @@ namespace Muebleria
                          select p.idProducto;
             List<int> S = queryS.ToList();
 
-            producto_sustituto NuevoPS = new producto_sustituto()
-            {
-                idPadre = P[0],
-                idHijo = C[0],
-                sustituto = S[0],
-                user_upd = LogIn.IdUsuario
-            };
+            //producto_sustituto NuevoPS = new producto_sustituto()
+            //{
+            //    idPadre = P[0],
+            //    idHijo = C[0],
+            //    sustituto = S[0],
+            //    user_upd = LogIn.IdUsuario
+            //};
 
+            producto_sustituto sust = ListaPS.Find(
+                delegate (producto_sustituto ps)
+                {
+                    return ps.idPadre == P[0] && ps.idHijo == C[0] && ps.sustituto == S[0];
+                }
+            );
 
-            ListaPS.Remove(NuevoPS);
+            ListaPS.Remove(sust);
             /*
             //Obtener tupla indicada de la tabla producto_sustituto
             var auxp = P[0];
@@ -659,8 +660,41 @@ namespace Muebleria
                 //return;
             }
 
+            Publicar_Sustitutos();
+
             EstadoPublicacion = 1;
             Actualizar_tabla_temporal();
+        }
+
+        private void Publicar_Sustitutos()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            List<producto_sustituto> PCP = new List<producto_sustituto>();
+            foreach(producto_sustituto ps in ListaPS)
+            {
+                producto_sustituto NuevoPS = new producto_sustituto()
+                {
+                    idPadre = ps.idPadre,
+                    idHijo = ps.idHijo,
+                    sustituto = ps.sustituto,
+                    last_upd = DateTime.Now,
+                    user_upd = ps.user_upd,
+                    fecha_aplicacion = 1    //PONER LA F() CONVERTIR
+                };
+                PCP.Add(NuevoPS);
+            }
+            try
+            {
+                foreach (producto_sustituto item in PCP)
+                {
+                    db.producto_sustituto.Add(item);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("No se agregaron los productos sustitutos");
+            }
         }
 
         private void Actualizar_tabla_temporal()
