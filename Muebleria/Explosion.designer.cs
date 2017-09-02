@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.btnExplosionar = new System.Windows.Forms.Button();
             this.tbCantidad = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.lbComponentes = new System.Windows.Forms.ListBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,9 +58,15 @@
             this.panel1.Size = new System.Drawing.Size(715, 377);
             this.panel1.TabIndex = 0;
             // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(371, 23);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 7;
+            // 
             // btnExplosionar
             // 
-            this.btnExplosionar.Location = new System.Drawing.Point(610, 23);
+            this.btnExplosionar.Location = new System.Drawing.Point(631, 23);
             this.btnExplosionar.Name = "btnExplosionar";
             this.btnExplosionar.Size = new System.Drawing.Size(75, 23);
             this.btnExplosionar.TabIndex = 6;
@@ -121,12 +127,6 @@
             this.lbComponentes.Size = new System.Drawing.Size(655, 147);
             this.lbComponentes.TabIndex = 0;
             this.lbComponentes.SelectedIndexChanged += new System.EventHandler(this.lbComponentes_SelectedIndexChanged);
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(371, 23);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 7;
             // 
             // Explosion
             // 
