@@ -105,6 +105,7 @@
     <Compile Include="externo.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Fecha.cs" />
     <Compile Include="Implosion.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -45,7 +45,7 @@
             this.groupBox1.Controls.Add(this.cbProductosBuscados);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lbprodfinales);
-            this.groupBox1.Location = new System.Drawing.Point(509, 12);
+            this.groupBox1.Location = new System.Drawing.Point(631, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(957, 523);
             this.groupBox1.TabIndex = 9;
@@ -99,12 +99,12 @@
             this.panel1.Controls.Add(this.monthCalendar1);
             this.panel1.Location = new System.Drawing.Point(12, 25);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(491, 374);
+            this.panel1.Size = new System.Drawing.Size(556, 374);
             this.panel1.TabIndex = 10;
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(0, 0);
+            this.monthCalendar1.Location = new System.Drawing.Point(34, 5);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 2;
             this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1513, 583);
+            this.ClientSize = new System.Drawing.Size(1600, 583);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(7);
