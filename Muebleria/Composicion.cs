@@ -15,6 +15,7 @@ namespace Muebleria
 {
     public partial class Composicion : Form
     {
+        Fecha f = new Fecha();
         int EstadoPublicacion = 1;      //1=No hay cambios || 0=Hay cambios, se puede publicar
         List<producto_sustituto> ListaPS = new List<producto_sustituto>();
 
@@ -611,19 +612,20 @@ namespace Muebleria
                 MessageBox.Show("Cargue algún componente antes de publicar");
                 return;
             }
-            else if (lblFechaAplicacion.Text == monthCalendar1.SelectionRange.Start.ToShortDateString())
+            else
             {
-                MessageBox.Show("En esta fecha ya se ha realizado una publicación de este producto. Seleccione otra");
-                //EstadoPublicacion = 1;
-                return;
+                if (f.convertir(monthCalendar1.SelectionRange.Start).ToString() == f.convertir(DateTime.Now).ToString())
+                {
+                    MessageBox.Show("No se pueden realizar cambios en la estructura en la misma semana de su publicacion.");
+                    //EstadoPublicacion = 1;
+                    return;
+                }
             }
 
             if (MessageBox.Show("¿Esta seguro que desea realizar la publicación? Una vez publicada no podrá realizar modificaciones para la misma fecha de aplicación.", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
-
-
-            //MODIFICADOOOOOOOOOOOOOO
-            int aplicacion = 1;//monthCalendar1.SelectionRange.Start.Date;
+                      
+            int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);//monthCalendar1.SelectionRange.Start.Date;
             DateTime upd = DateTime.Now;
 
             List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
@@ -766,6 +768,11 @@ namespace Muebleria
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
             EstadoPublicacion = 0;
+            if (DateTime.Now > monthCalendar1.SelectionRange.Start)
+            {
+                MessageBox.Show("No se puede publicar una estructura para una fecha ya pasada");
+                monthCalendar1.SetDate(DateTime.Now);
+            }
         }
     }
 }
