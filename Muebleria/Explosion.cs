@@ -45,7 +45,7 @@ namespace Muebleria
         {
             int CantRequerida = Convert.ToInt32(tbCantidad.Text);
             //Obtener los id de los productos hijos del padre seleccionado en el cbProducto
-            DateTime fecha = traerFechas(padre);
+            int fecha = traerFechas(padre);
             var query = from ph in db.padre_componente_publicado
                         from t in db.traduccion
                         from p in db.producto
@@ -83,9 +83,10 @@ namespace Muebleria
             return lista;
         }
 
-        private DateTime traerFechas(string prod)
+        private int traerFechas(string prod)
         {
-            DateTime dateCargada = monthCalendar1.SelectionRange.Start.Date;
+            //DateTime dateCargada = monthCalendar1.SelectionRange.Start.Date;
+            int dateCargada=1;
             //var subquery = db.padre_componente_publicado.SqlQuery("select distinct `padre-componente-publicado`.fecha_aplicacion from `padre-componente-publicado` order by fecha_aplicacion desc");
             var QueryidPadre = from p in db.producto
                          from t in db.traduccion
@@ -99,10 +100,11 @@ namespace Muebleria
                            where pc.idPadreP==qinp
                            orderby pc.fecha_aplicacion descending
                            select pc.fecha_aplicacion;
-            List<DateTime> fechasconsulta = subquery.ToList();
-            
+            List<int> fechasconsulta = subquery.ToList();
+
             //List<int> C = QueryidPadre.ToList();
-            DateTime fechaAplicacion = new DateTime();
+            //DateTime fechaAplicacion = new DateTime();
+            int fechaAplicacion=1;
             for (int i = 0; i < fechasconsulta.Count; i++)
             {
                 if(dateCargada>=fechasconsulta[i])
@@ -172,8 +174,8 @@ namespace Muebleria
             var hlista = C[0];
             var queryS = from ps in db.producto_sustituto
                          where ps.idPadre == plista &&
-                         ps.idHijo == hlista &&
-                         ps.activado == 1
+                         ps.idHijo == hlista //&
+                         //ps.activado == 1
                          select ps.sustituto;
 
             var queryFinal = from s in queryS

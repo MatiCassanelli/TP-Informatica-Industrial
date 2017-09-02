@@ -17,6 +17,7 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
+            this.producto_sustituto = new HashSet<producto_sustituto>();
             this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
         }
     
@@ -32,6 +33,8 @@ namespace Muebleria
     
         public virtual language language { get; set; }
         public virtual role role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
     }

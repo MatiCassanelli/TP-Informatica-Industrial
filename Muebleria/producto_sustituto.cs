@@ -14,13 +14,17 @@ namespace Muebleria
     
     public partial class producto_sustituto
     {
+        public int version { get; set; }
         public int idPadre { get; set; }
         public int idHijo { get; set; }
         public int sustituto { get; set; }
-        public sbyte activado { get; set; }
+        public System.DateTime last_upd { get; set; }
+        public int user_upd { get; set; }
+        public int fecha_aplicacion { get; set; }
     
         public virtual producto producto { get; set; }
         public virtual producto producto1 { get; set; }
         public virtual producto producto2 { get; set; }
+        public virtual users users { get; set; }
     }
 }

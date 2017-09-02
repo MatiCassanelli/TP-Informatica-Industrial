@@ -15,8 +15,9 @@ namespace Muebleria
 {
     public partial class Composicion : Form
     {
-        //informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         int EstadoPublicacion = 1;      //1=No hay cambios || 0=Hay cambios, se puede publicar
+        List<producto_sustituto> ListaPS = new List<producto_sustituto>();
+
         public Composicion()
         {
             InitializeComponent();
@@ -115,6 +116,7 @@ namespace Muebleria
             cbUM.DataSource = query.ToList();
         }
 
+        //Carga tupla en tabla "Padre-componente-temporal"
         private void btnCargar_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -221,12 +223,12 @@ namespace Muebleria
                     MessageBox.Show("El componente ya ha sido agregado");
                     return;
                 }
-                //Actualizar_tabla_temporal();
                 Actualizar_ListBox_Cargadas();
 
             }
         }
 
+        //Elimina tupla en tabla "Padre-componente-temporal"
         private void btn_Eliminar_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -273,7 +275,6 @@ namespace Muebleria
         private void cbProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
             panelComponentes.Enabled = true;
-            //Actualizar_ListBox_Cargadas();
             Actualizar_tabla_temporal();
         }
 
@@ -312,11 +313,6 @@ namespace Muebleria
                 e.Handled = true;
         }
 
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void Composicion_FormClosed(object sender, FormClosedEventArgs e)
         {
             Menu menu = new Menu();
@@ -339,6 +335,7 @@ namespace Muebleria
             lblProdSeleccionado.Text = texto;
         }
 
+        //MODIFICAR
         private void btnCargarSustituto_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -380,6 +377,20 @@ namespace Muebleria
                          select p.idProducto;
             List<int> S = queryS.ToList();
 
+            producto_sustituto NuevoPS = new producto_sustituto()
+            {
+                idPadre = P[0],
+                idHijo = C[0],
+                sustituto = S[0],
+                user_upd = LogIn.IdUsuario
+            };
+
+            if(ListaPS.Contains(NuevoPS) == true)
+                MessageBox.Show("El componente ya ha sido agregado");
+            else
+                ListaPS.Add(NuevoPS);
+            /* TENGO Q MANEJAR TODO CON UNA LISTA INTERNA DEL PROGRAMA
+            
             //Obtener tupla indicada de la tabla producto_sustituto
             var auxp = P[0];
             var auxc = C[0];
@@ -389,6 +400,7 @@ namespace Muebleria
                             ps.idHijo == auxc &&
                             ps.sustituto == auxs
                             select ps;
+            
             
             if(sustituto.Count() > 0)
             {
@@ -417,10 +429,11 @@ namespace Muebleria
                     return;
                 }
             }
-
+            */
             Actualizar_ListBox_Sustitutos();
         }
 
+        //MODIFICAR
         private void Actualizar_ListBox_Sustitutos()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -447,6 +460,43 @@ namespace Muebleria
                          select p.idProducto;
             List<int> C = queryC.ToList();
 
+            producto_sustituto NuevoPS = new producto_sustituto()
+            {
+                idPadre = P[0],
+                idHijo = C[0],
+                user_upd = LogIn.IdUsuario
+            };
+
+            List<producto_sustituto> ListaPSMostrar = new List<producto_sustituto>();
+
+            ListaPSMostrar = ListaPS.FindAll(
+                delegate (producto_sustituto ps)
+                {
+                    return ps.idPadre == P[0] && ps.idHijo == C[0];
+                }
+            );
+            
+            //var asdasd = from a in ListaPSMostrar
+            //             select a.sustituto;
+
+            //foreach (producto_sustituto a in ListaPSMostrar)
+            //{
+            //    lbSustitutos.Items.Add(a.sustituto.ToString());
+            //}
+
+            var queryFinal = from s in ListaPSMostrar
+                             from t in db.traduccion
+                             from p in db.producto
+                             where s.sustituto == p.idProducto &&
+                             p.idDescriptionP == t.idDescriptionT &&
+                             t.idLanguageT == LogIn.IdIdioma
+                             select t.Traduccion_str;
+
+            foreach (string item in queryFinal)
+            {
+                lbSustitutos.Items.Add(item);
+            }
+            /*
             //Obtener id de los productos sustitutos
             var padre = P[0];
             var hijo = C[0];
@@ -469,8 +519,10 @@ namespace Muebleria
             {
                 lbSustitutos.Items.Add(item);
             }
+            */
         }
 
+        //MODIFICAR
         private void btnEliminar_Sustituto_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -509,6 +561,17 @@ namespace Muebleria
                          select p.idProducto;
             List<int> S = queryS.ToList();
 
+            producto_sustituto NuevoPS = new producto_sustituto()
+            {
+                idPadre = P[0],
+                idHijo = C[0],
+                sustituto = S[0],
+                user_upd = LogIn.IdUsuario
+            };
+
+
+            ListaPS.Remove(NuevoPS);
+            /*
             //Obtener tupla indicada de la tabla producto_sustituto
             var auxp = P[0];
             var auxc = C[0];
@@ -523,11 +586,13 @@ namespace Muebleria
                 Item.activado = 0;
 
             db.SaveChanges();
+            */
 
             Actualizar_ListBox_Sustitutos();
 
         }
 
+        //MODIFICAR --> debe publicar la lista de productos-sustitutos
         private void btnPublicar_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -556,7 +621,9 @@ namespace Muebleria
             if (MessageBox.Show("¿Esta seguro que desea realizar la publicación? Una vez publicada no podrá realizar modificaciones para la misma fecha de aplicación.", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
 
-            DateTime aplicacion = monthCalendar1.SelectionRange.Start.Date;
+
+            //MODIFICADOOOOOOOOOOOOOO
+            int aplicacion = 1;//monthCalendar1.SelectionRange.Start.Date;
             DateTime upd = DateTime.Now;
 
             List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
@@ -605,6 +672,35 @@ namespace Muebleria
             lblProdSeleccionado.Visible = false;
         }
 
+        private void VaciarTablaTemporal()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            var query = from pct in db.padre_componente_temporal
+                        select pct;
+
+            List<padre_componente_temporal> PCT = new List<padre_componente_temporal>();
+
+            foreach (padre_componente_temporal item in query)
+            {
+                PCT.Add(item);
+            }
+
+            try
+            {
+                foreach (padre_componente_temporal item in PCT)
+                {
+                    db.padre_componente_temporal.Remove(item);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("El componente ya ha sido eliminado");
+                return;
+            }
+        }
+
         private void RellenarTablaTemporal()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -645,42 +741,13 @@ namespace Muebleria
                     db.SaveChanges();
                 }
                 lblFechaAplicacion.Visible = true;
-                string texto = relleno.ToList()[0].fecha_aplicacion.ToShortDateString();
+                string texto = relleno.ToList()[0].fecha_aplicacion.ToString();
                 lblFechaAplicacion.Text = texto;
             }
             catch
             {
                 //MessageBox.Show("No hay datos en la tabla padre componente-publicada");
                 lblFechaAplicacion.Visible = false;
-                return;
-            }
-        }
-
-        private void VaciarTablaTemporal()
-        {
-            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-
-            var query = from pct in db.padre_componente_temporal
-                        select pct;
-
-            List<padre_componente_temporal> PCT = new List<padre_componente_temporal>();
-
-            foreach (padre_componente_temporal item in query)
-            {
-                PCT.Add(item);
-            }
-
-            try
-            {
-                foreach (padre_componente_temporal item in PCT)
-                {
-                    db.padre_componente_temporal.Remove(item);
-                    db.SaveChanges();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("El componente ya ha sido eliminado");
                 return;
             }
         }

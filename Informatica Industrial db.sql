@@ -143,15 +143,16 @@ DROP TABLE IF EXISTS `padre-componente-publicado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `padre-componente-publicado` (
+  `version` int(11) NOT NULL AUTO_INCREMENT,
   `idPadreP` int(11) NOT NULL,
   `idHijoP` int(11) NOT NULL,
   `Cantidad` float NOT NULL,
   `U_medida_default` int(11) NOT NULL,
   `U_medida_usada` int(11) NOT NULL,
-  `fecha_aplicacion` date NOT NULL,
+  `fecha_aplicacion` int(6) NOT NULL,
   `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_upd` int(11) NOT NULL,
-  PRIMARY KEY (`idPadreP`,`idHijoP`,`fecha_aplicacion`),
+  PRIMARY KEY (`version`,`idPadreP`,`idHijoP`,`fecha_aplicacion`),
   KEY `idHijo_idx` (`idHijoP`),
   KEY `user_upd_idx` (`user_upd`),
   CONSTRAINT `idPadreP` FOREIGN KEY (`idPadreP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -246,16 +247,22 @@ DROP TABLE IF EXISTS `producto-sustituto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto-sustituto` (
+  `version` int(11) NOT NULL AUTO_INCREMENT,
   `idPadre` int(11) NOT NULL,
   `idHijo` int(11) NOT NULL,
   `sustituto` int(11) NOT NULL,
-  `activado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`idPadre`,`idHijo`,`sustituto`),
-  KEY `idHijo_idx` (`idHijo`),
-  KEY `sustituto_idx` (`sustituto`),
+  `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_upd` int(11) NOT NULL,
+  `fecha_aplicacion` int(6) NOT NULL,
+  PRIMARY KEY (`version`,`idPadre`,`idHijo`,`sustituto`,`fecha_aplicacion`),
+  KEY `idPadrePS_idx` (`idPadre`),
+  KEY `idHijoPS_idx` (`idHijo`),
+  KEY `idSustitutoPS_idx` (`sustituto`),
+  KEY `userPS_idx` (`user_upd`),
   CONSTRAINT `idPadrePS` FOREIGN KEY (`idPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idHijoPS` FOREIGN KEY (`idHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `sustituto` FOREIGN KEY (`sustituto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idSustitutoPS` FOREIGN KEY (`sustituto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `userPS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -439,4 +446,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-26 19:23:07
+-- Dump completed on 2017-09-02 12:50:17

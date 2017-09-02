@@ -14,12 +14,13 @@ namespace Muebleria
     
     public partial class padre_componente_publicado
     {
+        public int version { get; set; }
         public int idPadreP { get; set; }
         public int idHijoP { get; set; }
         public float Cantidad { get; set; }
         public int U_medida_default { get; set; }
         public int U_medida_usada { get; set; }
-        public System.DateTime fecha_aplicacion { get; set; }
+        public int fecha_aplicacion { get; set; }
         public System.DateTime last_upd { get; set; }
         public int user_upd { get; set; }
     
