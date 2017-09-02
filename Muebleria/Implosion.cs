@@ -27,13 +27,14 @@ namespace Muebleria
             //            && tradu.idLanguageT == LogIn.IdIdioma 
             //            && (prod.idTipo==2 || prod.idTipo == 3 || prod.idTipo == 4) //2 es buy y 4 es bruto
             //            select tradu.Traduccion_str;
-            DateTime fecha = monthCalendar1.SelectionRange.Start;
-
+            DateTime fechacalendario = monthCalendar1.SelectionRange.Start;
+            Fecha f = new Fecha();
+            int fecha = f.convertir(fechacalendario);
             var querypc = from pcp in db.padre_componente_publicado
                           where pcp.fecha_aplicacion <= fecha
                           select new { padre = pcp.idPadreP, hijo1 = pcp.idHijoP, hijo2 = pcp.idHijoP };
             var queryps = from ps in db.producto_sustituto
-                          //where ps.fecha_aplicacion <= fecha
+                          where ps.fecha_aplicacion <= fecha
                           select new { padre = ps.idPadre, hijo1 = ps.idHijo, hijo2 = ps.sustituto };
 
             var union = querypc.Union(queryps);
@@ -52,13 +53,15 @@ namespace Muebleria
         {            
             string prodBuscado = cbProductosBuscados.SelectedItem.ToString();
 
-            DateTime fecha = monthCalendar1.SelectionRange.Start;
+            DateTime fechacalendario = monthCalendar1.SelectionRange.Start;
+            Fecha f = new Fecha();
+            int fecha = f.convertir(fechacalendario);
 
             var querypc = from pcp in db.padre_componente_publicado
                           where pcp.fecha_aplicacion <= fecha
                           select new { padre = pcp.idPadreP, hijo1 = pcp.idHijoP, hijo2 = pcp.idHijoP };
             var queryps = from ps in db.producto_sustituto
-                              //where ps.fecha_aplicacion <= fecha
+                          where ps.fecha_aplicacion <= fecha
                           select new { padre = ps.idPadre, hijo1 = ps.idHijo, hijo2 = ps.sustituto };
 
             var union = querypc.Union(queryps);

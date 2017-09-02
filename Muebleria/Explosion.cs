@@ -85,8 +85,9 @@ namespace Muebleria
 
         private int traerFechas(string prod)
         {
-            //DateTime dateCargada = monthCalendar1.SelectionRange.Start.Date;
-            int dateCargada=1;
+            DateTime fechacalendario = monthCalendar1.SelectionRange.Start;
+            Fecha f = new Fecha();
+            int fecha = f.convertir(fechacalendario);
             //var subquery = db.padre_componente_publicado.SqlQuery("select distinct `padre-componente-publicado`.fecha_aplicacion from `padre-componente-publicado` order by fecha_aplicacion desc");
             var QueryidPadre = from p in db.producto
                          from t in db.traduccion
@@ -101,23 +102,18 @@ namespace Muebleria
                            orderby pc.fecha_aplicacion descending
                            select pc.fecha_aplicacion;
             List<int> fechasconsulta = subquery.ToList();
-
-            //List<int> C = QueryidPadre.ToList();
-            //DateTime fechaAplicacion = new DateTime();
+            
             int fechaAplicacion=1;
             for (int i = 0; i < fechasconsulta.Count; i++)
             {
-                if(dateCargada>=fechasconsulta[i])
+                if(fecha>=fechasconsulta[i])
                 {
                     fechaAplicacion = fechasconsulta[i];
                     i = fechasconsulta.Count;
                 }
             }
-
             return fechaAplicacion;        
         }
-
-        List<PadreHijo> hijos = new List<PadreHijo>();
 
         private void ConsultarRecursivo(string padre, string prodfinal)
         {
