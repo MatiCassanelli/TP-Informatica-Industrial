@@ -9,9 +9,13 @@ namespace Muebleria
     class PadreHijo
     {
         private string padre;
+        private int idPadre;
         private string hijo;
+        private int idHijo;
         private int cantidad;
         private string um;
+        private string sustituto;
+        private int idSust;
 
         public string Padre
         {
@@ -64,13 +68,79 @@ namespace Muebleria
                 um = value;
             }
         }
-        
+
+        public string Sustituto
+        {
+            get
+            {
+                return sustituto;
+            }
+
+            set
+            {
+                sustituto = value;
+            }
+        }
+
+        public int IdPadre
+        {
+            get
+            {
+                return idPadre;
+            }
+
+            set
+            {
+                idPadre = value;
+            }
+        }
+
+        public int IdHijo
+        {
+            get
+            {
+                return idHijo;
+            }
+
+            set
+            {
+                idHijo = value;
+            }
+        }
+
+        public int IdSust
+        {
+            get
+            {
+                return idSust;
+            }
+
+            set
+            {
+                idSust = value;
+            }
+        }
+
         public PadreHijo(string cpadre, string chijo, int ccant, string cum)
         {
             padre = cpadre;
             hijo = chijo;
             cantidad = ccant;
             um = cum;
+        }
+
+        public PadreHijo(string cpadre, string chijo, string chijo2)
+        {
+            padre = cpadre;
+            hijo = chijo;
+            sustituto = chijo2;
+        }
+
+        public PadreHijo(int cpadre, int chijo, int chijo2)
+        {
+            idPadre = cpadre;
+            idHijo = chijo;
+            idSust = chijo2;
         }
         PadreHijo()
         {
