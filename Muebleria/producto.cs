@@ -19,8 +19,6 @@ namespace Muebleria
         {
             this.padre_componente_temporal = new HashSet<padre_componente_temporal>();
             this.padre_componente_temporal1 = new HashSet<padre_componente_temporal>();
-            this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
-            this.padre_componente_publicado1 = new HashSet<padre_componente_publicado>();
             this.producto_sustituto = new HashSet<producto_sustituto>();
             this.producto_sustituto1 = new HashSet<producto_sustituto>();
             this.producto_sustituto2 = new HashSet<producto_sustituto>();
@@ -28,6 +26,8 @@ namespace Muebleria
             this.movimiento = new HashSet<movimiento>();
             this.precio = new HashSet<precio>();
             this.remito_detalle = new HashSet<remito_detalle>();
+            this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
+            this.padre_componente_publicado1 = new HashSet<padre_componente_publicado>();
         }
     
         public int idProducto { get; set; }
@@ -48,10 +48,6 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_temporal> padre_componente_temporal1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<padre_componente_publicado> padre_componente_publicado1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto_sustituto> producto_sustituto1 { get; set; }
@@ -66,5 +62,9 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<remito_detalle> remito_detalle { get; set; }
         public virtual stock stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<padre_componente_publicado> padre_componente_publicado1 { get; set; }
     }
 }

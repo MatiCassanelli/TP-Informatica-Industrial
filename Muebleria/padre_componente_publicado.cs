@@ -22,6 +22,7 @@ namespace Muebleria
         public int fecha_aplicacion { get; set; }
         public System.DateTime last_upd { get; set; }
         public int user_upd { get; set; }
+        public sbyte activado { get; set; }
         public int version { get; set; }
     
         public virtual producto producto { get; set; }

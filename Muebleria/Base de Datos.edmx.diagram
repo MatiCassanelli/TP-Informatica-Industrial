@@ -31,11 +31,7 @@
         <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="15.375" />
         <AssociationConnector Association="Model.idHijoT" />
         <AssociationConnector Association="Model.idPadreT" />
-        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="8.25" PointY="2.875" />
         <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="11.25" PointY="2.875" />
-        <AssociationConnector Association="Model.idHijoP" />
-        <AssociationConnector Association="Model.idPadreP" />
-        <AssociationConnector Association="Model.user_upd" />
         <AssociationConnector Association="Model.idHijoPS" />
         <AssociationConnector Association="Model.idPadrePS" />
         <AssociationConnector Association="Model.idSustitutoPS" />
@@ -59,6 +55,10 @@
         <AssociationConnector Association="Model.idProductoS" />
         <AssociationConnector Association="Model.idRemitoRD" />
         <AssociationConnector Association="Model.User_updS" />
+        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="9" PointY="3.125" />
+        <AssociationConnector Association="Model.idHijoP" />
+        <AssociationConnector Association="Model.idPadreP" />
+        <AssociationConnector Association="Model.user_upd" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

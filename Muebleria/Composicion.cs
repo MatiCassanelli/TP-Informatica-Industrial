@@ -569,11 +569,11 @@ namespace Muebleria
                 MessageBox.Show("Realice algún cambio antes de publicar");
                 return;
             }
-            else if (query.Count() <= 0)
-            {
-                MessageBox.Show("Cargue algún componente antes de publicar");
-                return;
-            }
+            //else if (query.Count() <= 0)
+            //{
+            //    MessageBox.Show("Cargue algún componente antes de publicar");
+            //    return;
+            //}
             else
             {
                 if (f.convertir(monthCalendar1.SelectionRange.Start).ToString() == f.convertir(DateTime.Now).ToString())
@@ -607,11 +607,13 @@ namespace Muebleria
             DateTime upd = DateTime.Now;
             List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
             Fecha semana = new Fecha();
-            List<padre_componente_publicado> relleno = ObtenerComponentes();
+            List<padre_componente_publicado> relleno = ObtenerComponentes();    //necesito los padre-componentes activados o desactivados
             int v = 0;
             if (relleno.Count > 0)
                 if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
                     v = relleno[0].version + 1;
+
+            Desactivar_ultima_version_PCP();
 
             //Filas de padre-componente-temporal
             var query = from pct in db.padre_componente_temporal
@@ -629,7 +631,8 @@ namespace Muebleria
                     U_medida_usada = fila.U_medida_usada,
                     fecha_aplicacion = aplicacion,
                     last_upd = upd,
-                    user_upd = LogIn.IdUsuario
+                    user_upd = LogIn.IdUsuario,
+                    activado = 1
                 };
                 PCP.Add(NuevoPCP);
             }
@@ -644,6 +647,31 @@ namespace Muebleria
             catch
             {
 
+            }
+        }
+
+        private void Desactivar_ultima_version_PCP()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
+
+            var ListaPCPparaDesactivar = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.activado = 1 and pcp2.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion "
+                                                                    + "FROM `padre-componente-publicado` pcp3 WHERE pcp3.idPadreP = " + P[0].ToString() + " and pcp3.activado = 1)) as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.activado = 1 and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 "
+                                                                    + "WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.activado = 1 and pcp4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp5 WHERE pcp5.idPadreP = " + P[0].ToString() + " and pcp5.activado = 1)); ");
+
+            if (ListaPCPparaDesactivar.Count() > 0)
+            {
+                foreach (var Item in ListaPCPparaDesactivar)
+                    Item.activado = 0;
+
+                db.SaveChanges();
             }
         }
 
@@ -759,7 +787,7 @@ namespace Muebleria
         private void RellenarTablaTemporal()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-            List<padre_componente_publicado> relleno = ObtenerComponentes();
+            List<padre_componente_publicado> relleno = ObtenerComponentesActivos();        //necesito los padre-componentes activos
             List<padre_componente_temporal> ListaPCT = new List<padre_componente_temporal>();
 
             foreach (padre_componente_publicado fila in relleno)
@@ -793,6 +821,26 @@ namespace Muebleria
             }
         }
 
+        private List<padre_componente_publicado> ObtenerComponentesActivos()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
+
+            var ListaPCPActivos = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.activado = 1 and pcp2.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion "
+                                                                    + "FROM `padre-componente-publicado` pcp3 WHERE pcp3.idPadreP = " + P[0].ToString() + " and pcp3.activado = 1)) as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.activado = 1 and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 "
+                                                                    + "WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.activado = 1 and pcp4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp5 WHERE pcp5.idPadreP = " + P[0].ToString() + " and pcp5.activado = 1)); ");
+
+            return ListaPCPActivos.ToList<padre_componente_publicado>();
+        }
+
         private List<padre_componente_publicado> ObtenerComponentes()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -813,6 +861,7 @@ namespace Muebleria
                                                                     + "WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp5 WHERE pcp5.idPadreP = " + P[0].ToString() + ")); ");
             return componentes.ToList<padre_componente_publicado>();
         }
+
 
         private void cbProductos_Click(object sender, EventArgs e)
         {
