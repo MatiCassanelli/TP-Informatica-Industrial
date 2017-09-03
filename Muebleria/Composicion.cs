@@ -23,22 +23,62 @@ namespace Muebleria
         {
             InitializeComponent();
             LlenarCombos();
+            ListaPS.Clear();
             CargarListaPS();
         }
 
         private void CargarListaPS()
         {
+            List<producto_sustituto> relleno = ObtenerSustitutosActivados();
+
+            foreach (producto_sustituto tupla in relleno)
+            {
+                ListaPS.Add(tupla);
+            }
+        }
+
+        private List<producto_sustituto> ObtenerSustitutosActivados()
+        {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
-            //HACER CONSULTA QUE TRAIGA LOS SUSTITUTOS CARGADOS EN EL LISTBOX DE CARGADOS
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
 
-            var query = from ps in db.producto_sustituto
-                        select ps;
+            var relleno = db.producto_sustituto.SqlQuery(@"SELECT * FROM `producto-sustituto` ps INNER JOIN(SELECT distinct ps3.idPadre, ps3.fecha_aplicacion FROM `producto-sustituto` ps3"
+                    + " WHERE ps3.idPadre = " + P[0].ToString() + " and ps3.activado = 1 and ps3.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `producto-sustituto` ps2 WHERE ps2.idPadre = " + P[0].ToString() + " and ps2.activado = 1)) as t on ps.idPadre = t.idPadre"
+                    + " WHERE ps.fecha_aplicacion = t.fecha_aplicacion and ps.activado = 1 and ps.version >= all(SELECT distinct ps4.version FROM `producto-sustituto` ps4 WHERE ps4.idPadre = " + P[0].ToString() + " and ps4.activado = 1 and ps4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion"
+                    + " FROM `producto-sustituto` ps5 WHERE ps5.idPadre = " + P[0].ToString() + " and ps5.activado = 1)); ");
 
-            //foreach (producto_sustituto tupla in query)
-            //{
 
-            //}
+            return relleno.ToList<producto_sustituto>();
+        }
+
+        private List<producto_sustituto> ObtenerSustitutos()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
+
+            var relleno = db.producto_sustituto.SqlQuery(@"SELECT * FROM `producto-sustituto` ps INNER JOIN(SELECT distinct ps3.idPadre, ps3.fecha_aplicacion FROM `producto-sustituto` ps3"
+                    + " WHERE ps3.idPadre = " + P[0].ToString() + " and ps3.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `producto-sustituto` ps2 WHERE ps2.idPadre = " + P[0].ToString() + ")) as t on ps.idPadre = t.idPadre"
+                    + " WHERE ps.fecha_aplicacion = t.fecha_aplicacion and ps.version >= all(SELECT distinct ps4.version FROM `producto-sustituto` ps4 WHERE ps4.idPadre = " + P[0].ToString() + " and ps4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion"
+                    + " FROM `producto-sustituto` ps5 WHERE ps5.idPadre = " + P[0].ToString() + ")); ");
+
+
+            return relleno.ToList<producto_sustituto>();
         }
 
         private string CortarCadena (string c)
@@ -293,6 +333,8 @@ namespace Muebleria
         {
             panelComponentes.Enabled = true;
             Actualizar_tabla_temporal();
+            ListaPS.Clear();
+            CargarListaPS();
         }
 
         private void cbComponentes_SelectedIndexChanged(object sender, EventArgs e)
@@ -483,13 +525,6 @@ namespace Muebleria
                          select p.idProducto;
             List<int> C = queryC.ToList();
 
-            producto_sustituto NuevoPS = new producto_sustituto()
-            {
-                idPadre = P[0],
-                idHijo = C[0],
-                user_upd = LogIn.IdUsuario
-            };
-
             List<producto_sustituto> ListaSustitutos = new List<producto_sustituto>();
 
             ListaSustitutos = ListaPS.FindAll(
@@ -623,18 +658,23 @@ namespace Muebleria
                 }
             }
 
-            if (MessageBox.Show("¿Esta seguro que desea realizar la publicación? Una vez publicada no podrá realizar modificaciones para la misma fecha de aplicación.", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                return;
-                      
+            //PUBLICAR COMPONENTE
             int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);//monthCalendar1.SelectionRange.Start.Date;
             DateTime upd = DateTime.Now;
-
             List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
+            Fecha semana = new Fecha();
+            List<padre_componente_publicado> relleno = ObtenerComponentes();
+            int v = 1;
+            if (relleno.Count > 0)
+                if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
+                    v = relleno[0].version + 1;
+
 
             foreach (var fila in query)
             {
                 padre_componente_publicado NuevoPCP = new padre_componente_publicado()
                 {
+                    version = v,
                     idPadreP = fila.idPadre,
                     idHijoP = fila.idHijo,
                     Cantidad = fila.Cantidad,
@@ -656,30 +696,148 @@ namespace Muebleria
             }
             catch
             {
-                MessageBox.Show("El producto ya ha sido publicado");
+                //MessageBox.Show("El producto ya ha sido publicado");
                 //return;
             }
 
-            Publicar_Sustitutos();
 
-            EstadoPublicacion = 1;
-            Actualizar_tabla_temporal();
-        }
+            //PUBLICAR SUSTITUTO
+            List<producto_sustituto> PSP = new List<producto_sustituto>();
+            List<producto_sustituto> rellenosustituto = ObtenerSustitutos();     //traer ultima version sin activado o activado
 
-        private void Publicar_Sustitutos()
-        {
-            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-            List<producto_sustituto> PCP = new List<producto_sustituto>();
-            foreach(producto_sustituto ps in ListaPS)
+            v = 1;
+            if (rellenosustituto.Count > 0)
+                if (semana.convertir(monthCalendar1.SelectionRange.Start) == rellenosustituto[0].fecha_aplicacion)
+                    v = rellenosustituto[0].version + 1;
+
+            //AGREGAR LO DE ACTIVADOOOOOOO
+            Desactivar_ultima_version_PS();
+
+            foreach (producto_sustituto ps in ListaPS)
             {
                 producto_sustituto NuevoPS = new producto_sustituto()
                 {
+                    version = v,
                     idPadre = ps.idPadre,
                     idHijo = ps.idHijo,
                     sustituto = ps.sustituto,
                     last_upd = DateTime.Now,
                     user_upd = ps.user_upd,
-                    fecha_aplicacion = 1    //PONER LA F() CONVERTIR
+                    fecha_aplicacion = semana.convertir(monthCalendar1.SelectionRange.Start),
+                    activado = 1
+                };
+                PSP.Add(NuevoPS);
+            }
+            try
+            {
+                foreach (producto_sustituto item in PSP)
+                {
+                    db.producto_sustituto.Add(item);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                //MessageBox.Show("No se agregaron los productos sustitutos");
+            }
+
+
+            //if (MessageBox.Show("¿Esta seguro que desea realizar la publicación? Una vez publicada no podrá realizar modificaciones para la misma fecha de aplicación.", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            //    return;
+
+
+            //try
+            //{
+            //    Publicar_Componentes();
+            //    Publicar_Sustitutos();
+            //    MessageBox.Show("La publicación se realizó de manera exitosa");
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("No se pudo realizar la publicación");
+            //}
+
+
+            EstadoPublicacion = 1;
+            Actualizar_tabla_temporal();
+        }
+
+        private void Publicar_Componentes()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);//monthCalendar1.SelectionRange.Start.Date;
+            DateTime upd = DateTime.Now;
+            List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
+            Fecha semana = new Fecha();
+            List<padre_componente_publicado> relleno = ObtenerComponentes();
+            int v = 0;
+            if (relleno.Count > 0)
+                if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
+                    v = relleno[0].version + 1;
+
+            //Filas de padre-componente-temporal
+            var query = from pct in db.padre_componente_temporal
+                        select pct;
+
+            foreach (var fila in query)
+            {
+                padre_componente_publicado NuevoPCP = new padre_componente_publicado()
+                {
+                    version = v,
+                    idPadreP = fila.idPadre,
+                    idHijoP = fila.idHijo,
+                    Cantidad = fila.Cantidad,
+                    U_medida_default = fila.U_medida_default,
+                    U_medida_usada = fila.U_medida_usada,
+                    fecha_aplicacion = aplicacion,
+                    last_upd = upd,
+                    user_upd = LogIn.IdUsuario
+                };
+                PCP.Add(NuevoPCP);
+            }
+            try
+            {
+                foreach (padre_componente_publicado item in PCP)
+                {
+                    db.padre_componente_publicado.Add(item);
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                //MessageBox.Show("El producto ya ha sido publicado");
+                //return;
+            }
+        }
+
+        private void Publicar_Sustitutos()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            Fecha semana = new Fecha();
+            List<producto_sustituto> PCP = new List<producto_sustituto>();
+            List<producto_sustituto> relleno = ObtenerSustitutos();     //traer ultima version sin activado o activado
+
+            int v=0;
+            if (relleno.Count > 0)
+                if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
+                    v = relleno[0].version + 1;
+
+            //AGREGAR LO DE ACTIVADOOOOOOO
+            Desactivar_ultima_version_PS();
+
+            foreach (producto_sustituto ps in ListaPS)
+            {
+                producto_sustituto NuevoPS = new producto_sustituto()
+                {
+                    version = v,
+                    idPadre = ps.idPadre,
+                    idHijo = ps.idHijo,
+                    sustituto = ps.sustituto,
+                    last_upd = DateTime.Now,
+                    user_upd = ps.user_upd,
+                    fecha_aplicacion = semana.convertir(monthCalendar1.SelectionRange.Start),
+                    activado = 1
                 };
                 PCP.Add(NuevoPS);
             }
@@ -693,7 +851,33 @@ namespace Muebleria
             }
             catch
             {
-                MessageBox.Show("No se agregaron los productos sustitutos");
+                //MessageBox.Show("No se agregaron los productos sustitutos");
+            }
+        }
+
+        private void Desactivar_ultima_version_PS()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
+
+            var ListaPSparaDesactivar = db.producto_sustituto.SqlQuery(@"SELECT * FROM `producto-sustituto` ps INNER JOIN(SELECT distinct ps3.idPadre, ps3.fecha_aplicacion FROM `producto-sustituto` ps3"
+                    + " WHERE ps3.idPadre = " + P[0].ToString() + " and ps3.activado = 1 and ps3.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `producto-sustituto` ps2 WHERE ps2.idPadre = " + P[0].ToString() + " and ps2.activado = 1)) as t on ps.idPadre = t.idPadre"
+                    + " WHERE ps.fecha_aplicacion = t.fecha_aplicacion and ps.activado = 1 and ps.version >= all(SELECT distinct ps4.version FROM `producto-sustituto` ps4 WHERE ps4.idPadre = " + P[0].ToString() + " and ps4.activado = 1 and ps4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion"
+                    + " FROM `producto-sustituto` ps5 WHERE ps5.idPadre = " + P[0].ToString() + " and ps5.activado = 1)); ");
+
+            if (ListaPSparaDesactivar.Count() > 0)
+            {
+                foreach (var Item in ListaPSparaDesactivar)
+                    Item.activado = 0;
+
+                db.SaveChanges();
             }
         }
 
@@ -740,23 +924,12 @@ namespace Muebleria
         private void RellenarTablaTemporal()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-
-            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
-            var queryP = from p in db.producto
-                         from t in db.traduccion
-                         where p.idDescriptionP == t.idDescriptionT &&
-                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
-                         t.idLanguageT == LogIn.IdIdioma
-                         select p.idProducto;
-            List<int> P = queryP.ToList();
-
-            //var blogs = db.producto.SqlQuery("SELECT * FROM producto").ToList();
-            var relleno = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp WHERE pcp.idPadreP = " + P[0].ToString() + " and pcp.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + ")");
+            List<padre_componente_publicado> relleno = ObtenerComponentes();
             List<padre_componente_temporal> ListaPCT = new List<padre_componente_temporal>();
 
             
 
-            foreach (var fila in relleno)
+            foreach (padre_componente_publicado fila in relleno)
             {
                 padre_componente_temporal NuevoPCT = new padre_componente_temporal()
                 {
@@ -786,6 +959,27 @@ namespace Muebleria
                 lblFechaAplicacion.Visible = false;
                 return;
             }
+        }
+
+        private List<padre_componente_publicado> ObtenerComponentes()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
+            List<int> P = queryP.ToList();
+
+            //var blogs = db.producto.SqlQuery("SELECT * FROM producto").ToList();
+            //var relleno = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp WHERE pcp.idPadreP = " + P[0].ToString() + " and pcp.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + ")");
+            var componentes = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion "
+                                                                    + "FROM `padre-componente-publicado` pcp3 WHERE pcp3.idPadreP = " + P[0].ToString() + ")) as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 "
+                                                                    + "WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp5 WHERE pcp5.idPadreP = " + P[0].ToString() + ")); ");
+            return componentes.ToList<padre_componente_publicado>();
         }
 
         private void cbProductos_Click(object sender, EventArgs e)

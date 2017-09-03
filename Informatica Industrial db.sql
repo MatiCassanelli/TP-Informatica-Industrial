@@ -143,7 +143,7 @@ DROP TABLE IF EXISTS `padre-componente-publicado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `padre-componente-publicado` (
-  `version` int(11) NOT NULL AUTO_INCREMENT,
+  `version` int(11) NOT NULL,
   `idPadreP` int(11) NOT NULL,
   `idHijoP` int(11) NOT NULL,
   `Cantidad` float NOT NULL,
@@ -155,8 +155,9 @@ CREATE TABLE `padre-componente-publicado` (
   PRIMARY KEY (`version`,`idPadreP`,`idHijoP`,`fecha_aplicacion`),
   KEY `idHijo_idx` (`idHijoP`),
   KEY `user_upd_idx` (`user_upd`),
-  CONSTRAINT `idPadreP` FOREIGN KEY (`idPadreP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `idPadreP_idx` (`idPadreP`),
   CONSTRAINT `idHijoP` FOREIGN KEY (`idHijoP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idPadreP` FOREIGN KEY (`idPadreP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_upd` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -167,6 +168,7 @@ CREATE TABLE `padre-componente-publicado` (
 
 LOCK TABLES `padre-componente-publicado` WRITE;
 /*!40000 ALTER TABLE `padre-componente-publicado` DISABLE KEYS */;
+INSERT INTO `padre-componente-publicado` VALUES (0,10056456,10056461,1,1,1,36,'2017-09-03 18:34:52',1),(0,10056456,10056461,1,1,1,37,'2017-09-03 18:37:33',1);
 /*!40000 ALTER TABLE `padre-componente-publicado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,6 +199,7 @@ CREATE TABLE `padre-componente-temporal` (
 
 LOCK TABLES `padre-componente-temporal` WRITE;
 /*!40000 ALTER TABLE `padre-componente-temporal` DISABLE KEYS */;
+INSERT INTO `padre-componente-temporal` VALUES (10056456,10056461,1,1,1);
 /*!40000 ALTER TABLE `padre-componente-temporal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,20 +250,21 @@ DROP TABLE IF EXISTS `producto-sustituto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto-sustituto` (
-  `version` int(11) NOT NULL AUTO_INCREMENT,
+  `version` int(11) NOT NULL,
   `idPadre` int(11) NOT NULL,
   `idHijo` int(11) NOT NULL,
   `sustituto` int(11) NOT NULL,
   `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_upd` int(11) NOT NULL,
   `fecha_aplicacion` int(6) NOT NULL,
+  `activado` tinyint(4) NOT NULL,
   PRIMARY KEY (`version`,`idPadre`,`idHijo`,`sustituto`,`fecha_aplicacion`),
   KEY `idPadrePS_idx` (`idPadre`),
   KEY `idHijoPS_idx` (`idHijo`),
   KEY `idSustitutoPS_idx` (`sustituto`),
   KEY `userPS_idx` (`user_upd`),
-  CONSTRAINT `idPadrePS` FOREIGN KEY (`idPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idHijoPS` FOREIGN KEY (`idHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idPadrePS` FOREIGN KEY (`idPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idSustitutoPS` FOREIGN KEY (`sustituto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userPS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -272,6 +276,7 @@ CREATE TABLE `producto-sustituto` (
 
 LOCK TABLES `producto-sustituto` WRITE;
 /*!40000 ALTER TABLE `producto-sustituto` DISABLE KEYS */;
+INSERT INTO `producto-sustituto` VALUES (0,10056456,10056461,10056462,'2017-09-03 18:37:47',1,36,0),(0,10056456,10056461,10056462,'2017-09-03 18:37:52',1,37,1);
 /*!40000 ALTER TABLE `producto-sustituto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-02 12:50:17
+-- Dump completed on 2017-09-03 15:39:10

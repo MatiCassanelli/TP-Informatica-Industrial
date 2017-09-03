@@ -54,7 +54,7 @@
             <PropertyRef Name="idHijoP" />
             <PropertyRef Name="fecha_aplicacion" />
           </Key>
-          <Property Name="version" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="idPadreP" Type="int" Nullable="false" />
           <Property Name="idHijoP" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="float" Nullable="false" />
@@ -97,13 +97,14 @@
             <PropertyRef Name="sustituto" />
             <PropertyRef Name="fecha_aplicacion" />
           </Key>
-          <Property Name="version" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="idPadre" Type="int" Nullable="false" />
           <Property Name="idHijo" Type="int" Nullable="false" />
           <Property Name="sustituto" Type="int" Nullable="false" />
           <Property Name="last_upd" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="user_upd" Type="int" Nullable="false" />
           <Property Name="fecha_aplicacion" Type="int" Nullable="false" />
+          <Property Name="activado" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -957,6 +958,7 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="producto1" Relationship="Model.idPadrePS" FromRole="producto_sustituto" ToRole="producto" />
           <NavigationProperty Name="producto2" Relationship="Model.idSustitutoPS" FromRole="producto_sustituto" ToRole="producto" />
           <NavigationProperty Name="users" Relationship="Model.userPS" FromRole="producto_sustituto" ToRole="users" />
+          <Property Name="activado" Type="SByte" Nullable="false" />
         </EntityType>
         <Association Name="idHijoPS">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
@@ -1199,6 +1201,7 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <EntitySetMapping Name="producto_sustituto">
             <EntityTypeMapping TypeName="Model.producto_sustituto">
               <MappingFragment StoreEntitySet="producto-sustituto">
+                <ScalarProperty Name="activado" ColumnName="activado" />
                 <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
                 <ScalarProperty Name="user_upd" ColumnName="user_upd" />
                 <ScalarProperty Name="last_upd" ColumnName="last_upd" />
