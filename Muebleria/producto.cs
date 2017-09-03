@@ -24,6 +24,10 @@ namespace Muebleria
             this.producto_sustituto = new HashSet<producto_sustituto>();
             this.producto_sustituto1 = new HashSet<producto_sustituto>();
             this.producto_sustituto2 = new HashSet<producto_sustituto>();
+            this.articulo = new HashSet<articulo>();
+            this.movimiento = new HashSet<movimiento>();
+            this.precio = new HashSet<precio>();
+            this.remito_detalle = new HashSet<remito_detalle>();
         }
     
         public int idProducto { get; set; }
@@ -53,5 +57,14 @@ namespace Muebleria
         public virtual ICollection<producto_sustituto> producto_sustituto1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto_sustituto> producto_sustituto2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<articulo> articulo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<movimiento> movimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<precio> precio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
+        public virtual stock stock { get; set; }
     }
 }

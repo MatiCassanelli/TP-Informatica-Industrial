@@ -12,28 +12,21 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class externo
+    public partial class remito
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public externo()
+        public remito()
         {
-            this.remito = new HashSet<remito>();
+            this.remito_detalle = new HashSet<remito_detalle>();
         }
     
-        public int idExterno { get; set; }
-        public int idTipo_Externo { get; set; }
-        public int Description_id { get; set; }
-        public string CUIT { get; set; }
-        public int Direcion_id { get; set; }
-        public int Direcion_ent_id { get; set; }
-        public int Direcion_fac_id { get; set; }
-        public string Nac_Ext { get; set; }
+        public int idRemito { get; set; }
+        public int Cliente { get; set; }
+        public string Destino { get; set; }
+        public float Precio_total { get; set; }
     
-        public virtual direccion direccion { get; set; }
-        public virtual direccion direccion1 { get; set; }
-        public virtual direccion direccion2 { get; set; }
-        public virtual tipo_externo tipo_externo { get; set; }
+        public virtual externo externo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<remito> remito { get; set; }
+        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
     }
 }

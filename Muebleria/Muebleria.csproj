@@ -69,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="articulo.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Base de Datos.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -127,11 +130,17 @@
     <Compile Include="Menu.designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="movimiento.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="PadreHijo.cs" />
     <Compile Include="padre_componente_publicado.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="padre_componente_temporal.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="precio.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="producto.cs">
@@ -142,8 +151,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="razon.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="RegexUtilities.cs" />
+    <Compile Include="remito.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="remito_detalle.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="role.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="stock.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="tipo_externo.cs">

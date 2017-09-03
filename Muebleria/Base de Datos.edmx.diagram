@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="8.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="11" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="5.75" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="8.75" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
@@ -40,6 +40,25 @@
         <AssociationConnector Association="Model.idPadrePS" />
         <AssociationConnector Association="Model.idSustitutoPS" />
         <AssociationConnector Association="Model.userPS" />
+        <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="14.25" PointY="5" />
+        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="14.25" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.precio" Width="1.5" PointX="13.25" PointY="9.375" />
+        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="9" PointY="20.625" />
+        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="7.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="9.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="11.25" PointY="13.375" />
+        <AssociationConnector Association="Model.idProductoA" />
+        <AssociationConnector Association="Model.usser_updA" />
+        <AssociationConnector Association="Model.Cliente" />
+        <AssociationConnector Association="Model.idProductoM" />
+        <AssociationConnector Association="Model.idRazonM" />
+        <AssociationConnector Association="Model.unidad_medidaM" />
+        <AssociationConnector Association="Model.idProductoPrecio" />
+        <AssociationConnector Association="Model.user_updPrecio" />
+        <AssociationConnector Association="Model.idProductoRD" />
+        <AssociationConnector Association="Model.idProductoS" />
+        <AssociationConnector Association="Model.idRemitoRD" />
+        <AssociationConnector Association="Model.User_updS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

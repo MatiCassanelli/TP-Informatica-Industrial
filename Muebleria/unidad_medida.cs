@@ -21,6 +21,7 @@ namespace Muebleria
             this.conversion1 = new HashSet<conversion>();
             this.producto = new HashSet<producto>();
             this.producto1 = new HashSet<producto>();
+            this.movimiento = new HashSet<movimiento>();
         }
     
         public int idUnidad_Medida { get; set; }
@@ -35,5 +36,7 @@ namespace Muebleria
         public virtual ICollection<producto> producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto> producto1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<movimiento> movimiento { get; set; }
     }
 }

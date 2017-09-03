@@ -12,28 +12,18 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class externo
+    public partial class razon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public externo()
+        public razon()
         {
-            this.remito = new HashSet<remito>();
+            this.movimiento = new HashSet<movimiento>();
         }
     
-        public int idExterno { get; set; }
-        public int idTipo_Externo { get; set; }
-        public int Description_id { get; set; }
-        public string CUIT { get; set; }
-        public int Direcion_id { get; set; }
-        public int Direcion_ent_id { get; set; }
-        public int Direcion_fac_id { get; set; }
-        public string Nac_Ext { get; set; }
+        public int idRazon { get; set; }
+        public int idDescripcion { get; set; }
     
-        public virtual direccion direccion { get; set; }
-        public virtual direccion direccion1 { get; set; }
-        public virtual direccion direccion2 { get; set; }
-        public virtual tipo_externo tipo_externo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<remito> remito { get; set; }
+        public virtual ICollection<movimiento> movimiento { get; set; }
     }
 }
