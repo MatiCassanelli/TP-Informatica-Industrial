@@ -394,7 +394,6 @@ namespace Muebleria
             lblProdSeleccionado.Text = texto;
         }
 
-        //MODIFICAR
         private void btnCargarSustituto_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -404,7 +403,6 @@ namespace Muebleria
                 MessageBox.Show("Seleccione un componente de la lista para indicar sustituto");
                 return;
             }
-
 
             //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
             var queryP = from p in db.producto
@@ -449,56 +447,10 @@ namespace Muebleria
                 MessageBox.Show("El componente ya ha sido agregado");
             else
                 ListaPS.Add(NuevoPS);
-
-            //if (ListaPS.Contains(NuevoPS) == true)
-            //    MessageBox.Show("El componente ya ha sido agregado");
-            //else
-            //    ListaPS.Add(NuevoPS);
-            /* TENGO Q MANEJAR TODO CON UNA LISTA INTERNA DEL PROGRAMA
             
-            //Obtener tupla indicada de la tabla producto_sustituto
-            var auxp = P[0];
-            var auxc = C[0];
-            var auxs = S[0];
-            var sustituto = from ps in db.producto_sustituto
-                            where ps.idPadre == auxp &&
-                            ps.idHijo == auxc &&
-                            ps.sustituto == auxs
-                            select ps;
-            
-            
-            if(sustituto.Count() > 0)
-            {
-                foreach (var Item in sustituto)
-                    Item.activado = 1;
-
-                db.SaveChanges();
-            }
-            else
-            {
-                producto_sustituto nuevoPS = new producto_sustituto()
-                {
-                    idPadre = P[0],
-                    idHijo = C[0],
-                    sustituto = S[0],
-                    activado = 1
-                };
-                try
-                {
-                    db.producto_sustituto.Add(nuevoPS);
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    MessageBox.Show("El componente ya ha sido agregado");
-                    return;
-                }
-            }
-            */
             Actualizar_ListBox_Sustitutos();
         }
 
-        //MODIFICAR
         private void Actualizar_ListBox_Sustitutos()
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -553,7 +505,6 @@ namespace Muebleria
 
         }
 
-        //MODIFICAR
         private void btnEliminar_Sustituto_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -591,15 +542,7 @@ namespace Muebleria
                          t.idLanguageT == LogIn.IdIdioma
                          select p.idProducto;
             List<int> S = queryS.ToList();
-
-            //producto_sustituto NuevoPS = new producto_sustituto()
-            //{
-            //    idPadre = P[0],
-            //    idHijo = C[0],
-            //    sustituto = S[0],
-            //    user_upd = LogIn.IdUsuario
-            //};
-
+            
             producto_sustituto sust = ListaPS.Find(
                 delegate (producto_sustituto ps)
                 {
@@ -608,28 +551,11 @@ namespace Muebleria
             );
 
             ListaPS.Remove(sust);
-            /*
-            //Obtener tupla indicada de la tabla producto_sustituto
-            var auxp = P[0];
-            var auxc = C[0];
-            var auxs = S[0];
-            var sustituto = from ps in db.producto_sustituto
-                            where ps.idPadre == auxp &&
-                            ps.idHijo == auxc &&
-                            ps.sustituto == auxs
-                            select ps;
-
-            foreach (var Item in sustituto)
-                Item.activado = 0;
-
-            db.SaveChanges();
-            */
 
             Actualizar_ListBox_Sustitutos();
 
         }
 
-        //MODIFICAR --> debe publicar la lista de productos-sustitutos
         private void btnPublicar_Click(object sender, EventArgs e)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
@@ -653,111 +579,20 @@ namespace Muebleria
                 if (f.convertir(monthCalendar1.SelectionRange.Start).ToString() == f.convertir(DateTime.Now).ToString())
                 {
                     MessageBox.Show("No se pueden realizar cambios en la estructura en la misma semana de su publicacion.");
-                    //EstadoPublicacion = 1;
                     return;
                 }
             }
 
-            //PUBLICAR COMPONENTE
-            int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);//monthCalendar1.SelectionRange.Start.Date;
-            DateTime upd = DateTime.Now;
-            List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
-            Fecha semana = new Fecha();
-            List<padre_componente_publicado> relleno = ObtenerComponentes();
-            int v = 1;
-            if (relleno.Count > 0)
-                if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
-                    v = relleno[0].version + 1;
-
-
-            foreach (var fila in query)
-            {
-                padre_componente_publicado NuevoPCP = new padre_componente_publicado()
-                {
-                    
-                    idPadreP = fila.idPadre,
-                    idHijoP = fila.idHijo,
-                    Cantidad = fila.Cantidad,
-                    U_medida_default = fila.U_medida_default,
-                    U_medida_usada = fila.U_medida_usada,
-                    fecha_aplicacion = aplicacion,
-                    last_upd = upd,
-                    user_upd = LogIn.IdUsuario,
-                    version = v
-                };
-                PCP.Add(NuevoPCP);
-            }
             try
             {
-                foreach (padre_componente_publicado item in PCP)
-                {
-                    db.padre_componente_publicado.Add(item);
-                    db.SaveChanges();
-                }
+                Publicar_Componentes();
+                Publicar_Sustitutos();
+                MessageBox.Show("La publicación se realizó de manera exitosa");
             }
             catch
             {
-                //MessageBox.Show("El producto ya ha sido publicado");
-                //return;
+                MessageBox.Show("No se pudo realizar la publicación");
             }
-
-
-            //PUBLICAR SUSTITUTO
-            List<producto_sustituto> PSP = new List<producto_sustituto>();
-            List<producto_sustituto> rellenosustituto = ObtenerSustitutos();     //traer ultima version sin activado o activado
-
-            v = 1;
-            if (rellenosustituto.Count > 0)
-                if (semana.convertir(monthCalendar1.SelectionRange.Start) == rellenosustituto[0].fecha_aplicacion)
-                    v = rellenosustituto[0].version + 1;
-
-            //AGREGAR LO DE ACTIVADOOOOOOO
-            Desactivar_ultima_version_PS();
-
-            foreach (producto_sustituto ps in ListaPS)
-            {
-                producto_sustituto NuevoPS = new producto_sustituto()
-                {
-                    
-                    idPadre = ps.idPadre,
-                    idHijo = ps.idHijo,
-                    sustituto = ps.sustituto,
-                    last_upd = DateTime.Now,
-                    user_upd = ps.user_upd,
-                    fecha_aplicacion = semana.convertir(monthCalendar1.SelectionRange.Start),
-                    activado = 1,
-                    version = v
-                };
-                PSP.Add(NuevoPS);
-            }
-            try
-            {
-                foreach (producto_sustituto item in PSP)
-                {
-                    db.producto_sustituto.Add(item);
-                    db.SaveChanges();
-                }
-            }
-            catch
-            {
-                //MessageBox.Show("No se agregaron los productos sustitutos");
-            }
-
-
-            //if (MessageBox.Show("¿Esta seguro que desea realizar la publicación? Una vez publicada no podrá realizar modificaciones para la misma fecha de aplicación.", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-            //    return;
-
-
-            //try
-            //{
-            //    Publicar_Componentes();
-            //    Publicar_Sustitutos();
-            //    MessageBox.Show("La publicación se realizó de manera exitosa");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("No se pudo realizar la publicación");
-            //}
 
 
             EstadoPublicacion = 1;
@@ -768,7 +603,7 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
-            int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);//monthCalendar1.SelectionRange.Start.Date;
+            int aplicacion = f.convertir(monthCalendar1.SelectionRange.Start);
             DateTime upd = DateTime.Now;
             List<padre_componente_publicado> PCP = new List<padre_componente_publicado>();
             Fecha semana = new Fecha();
@@ -808,8 +643,7 @@ namespace Muebleria
             }
             catch
             {
-                //MessageBox.Show("El producto ya ha sido publicado");
-                //return;
+
             }
         }
 
@@ -818,14 +652,13 @@ namespace Muebleria
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             Fecha semana = new Fecha();
             List<producto_sustituto> PCP = new List<producto_sustituto>();
-            List<producto_sustituto> relleno = ObtenerSustitutos();     //traer ultima version sin activado o activado
+            List<producto_sustituto> relleno = ObtenerSustitutos();     //trae ultima version activada o desactivada
 
             int v=0;
             if (relleno.Count > 0)
                 if (semana.convertir(monthCalendar1.SelectionRange.Start) == relleno[0].fecha_aplicacion)
                     v = relleno[0].version + 1;
 
-            //AGREGAR LO DE ACTIVADOOOOOOO
             Desactivar_ultima_version_PS();
 
             foreach (producto_sustituto ps in ListaPS)
@@ -853,7 +686,7 @@ namespace Muebleria
             }
             catch
             {
-                //MessageBox.Show("No se agregaron los productos sustitutos");
+               
             }
         }
 
@@ -929,8 +762,6 @@ namespace Muebleria
             List<padre_componente_publicado> relleno = ObtenerComponentes();
             List<padre_componente_temporal> ListaPCT = new List<padre_componente_temporal>();
 
-            
-
             foreach (padre_componente_publicado fila in relleno)
             {
                 padre_componente_temporal NuevoPCT = new padre_componente_temporal()
@@ -957,7 +788,6 @@ namespace Muebleria
             }
             catch
             {
-                //MessageBox.Show("No hay datos en la tabla padre componente-publicada");
                 lblFechaAplicacion.Visible = false;
                 return;
             }
