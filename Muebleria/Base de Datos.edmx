@@ -49,12 +49,11 @@
         </EntityType>
         <EntityType Name="padre-componente-publicado">
           <Key>
-            <PropertyRef Name="version" />
             <PropertyRef Name="idPadreP" />
             <PropertyRef Name="idHijoP" />
             <PropertyRef Name="fecha_aplicacion" />
+            <PropertyRef Name="version" />
           </Key>
-          <Property Name="version" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="idPadreP" Type="int" Nullable="false" />
           <Property Name="idHijoP" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="float" Nullable="false" />
@@ -63,6 +62,7 @@
           <Property Name="fecha_aplicacion" Type="int" Nullable="false" />
           <Property Name="last_upd" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="user_upd" Type="int" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="padre-componente-temporal">
           <Key>
@@ -91,13 +91,12 @@
         </EntityType>
         <EntityType Name="producto-sustituto">
           <Key>
-            <PropertyRef Name="version" />
             <PropertyRef Name="idPadre" />
             <PropertyRef Name="idHijo" />
             <PropertyRef Name="sustituto" />
             <PropertyRef Name="fecha_aplicacion" />
+            <PropertyRef Name="version" />
           </Key>
-          <Property Name="version" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="idPadre" Type="int" Nullable="false" />
           <Property Name="idHijo" Type="int" Nullable="false" />
           <Property Name="sustituto" Type="int" Nullable="false" />
@@ -105,6 +104,7 @@
           <Property Name="user_upd" Type="int" Nullable="false" />
           <Property Name="fecha_aplicacion" Type="int" Nullable="false" />
           <Property Name="activado" Type="tinyint" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -588,11 +588,11 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="unidad_medida1" Relationship="Self.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
           <NavigationProperty Name="padre_componente_temporal" Relationship="Model.idHijoT" FromRole="producto" ToRole="padre_componente_temporal" />
           <NavigationProperty Name="padre_componente_temporal1" Relationship="Model.idPadreT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
           <NavigationProperty Name="producto_sustituto" Relationship="Model.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="producto_sustituto1" Relationship="Model.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="producto_sustituto2" Relationship="Model.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
-          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
-          <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
           </EntityType>
         <EntityType Name="role">
           <Key>
@@ -655,9 +655,9 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="language" Relationship="Self.idLanguage" FromRole="users" ToRole="language" />
           <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
-          <NavigationProperty Name="producto_sustituto" Relationship="Model.userPS" FromRole="users" ToRole="producto_sustituto" />
           <NavigationProperty Name="padre_componente_publicado" Relationship="Model.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
-        </EntityType>
+          <NavigationProperty Name="producto_sustituto" Relationship="Model.userPS" FromRole="users" ToRole="producto_sustituto" />
+          </EntityType>
         <Association Name="U_medida">
           <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
           <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
@@ -871,7 +871,20 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             <End Role="producto" EntitySet="producto" />
             <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
           </AssociationSet>
+          <EntitySet Name="padre_componente_publicado" EntityType="Model.padre_componente_publicado" />
           <EntitySet Name="producto_sustituto" EntityType="Model.producto_sustituto" />
+          <AssociationSet Name="idHijoP" Association="Model.idHijoP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreP" Association="Model.idPadreP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="user_upd" Association="Model.user_upd">
+            <End Role="users" EntitySet="users" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
           <AssociationSet Name="idHijoPS" Association="Model.idHijoPS">
             <End Role="producto" EntitySet="producto" />
             <End Role="producto_sustituto" EntitySet="producto_sustituto" />
@@ -887,19 +900,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <AssociationSet Name="userPS" Association="Model.userPS">
             <End Role="users" EntitySet="users" />
             <End Role="producto_sustituto" EntitySet="producto_sustituto" />
-          </AssociationSet>
-          <EntitySet Name="padre_componente_publicado" EntityType="Model.padre_componente_publicado" />
-          <AssociationSet Name="idHijoP" Association="Model.idHijoP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
-          </AssociationSet>
-          <AssociationSet Name="idPadreP" Association="Model.idPadreP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
-          </AssociationSet>
-          <AssociationSet Name="user_upd" Association="Model.user_upd">
-            <End Role="users" EntitySet="users" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="padre_componente_temporal">
@@ -939,27 +939,83 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="padre_componente_publicado">
+          <Key>
+            <PropertyRef Name="idPadreP" />
+            <PropertyRef Name="idHijoP" />
+            <PropertyRef Name="fecha_aplicacion" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="idPadreP" Type="Int32" Nullable="false" />
+          <Property Name="idHijoP" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Single" Nullable="false" />
+          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
+          <Property Name="U_medida_usada" Type="Int32" Nullable="false" />
+          <Property Name="fecha_aplicacion" Type="Int32" Nullable="false" />
+          <Property Name="last_upd" Type="DateTime" Nullable="false" />
+          <Property Name="user_upd" Type="Int32" Nullable="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idHijoP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Model.idPadreP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Model.user_upd" FromRole="padre_componente_publicado" ToRole="users" />
+        </EntityType>
         <EntityType Name="producto_sustituto">
           <Key>
-            <PropertyRef Name="version" />
             <PropertyRef Name="idPadre" />
             <PropertyRef Name="idHijo" />
             <PropertyRef Name="sustituto" />
             <PropertyRef Name="fecha_aplicacion" />
+            <PropertyRef Name="version" />
           </Key>
-          <Property Name="version" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPadre" Type="Int32" Nullable="false" />
           <Property Name="idHijo" Type="Int32" Nullable="false" />
           <Property Name="sustituto" Type="Int32" Nullable="false" />
           <Property Name="last_upd" Type="DateTime" Nullable="false" />
           <Property Name="user_upd" Type="Int32" Nullable="false" />
           <Property Name="fecha_aplicacion" Type="Int32" Nullable="false" />
+          <Property Name="activado" Type="SByte" Nullable="false" />
+          <Property Name="version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="producto" Relationship="Model.idHijoPS" FromRole="producto_sustituto" ToRole="producto" />
           <NavigationProperty Name="producto1" Relationship="Model.idPadrePS" FromRole="producto_sustituto" ToRole="producto" />
           <NavigationProperty Name="producto2" Relationship="Model.idSustitutoPS" FromRole="producto_sustituto" ToRole="producto" />
           <NavigationProperty Name="users" Relationship="Model.userPS" FromRole="producto_sustituto" ToRole="users" />
-          <Property Name="activado" Type="SByte" Nullable="false" />
         </EntityType>
+        <Association Name="idHijoP">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="idHijoP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idPadreP">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="idPadreP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_upd">
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="padre_componente_publicado">
+              <PropertyRef Name="user_upd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idHijoPS">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
           <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
@@ -1004,62 +1060,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               <PropertyRef Name="idUsers" />
             </Principal>
             <Dependent Role="producto_sustituto">
-              <PropertyRef Name="user_upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="padre_componente_publicado">
-          <Key>
-            <PropertyRef Name="version" />
-            <PropertyRef Name="idPadreP" />
-            <PropertyRef Name="idHijoP" />
-            <PropertyRef Name="fecha_aplicacion" />
-          </Key>
-          <Property Name="version" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPadreP" Type="Int32" Nullable="false" />
-          <Property Name="idHijoP" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Single" Nullable="false" />
-          <Property Name="U_medida_default" Type="Int32" Nullable="false" />
-          <Property Name="U_medida_usada" Type="Int32" Nullable="false" />
-          <Property Name="fecha_aplicacion" Type="Int32" Nullable="false" />
-          <Property Name="last_upd" Type="DateTime" Nullable="false" />
-          <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idHijoP" FromRole="padre_componente_publicado" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Model.idPadreP" FromRole="padre_componente_publicado" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.user_upd" FromRole="padre_componente_publicado" ToRole="users" />
-        </EntityType>
-        <Association Name="idHijoP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre_componente_publicado">
-              <PropertyRef Name="idHijoP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idPadreP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre_componente_publicado">
-              <PropertyRef Name="idPadreP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="user_upd">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="idUsers" />
-            </Principal>
-            <Dependent Role="padre_componente_publicado">
               <PropertyRef Name="user_upd" />
             </Dependent>
           </ReferentialConstraint>
@@ -1198,23 +1198,10 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="producto_sustituto">
-            <EntityTypeMapping TypeName="Model.producto_sustituto">
-              <MappingFragment StoreEntitySet="producto-sustituto">
-                <ScalarProperty Name="activado" ColumnName="activado" />
-                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="sustituto" ColumnName="sustituto" />
-                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
-                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
-                <ScalarProperty Name="version" ColumnName="version" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="padre_componente_publicado">
             <EntityTypeMapping TypeName="Model.padre_componente_publicado">
               <MappingFragment StoreEntitySet="padre-componente-publicado">
+                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="user_upd" ColumnName="user_upd" />
                 <ScalarProperty Name="last_upd" ColumnName="last_upd" />
                 <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
@@ -1223,11 +1210,24 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="idHijoP" ColumnName="idHijoP" />
                 <ScalarProperty Name="idPadreP" ColumnName="idPadreP" />
-                <ScalarProperty Name="version" ColumnName="version" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="producto_sustituto">
+            <EntityTypeMapping TypeName="Model.producto_sustituto">
+              <MappingFragment StoreEntitySet="producto-sustituto">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="activado" ColumnName="activado" />
+                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="sustituto" ColumnName="sustituto" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

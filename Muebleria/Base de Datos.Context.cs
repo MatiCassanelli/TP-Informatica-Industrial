@@ -37,7 +37,7 @@ namespace Muebleria
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<padre_componente_temporal> padre_componente_temporal { get; set; }
-        public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
         public virtual DbSet<padre_componente_publicado> padre_componente_publicado { get; set; }
+        public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
     }
 }

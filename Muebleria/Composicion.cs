@@ -674,7 +674,7 @@ namespace Muebleria
             {
                 padre_componente_publicado NuevoPCP = new padre_componente_publicado()
                 {
-                    version = v,
+                    
                     idPadreP = fila.idPadre,
                     idHijoP = fila.idHijo,
                     Cantidad = fila.Cantidad,
@@ -682,7 +682,8 @@ namespace Muebleria
                     U_medida_usada = fila.U_medida_usada,
                     fecha_aplicacion = aplicacion,
                     last_upd = upd,
-                    user_upd = LogIn.IdUsuario
+                    user_upd = LogIn.IdUsuario,
+                    version = v
                 };
                 PCP.Add(NuevoPCP);
             }
@@ -717,14 +718,15 @@ namespace Muebleria
             {
                 producto_sustituto NuevoPS = new producto_sustituto()
                 {
-                    version = v,
+                    
                     idPadre = ps.idPadre,
                     idHijo = ps.idHijo,
                     sustituto = ps.sustituto,
                     last_upd = DateTime.Now,
                     user_upd = ps.user_upd,
                     fecha_aplicacion = semana.convertir(monthCalendar1.SelectionRange.Start),
-                    activado = 1
+                    activado = 1,
+                    version = v
                 };
                 PSP.Add(NuevoPS);
             }

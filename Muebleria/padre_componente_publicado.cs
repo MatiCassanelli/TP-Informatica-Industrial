@@ -14,7 +14,6 @@ namespace Muebleria
     
     public partial class padre_componente_publicado
     {
-        public int version { get; set; }
         public int idPadreP { get; set; }
         public int idHijoP { get; set; }
         public float Cantidad { get; set; }
@@ -23,6 +22,7 @@ namespace Muebleria
         public int fecha_aplicacion { get; set; }
         public System.DateTime last_upd { get; set; }
         public int user_upd { get; set; }
+        public int version { get; set; }
     
         public virtual producto producto { get; set; }
         public virtual producto producto1 { get; set; }

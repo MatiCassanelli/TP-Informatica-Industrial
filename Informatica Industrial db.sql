@@ -143,7 +143,6 @@ DROP TABLE IF EXISTS `padre-componente-publicado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `padre-componente-publicado` (
-  `version` int(11) NOT NULL,
   `idPadreP` int(11) NOT NULL,
   `idHijoP` int(11) NOT NULL,
   `Cantidad` float NOT NULL,
@@ -152,7 +151,8 @@ CREATE TABLE `padre-componente-publicado` (
   `fecha_aplicacion` int(6) NOT NULL,
   `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_upd` int(11) NOT NULL,
-  PRIMARY KEY (`version`,`idPadreP`,`idHijoP`,`fecha_aplicacion`),
+  `version` int(11) NOT NULL,
+  PRIMARY KEY (`idPadreP`,`idHijoP`,`fecha_aplicacion`,`version`),
   KEY `idHijo_idx` (`idHijoP`),
   KEY `user_upd_idx` (`user_upd`),
   KEY `idPadreP_idx` (`idPadreP`),
@@ -168,7 +168,6 @@ CREATE TABLE `padre-componente-publicado` (
 
 LOCK TABLES `padre-componente-publicado` WRITE;
 /*!40000 ALTER TABLE `padre-componente-publicado` DISABLE KEYS */;
-INSERT INTO `padre-componente-publicado` VALUES (0,10056456,10056461,1,1,1,36,'2017-09-03 18:34:52',1),(0,10056456,10056461,1,1,1,37,'2017-09-03 18:37:33',1);
 /*!40000 ALTER TABLE `padre-componente-publicado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +249,6 @@ DROP TABLE IF EXISTS `producto-sustituto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto-sustituto` (
-  `version` int(11) NOT NULL,
   `idPadre` int(11) NOT NULL,
   `idHijo` int(11) NOT NULL,
   `sustituto` int(11) NOT NULL,
@@ -258,7 +256,8 @@ CREATE TABLE `producto-sustituto` (
   `user_upd` int(11) NOT NULL,
   `fecha_aplicacion` int(6) NOT NULL,
   `activado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`version`,`idPadre`,`idHijo`,`sustituto`,`fecha_aplicacion`),
+  `version` int(11) NOT NULL,
+  PRIMARY KEY (`idPadre`,`idHijo`,`sustituto`,`fecha_aplicacion`,`version`),
   KEY `idPadrePS_idx` (`idPadre`),
   KEY `idHijoPS_idx` (`idHijo`),
   KEY `idSustitutoPS_idx` (`sustituto`),
@@ -276,7 +275,6 @@ CREATE TABLE `producto-sustituto` (
 
 LOCK TABLES `producto-sustituto` WRITE;
 /*!40000 ALTER TABLE `producto-sustituto` DISABLE KEYS */;
-INSERT INTO `producto-sustituto` VALUES (0,10056456,10056461,10056462,'2017-09-03 18:37:47',1,36,0),(0,10056456,10056461,10056462,'2017-09-03 18:37:52',1,37,1);
 /*!40000 ALTER TABLE `producto-sustituto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-03 15:39:10
+-- Dump completed on 2017-09-03 16:14:49
