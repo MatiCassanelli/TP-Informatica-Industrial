@@ -61,7 +61,7 @@ namespace Muebleria
                           where pcp.fecha_aplicacion <= fecha
                           select new { padre = pcp.idPadreP, hijo1 = pcp.idHijoP, hijo2 = pcp.idHijoP };
             var queryps = from ps in db.producto_sustituto
-                          where ps.fecha_aplicacion <= fecha
+                          where ps.fecha_aplicacion >= fecha && ps.activado==1
                           select new { padre = ps.idPadre, hijo1 = ps.idHijo, hijo2 = ps.sustituto };
 
             var union = querypc.Union(queryps);
