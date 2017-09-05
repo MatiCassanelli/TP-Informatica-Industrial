@@ -19,7 +19,6 @@ namespace Muebleria
         {
             this.producto_sustituto = new HashSet<producto_sustituto>();
             this.articulo = new HashSet<articulo>();
-            this.precio = new HashSet<precio>();
             this.stock = new HashSet<stock>();
             this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
         }
@@ -40,8 +39,6 @@ namespace Muebleria
         public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<articulo> articulo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<precio> precio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stock> stock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

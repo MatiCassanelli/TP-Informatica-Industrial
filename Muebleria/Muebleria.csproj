@@ -140,9 +140,6 @@
     <Compile Include="padre_componente_temporal.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
-    <Compile Include="precio.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="producto.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
