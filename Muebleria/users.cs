@@ -21,6 +21,7 @@ namespace Muebleria
             this.articulo = new HashSet<articulo>();
             this.stock = new HashSet<stock>();
             this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
+            this.precio = new HashSet<precio>();
         }
     
         public int idUsers { get; set; }
@@ -43,5 +44,7 @@ namespace Muebleria
         public virtual ICollection<stock> stock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<precio> precio { get; set; }
     }
 }

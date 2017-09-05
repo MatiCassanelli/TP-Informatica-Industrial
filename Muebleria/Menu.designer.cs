@@ -37,9 +37,10 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(86, 34);
+            this.btnCargar.Location = new System.Drawing.Point(201, 76);
+            this.btnCargar.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(111, 43);
+            this.btnCargar.Size = new System.Drawing.Size(259, 96);
             this.btnCargar.TabIndex = 0;
             this.btnCargar.Text = "Cargar Productos";
             this.btnCargar.UseVisualStyleBackColor = true;
@@ -47,9 +48,10 @@
             // 
             // btnExplosionar
             // 
-            this.btnExplosionar.Location = new System.Drawing.Point(86, 106);
+            this.btnExplosionar.Location = new System.Drawing.Point(201, 236);
+            this.btnExplosionar.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnExplosionar.Name = "btnExplosionar";
-            this.btnExplosionar.Size = new System.Drawing.Size(111, 43);
+            this.btnExplosionar.Size = new System.Drawing.Size(259, 96);
             this.btnExplosionar.TabIndex = 1;
             this.btnExplosionar.Text = "Explosionar";
             this.btnExplosionar.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@
             // 
             // btnImplosionar
             // 
-            this.btnImplosionar.Location = new System.Drawing.Point(86, 177);
+            this.btnImplosionar.Location = new System.Drawing.Point(201, 395);
+            this.btnImplosionar.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnImplosionar.Name = "btnImplosionar";
-            this.btnImplosionar.Size = new System.Drawing.Size(111, 43);
+            this.btnImplosionar.Size = new System.Drawing.Size(259, 96);
             this.btnImplosionar.TabIndex = 2;
             this.btnImplosionar.Text = "Implosionar";
             this.btnImplosionar.UseVisualStyleBackColor = true;
@@ -67,18 +70,21 @@
             // 
             // btnFabricarArticulo
             // 
-            this.btnFabricarArticulo.Location = new System.Drawing.Point(86, 250);
+            this.btnFabricarArticulo.Location = new System.Drawing.Point(201, 558);
+            this.btnFabricarArticulo.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnFabricarArticulo.Name = "btnFabricarArticulo";
-            this.btnFabricarArticulo.Size = new System.Drawing.Size(111, 43);
+            this.btnFabricarArticulo.Size = new System.Drawing.Size(259, 96);
             this.btnFabricarArticulo.TabIndex = 3;
             this.btnFabricarArticulo.Text = "Fabricar Artículo";
             this.btnFabricarArticulo.UseVisualStyleBackColor = true;
+            this.btnFabricarArticulo.Click += new System.EventHandler(this.btnFabricarArticulo_Click);
             // 
             // btnGrarRemito
             // 
-            this.btnGrarRemito.Location = new System.Drawing.Point(86, 319);
+            this.btnGrarRemito.Location = new System.Drawing.Point(201, 712);
+            this.btnGrarRemito.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnGrarRemito.Name = "btnGrarRemito";
-            this.btnGrarRemito.Size = new System.Drawing.Size(111, 43);
+            this.btnGrarRemito.Size = new System.Drawing.Size(259, 96);
             this.btnGrarRemito.TabIndex = 4;
             this.btnGrarRemito.Text = "Generar Remito";
             this.btnGrarRemito.UseVisualStyleBackColor = true;
@@ -86,14 +92,15 @@
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 403);
+            this.ClientSize = new System.Drawing.Size(663, 899);
             this.Controls.Add(this.btnGrarRemito);
             this.Controls.Add(this.btnFabricarArticulo);
             this.Controls.Add(this.btnImplosionar);
             this.Controls.Add(this.btnExplosionar);
             this.Controls.Add(this.btnCargar);
+            this.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.Name = "Menu";
             this.Text = "Menu";
             this.ResumeLayout(false);

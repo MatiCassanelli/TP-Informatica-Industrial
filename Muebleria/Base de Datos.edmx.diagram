@@ -37,14 +37,10 @@
         <AssociationConnector Association="Model.idSustitutoPS" />
         <AssociationConnector Association="Model.userPS" />
         <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="14.25" PointY="5" />
-        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="14.25" PointY="0.75" />
         <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="13.375" PointY="11.75" />
         <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="11.25" PointY="13.375" />
         <AssociationConnector Association="Model.idProductoA" />
         <AssociationConnector Association="Model.usser_updA" />
-        <AssociationConnector Association="Model.idProductoM" />
-        <AssociationConnector Association="Model.idRazonM" ></AssociationConnector>
-        <AssociationConnector Association="Model.unidad_medidaM" />
         <AssociationConnector Association="Model.idProductoS" />
         <AssociationConnector Association="Model.User_updS" />
         <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="9" PointY="3.125" />
@@ -55,6 +51,13 @@
         <AssociationConnector Association="Model.idProductoRD" />
         <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="8" PointY="0.75" />
         <AssociationConnector Association="Model.idRemitoRD" />
+        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="16.625" PointY="6.625" />
+        <EntityTypeShape EntityType="Model.precio" Width="1.5" PointX="14.25" PointY="1.75" />
+        <AssociationConnector Association="Model.idProductoM" />
+        <AssociationConnector Association="Model.idRazonM" />
+        <AssociationConnector Association="Model.unidad_medidaM" />
+        <AssociationConnector Association="Model.idProductoPrecio" />
+        <AssociationConnector Association="Model.user_updPrecio" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

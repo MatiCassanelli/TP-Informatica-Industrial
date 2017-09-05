@@ -328,7 +328,7 @@ namespace Muebleria
                 }
             }
 
-            if (e.KeyChar >= 49 && e.KeyChar <= 57)
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)
                 e.Handled = false;
             else if (e.KeyChar == 46)
                 e.Handled = (IsDec) ? true : false;

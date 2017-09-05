@@ -70,5 +70,13 @@ namespace Muebleria
             Nuevo_Remito nuevo_remito = new Nuevo_Remito();
             nuevo_remito.ShowDialog();
         }
+
+        private void btnFabricarArticulo_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            FabricarProductos fc = new FabricarProductos();
+            fc.ShowDialog();
+        }
     }
 }

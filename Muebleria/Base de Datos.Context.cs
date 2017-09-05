@@ -39,11 +39,12 @@ namespace Muebleria
         public virtual DbSet<padre_componente_temporal> padre_componente_temporal { get; set; }
         public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
         public virtual DbSet<articulo> articulo { get; set; }
-        public virtual DbSet<movimiento> movimiento { get; set; }
         public virtual DbSet<razon> razon { get; set; }
         public virtual DbSet<stock> stock { get; set; }
         public virtual DbSet<padre_componente_publicado> padre_componente_publicado { get; set; }
         public virtual DbSet<remito_detalle> remito_detalle { get; set; }
         public virtual DbSet<remito> remito { get; set; }
+        public virtual DbSet<movimiento> movimiento { get; set; }
+        public virtual DbSet<precio> precio { get; set; }
     }
 }
