@@ -12,6 +12,7 @@ namespace Muebleria
 {
     public partial class Nuevo_Detalle_Remito : Form
     {
+        int cerrado = 0;
         public Nuevo_Detalle_Remito()
         {
             InitializeComponent();
@@ -44,14 +45,6 @@ namespace Muebleria
                         orderby r.idRemito descending
                         select r.idRemito;
             lblRemito.Text = query.ToList()[0].ToString();
-        }
-
-        private void Nuevo_Detalle_Remito_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Hide();
-            this.Close();
-            Menu menu = new Menu();
-            menu.ShowDialog();
         }
 
         private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
@@ -104,10 +97,25 @@ namespace Muebleria
                          select p.idProducto;
 
             int id = queryP.ToList()[0];
-            string nombre = cbProductosFinales.Text.ToString();
             int cantidad = Convert.ToInt32(tbCantidad.Text.ToString());
 
-            DataGridDetalles.Rows.Add(id, nombre, cantidad);
+            var query = from s in db.stock
+                        where s.idProducto == id
+                        select s.Cantidad;
+
+            if (query.Count() > 0)
+            {
+                if (float.Parse(tbCantidad.Text) <= query.ToList()[0])
+                {
+                    string nombre = cbProductosFinales.Text.ToString();
+                    DataGridDetalles.Rows.Add(id, nombre, cantidad);
+                }
+                else
+                    MessageBox.Show("Stock Insuficiente. Sólo se dispone de: " + query.ToList()[0].ToString());
+            }
+            else
+                MessageBox.Show("No se dispone ese producto");
+
         }
 
         private void btnEliminarProducto_Click(object sender, EventArgs e)
@@ -145,10 +153,83 @@ namespace Muebleria
                 return;
             }
 
+            ActualizarStock();
+
+            cerrado = 1;
             this.Hide();
             this.Close();
             Menu menu = new Menu();
             menu.ShowDialog();
         }
+
+        private void ActualizarStock()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            if (DataGridDetalles.RowCount > 0)
+            {
+                foreach (DataGridViewRow row in DataGridDetalles.Rows)
+                {
+                    int idproducto = Convert.ToInt32(row.Cells[0].AccessibilityObject.Value);
+                    var query = from s in db.stock
+                                where s.idProducto == idproducto
+                                select s;
+
+                    float cantIngresada = float.Parse(row.Cells[2].AccessibilityObject.Value);
+                    foreach (var item in query)
+                    {
+                        item.Cantidad = item.Cantidad - cantIngresada;
+                    }
+                    db.SaveChanges();
+
+                    //remito_detalle NuevoRD = new remito_detalle()
+                    //{
+                    //    idRemito = Convert.ToInt32(lblRemito.Text),
+                    //    idProducto = Convert.ToInt32(row.Cells[0].AccessibilityObject.Value),
+                    //    Cantidad = Convert.ToInt32(row.Cells[2].AccessibilityObject.Value)
+                    //};
+                    //try
+                    //{
+                    //    db.remito_detalle.Add(NuevoRD);
+                    //    db.SaveChanges();
+                    //}
+                    //catch
+                    //{
+                    //    MessageBox.Show("Error en la carga del detalle");
+                    //}
+                }
+            }
+        }
+        private void Nuevo_Detalle_Remito_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && cerrado == 0)
+            {
+                MessageBox.Show("Debe finalizar la operación");
+                e.Cancel = true;
+                //DialogResult result = MessageBox.Show("¿Quiere eliminar el remito generado?", "Alerta", MessageBoxButtons.YesNo);
+                //if (result == DialogResult.Yes)
+                //{
+                //    Environment.Exit(0);
+                //    informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+                //    int nroRemito = Convert.ToInt32(lblRemito.Text);
+                //    var query = from r in db.remito
+                //                where r.idRemito == nroRemito
+                //                select r;
+
+                //    if(query.Count() > 0)
+                //    {
+                //        foreach(var item in query)
+                //        {
+                //            db.remito.Remove(item);
+                //            db.SaveChanges();
+                //        }
+                //    }
+            }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
-}
+

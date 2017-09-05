@@ -84,6 +84,7 @@
             // 
             // cbProductosFinales
             // 
+            this.cbProductosFinales.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductosFinales.FormattingEnabled = true;
             this.cbProductosFinales.Location = new System.Drawing.Point(122, 23);
             this.cbProductosFinales.Name = "cbProductosFinales";
@@ -187,7 +188,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Nuevo_Detalle_Remito";
             this.Text = "Nuevo_Detalle_Remito";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Nuevo_Detalle_Remito_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Nuevo_Detalle_Remito_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridDetalles)).EndInit();

@@ -12,6 +12,7 @@ namespace Muebleria
 {
     public partial class Nuevo_Remito : Form
     {
+        int cerrado = 0;
         public Nuevo_Remito()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace Muebleria
 
             InsertarRemito();
 
+            cerrado = 1;
             this.Close();
             this.Hide();
             Nuevo_Detalle_Remito nuevo_detalle_remito = new Nuevo_Detalle_Remito();
@@ -68,10 +70,12 @@ namespace Muebleria
 
         private void Nuevo_Remito_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Hide();
-            this.Close();
-            Menu menu = new Menu();
-            menu.ShowDialog();
+            if (e.CloseReason == CloseReason.UserClosing && cerrado == 0)
+            {
+                this.Hide();
+                Menu menu = new Menu();
+                menu.ShowDialog();
+            }
         }
     }
 }
