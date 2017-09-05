@@ -111,6 +111,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Nuevo_Remito";
             this.Text = "Nuevo Remito";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Nuevo_Remito_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

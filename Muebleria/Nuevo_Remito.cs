@@ -33,6 +33,12 @@ namespace Muebleria
 
         private void btnGenerarRemito_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(tbNombreCliente.Text) || String.IsNullOrEmpty(tbDireccion.Text))
+            {
+                MessageBox.Show("Complete los datos para continuar");
+                return;
+            }
+
             InsertarRemito();
 
             this.Close();
@@ -56,8 +62,16 @@ namespace Muebleria
             }
             catch
             {
-                MessageBox.Show("No se pudo generar el remito");
+                MessageBox.Show("Error en la geneción del remito");
             }
+        }
+
+        private void Nuevo_Remito_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            this.Close();
+            Menu menu = new Menu();
+            menu.ShowDialog();
         }
     }
 }
