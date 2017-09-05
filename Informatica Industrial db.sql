@@ -188,8 +188,8 @@ CREATE TABLE `movimiento` (
   KEY `unidad_medidaM_idx` (`unidad_medida`),
   KEY `idRazonM_idx` (`idRazon`),
   CONSTRAINT `idProductoM` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `unidad_medidaM` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idRazonM` FOREIGN KEY (`idRazon`) REFERENCES `razon` (`idRazon`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idRazonM` FOREIGN KEY (`idRazon`) REFERENCES `razon` (`idRazon`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `unidad_medidaM` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,7 +236,7 @@ CREATE TABLE `padre-componente-publicado` (
 
 LOCK TABLES `padre-componente-publicado` WRITE;
 /*!40000 ALTER TABLE `padre-componente-publicado` DISABLE KEYS */;
-INSERT INTO `padre-componente-publicado` VALUES (10056456,10056461,1,1,1,36,'2017-09-03 21:02:47',1,0,0),(10056456,10056461,1,1,1,36,'2017-09-03 21:02:47',1,0,1),(10056456,10056461,1,1,1,36,'2017-09-03 21:21:08',1,0,2),(10056456,10056461,1,1,1,36,'2017-09-03 21:26:20',1,0,3),(10056456,10056461,1,1,1,36,'2017-09-03 21:26:20',1,1,4),(10056457,10056467,1,1,1,36,'2017-09-03 21:26:49',1,1,0);
+INSERT INTO `padre-componente-publicado` VALUES (10056456,10056461,1,1,1,36,'2017-09-04 13:54:23',1,1,0),(10056456,10056461,1,1,1,36,'2017-09-04 13:54:23',1,1,1),(10056456,10056461,1,1,1,36,'2017-09-03 21:26:20',1,1,4),(10056456,10056461,1,1,1,37,'2017-09-04 13:54:23',1,1,2),(10056456,10056461,1,1,1,38,'2017-09-04 13:54:23',1,1,3),(10056456,10056467,1,1,1,36,'2017-09-04 13:56:51',1,1,4);
 /*!40000 ALTER TABLE `padre-componente-publicado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,35 +269,6 @@ LOCK TABLES `padre-componente-temporal` WRITE;
 /*!40000 ALTER TABLE `padre-componente-temporal` DISABLE KEYS */;
 INSERT INTO `padre-componente-temporal` VALUES (10056456,10056461,1,1,1);
 /*!40000 ALTER TABLE `padre-componente-temporal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `precio`
---
-
-DROP TABLE IF EXISTS `precio`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `precio` (
-  `idProducto` int(11) NOT NULL,
-  `Precio` float NOT NULL,
-  `fecha_aplicacion` date NOT NULL,
-  `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_upd` int(11) NOT NULL,
-  PRIMARY KEY (`idProducto`,`Precio`,`fecha_aplicacion`),
-  KEY `user_updPrecio_idx` (`user_upd`),
-  CONSTRAINT `idProductoPrecio` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `user_updPrecio` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `precio`
---
-
-LOCK TABLES `precio` WRITE;
-/*!40000 ALTER TABLE `precio` DISABLE KEYS */;
-/*!40000 ALTER TABLE `precio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -413,7 +384,6 @@ CREATE TABLE `remito` (
   `idRemito` int(11) NOT NULL AUTO_INCREMENT,
   `Cliente` int(11) NOT NULL,
   `Destino` varchar(45) NOT NULL,
-  `Precio_total` float NOT NULL,
   PRIMARY KEY (`idRemito`),
   KEY `Cliente_idx` (`Cliente`),
   CONSTRAINT `Cliente` FOREIGN KEY (`Cliente`) REFERENCES `externo` (`idExterno`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -440,11 +410,10 @@ CREATE TABLE `remito_detalle` (
   `idRemito` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `Cantidad` int(11) NOT NULL,
-  `Precio` float NOT NULL,
   PRIMARY KEY (`idRemito`,`idProducto`),
   KEY `idProductoRD_idx` (`idProducto`),
-  CONSTRAINT `idRemitoRD` FOREIGN KEY (`idRemito`) REFERENCES `remito` (`idRemito`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idProductoRD` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idProductoRD` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idRemitoRD` FOREIGN KEY (`idRemito`) REFERENCES `remito` (`idRemito`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -496,8 +465,8 @@ CREATE TABLE `stock` (
   `user_upd` int(11) NOT NULL,
   PRIMARY KEY (`idProducto`),
   KEY `User_updS_idx` (`user_upd`),
-  CONSTRAINT `User_updS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idProductoS` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idProductoS` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `User_updS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -657,4 +626,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-03 18:28:38
+-- Dump completed on 2017-09-04 23:12:01

@@ -862,7 +862,6 @@ namespace Muebleria
             return componentes.ToList<padre_componente_publicado>();
         }
 
-
         private void cbProductos_Click(object sender, EventArgs e)
         {
             
