@@ -71,7 +71,7 @@
           <Property Name="ubicacion_origen" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="ubicacion_destino" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
-          <Property Name="fecha_movimiento" Type="date" Nullable="false" />
+          <Property Name="fecha_movimiento" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="cantidad" Type="float" Nullable="false" />
           <Property Name="unidad_medida" Type="int" Nullable="false" />
           <Property Name="idRazon" Type="int" Nullable="false" />
