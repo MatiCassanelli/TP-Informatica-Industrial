@@ -51,10 +51,9 @@
         <AssociationConnector Association="Model.idHijoP" />
         <AssociationConnector Association="Model.idPadreP" />
         <AssociationConnector Association="Model.user_upd" />
-        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="8" PointY="0.75" />
         <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="10.375" PointY="0.75" />
-        <AssociationConnector Association="Model.Cliente" />
         <AssociationConnector Association="Model.idProductoRD" />
+        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="8" PointY="0.75" />
         <AssociationConnector Association="Model.idRemitoRD" />
         </Diagram>
     </edmx:Diagrams>

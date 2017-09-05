@@ -38,6 +38,7 @@ namespace Muebleria
         public Nullable<System.DateTime> End_Date { get; set; }
         public Nullable<System.DateTime> Last_Upd { get; set; }
         public Nullable<int> User_Upd { get; set; }
+        public Nullable<int> Codigo_abreviado { get; set; }
     
         public virtual tipo_producto tipo_producto { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }

@@ -133,6 +133,18 @@
     <Compile Include="movimiento.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Nuevo_Detalle_Remito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nuevo_Detalle_Remito.Designer.cs">
+      <DependentUpon>Nuevo_Detalle_Remito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Nuevo_Remito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nuevo_Remito.Designer.cs">
+      <DependentUpon>Nuevo_Remito.cs</DependentUpon>
+    </Compile>
     <Compile Include="PadreHijo.cs" />
     <Compile Include="padre_componente_publicado.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
@@ -194,6 +206,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nuevo_Detalle_Remito.resx">
+      <DependentUpon>Nuevo_Detalle_Remito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nuevo_Remito.resx">
+      <DependentUpon>Nuevo_Remito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

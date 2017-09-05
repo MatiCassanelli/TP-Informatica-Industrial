@@ -224,49 +224,13 @@ namespace Muebleria
                                select uMU.idUnidad_Medida;
                 List<int> UMU = queryUMU.ToList();
 
-
-                //Conversión de unidad para guardar en tabla
-                //float coeficiente = 1;
-                //int auxD = UMD[0];
-                //int auxU = UMU[0];
-                //if (UMD[0] != UMU[0])
-                //{
-                //    try
-                //    {
-                //        var query = from conv in db.conversion
-                //                    where conv.U_medida_default == auxD &&
-                //                    conv.U_medida == auxU
-                //                    select conv.Coeficiente;
-                //        coeficiente = query.ToList()[0];
-                //    }
-                //    catch
-                //    {
-                //        int aux = UMD[0];
-                //        var query = from um in db.unidad_medida
-                //                    from t in db.traduccion
-                //                    where um.idDescriptionUM == t.idDescriptionT &&
-                //                    um.idUnidad_Medida == aux &&
-                //                    t.idLanguageT == LogIn.IdIdioma
-                //                    select t.Traduccion_str;
-
-                //        MessageBox.Show("Unidad de medida inválida para este producto. Intente con: " + query.ToList()[0].ToString());
-                //        return;
-                //    }
-
-                //}
-
-                //cant = cant / coeficiente;
-                //Agregar nueva fila a la tabla "Padre-Componente"
-
                 padre_componente_temporal nuevoPC = new padre_componente_temporal()
                 {
                     idPadre = P[0],
                     idHijo = C[0],
-                    Cantidad = cant,                     //cant AHORA no incluye la cantidad modificada por el coeficiente de la tabla conversion
+                    Cantidad = cant,                    
                     U_medida_default = UMD[0],
-                    U_medida_usada = UMU[0],
-                    //Last_Upd = DateTime.Now,
-                    //User_Upd = LogIn.IdUsuario                        
+                    U_medida_usada = UMU[0]                     
                 };
 
                 //Intenta realizar un UPDATE en la tabla padre-componente
@@ -374,8 +338,9 @@ namespace Muebleria
 
         private void Composicion_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Menu menu = new Menu();
+            this.Close();
             this.Hide();
+            Menu menu = new Menu();
             menu.ShowDialog();
         }
 
@@ -854,9 +819,7 @@ namespace Muebleria
                          select p.idProducto;
             List<int> P = queryP.ToList();
 
-            //var blogs = db.producto.SqlQuery("SELECT * FROM producto").ToList();
-            //var relleno = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp WHERE pcp.idPadreP = " + P[0].ToString() + " and pcp.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + ")");
-            var componentes = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion "
+           var componentes = db.padre_componente_publicado.SqlQuery("SELECT * FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion "
                                                                     + "FROM `padre-componente-publicado` pcp3 WHERE pcp3.idPadreP = " + P[0].ToString() + ")) as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 "
                                                                     + "WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.fecha_aplicacion >= all(SELECT distinct fecha_aplicacion FROM `padre-componente-publicado` pcp5 WHERE pcp5.idPadreP = " + P[0].ToString() + ")); ");
             return componentes.ToList<padre_componente_publicado>();

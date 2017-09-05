@@ -31,6 +31,8 @@
             this.btnCargar = new System.Windows.Forms.Button();
             this.btnExplosionar = new System.Windows.Forms.Button();
             this.btnImplosionar = new System.Windows.Forms.Button();
+            this.btnFabricarArticulo = new System.Windows.Forms.Button();
+            this.btnGrarRemito = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCargar
@@ -63,11 +65,32 @@
             this.btnImplosionar.UseVisualStyleBackColor = true;
             this.btnImplosionar.Click += new System.EventHandler(this.btnImplosionar_Click);
             // 
+            // btnFabricarArticulo
+            // 
+            this.btnFabricarArticulo.Location = new System.Drawing.Point(86, 250);
+            this.btnFabricarArticulo.Name = "btnFabricarArticulo";
+            this.btnFabricarArticulo.Size = new System.Drawing.Size(111, 43);
+            this.btnFabricarArticulo.TabIndex = 3;
+            this.btnFabricarArticulo.Text = "Fabricar Artículo";
+            this.btnFabricarArticulo.UseVisualStyleBackColor = true;
+            // 
+            // btnGrarRemito
+            // 
+            this.btnGrarRemito.Location = new System.Drawing.Point(86, 319);
+            this.btnGrarRemito.Name = "btnGrarRemito";
+            this.btnGrarRemito.Size = new System.Drawing.Size(111, 43);
+            this.btnGrarRemito.TabIndex = 4;
+            this.btnGrarRemito.Text = "Generar Remito";
+            this.btnGrarRemito.UseVisualStyleBackColor = true;
+            this.btnGrarRemito.Click += new System.EventHandler(this.btnGrarRemito_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 403);
+            this.Controls.Add(this.btnGrarRemito);
+            this.Controls.Add(this.btnFabricarArticulo);
             this.Controls.Add(this.btnImplosionar);
             this.Controls.Add(this.btnExplosionar);
             this.Controls.Add(this.btnCargar);
@@ -82,5 +105,7 @@
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.Button btnExplosionar;
         private System.Windows.Forms.Button btnImplosionar;
+        private System.Windows.Forms.Button btnFabricarArticulo;
+        private System.Windows.Forms.Button btnGrarRemito;
     }
 }
