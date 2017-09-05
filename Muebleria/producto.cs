@@ -24,10 +24,9 @@ namespace Muebleria
             this.producto_sustituto2 = new HashSet<producto_sustituto>();
             this.articulo = new HashSet<articulo>();
             this.movimiento = new HashSet<movimiento>();
-            this.precio = new HashSet<precio>();
-            this.remito_detalle = new HashSet<remito_detalle>();
             this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
             this.padre_componente_publicado1 = new HashSet<padre_componente_publicado>();
+            this.remito_detalle = new HashSet<remito_detalle>();
         }
     
         public int idProducto { get; set; }
@@ -39,6 +38,7 @@ namespace Muebleria
         public Nullable<System.DateTime> End_Date { get; set; }
         public Nullable<System.DateTime> Last_Upd { get; set; }
         public Nullable<int> User_Upd { get; set; }
+        public Nullable<int> Codigo_abreviado { get; set; }
     
         public virtual tipo_producto tipo_producto { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
@@ -57,14 +57,12 @@ namespace Muebleria
         public virtual ICollection<articulo> articulo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<precio> precio { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
         public virtual stock stock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_publicado> padre_componente_publicado1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
     }
 }

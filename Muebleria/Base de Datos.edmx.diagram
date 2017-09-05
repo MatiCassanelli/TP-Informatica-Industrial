@@ -38,27 +38,23 @@
         <AssociationConnector Association="Model.userPS" />
         <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="14.25" PointY="5" />
         <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="14.25" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.precio" Width="1.5" PointX="13.25" PointY="9.375" />
-        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="9" PointY="20.625" />
-        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="7.125" PointY="0.5" />
-        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="9.75" PointY="0.5" />
+        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="13.375" PointY="11.75" />
         <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="11.25" PointY="13.375" />
         <AssociationConnector Association="Model.idProductoA" />
         <AssociationConnector Association="Model.usser_updA" />
-        <AssociationConnector Association="Model.Cliente" />
         <AssociationConnector Association="Model.idProductoM" />
-        <AssociationConnector Association="Model.idRazonM" />
+        <AssociationConnector Association="Model.idRazonM" ></AssociationConnector>
         <AssociationConnector Association="Model.unidad_medidaM" />
-        <AssociationConnector Association="Model.idProductoPrecio" />
-        <AssociationConnector Association="Model.user_updPrecio" />
-        <AssociationConnector Association="Model.idProductoRD" />
         <AssociationConnector Association="Model.idProductoS" />
-        <AssociationConnector Association="Model.idRemitoRD" />
         <AssociationConnector Association="Model.User_updS" />
         <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="9" PointY="3.125" />
         <AssociationConnector Association="Model.idHijoP" />
         <AssociationConnector Association="Model.idPadreP" />
         <AssociationConnector Association="Model.user_upd" />
+        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="10.375" PointY="0.75" />
+        <AssociationConnector Association="Model.idProductoRD" />
+        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="8" PointY="0.75" />
+        <AssociationConnector Association="Model.idRemitoRD" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

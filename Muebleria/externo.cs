@@ -14,12 +14,6 @@ namespace Muebleria
     
     public partial class externo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public externo()
-        {
-            this.remito = new HashSet<remito>();
-        }
-    
         public int idExterno { get; set; }
         public int idTipo_Externo { get; set; }
         public int Description_id { get; set; }
@@ -33,7 +27,5 @@ namespace Muebleria
         public virtual direccion direccion1 { get; set; }
         public virtual direccion direccion2 { get; set; }
         public virtual tipo_externo tipo_externo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<remito> remito { get; set; }
     }
 }

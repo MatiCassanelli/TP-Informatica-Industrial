@@ -21,11 +21,9 @@ namespace Muebleria
         }
     
         public int idRemito { get; set; }
-        public int Cliente { get; set; }
+        public string Cliente { get; set; }
         public string Destino { get; set; }
-        public float Precio_total { get; set; }
     
-        public virtual externo externo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<remito_detalle> remito_detalle { get; set; }
     }

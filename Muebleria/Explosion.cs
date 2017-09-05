@@ -317,7 +317,6 @@ namespace Muebleria
         {
             Menu menu = new Menu();
             this.Hide();
-            //this.Close();
             menu.ShowDialog();
         }
 

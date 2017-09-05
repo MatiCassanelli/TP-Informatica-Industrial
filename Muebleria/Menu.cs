@@ -41,27 +41,34 @@ namespace Muebleria
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            Composicion composicion = new Composicion();
             this.Close();
             this.Hide();
+            Composicion composicion = new Composicion();
             composicion.ShowDialog();
-            
         }
         
         private void btnExplosionar_Click(object sender, EventArgs e)
         {
-            Explosion explosion = new Explosion();
-            this.Hide();
-            explosion.ShowDialog();
             this.Close();
+            this.Hide();
+            Explosion explosion = new Explosion();
+            explosion.ShowDialog();
         }
 
         private void btnImplosionar_Click(object sender, EventArgs e)
         {
-            Implosion implosion = new Implosion();
-            this.Hide();
-            implosion.ShowDialog();
             this.Close();
+            this.Hide();
+            Implosion implosion = new Implosion();
+            implosion.ShowDialog();
+        }
+
+        private void btnGrarRemito_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            Nuevo_Remito nuevo_remito = new Nuevo_Remito();
+            nuevo_remito.ShowDialog();
         }
     }
 }

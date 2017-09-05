@@ -105,18 +105,6 @@
           <Property Name="U_medida_default" Type="int" Nullable="false" />
           <Property Name="U_medida_usada" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="precio">
-          <Key>
-            <PropertyRef Name="idProducto" />
-            <PropertyRef Name="Precio" />
-            <PropertyRef Name="fecha_aplicacion" />
-          </Key>
-          <Property Name="idProducto" Type="int" Nullable="false" />
-          <Property Name="Precio" Type="float" Nullable="false" />
-          <Property Name="fecha_aplicacion" Type="date" Nullable="false" />
-          <Property Name="last_upd" Type="timestamp" Precision="0" Nullable="false" />
-          <Property Name="user_upd" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="producto">
           <Key>
             <PropertyRef Name="idProducto" />
@@ -130,6 +118,7 @@
           <Property Name="End_Date" Type="date" />
           <Property Name="Last_Upd" Type="timestamp" Precision="0" />
           <Property Name="User_Upd" Type="int" />
+          <Property Name="Codigo_abreviado" Type="int" />
         </EntityType>
         <EntityType Name="producto-sustituto">
           <Key>
@@ -160,9 +149,8 @@
             <PropertyRef Name="idRemito" />
           </Key>
           <Property Name="idRemito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Cliente" Type="int" Nullable="false" />
+          <Property Name="Cliente" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Destino" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Precio_total" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="remito_detalle">
           <Key>
@@ -172,7 +160,6 @@
           <Property Name="idRemito" Type="int" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
-          <Property Name="Precio" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -236,18 +223,6 @@
           <Property Name="idLanguage" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <Association Name="Cliente">
-          <End Role="externo" Type="Self.externo" Multiplicity="1" />
-          <End Role="remito" Type="Self.remito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="externo">
-              <PropertyRef Name="idExterno" />
-            </Principal>
-            <Dependent Role="remito">
-              <PropertyRef Name="Cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Direccion_fac_id">
           <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
           <End Role="externo" Type="Self.externo" Multiplicity="*" />
@@ -406,18 +381,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="movimiento">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoPrecio">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="precio" Type="Self.precio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="precio">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -590,18 +553,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="user_updPrecio">
-          <End Role="users" Type="Self.users" Multiplicity="1" />
-          <End Role="precio" Type="Self.precio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="idUsers" />
-            </Principal>
-            <Dependent Role="precio">
-              <PropertyRef Name="user_upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="User_updS">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="stock" Type="Self.stock" Multiplicity="*" />
@@ -647,7 +598,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <EntitySet Name="movimiento" EntityType="Self.movimiento" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="padre-componente-publicado" EntityType="Self.padre-componente-publicado" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="padre-componente-temporal" EntityType="Self.padre-componente-temporal" Schema="informatica industrial db" store:Type="Tables" />
-          <EntitySet Name="precio" EntityType="Self.precio" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto" EntityType="Self.producto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto-sustituto" EntityType="Self.producto-sustituto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="razon" EntityType="Self.razon" Schema="informatica industrial db" store:Type="Tables" />
@@ -660,10 +610,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <EntitySet Name="traduccion" EntityType="Self.traduccion" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="informatica industrial db" store:Type="Tables" />
-          <AssociationSet Name="Cliente" Association="Self.Cliente">
-            <End Role="externo" EntitySet="externo" />
-            <End Role="remito" EntitySet="remito" />
-          </AssociationSet>
           <AssociationSet Name="Direccion_fac_id" Association="Self.Direccion_fac_id">
             <End Role="direccion" EntitySet="direccion" />
             <End Role="externo" EntitySet="externo" />
@@ -715,10 +661,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <AssociationSet Name="idProductoM" Association="Self.idProductoM">
             <End Role="producto" EntitySet="producto" />
             <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoPrecio" Association="Self.idProductoPrecio">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="precio" EntitySet="precio" />
           </AssociationSet>
           <AssociationSet Name="idProductoRD" Association="Self.idProductoRD">
             <End Role="producto" EntitySet="producto" />
@@ -775,10 +717,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <AssociationSet Name="user_upd" Association="Self.user_upd">
             <End Role="users" EntitySet="users" />
             <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
-          </AssociationSet>
-          <AssociationSet Name="user_updPrecio" Association="Self.user_updPrecio">
-            <End Role="users" EntitySet="users" />
-            <End Role="precio" EntitySet="precio" />
           </AssociationSet>
           <AssociationSet Name="User_updS" Association="Self.User_updS">
             <End Role="users" EntitySet="users" />
@@ -840,7 +778,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="direccion1" Relationship="Self.Direccion_id" FromRole="externo" ToRole="direccion" />
           <NavigationProperty Name="direccion2" Relationship="Self.Direcion_ent_id" FromRole="externo" ToRole="direccion" />
           <NavigationProperty Name="tipo_externo" Relationship="Self.idTipo_Externo" FromRole="externo" ToRole="tipo_externo" />
-          <NavigationProperty Name="remito" Relationship="Model.Cliente" FromRole="externo" ToRole="remito" />
         </EntityType>
         <EntityType Name="language">
           <Key>
@@ -874,11 +811,11 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="producto_sustituto2" Relationship="Model.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="articulo" Relationship="Model.idProductoA" FromRole="producto" ToRole="articulo" />
           <NavigationProperty Name="movimiento" Relationship="Model.idProductoM" FromRole="producto" ToRole="movimiento" />
-          <NavigationProperty Name="precio" Relationship="Model.idProductoPrecio" FromRole="producto" ToRole="precio" />
-          <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
           <NavigationProperty Name="stock" Relationship="Model.idProductoS" FromRole="producto" ToRole="stock" />
           <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
           <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
+          <Property Name="Codigo_abreviado" Type="Int32" />
           </EntityType>
         <EntityType Name="role">
           <Key>
@@ -944,7 +881,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
           <NavigationProperty Name="producto_sustituto" Relationship="Model.userPS" FromRole="users" ToRole="producto_sustituto" />
           <NavigationProperty Name="articulo" Relationship="Model.usser_updA" FromRole="users" ToRole="articulo" />
-          <NavigationProperty Name="precio" Relationship="Model.user_updPrecio" FromRole="users" ToRole="precio" />
           <NavigationProperty Name="stock" Relationship="Model.User_updS" FromRole="users" ToRole="stock" />
           <NavigationProperty Name="padre_componente_publicado" Relationship="Model.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
           </EntityType>
@@ -1180,10 +1116,7 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           </AssociationSet>
           <EntitySet Name="articulo" EntityType="Model.articulo" />
           <EntitySet Name="movimiento" EntityType="Model.movimiento" />
-          <EntitySet Name="precio" EntityType="Model.precio" />
           <EntitySet Name="razon" EntityType="Model.razon" />
-          <EntitySet Name="remito" EntityType="Model.remito" />
-          <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
           <EntitySet Name="stock" EntityType="Model.stock" />
           <AssociationSet Name="idProductoA" Association="Model.idProductoA">
             <End Role="producto" EntitySet="producto" />
@@ -1192,10 +1125,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <AssociationSet Name="usser_updA" Association="Model.usser_updA">
             <End Role="users" EntitySet="users" />
             <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="Cliente" Association="Model.Cliente">
-            <End Role="externo" EntitySet="externo" />
-            <End Role="remito" EntitySet="remito" />
           </AssociationSet>
           <AssociationSet Name="idProductoM" Association="Model.idProductoM">
             <End Role="producto" EntitySet="producto" />
@@ -1209,25 +1138,9 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             <End Role="unidad_medida" EntitySet="unidad_medida" />
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
-          <AssociationSet Name="idProductoPrecio" Association="Model.idProductoPrecio">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="precio" EntitySet="precio" />
-          </AssociationSet>
-          <AssociationSet Name="user_updPrecio" Association="Model.user_updPrecio">
-            <End Role="users" EntitySet="users" />
-            <End Role="precio" EntitySet="precio" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
           <AssociationSet Name="idProductoS" Association="Model.idProductoS">
             <End Role="producto" EntitySet="producto" />
             <End Role="stock" EntitySet="stock" />
-          </AssociationSet>
-          <AssociationSet Name="idRemitoRD" Association="Model.idRemitoRD">
-            <End Role="remito" EntitySet="remito" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
           </AssociationSet>
           <AssociationSet Name="User_updS" Association="Model.User_updS">
             <End Role="users" EntitySet="users" />
@@ -1245,6 +1158,16 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <AssociationSet Name="user_upd" Association="Model.user_upd">
             <End Role="users" EntitySet="users" />
             <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
+          <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <EntitySet Name="remito" EntityType="Model.remito" />
+          <AssociationSet Name="idRemitoRD" Association="Model.idRemitoRD">
+            <End Role="remito" EntitySet="remito" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="padre_componente_temporal">
@@ -1387,20 +1310,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <NavigationProperty Name="razon" Relationship="Model.idRazonM" FromRole="movimiento" ToRole="razon" />
           <NavigationProperty Name="unidad_medida1" Relationship="Model.unidad_medidaM" FromRole="movimiento" ToRole="unidad_medida" />
         </EntityType>
-        <EntityType Name="precio">
-          <Key>
-            <PropertyRef Name="idProducto" />
-            <PropertyRef Name="Precio1" />
-            <PropertyRef Name="fecha_aplicacion" />
-          </Key>
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="Precio1" Type="Single" Nullable="false" />
-          <Property Name="fecha_aplicacion" Type="DateTime" Nullable="false" />
-          <Property Name="last_upd" Type="DateTime" Nullable="false" />
-          <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoPrecio" FromRole="precio" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.user_updPrecio" FromRole="precio" ToRole="users" />
-        </EntityType>
         <EntityType Name="razon">
           <Key>
             <PropertyRef Name="idRazon" />
@@ -1408,29 +1317,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <Property Name="idRazon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDescripcion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="movimiento" Relationship="Model.idRazonM" FromRole="razon" ToRole="movimiento" />
-        </EntityType>
-        <EntityType Name="remito">
-          <Key>
-            <PropertyRef Name="idRemito" />
-          </Key>
-          <Property Name="idRemito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cliente" Type="Int32" Nullable="false" />
-          <Property Name="Destino" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Precio_total" Type="Single" Nullable="false" />
-          <NavigationProperty Name="externo" Relationship="Model.Cliente" FromRole="remito" ToRole="externo" />
-          <NavigationProperty Name="remito_detalle" Relationship="Model.idRemitoRD" FromRole="remito" ToRole="remito_detalle" />
-        </EntityType>
-        <EntityType Name="remito_detalle">
-          <Key>
-            <PropertyRef Name="idRemito" />
-            <PropertyRef Name="idProducto" />
-          </Key>
-          <Property Name="idRemito" Type="Int32" Nullable="false" />
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="Precio" Type="Single" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
-          <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
         </EntityType>
         <EntityType Name="stock">
           <Key>
@@ -1465,18 +1351,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Principal>
             <Dependent Role="articulo">
               <PropertyRef Name="user_upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Cliente">
-          <End Type="Model.externo" Role="externo" Multiplicity="1" />
-          <End Type="Model.remito" Role="remito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="externo">
-              <PropertyRef Name="idExterno" />
-            </Principal>
-            <Dependent Role="remito">
-              <PropertyRef Name="Cliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1516,42 +1390,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoPrecio">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.precio" Role="precio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="precio">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="user_updPrecio">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.precio" Role="precio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="idUsers" />
-            </Principal>
-            <Dependent Role="precio">
-              <PropertyRef Name="user_upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoRD">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="remito_detalle">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idProductoS">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
           <End Type="Model.stock" Role="stock" Multiplicity="0..1" />
@@ -1561,18 +1399,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Principal>
             <Dependent Role="stock">
               <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idRemitoRD">
-          <End Type="Model.remito" Role="remito" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="remito">
-              <PropertyRef Name="idRemito" />
-            </Principal>
-            <Dependent Role="remito_detalle">
-              <PropertyRef Name="idRemito" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1645,6 +1471,50 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="remito_detalle">
+          <Key>
+            <PropertyRef Name="idRemito" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idRemito" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
+          <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
+        </EntityType>
+        <Association Name="idProductoRD">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="remito_detalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="remito">
+          <Key>
+            <PropertyRef Name="idRemito" />
+          </Key>
+          <Property Name="idRemito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Destino" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="remito_detalle" Relationship="Model.idRemitoRD" FromRole="remito" ToRole="remito_detalle" />
+        </EntityType>
+        <Association Name="idRemitoRD">
+          <End Type="Model.remito" Role="remito" Multiplicity="1" />
+          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="remito">
+              <PropertyRef Name="idRemito" />
+            </Principal>
+            <Dependent Role="remito_detalle">
+              <PropertyRef Name="idRemito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1699,6 +1569,7 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <EntitySetMapping Name="producto">
             <EntityTypeMapping TypeName="Model.producto">
               <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="Codigo_abreviado" ColumnName="Codigo_abreviado" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idDescriptionP" ColumnName="idDescriptionP" />
                 <ScalarProperty Name="idTipo" ColumnName="idTipo" />
@@ -1820,42 +1691,11 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="precio">
-            <EntityTypeMapping TypeName="Model.precio">
-              <MappingFragment StoreEntitySet="precio">
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
-                <ScalarProperty Name="Precio1" ColumnName="Precio" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="razon">
             <EntityTypeMapping TypeName="Model.razon">
               <MappingFragment StoreEntitySet="razon">
                 <ScalarProperty Name="idDescripcion" ColumnName="idDescripcion" />
                 <ScalarProperty Name="idRazon" ColumnName="idRazon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="remito">
-            <EntityTypeMapping TypeName="Model.remito">
-              <MappingFragment StoreEntitySet="remito">
-                <ScalarProperty Name="Precio_total" ColumnName="Precio_total" />
-                <ScalarProperty Name="Destino" ColumnName="Destino" />
-                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
-                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="remito_detalle">
-            <EntityTypeMapping TypeName="Model.remito_detalle">
-              <MappingFragment StoreEntitySet="remito_detalle">
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1883,6 +1723,24 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="idHijoP" ColumnName="idHijoP" />
                 <ScalarProperty Name="idPadreP" ColumnName="idPadreP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="remito_detalle">
+            <EntityTypeMapping TypeName="Model.remito_detalle">
+              <MappingFragment StoreEntitySet="remito_detalle">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="remito">
+            <EntityTypeMapping TypeName="Model.remito">
+              <MappingFragment StoreEntitySet="remito">
+                <ScalarProperty Name="Destino" ColumnName="Destino" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
