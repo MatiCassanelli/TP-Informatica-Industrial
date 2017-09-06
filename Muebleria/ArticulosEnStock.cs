@@ -52,5 +52,13 @@ namespace Muebleria
 
             dataGridView1.DataSource = final.ToList();
         }
+
+        private void ArticulosEnStock_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            Menu menu = new Menu();
+            menu.ShowDialog();
+        }
     }
 }

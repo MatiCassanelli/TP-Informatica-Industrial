@@ -38,6 +38,8 @@ namespace Muebleria
 
             GeneradorSN gsn = new GeneradorSN();
             int cv=gsn.digitoValidador(sn);
+            if (cv == 10)
+                cv = 0;
 
             string cdb = "*" + cr + sn + cv + "*";
             return cdb;
