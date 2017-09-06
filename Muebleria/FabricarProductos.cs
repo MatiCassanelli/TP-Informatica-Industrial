@@ -60,7 +60,6 @@ namespace Muebleria
                 {
                     item.Cantidad = stock + float.Parse(tbCantidad.Text);
                 }
-                //db.SaveChanges();
             }
             else
             {
@@ -73,19 +72,37 @@ namespace Muebleria
                     user_upd = LogIn.IdUsuario
                 };
                 db.stock.Add(s);
-                //db.SaveChanges();
             }
-            try
-            {
-            generarMovimiento(idProd, UMU[0]);
-            }
-            catch
-            {
-                MessageBox.Show("No anduvo");
-            }
+            db.SaveChanges();
+generarMovimiento(idProd, UMU[0], Convert.ToInt32(tbCantidad.Text));
+            
+
+            //crearArticulo(idProd);
+                
+            //try
+            //{
+            //    generarMovimiento(idProd, UMU[0]);
+            //} catch (Exception exp)
+            //{
+            //    MessageBox.Show("No anduvo: " + exp.Message);
+            //}
+            
         }
 
-        private void generarMovimiento(int idProd, int um)
+        private void crearArticulo(int idProd)
+        {
+            //GeneradorSN gsn = new GeneradorSN();            
+            //int sn = gsn.generarSN(); 
+
+            //articulo a = new articulo()
+            //{
+            //    numero_serie=sn,
+            //    idProducto = idProd,
+            //    fecha_fabricacion = 
+            //}
+        }
+
+        private void generarMovimiento(int idProd, int um, int cant)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             //var query = from m in db.movimiento
@@ -97,13 +114,14 @@ namespace Muebleria
                 ubicacion_destino = "Deposito",
                 idProducto = idProd,
                 fecha_movimiento = DateTime.Now,
-                cantidad = 1,
+                cantidad = cant,
                 unidad_medida = um,
                 idRazon=1                
             };
             db.movimiento.Add(mov);
             db.SaveChanges();
         }
+        
 
         private float obtenerStock(int prod)
         {

@@ -115,6 +115,7 @@
       <DependentUpon>FabricarProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="Fecha.cs" />
+    <Compile Include="GeneradorSN.cs" />
     <Compile Include="Implosion.cs">
       <SubType>Form</SubType>
     </Compile>
