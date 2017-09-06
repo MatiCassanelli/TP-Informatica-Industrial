@@ -23,7 +23,6 @@ namespace Muebleria
         public int idRazon { get; set; }
     
         public virtual producto producto { get; set; }
-        public virtual razon razon { get; set; }
         public virtual unidad_medida unidad_medida1 { get; set; }
     }
 }
