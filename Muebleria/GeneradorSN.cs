@@ -8,6 +8,7 @@ namespace Muebleria
 {
     class GeneradorSN
     {
+        private int serialNumber;
 
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         public GeneradorSN()
@@ -27,8 +28,16 @@ namespace Muebleria
                 ultimoSN++;
             }
             return ultimoSN;
-
-
+        }
+        
+        public void digitoValidador(int sn)
+        {
+            string par = sn.ToString();
+            string aux= "";
+            for (int i = 1; i < par.Count(); i+=2)
+            {
+                aux+= par[i];
+            }
         }
 
     }

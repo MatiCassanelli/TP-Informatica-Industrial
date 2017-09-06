@@ -72,6 +72,12 @@
     <Compile Include="articulo.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ArticulosEnStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArticulosEnStock.Designer.cs">
+      <DependentUpon>ArticulosEnStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base de Datos.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,6 +208,9 @@
     <Compile Include="users.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ArticulosEnStock.resx">
+      <DependentUpon>ArticulosEnStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Composicion.resx">
       <DependentUpon>Composicion.cs</DependentUpon>
     </EmbeddedResource>

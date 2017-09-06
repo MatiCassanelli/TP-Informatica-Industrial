@@ -78,5 +78,13 @@ namespace Muebleria
             FabricarProductos fc = new FabricarProductos();
             fc.ShowDialog();
         }
+
+        private void btnStock_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            ArticulosEnStock aes = new ArticulosEnStock();
+            aes.ShowDialog();
+        }
     }
 }
