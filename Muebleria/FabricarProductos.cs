@@ -118,7 +118,11 @@ namespace Muebleria
         private void mostrarCodigoDeBarra(articulo a)
         {
             CodigoDeBarras cdb = new CodigoDeBarras();
-            MessageBox.Show(cdb.generarCodigoDeBarras(a.numero_serie));
+            String codigo = cdb.generarCodigoDeBarras(a.numero_serie);
+            MostrarCodigoBarras mcb = new MostrarCodigoBarras();
+            mcb.imprimir(codigo);
+            mcb.ShowDialog();
+            //MessageBox.Show(codigo);
         }
 
         private void generarMovimiento(int idProd, int um, int cant)

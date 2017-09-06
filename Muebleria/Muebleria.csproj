@@ -144,6 +144,12 @@
     <Compile Include="Menu.designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="MostrarCodigoBarras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MostrarCodigoBarras.Designer.cs">
+      <DependentUpon>MostrarCodigoBarras.cs</DependentUpon>
+    </Compile>
     <Compile Include="movimiento.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
@@ -229,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MostrarCodigoBarras.resx">
+      <DependentUpon>MostrarCodigoBarras.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nuevo_Detalle_Remito.resx">
       <DependentUpon>Nuevo_Detalle_Remito.cs</DependentUpon>
