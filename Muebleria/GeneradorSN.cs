@@ -30,7 +30,7 @@ namespace Muebleria
             return ultimoSN;
         }
         
-        public void digitoValidador(int sn)
+        public int digitoValidador(int sn)
         {
             string par = sn.ToString();
             List<int> aux = new List<int>();
@@ -52,12 +52,9 @@ namespace Muebleria
                     y += (2 * aux[i]);
             }
             int z = x + y;
-
             int t = z % 10;
-
             int d = 10 - t;
-            
-
+            return d;        
         }
 
     }

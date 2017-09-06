@@ -93,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Base de Datos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CodigoDeBarras.cs" />
     <Compile Include="Composicion.cs">
       <SubType>Form</SubType>
     </Compile>

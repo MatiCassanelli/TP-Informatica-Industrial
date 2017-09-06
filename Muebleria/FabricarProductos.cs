@@ -112,6 +112,13 @@ namespace Muebleria
             };
             db.articulo.Add(a);
             db.SaveChanges();
+            mostrarCodigoDeBarra(a);
+        }
+
+        private void mostrarCodigoDeBarra(articulo a)
+        {
+            CodigoDeBarras cdb = new CodigoDeBarras();
+            MessageBox.Show(cdb.generarCodigoDeBarras(a.numero_serie));
         }
 
         private void generarMovimiento(int idProd, int um, int cant)
