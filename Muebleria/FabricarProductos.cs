@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -51,7 +52,6 @@ namespace Muebleria
 
             int idProd = convertirEnID(cbProductos.SelectedItem.ToString());
 
-
             var query = db.stock.SqlQuery("select * from stock where idProducto = " + idProd + ";");
             if (query.Count() > 0)
             {
@@ -74,39 +74,49 @@ namespace Muebleria
                 db.stock.Add(s);
             }
             db.SaveChanges();
-generarMovimiento(idProd, UMU[0], Convert.ToInt32(tbCantidad.Text));
-            
+            generarMovimiento(idProd, UMU[0], Convert.ToInt32(tbCantidad.Text));
 
-            //crearArticulo(idProd);
-                
+            for (int i = 0; i < Convert.ToInt32(tbCantidad.Text); i++)
+            {
+                crearArticulo(idProd);
+                Thread.Sleep(2);
+            }
+            MessageBox.Show("Articulos creados con exito");
             //try
             //{
-            //    generarMovimiento(idProd, UMU[0]);
-            //} catch (Exception exp)
+            //    crearArticulo(idProd);
+            //}
+            //catch (Exception exp)
             //{
             //    MessageBox.Show("No anduvo: " + exp.Message);
             //}
-            
+
         }
 
         private void crearArticulo(int idProd)
         {
-            //GeneradorSN gsn = new GeneradorSN();            
-            //int sn = gsn.generarSN(); 
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            GeneradorSN gsn = new GeneradorSN();
+            int sn = gsn.generarSN();
 
-            //articulo a = new articulo()
-            //{
-            //    numero_serie=sn,
-            //    idProducto = idProd,
-            //    fecha_fabricacion = 
-            //}
+            articulo a = new articulo()
+            {
+                numero_serie = sn,
+                idProducto = idProd,
+                fecha_fabricacion = DateTime.Now,
+                fecha_caducidad = DateTime.Now,
+                estado = "Fabricado",
+                ubicacion = "En deposito",
+                last_upd = DateTime.Now,
+                user_upd = LogIn.IdUsuario
+            };
+            db.articulo.Add(a);
+            db.SaveChanges();
         }
 
         private void generarMovimiento(int idProd, int um, int cant)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-            //var query = from m in db.movimiento
-            //            select m;
 
             movimiento mov = new movimiento()
             {
