@@ -17,11 +17,10 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
-            this.producto_sustituto = new HashSet<producto_sustituto>();
             this.articulo = new HashSet<articulo>();
-            this.stock = new HashSet<stock>();
             this.padre_componente_publicado = new HashSet<padre_componente_publicado>();
-            this.precio = new HashSet<precio>();
+            this.producto_sustituto = new HashSet<producto_sustituto>();
+            this.stock = new HashSet<stock>();
         }
     
         public int idUsers { get; set; }
@@ -34,17 +33,15 @@ namespace Muebleria
         public int idLanguage { get; set; }
         public string Password { get; set; }
     
-        public virtual language language { get; set; }
-        public virtual role role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<articulo> articulo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<stock> stock { get; set; }
+        public virtual language language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<padre_componente_publicado> padre_componente_publicado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<precio> precio { get; set; }
+        public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
+        public virtual role role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<stock> stock { get; set; }
     }
 }

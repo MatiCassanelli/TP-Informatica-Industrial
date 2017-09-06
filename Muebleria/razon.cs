@@ -14,16 +14,7 @@ namespace Muebleria
     
     public partial class razon
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public razon()
-        {
-            this.movimiento = new HashSet<movimiento>();
-        }
-    
         public int idRazon { get; set; }
         public int idDescripcion { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<movimiento> movimiento { get; set; }
     }
 }
