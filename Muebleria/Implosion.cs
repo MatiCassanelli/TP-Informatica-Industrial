@@ -16,7 +16,7 @@ namespace Muebleria
         public Implosion()
         {
             InitializeComponent();
-            completarProductos();
+            //completarProductos();
         }
         
         public void completarProductos()
@@ -30,20 +30,64 @@ namespace Muebleria
             DateTime fechacalendario = monthCalendar1.SelectionRange.Start;
             Fecha f = new Fecha();
             int fecha = f.convertir(fechacalendario);
-            var querypc = from pcp in db.padre_componente_publicado
+            //var querypc = from pcp in db.padre_componente_publicado
+            //              where pcp.fecha_aplicacion <= fecha
+            //              select new { padre = pcp.idPadreP, hijo1 = pcp.idHijoP, hijo2 = pcp.idHijoP };
+
+            var subquerypc = from pcp in db.padre_componente_publicado
                           where pcp.fecha_aplicacion <= fecha
+                          select pcp;
+
+            var last_updpc = from sb in subquerypc
+                           orderby sb.fecha_aplicacion descending
+                           select sb.fecha_aplicacion;
+            var auxLUpc = last_updpc.ToList()[0];
+
+            var last_vpc = from sb in subquerypc
+                           where sb.fecha_aplicacion == auxLUpc
+                             orderby sb.version descending
+                             select sb.version;
+            var auxLVpc = last_vpc.ToList()[0];
+
+            var querypc = from pcp in db.padre_componente_publicado
+                          where pcp.fecha_aplicacion == auxLUpc &&
+                          pcp.version == auxLVpc
                           select new { padre = pcp.idPadreP, hijo1 = pcp.idHijoP, hijo2 = pcp.idHijoP };
-            var queryps = from ps in db.producto_sustituto
+
+
+
+            //var queryps = from ps in db.producto_sustituto
+            //              where ps.fecha_aplicacion <= fecha
+            //              select new { padre = ps.idPadre, hijo1 = ps.idHijo, hijo2 = ps.sustituto };
+
+            var subqueryps = from ps in db.producto_sustituto
                           where ps.fecha_aplicacion <= fecha
+                          select ps;
+
+            var last_updps = from sb in subqueryps
+                           orderby sb.fecha_aplicacion descending
+                           select sb.fecha_aplicacion;
+            var auxLUps = last_updps.ToList()[0];
+
+            var last_vps = from sb in subqueryps
+                         orderby sb.version descending
+                         select sb.version;
+            var auxLVps = last_vps.ToList()[0];
+
+            var queryps = from ps in db.producto_sustituto
+                          where ps.fecha_aplicacion == auxLUps &&
+                          ps.version == auxLVps
                           select new { padre = ps.idPadre, hijo1 = ps.idHijo, hijo2 = ps.sustituto };
+
 
             var union = querypc.Union(queryps);
 
-            var query = from aux in union
+            var query = from u in union
                         from p in db.producto
                         from t in db.traduccion
-                        where t.idDescriptionT.Equals(p.idDescriptionP) && t.idLanguageT == LogIn.IdIdioma
-                            && aux.hijo2==p.idProducto
+                        where t.idDescriptionT.Equals(p.idDescriptionP) && 
+                        t.idLanguageT == LogIn.IdIdioma &&
+                        u.hijo2==p.idProducto
                         select t.Traduccion_str;
 
             cbProductosBuscados.DataSource = query.ToList();
