@@ -286,6 +286,38 @@ namespace Muebleria
                     MessageBox.Show("El componente ya ha sido eliminado");
                     return;
                 }
+
+                //Obtener el id del producto Padre que coincide con el nombre seleccionado en el combo
+                var queryP = from p in db.producto
+                             from t in db.traduccion
+                             where p.idDescriptionP == t.idDescriptionT &&
+                             t.Traduccion_str == cbProductos.SelectedItem.ToString() &&
+                             t.idLanguageT == LogIn.IdIdioma
+                             select p.idProducto;
+                List<int> P = queryP.ToList();
+
+
+                //Obtener el id del producto Componente que coincide con el nombre seleccionado en el listBox cargadas
+                var queryC = from p in db.producto
+                             from t in db.traduccion
+                             where p.idDescriptionP == t.idDescriptionT &&
+                             t.Traduccion_str == aux &&
+                             t.idLanguageT == LogIn.IdIdioma
+                             select p.idProducto;
+                List<int> C = queryC.ToList();
+
+                List<producto_sustituto> sustitutos = ListaPS.FindAll(
+                    delegate (producto_sustituto ps)
+                    {
+                        return ps.idPadre == P[0] && ps.idHijo == C[0];
+                    }
+                );
+
+                foreach(producto_sustituto item in sustitutos)
+                    ListaPS.Remove(item);
+
+
+
                 Actualizar_ListBox_Cargadas();
                 lblProdSeleccionado.Visible = false;
                 lbSustitutos.Items.Clear();
