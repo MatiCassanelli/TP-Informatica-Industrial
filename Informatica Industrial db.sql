@@ -45,6 +45,7 @@ CREATE TABLE `articulo` (
 
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
+INSERT INTO `articulo` VALUES (1000000,10056456,'2017-09-09 11:46:19','2017-09-09 11:46:19','Remito','En deposito','2017-09-09 14:46:49',1),(1000001,10056456,'2017-09-09 11:46:22','2017-09-09 11:46:22','Fabricado','En deposito','2017-09-09 14:46:22',1);
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,6 +198,7 @@ CREATE TABLE `movimiento` (
 
 LOCK TABLES `movimiento` WRITE;
 /*!40000 ALTER TABLE `movimiento` DISABLE KEYS */;
+INSERT INTO `movimiento` VALUES ('Fabrica','Deposito',10056456,'2017-09-06 18:38:32',45,1,1),('Fabrica','Deposito',10056456,'2017-09-06 18:39:02',45,1,1),('Fabrica','Deposito',10056456,'2017-09-06 18:39:21',45,1,1),('Fabrica','Deposito',10056456,'2017-09-09 13:47:18',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 13:48:53',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:24:43',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:31:20',1,1,1),('Fabrica','Deposito',10056458,'2017-09-09 14:34:59',1,1,1),('Fabrica','Deposito',10056458,'2017-09-09 14:37:25',1,1,1),('Fabrica','Deposito',10056457,'2017-09-09 14:38:45',1,1,1),('Fabrica','Deposito',10056457,'2017-09-09 14:42:09',2,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:46:19',2,1,1);
 /*!40000 ALTER TABLE `movimiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,7 +386,7 @@ CREATE TABLE `remito` (
   `Cliente` varchar(45) NOT NULL,
   `Destino` varchar(45) NOT NULL,
   PRIMARY KEY (`idRemito`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,6 +395,7 @@ CREATE TABLE `remito` (
 
 LOCK TABLES `remito` WRITE;
 /*!40000 ALTER TABLE `remito` DISABLE KEYS */;
+INSERT INTO `remito` VALUES (1,'Felipe','Casa');
 /*!40000 ALTER TABLE `remito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,8 +409,8 @@ DROP TABLE IF EXISTS `remito_detalle`;
 CREATE TABLE `remito_detalle` (
   `idRemito` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `Cantidad` int(11) NOT NULL,
-  PRIMARY KEY (`idRemito`,`idProducto`),
+  `idArticulo` int(11) NOT NULL,
+  PRIMARY KEY (`idRemito`,`idArticulo`),
   KEY `idProductoRD_idx` (`idProducto`),
   CONSTRAINT `idProductoRD` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idRemitoRD` FOREIGN KEY (`idRemito`) REFERENCES `remito` (`idRemito`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -420,7 +423,7 @@ CREATE TABLE `remito_detalle` (
 
 LOCK TABLES `remito_detalle` WRITE;
 /*!40000 ALTER TABLE `remito_detalle` DISABLE KEYS */;
-INSERT INTO `remito_detalle` VALUES (1,10056457,5),(1,10056458,3),(3,10056456,1),(6,10056456,1),(7,10056456,45),(8,10056456,1),(9,10056456,4),(10,10056456,5),(11,10056456,1),(14,10056456,1),(15,10056456,5);
+INSERT INTO `remito_detalle` VALUES (1,10056456,1000000);
 /*!40000 ALTER TABLE `remito_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,7 +477,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (10056457,1,1,'2017-09-06 15:05:06',1);
+INSERT INTO `stock` VALUES (10056456,1,1,'2017-09-09 14:46:49',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -625,4 +628,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-06 15:28:19
+-- Dump completed on 2017-09-09 11:50:17
