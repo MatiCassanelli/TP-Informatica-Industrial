@@ -28,87 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbProductos = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.maskedTextBox1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(16, 16);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(7);
-            this.groupBox1.Size = new System.Drawing.Size(588, 120);
-            this.groupBox1.TabIndex = 24;
-            this.groupBox1.TabStop = false;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(304, 46);
-            this.maskedTextBox1.Mask = "*000000000000*";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(193, 35);
-            this.maskedTextBox1.TabIndex = 25;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(289, 29);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Ingrese Codigo de Barras";
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 217);
+            this.dataGridView1.Location = new System.Drawing.Point(18, 232);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 37;
-            this.dataGridView1.Size = new System.Drawing.Size(815, 236);
+            this.dataGridView1.Size = new System.Drawing.Size(931, 252);
             this.dataGridView1.TabIndex = 25;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(614, 85);
+            this.btnAceptar.Location = new System.Drawing.Point(701, 140);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(217, 51);
+            this.btnAceptar.Size = new System.Drawing.Size(248, 55);
             this.btnAceptar.TabIndex = 26;
             this.btnAceptar.Text = "Buscar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cbProductos);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Location = new System.Drawing.Point(18, 17);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.groupBox1.Size = new System.Drawing.Size(943, 113);
+            this.groupBox1.TabIndex = 27;
+            this.groupBox1.TabStop = false;
+            // 
+            // cbProductos
+            // 
+            this.cbProductos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProductos.FormattingEnabled = true;
+            this.cbProductos.Location = new System.Drawing.Point(229, 45);
+            this.cbProductos.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.cbProductos.Name = "cbProductos";
+            this.cbProductos.Size = new System.Drawing.Size(702, 39);
+            this.cbProductos.TabIndex = 0;
+            this.cbProductos.Tag = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(-1, 48);
+            this.label3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(143, 32);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Productos";
+            // 
             // ArticulosEnStock
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 527);
+            this.ClientSize = new System.Drawing.Size(994, 689);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.groupBox1);
             this.Name = "ArticulosEnStock";
             this.Text = "ArticulosEnStock";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ArticulosEnStock_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cbProductos;
+        private System.Windows.Forms.Label label3;
     }
 }

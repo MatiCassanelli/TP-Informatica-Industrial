@@ -15,42 +15,57 @@ namespace Muebleria
         public ArticulosEnStock()
         {
             InitializeComponent();
+            cargarCombo();
+        }
+
+        private void cargarCombo()
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
+            var subquery = from p in db.producto
+                           where p.idTipo == 1 || p.idTipo == 3
+                           select p.idDescriptionP;
+
+            var query = from t in db.traduccion
+                        from p in subquery
+                        where t.idDescriptionT == p &&
+                        t.idLanguageT == LogIn.IdIdioma
+                        select t.Traduccion_str;
+
+            cbProductos.DataSource = query.ToList();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string mascara = maskedTextBox1.Text;
-            string recorte = "";
-            if (mascara.Length == 14)    //14 para contar los ** y 12 digitos
-                recorte = mascara.Substring(5, 7);
-            else
-            {
-                maskedTextBox1.Clear();
-                return;
-            }
-            buscarProd(Convert.ToInt32(recorte));
+            traerStock(cbProductos.SelectedItem.ToString());
         }
 
-        private void buscarProd(int sn)
+        private int convertirEnID(string prod)
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            var queryP = from p in db.producto
+                         from t in db.traduccion
+                         where p.idDescriptionP == t.idDescriptionT &&
+                         t.Traduccion_str == prod &&
+                         t.idLanguageT == LogIn.IdIdioma
+                         select p.idProducto;
 
-            var subquery = from a in db.articulo
-                           where a.numero_serie == sn
-                           select new { prod = a.idProducto, ubicacion = a.ubicacion };
+            return queryP.ToList()[0];
+        }
 
-            var query = from aux in subquery
-                        from s in db.stock
-                        where s.idProducto == aux.prod
-                        select new { idProd = aux.prod, cant = s.Cantidad, ubicacion = aux.ubicacion };
+        private void traerStock(string prod)
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            int idSeleccionado = convertirEnID(prod);
 
-            var final = from aux in query
+            var query = from s in db.stock
                         from p in db.producto
-                        from t in db.traduccion
-                        where p.idProducto == aux.idProd && p.idDescriptionP == t.idDescriptionT && t.idLanguageT == LogIn.IdIdioma
-                        select new { prod = t.Traduccion_str, cant = aux.cant, ubicacion = aux.ubicacion };
-
-            dataGridView1.DataSource = final.ToList();
+                        where s.idProducto == p.idProducto && p.idProducto == idSeleccionado
+                        select new { prod = prod, cant = s.Cantidad };
+            if (query.Count() > 0)
+                dataGridView1.DataSource = query.ToList();
+            else
+                MessageBox.Show("El producto seleccionado no se encuentra en stock");
         }
 
         private void ArticulosEnStock_FormClosed(object sender, FormClosedEventArgs e)
