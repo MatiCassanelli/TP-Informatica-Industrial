@@ -12,7 +12,7 @@ namespace Muebleria
 {
     public partial class Nuevo_Detalle_Remito : Form
     {
-        int cerrado = 0;
+        //int cerrado = 0;
         public Nuevo_Detalle_Remito()
         {
             InitializeComponent();
@@ -152,7 +152,7 @@ namespace Muebleria
             ActualizarStock();
             ActualizarEstado();
 
-            cerrado = 1;
+            //cerrado = 1;
             this.Hide();
             this.Close();
             Menu menu = new Menu();
@@ -219,35 +219,38 @@ namespace Muebleria
         }
         private void Nuevo_Detalle_Remito_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing && cerrado == 0)
-            {
-                MessageBox.Show("Debe finalizar la operación");
-                e.Cancel = true;
-                //DialogResult result = MessageBox.Show("¿Quiere eliminar el remito generado?", "Alerta", MessageBoxButtons.YesNo);
-                //if (result == DialogResult.Yes)
-                //{
-                //    Environment.Exit(0);
-                //    informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            Menu menu = new Menu();
+            this.Hide();
+            menu.ShowDialog();
+            //if (e.CloseReason == CloseReason.UserClosing && cerrado == 0)
+            //{
+            //    MessageBox.Show("Debe finalizar la operación");
+            //    e.Cancel = true;
+            //    //DialogResult result = MessageBox.Show("¿Quiere eliminar el remito generado?", "Alerta", MessageBoxButtons.YesNo);
+            //    //if (result == DialogResult.Yes)
+            //    //{
+            //    //    Environment.Exit(0);
+            //    //    informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
-                //    int nroRemito = Convert.ToInt32(lblRemito.Text);
-                //    var query = from r in db.remito
-                //                where r.idRemito == nroRemito
-                //                select r;
+            //    //    int nroRemito = Convert.ToInt32(lblRemito.Text);
+            //    //    var query = from r in db.remito
+            //    //                where r.idRemito == nroRemito
+            //    //                select r;
 
-                //    if(query.Count() > 0)
-                //    {
-                //        foreach(var item in query)
-                //        {
-                //            db.remito.Remove(item);
-                //            db.SaveChanges();
-                //        }
-                //    }
-            }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
+            //    //    if(query.Count() > 0)
+            //    //    {
+            //    //        foreach(var item in query)
+            //    //        {
+            //    //            db.remito.Remove(item);
+            //    //            db.SaveChanges();
+            //    //        }
+            //    //    }
+            //}
+            //    else
+            //    {
+            //        e.Cancel = true;
+            //    }
+        }
         }
     }
 
