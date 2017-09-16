@@ -30,7 +30,7 @@ namespace Muebleria
             return ultimoSN;
         }
 
-        public long generarSNcompleto(int prod)
+        public double generarSNcompleto(int prod)
         {
             int sn = generarProximoSN();
             var query = from p in db.producto
@@ -46,7 +46,7 @@ namespace Muebleria
                 codAbreviado *= 10;
 
             string rejunte = codAbreviado.ToString()+sn.ToString()+ digitoValidador(sn);
-            long a = int.Parse(rejunte);
+            double a = int.Parse(rejunte);
             return a;
 
         }

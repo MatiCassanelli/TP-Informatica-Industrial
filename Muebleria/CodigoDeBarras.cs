@@ -13,7 +13,7 @@ namespace Muebleria
 
         }
 
-        public string generarCodigoDeBarras(long sn)
+        public string generarCodigoDeBarras(double sn)
         {
             string cdb = "*" + sn.ToString() + "*";
             return cdb;

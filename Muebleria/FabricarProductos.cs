@@ -99,7 +99,7 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             GeneradorSN gsn = new GeneradorSN();
-            long sn = gsn.generarSNcompleto(idProd);
+            double sn = gsn.generarSNcompleto(idProd);
 
             articulo a = new articulo()
             {
