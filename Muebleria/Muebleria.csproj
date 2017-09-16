@@ -93,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Base de Datos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CargarCombos.cs" />
     <Compile Include="CodigoDeBarras.cs" />
     <Compile Include="Composicion.cs">
       <SubType>Form</SubType>
@@ -100,8 +101,15 @@
     <Compile Include="Composicion.designer.cs">
       <DependentUpon>Composicion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControllerDetalleMovimiento.cs" />
     <Compile Include="conversion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleMovimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetalleMovimiento.Designer.cs">
+      <DependentUpon>DetalleMovimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="direccion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
@@ -217,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Composicion.resx">
       <DependentUpon>Composicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetalleMovimiento.resx">
+      <DependentUpon>DetalleMovimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Explosion.resx">
       <DependentUpon>Explosion.cs</DependentUpon>

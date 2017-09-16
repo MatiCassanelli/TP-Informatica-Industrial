@@ -86,5 +86,13 @@ namespace Muebleria
             ArticulosEnStock aes = new ArticulosEnStock();
             aes.ShowDialog();
         }
+
+        private void btnMovimiento_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            DetalleMovimiento dm = new DetalleMovimiento();
+            dm.ShowDialog();
+        }
     }
 }
