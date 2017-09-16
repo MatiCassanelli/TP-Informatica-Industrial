@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `articulo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `articulo` (
-  `numero_serie` int(12) NOT NULL,
+  `numero_serie` double NOT NULL,
   `idProducto` int(11) NOT NULL,
   `fecha_fabricacion` datetime NOT NULL,
   `fecha_caducidad` datetime NOT NULL,
@@ -65,8 +65,8 @@ CREATE TABLE `articulo` (
   KEY `idProductoA_idx` (`idProducto`),
   KEY `usser_updA_idx` (`user_upd`),
   KEY `ubicacionA_idx` (`ubicacion`),
-  CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoA` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usser_updA` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -395,7 +395,7 @@ DROP TABLE IF EXISTS `movimiento`;
 CREATE TABLE `movimiento` (
   `idMovimiento` int(11) NOT NULL AUTO_INCREMENT,
   `idProducto` int(11) NOT NULL,
-  `idArticulo` int(11) DEFAULT NULL,
+  `idArticulo` double DEFAULT NULL,
   `cantidad` float NOT NULL,
   `u_medida` int(11) DEFAULT NULL,
   `S_origen` int(11) NOT NULL,
@@ -408,16 +408,16 @@ CREATE TABLE `movimiento` (
   `idRazon` int(11) NOT NULL,
   PRIMARY KEY (`idMovimiento`),
   KEY `idProductoMov_idx` (`idProducto`),
-  KEY `idArticuloMov_idx` (`idArticulo`),
   KEY `U_origenMov_idx` (`S_origen`),
   KEY `A_origenMov_idx` (`A_origen`),
   KEY `U_origenMov_idx1` (`U_origen`),
   KEY `S_destinoMov_idx` (`S_destino`),
   KEY `A_destinoMov_idx` (`A_destino`),
   KEY `U_destinoMov_idx` (`U_destino`),
+  KEY `idArtiucloMov_idx` (`idArticulo`),
+  CONSTRAINT `idArtiucloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_destinoMov` FOREIGN KEY (`A_destino`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idArticuloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `S_destinoMov` FOREIGN KEY (`S_destino`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -987,4 +987,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-16 18:24:09
+-- Dump completed on 2017-09-16 18:42:27
