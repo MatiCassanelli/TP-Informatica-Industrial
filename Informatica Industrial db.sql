@@ -65,8 +65,8 @@ CREATE TABLE `articulo` (
   KEY `idProductoA_idx` (`idProducto`),
   KEY `usser_updA_idx` (`user_upd`),
   KEY `ubicacionA_idx` (`ubicacion`),
+  CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoA` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usser_updA` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -415,14 +415,14 @@ CREATE TABLE `movimiento` (
   KEY `S_destinoMov_idx` (`S_destino`),
   KEY `A_destinoMov_idx` (`A_destino`),
   KEY `U_destinoMov_idx` (`U_destino`),
-  CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idArticuloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `U_origenMov` FOREIGN KEY (`U_origen`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `S_destinoMov` FOREIGN KEY (`S_destino`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_destinoMov` FOREIGN KEY (`A_destino`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idArticuloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `S_destinoMov` FOREIGN KEY (`S_destino`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `U_origenMov` FOREIGN KEY (`U_origen`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -449,8 +449,8 @@ CREATE TABLE `operario_estacion` (
   `tiempo_finalizacion` datetime NOT NULL,
   PRIMARY KEY (`IdUser`,`idEstacion`),
   KEY `EstacionOE_idx` (`idEstacion`),
-  CONSTRAINT `UserOE` FOREIGN KEY (`IdUser`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `EstacionOE` FOREIGN KEY (`idEstacion`) REFERENCES `estacion` (`idEstacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `EstacionOE` FOREIGN KEY (`idEstacion`) REFERENCES `estacion` (`idEstacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `UserOE` FOREIGN KEY (`IdUser`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -633,9 +633,9 @@ CREATE TABLE `razon` (
   KEY `idDescripcionR_idx` (`idDescripcion`),
   KEY `idProductoR_idx` (`idProducto`),
   KEY `User_updR_idx` (`user_upd`),
+  CONSTRAINT `idDescripcionR` FOREIGN KEY (`idDescripcion`) REFERENCES `traduccion` (`idDescriptionT`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoR` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `User_updR` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idDescripcionR` FOREIGN KEY (`idDescripcion`) REFERENCES `traduccion` (`idDescriptionT`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `User_updR` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -743,9 +743,9 @@ CREATE TABLE `stock` (
   KEY `User_updS_idx` (`user_upd`),
   KEY `unidad_medidaS_idx` (`unidad_medida`),
   KEY `idAlmacenS_idx` (`idAlmacen`),
-  CONSTRAINT `unidad_medidaS` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idAlmacenS` FOREIGN KEY (`idAlmacen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoS` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `unidad_medidaS` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `User_updS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -964,8 +964,8 @@ CREATE TABLE `usuarioxrazon` (
   `idRazon` int(11) NOT NULL,
   PRIMARY KEY (`idUsuario`,`idRazon`),
   KEY `idRazonUXR_idx` (`idRazon`),
-  CONSTRAINT `idUsuarioUXR` FOREIGN KEY (`idUsuario`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idRazonUXR` FOREIGN KEY (`idRazon`) REFERENCES `razon` (`idRazon`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idRazonUXR` FOREIGN KEY (`idRazon`) REFERENCES `razon` (`idRazon`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idUsuarioUXR` FOREIGN KEY (`idUsuario`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -987,4 +987,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-16 12:34:46
+-- Dump completed on 2017-09-16 18:24:09

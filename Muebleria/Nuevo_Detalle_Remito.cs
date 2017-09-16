@@ -17,26 +17,7 @@ namespace Muebleria
         {
             InitializeComponent();
             SetLabel2();
-            //CargarCombo();
         }
-
-        //private void CargarCombo()
-        //{
-        //    informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-        //    //Consulta para traer la lista de los ID de los productos de tipo "finales"
-        //    var subquery = from p in db.producto
-        //                   where p.idTipo == 1
-        //                   select p.idDescriptionP;
-
-        //    //Consulta para traer los nombres de los productos
-        //    var query = from t in db.traduccion
-        //                from p in subquery
-        //                where t.idDescriptionT == p &&
-        //                t.idLanguageT == LogIn.IdIdioma
-        //                select t.Traduccion_str;
-
-        //    cbProductosFinales.DataSource = query.ToList();
-        //}
 
         private void SetLabel2()
         {
@@ -53,12 +34,26 @@ namespace Muebleria
             string mascara = maskedTextBox1.Text;
             string recorte = "";
             if (mascara.Length == 14)    //14 para contar los ** y 12 digitos
-                recorte = mascara.Substring(5, 7);
+                recorte = mascara.Substring(5, 7);  //TENGO Sacar del 1 al 13
             else
             {
                 maskedTextBox1.Clear();
                 return;
             }
+
+            if (DataGridDetalles.RowCount > 0)
+            {
+                foreach (DataGridViewRow row in DataGridDetalles.Rows)
+                {
+                    String strFila = row.Cells[0].AccessibilityObject.Value.ToString();
+                    if(recorte == strFila)
+                    {
+                        MessageBox.Show("El artículo ya ha sido agregado");
+                        return;
+                    }
+                }
+            }
+
             int nroserie = Convert.ToInt32(recorte);
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             var query = from a in db.articulo
@@ -78,7 +73,6 @@ namespace Muebleria
             {
                 DataGridDetalles.Rows.Add(item.nro, item.prod, item.desc);
             }
-            //DataGridDetalles.DataSource = query.ToList();
         }
         //private void btnCargarProducto_Click(object sender, EventArgs e)
         //{
@@ -187,9 +181,16 @@ namespace Muebleria
             {
                 foreach (DataGridViewRow row in DataGridDetalles.Rows)
                 {
-                    int idproducto = Convert.ToInt32(row.Cells[1].AccessibilityObject.Value);
+                    int nroserie = Convert.ToInt32(row.Cells[1].AccessibilityObject.Value);
+
+                    var subquery = from a in db.articulo
+                                   where a.numero_serie == nroserie
+                                   select a.idProducto;
+                    int idprod = subquery.ToList()[0];
+
                     var query = from s in db.stock
-                                where s.idProducto == idproducto
+                                where s.idProducto == idprod &&
+                                s.idAlmacen == 1                    //TENGO q poner el almacen por defecto
                                 select s;
 
                     //float cantIngresada = float.Parse(row.Cells[2].AccessibilityObject.Value);
