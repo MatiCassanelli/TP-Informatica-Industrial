@@ -69,7 +69,9 @@ namespace Muebleria
                     Cantidad = float.Parse(tbCantidad.Text),
                     unidad_medida = UMU[0],
                     last_upd = DateTime.Now,
+                    idAlmacen=1,
                     user_upd = LogIn.IdUsuario
+                    
                 };
                 db.stock.Add(s);
             }
@@ -79,7 +81,7 @@ namespace Muebleria
             for (int i = 0; i < Convert.ToInt32(tbCantidad.Text); i++)
             {
                 crearArticulo(idProd);
-                Thread.Sleep(2);
+                //Thread.Sleep(2);
             }
             MessageBox.Show("Articulos creados con exito");
             //try
@@ -97,7 +99,7 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             GeneradorSN gsn = new GeneradorSN();
-            int sn = gsn.generarSN();
+            long sn = gsn.generarSNcompleto(idProd);
 
             articulo a = new articulo()
             {
@@ -106,7 +108,7 @@ namespace Muebleria
                 fecha_fabricacion = DateTime.Now,
                 fecha_caducidad = DateTime.Now,
                 estado = "Fabricado",
-                ubicacion = "En deposito",
+                ubicacion = 1,
                 last_upd = DateTime.Now,
                 user_upd = LogIn.IdUsuario
             };
@@ -131,12 +133,12 @@ namespace Muebleria
 
             movimiento mov = new movimiento()
             {
-                ubicacion_origen = "Fabrica",
-                ubicacion_destino = "Deposito",
+                S_origen = 1,
+                S_destino = 2,
                 idProducto = idProd,
-                fecha_movimiento = DateTime.Now,
+                fechaMovimiento = DateTime.Now,
                 cantidad = cant,
-                unidad_medida = um,
+                u_medida = um,
                 idRazon=1                
             };
             db.movimiento.Add(mov);

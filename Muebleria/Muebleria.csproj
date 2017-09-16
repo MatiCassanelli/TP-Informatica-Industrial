@@ -69,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="almacen.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="articulo.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
@@ -94,6 +97,12 @@
       <DependentUpon>Base de Datos.edmx</DependentUpon>
     </Compile>
     <Compile Include="CargarCombos.cs" />
+    <Compile Include="ciclo.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ciclo_precedente.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodigoDeBarras.cs" />
     <Compile Include="Composicion.cs">
       <SubType>Form</SubType>
@@ -114,6 +123,9 @@
     <Compile Include="direccion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="estacion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Explosion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +143,12 @@
     </Compile>
     <Compile Include="Fecha.cs" />
     <Compile Include="GeneradorSN.cs" />
+    <Compile Include="herramienta.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="historial_txt.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Implosion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +162,12 @@
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="language.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mantenimiento_maquina.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="maquina.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
@@ -172,6 +196,9 @@
     </Compile>
     <Compile Include="Nuevo_Remito.Designer.cs">
       <DependentUpon>Nuevo_Remito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="operario_estacion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="PadreHijo.cs" />
     <Compile Include="padre_componente_publicado.cs">
@@ -204,6 +231,9 @@
     <Compile Include="stock.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="sucursal.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="tipo_externo.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
@@ -211,6 +241,9 @@
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="traduccion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ubicacion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="UM_valor.cs" />
