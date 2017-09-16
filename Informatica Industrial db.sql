@@ -16,6 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `almacen`
+--
+
+DROP TABLE IF EXISTS `almacen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `almacen` (
+  `idAlmacen` int(11) NOT NULL AUTO_INCREMENT,
+  `idSucursal` int(11) NOT NULL,
+  `idDireccion` int(11) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Real` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idAlmacen`),
+  KEY `idDireccionA_idx` (`idDireccion`),
+  KEY `idSucursalA_idx` (`idSucursal`),
+  CONSTRAINT `idDireccionA` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idSucursalA` FOREIGN KEY (`idSucursal`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `almacen`
+--
+
+LOCK TABLES `almacen` WRITE;
+/*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `articulo`
 --
 
@@ -23,18 +53,20 @@ DROP TABLE IF EXISTS `articulo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `articulo` (
-  `numero_serie` int(11) NOT NULL,
+  `numero_serie` int(12) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `fecha_fabricacion` datetime NOT NULL,
   `fecha_caducidad` datetime NOT NULL,
   `estado` varchar(45) NOT NULL,
-  `ubicacion` varchar(45) NOT NULL,
+  `ubicacion` int(11) NOT NULL,
   `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_upd` int(11) NOT NULL,
-  PRIMARY KEY (`numero_serie`,`idProducto`),
+  PRIMARY KEY (`numero_serie`),
   KEY `idProductoA_idx` (`idProducto`),
   KEY `usser_updA_idx` (`user_upd`),
+  KEY `ubicacionA_idx` (`ubicacion`),
   CONSTRAINT `idProductoA` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usser_updA` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,8 +77,61 @@ CREATE TABLE `articulo` (
 
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
-INSERT INTO `articulo` VALUES (1000000,10056456,'2017-09-09 11:46:19','2017-09-09 11:46:19','Remito','En deposito','2017-09-09 14:46:49',1),(1000001,10056456,'2017-09-09 11:46:22','2017-09-09 11:46:22','Fabricado','En deposito','2017-09-09 14:46:22',1);
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ciclo`
+--
+
+DROP TABLE IF EXISTS `ciclo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ciclo` (
+  `idCiclo` int(11) NOT NULL,
+  `idSalida` int(11) NOT NULL,
+  `fecha_desde` datetime NOT NULL,
+  `fecha_hasta` datetime NOT NULL,
+  `tiempo_setup` float NOT NULL,
+  `tiempo_operacion` float NOT NULL,
+  `tiempo_finalizacion` float NOT NULL,
+  PRIMARY KEY (`idCiclo`,`fecha_desde`,`fecha_hasta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ciclo`
+--
+
+LOCK TABLES `ciclo` WRITE;
+/*!40000 ALTER TABLE `ciclo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ciclo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ciclo_precedente`
+--
+
+DROP TABLE IF EXISTS `ciclo_precedente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ciclo_precedente` (
+  `idCiclo_precedente` int(11) NOT NULL,
+  `idCiclo_actual` int(11) NOT NULL,
+  PRIMARY KEY (`idCiclo_precedente`,`idCiclo_actual`),
+  KEY `ciclo_actual_idx` (`idCiclo_actual`),
+  CONSTRAINT `ciclo_actual` FOREIGN KEY (`idCiclo_actual`) REFERENCES `ciclo` (`idCiclo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ciclo_precedente` FOREIGN KEY (`idCiclo_precedente`) REFERENCES `ciclo` (`idCiclo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ciclo_precedente`
+--
+
+LOCK TABLES `ciclo_precedente` WRITE;
+/*!40000 ALTER TABLE `ciclo_precedente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ciclo_precedente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -108,6 +193,30 @@ LOCK TABLES `direccion` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `estacion`
+--
+
+DROP TABLE IF EXISTS `estacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estacion` (
+  `idEstacion` int(11) NOT NULL,
+  `Ubicacion` varchar(45) NOT NULL,
+  `idDescripcion` int(11) NOT NULL,
+  PRIMARY KEY (`idEstacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estacion`
+--
+
+LOCK TABLES `estacion` WRITE;
+/*!40000 ALTER TABLE `estacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `externo`
 --
 
@@ -146,6 +255,56 @@ INSERT INTO `externo` VALUES (1,1,3001,'20223750398',0,0,0,'N'),(2,1,3001,'20223
 UNLOCK TABLES;
 
 --
+-- Table structure for table `herramienta`
+--
+
+DROP TABLE IF EXISTS `herramienta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `herramienta` (
+  `idHerramienta` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `idEstacion` int(11) NOT NULL,
+  `Uso` float NOT NULL,
+  `UM_uso` int(11) NOT NULL,
+  PRIMARY KEY (`idHerramienta`,`idProducto`),
+  KEY `EstacionHerramienta_idx` (`idEstacion`),
+  CONSTRAINT `EstacionHerramienta` FOREIGN KEY (`idEstacion`) REFERENCES `estacion` (`idEstacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `herramienta`
+--
+
+LOCK TABLES `herramienta` WRITE;
+/*!40000 ALTER TABLE `herramienta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `herramienta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `historial_txt`
+--
+
+DROP TABLE IF EXISTS `historial_txt`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historial_txt` (
+  `idHistorial_txt` int(11) NOT NULL,
+  PRIMARY KEY (`idHistorial_txt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historial_txt`
+--
+
+LOCK TABLES `historial_txt` WRITE;
+/*!40000 ALTER TABLE `historial_txt` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historial_txt` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `language`
 --
 
@@ -170,6 +329,63 @@ INSERT INTO `language` VALUES (1,'Español'),(2,'Ingles');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mantenimiento_maquina`
+--
+
+DROP TABLE IF EXISTS `mantenimiento_maquina`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mantenimiento_maquina` (
+  `idMantenimiento` int(11) NOT NULL,
+  `idMaquina` int(11) NOT NULL,
+  `fecha_mantenimiento` datetime NOT NULL,
+  `piezas_cambiadas` varchar(500) NOT NULL,
+  PRIMARY KEY (`idMantenimiento`,`idMaquina`),
+  KEY `MaquinaMM_idx` (`idMaquina`),
+  CONSTRAINT `MaquinaMM` FOREIGN KEY (`idMaquina`) REFERENCES `maquina` (`idMaquina`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mantenimiento_maquina`
+--
+
+LOCK TABLES `mantenimiento_maquina` WRITE;
+/*!40000 ALTER TABLE `mantenimiento_maquina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mantenimiento_maquina` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `maquina`
+--
+
+DROP TABLE IF EXISTS `maquina`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `maquina` (
+  `idMaquina` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `idEstacion` int(11) NOT NULL,
+  `Uso` float NOT NULL,
+  `UM_uso` int(11) NOT NULL,
+  `piezas_producidas` float NOT NULL,
+  `tiempo_parada` float NOT NULL,
+  PRIMARY KEY (`idMaquina`,`idProducto`),
+  KEY `EstacionMaquina_idx` (`idEstacion`),
+  CONSTRAINT `EstacionMaquina` FOREIGN KEY (`idEstacion`) REFERENCES `estacion` (`idEstacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `maquina`
+--
+
+LOCK TABLES `maquina` WRITE;
+/*!40000 ALTER TABLE `maquina` DISABLE KEYS */;
+/*!40000 ALTER TABLE `maquina` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `movimiento`
 --
 
@@ -177,18 +393,36 @@ DROP TABLE IF EXISTS `movimiento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movimiento` (
-  `ubicacion_origen` varchar(45) NOT NULL,
-  `ubicacion_destino` varchar(45) NOT NULL,
+  `idMovimiento` int(11) NOT NULL AUTO_INCREMENT,
   `idProducto` int(11) NOT NULL,
-  `fecha_movimiento` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `idArticulo` int(11) DEFAULT NULL,
   `cantidad` float NOT NULL,
-  `unidad_medida` int(11) NOT NULL,
+  `u_medida` int(11) DEFAULT NULL,
+  `S_origen` int(11) NOT NULL,
+  `A_origen` int(11) DEFAULT NULL,
+  `U_origen` int(11) DEFAULT NULL,
+  `S_destino` int(11) NOT NULL,
+  `A_destino` int(11) DEFAULT NULL,
+  `U_destino` int(11) DEFAULT NULL,
+  `fechaMovimiento` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `idRazon` int(11) NOT NULL,
-  PRIMARY KEY (`ubicacion_origen`,`fecha_movimiento`,`idProducto`,`ubicacion_destino`),
-  KEY `idProductoM_idx` (`idProducto`),
-  KEY `unidad_medidaM_idx` (`unidad_medida`),
-  CONSTRAINT `idProductoM` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `unidad_medidaM` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`idMovimiento`),
+  KEY `idProductoMov_idx` (`idProducto`),
+  KEY `idArticuloMov_idx` (`idArticulo`),
+  KEY `U_origenMov_idx` (`S_origen`),
+  KEY `A_origenMov_idx` (`A_origen`),
+  KEY `U_origenMov_idx1` (`U_origen`),
+  KEY `S_destinoMov_idx` (`S_destino`),
+  KEY `A_destinoMov_idx` (`A_destino`),
+  KEY `U_destinoMov_idx` (`U_destino`),
+  CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idArticuloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `U_origenMov` FOREIGN KEY (`U_origen`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `S_destinoMov` FOREIGN KEY (`S_destino`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `A_destinoMov` FOREIGN KEY (`A_destino`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,8 +432,35 @@ CREATE TABLE `movimiento` (
 
 LOCK TABLES `movimiento` WRITE;
 /*!40000 ALTER TABLE `movimiento` DISABLE KEYS */;
-INSERT INTO `movimiento` VALUES ('Fabrica','Deposito',10056456,'2017-09-06 18:38:32',45,1,1),('Fabrica','Deposito',10056456,'2017-09-06 18:39:02',45,1,1),('Fabrica','Deposito',10056456,'2017-09-06 18:39:21',45,1,1),('Fabrica','Deposito',10056456,'2017-09-09 13:47:18',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 13:48:53',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:24:43',1,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:31:20',1,1,1),('Fabrica','Deposito',10056458,'2017-09-09 14:34:59',1,1,1),('Fabrica','Deposito',10056458,'2017-09-09 14:37:25',1,1,1),('Fabrica','Deposito',10056457,'2017-09-09 14:38:45',1,1,1),('Fabrica','Deposito',10056457,'2017-09-09 14:42:09',2,1,1),('Fabrica','Deposito',10056456,'2017-09-09 14:46:19',2,1,1);
 /*!40000 ALTER TABLE `movimiento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `operario_estacion`
+--
+
+DROP TABLE IF EXISTS `operario_estacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `operario_estacion` (
+  `IdUser` int(11) NOT NULL,
+  `idEstacion` int(11) NOT NULL,
+  `tiempo_comienzo` datetime NOT NULL,
+  `tiempo_finalizacion` datetime NOT NULL,
+  PRIMARY KEY (`IdUser`,`idEstacion`),
+  KEY `EstacionOE_idx` (`idEstacion`),
+  CONSTRAINT `UserOE` FOREIGN KEY (`IdUser`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `EstacionOE` FOREIGN KEY (`idEstacion`) REFERENCES `estacion` (`idEstacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `operario_estacion`
+--
+
+LOCK TABLES `operario_estacion` WRITE;
+/*!40000 ALTER TABLE `operario_estacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `operario_estacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -359,8 +620,21 @@ DROP TABLE IF EXISTS `razon`;
 CREATE TABLE `razon` (
   `idRazon` int(11) NOT NULL AUTO_INCREMENT,
   `idDescripcion` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_upd` int(11) NOT NULL,
+  `S_origen` int(11) DEFAULT NULL,
+  `A_origen` int(11) DEFAULT NULL,
+  `U_origen` int(11) DEFAULT NULL,
+  `S_destino` int(11) DEFAULT NULL,
+  `A_destino` int(11) DEFAULT NULL,
+  `U_destino` int(11) DEFAULT NULL,
   PRIMARY KEY (`idRazon`),
   KEY `idDescripcionR_idx` (`idDescripcion`),
+  KEY `idProductoR_idx` (`idProducto`),
+  KEY `User_updR_idx` (`user_upd`),
+  CONSTRAINT `idProductoR` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `User_updR` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idDescripcionR` FOREIGN KEY (`idDescripcion`) REFERENCES `traduccion` (`idDescriptionT`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -386,7 +660,7 @@ CREATE TABLE `remito` (
   `Cliente` varchar(45) NOT NULL,
   `Destino` varchar(45) NOT NULL,
   PRIMARY KEY (`idRemito`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -395,7 +669,7 @@ CREATE TABLE `remito` (
 
 LOCK TABLES `remito` WRITE;
 /*!40000 ALTER TABLE `remito` DISABLE KEYS */;
-INSERT INTO `remito` VALUES (1,'Felipe','Casa');
+INSERT INTO `remito` VALUES (1,'Felipe','Casa'),(2,'5gfd','dfsa'),(3,'fds','gfdsa'),(4,'asd','asd'),(5,'assad','asda'),(6,'sdf','asd');
 /*!40000 ALTER TABLE `remito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +697,7 @@ CREATE TABLE `remito_detalle` (
 
 LOCK TABLES `remito_detalle` WRITE;
 /*!40000 ALTER TABLE `remito_detalle` DISABLE KEYS */;
-INSERT INTO `remito_detalle` VALUES (1,10056456,1000000);
+INSERT INTO `remito_detalle` VALUES (1,10056456,1000000),(6,10056456,1000002);
 /*!40000 ALTER TABLE `remito_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,10 +736,15 @@ CREATE TABLE `stock` (
   `idProducto` int(11) NOT NULL,
   `Cantidad` float NOT NULL,
   `unidad_medida` int(11) NOT NULL,
+  `idAlmacen` int(11) NOT NULL,
   `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_upd` int(11) NOT NULL,
-  PRIMARY KEY (`idProducto`),
+  PRIMARY KEY (`idProducto`,`idAlmacen`),
   KEY `User_updS_idx` (`user_upd`),
+  KEY `unidad_medidaS_idx` (`unidad_medida`),
+  KEY `idAlmacenS_idx` (`idAlmacen`),
+  CONSTRAINT `unidad_medidaS` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idAlmacenS` FOREIGN KEY (`idAlmacen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoS` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `User_updS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -477,8 +756,34 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (10056456,1,1,'2017-09-09 14:46:49',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sucursal`
+--
+
+DROP TABLE IF EXISTS `sucursal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sucursal` (
+  `idSucursal` int(11) NOT NULL AUTO_INCREMENT,
+  `idDireccion` int(11) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Real` tinyint(4) NOT NULL,
+  PRIMARY KEY (`idSucursal`),
+  KEY `idDireccionS_idx` (`idDireccion`),
+  CONSTRAINT `idDireccionS` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sucursal`
+--
+
+LOCK TABLES `sucursal` WRITE;
+/*!40000 ALTER TABLE `sucursal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sucursal` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -558,6 +863,34 @@ INSERT INTO `traduccion` VALUES (1022,1,'A'),(1022,2,'A'),(2010,2,'Aglo wood'),(
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ubicacion`
+--
+
+DROP TABLE IF EXISTS `ubicacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ubicacion` (
+  `idUbicacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idAlmacen` int(11) NOT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `z` int(11) NOT NULL,
+  PRIMARY KEY (`idUbicacion`),
+  KEY `idAlmacenU_idx` (`idAlmacen`),
+  CONSTRAINT `idAlmacenU` FOREIGN KEY (`idAlmacen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ubicacion`
+--
+
+LOCK TABLES `ubicacion` WRITE;
+/*!40000 ALTER TABLE `ubicacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ubicacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `unidad_medida`
 --
 
@@ -618,6 +951,32 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'Matias','Cassanelli','sw',1,'3512253697','mati@gmail.com',1,'mati'),(2,'Felipe','Toledo','sw',1,'3516581627','feli@gmail.com',2,'feli');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarioxrazon`
+--
+
+DROP TABLE IF EXISTS `usuarioxrazon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuarioxrazon` (
+  `idUsuario` int(11) NOT NULL,
+  `idRazon` int(11) NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idRazon`),
+  KEY `idRazonUXR_idx` (`idRazon`),
+  CONSTRAINT `idUsuarioUXR` FOREIGN KEY (`idUsuario`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idRazonUXR` FOREIGN KEY (`idRazon`) REFERENCES `razon` (`idRazon`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarioxrazon`
+--
+
+LOCK TABLES `usuarioxrazon` WRITE;
+/*!40000 ALTER TABLE `usuarioxrazon` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuarioxrazon` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -628,4 +987,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-09 11:50:17
+-- Dump completed on 2017-09-16 12:34:46

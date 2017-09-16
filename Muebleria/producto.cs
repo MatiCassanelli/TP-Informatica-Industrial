@@ -25,8 +25,10 @@ namespace Muebleria
             this.padre_componente_temporal1 = new HashSet<padre_componente_temporal>();
             this.producto_sustituto = new HashSet<producto_sustituto>();
             this.producto_sustituto1 = new HashSet<producto_sustituto>();
-            this.producto_sustituto2 = new HashSet<producto_sustituto>();
+            this.razon = new HashSet<razon>();
             this.remito_detalle = new HashSet<remito_detalle>();
+            this.stock = new HashSet<stock>();
+            this.producto_sustituto2 = new HashSet<producto_sustituto>();
         }
     
         public int idProducto { get; set; }
@@ -56,13 +58,16 @@ namespace Muebleria
         public virtual ICollection<producto_sustituto> producto_sustituto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto_sustituto> producto_sustituto1 { get; set; }
-        public virtual stock stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<razon> razon { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<stock> stock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<producto_sustituto> producto_sustituto2 { get; set; }
         public virtual tipo_producto tipo_producto { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
         public virtual unidad_medida unidad_medida1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<remito_detalle> remito_detalle { get; set; }
     }
 }

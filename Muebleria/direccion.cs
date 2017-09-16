@@ -17,9 +17,11 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public direccion()
         {
+            this.almacen = new HashSet<almacen>();
             this.externo = new HashSet<externo>();
             this.externo1 = new HashSet<externo>();
             this.externo2 = new HashSet<externo>();
+            this.sucursal = new HashSet<sucursal>();
         }
     
         public int idDireccion { get; set; }
@@ -32,10 +34,14 @@ namespace Muebleria
         public string Direccioncol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<almacen> almacen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<externo> externo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<externo> externo1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<externo> externo2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<sucursal> sucursal { get; set; }
     }
 }

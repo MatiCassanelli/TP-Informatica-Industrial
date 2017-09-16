@@ -14,15 +14,27 @@ namespace Muebleria
     
     public partial class movimiento
     {
-        public string ubicacion_origen { get; set; }
-        public string ubicacion_destino { get; set; }
+        public int idMovimiento { get; set; }
         public int idProducto { get; set; }
-        public System.DateTime fecha_movimiento { get; set; }
+        public Nullable<int> idArticulo { get; set; }
         public float cantidad { get; set; }
-        public int unidad_medida { get; set; }
+        public Nullable<int> u_medida { get; set; }
+        public int S_origen { get; set; }
+        public Nullable<int> A_origen { get; set; }
+        public Nullable<int> U_origen { get; set; }
+        public int S_destino { get; set; }
+        public Nullable<int> A_destino { get; set; }
+        public Nullable<int> U_destino { get; set; }
+        public System.DateTime fechaMovimiento { get; set; }
         public int idRazon { get; set; }
     
+        public virtual almacen almacen { get; set; }
+        public virtual almacen almacen1 { get; set; }
+        public virtual articulo articulo { get; set; }
         public virtual producto producto { get; set; }
-        public virtual unidad_medida unidad_medida1 { get; set; }
+        public virtual sucursal sucursal { get; set; }
+        public virtual sucursal sucursal1 { get; set; }
+        public virtual ubicacion ubicacion { get; set; }
+        public virtual ubicacion ubicacion1 { get; set; }
     }
 }

@@ -12,31 +12,32 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class unidad_medida
+    public partial class almacen
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public unidad_medida()
+        public almacen()
         {
-            this.conversion = new HashSet<conversion>();
-            this.conversion1 = new HashSet<conversion>();
-            this.producto = new HashSet<producto>();
-            this.producto1 = new HashSet<producto>();
+            this.movimiento = new HashSet<movimiento>();
+            this.movimiento1 = new HashSet<movimiento>();
             this.stock = new HashSet<stock>();
+            this.ubicacion = new HashSet<ubicacion>();
         }
     
-        public int idUnidad_Medida { get; set; }
-        public int idDescriptionUM { get; set; }
-        public int Factor_N { get; set; }
+        public int idAlmacen { get; set; }
+        public int idSucursal { get; set; }
+        public int idDireccion { get; set; }
+        public string Nombre { get; set; }
+        public sbyte Real { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<conversion> conversion { get; set; }
+        public virtual ICollection<movimiento> movimiento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<conversion> conversion1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto> producto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<producto> producto1 { get; set; }
+        public virtual ICollection<movimiento> movimiento1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stock> stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ubicacion> ubicacion { get; set; }
+        public virtual direccion direccion { get; set; }
+        public virtual sucursal sucursal { get; set; }
     }
 }

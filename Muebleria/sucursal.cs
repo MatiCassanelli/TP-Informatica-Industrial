@@ -12,27 +12,27 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class articulo
+    public partial class sucursal
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public articulo()
+        public sucursal()
         {
+            this.almacen = new HashSet<almacen>();
             this.movimiento = new HashSet<movimiento>();
+            this.movimiento1 = new HashSet<movimiento>();
         }
     
-        public int numero_serie { get; set; }
-        public int idProducto { get; set; }
-        public System.DateTime fecha_fabricacion { get; set; }
-        public System.DateTime fecha_caducidad { get; set; }
-        public string estado { get; set; }
-        public int ubicacion { get; set; }
-        public System.DateTime last_upd { get; set; }
-        public int user_upd { get; set; }
+        public int idSucursal { get; set; }
+        public int idDireccion { get; set; }
+        public string Nombre { get; set; }
+        public sbyte Real { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<almacen> almacen { get; set; }
+        public virtual direccion direccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
-        public virtual producto producto { get; set; }
-        public virtual ubicacion ubicacion1 { get; set; }
-        public virtual users users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<movimiento> movimiento1 { get; set; }
     }
 }

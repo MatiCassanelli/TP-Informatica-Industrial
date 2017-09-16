@@ -12,18 +12,11 @@ namespace Muebleria
     using System;
     using System.Collections.Generic;
     
-    public partial class stock
+    public partial class mantenimiento_maquina
     {
-        public int idProducto { get; set; }
-        public float Cantidad { get; set; }
-        public int unidad_medida { get; set; }
-        public int idAlmacen { get; set; }
-        public System.DateTime last_upd { get; set; }
-        public int user_upd { get; set; }
-    
-        public virtual almacen almacen { get; set; }
-        public virtual producto producto { get; set; }
-        public virtual unidad_medida unidad_medida1 { get; set; }
-        public virtual users users { get; set; }
+        public int idMantenimiento { get; set; }
+        public int idMaquina { get; set; }
+        public System.DateTime fecha_mantenimiento { get; set; }
+        public string piezas_cambiadas { get; set; }
     }
 }

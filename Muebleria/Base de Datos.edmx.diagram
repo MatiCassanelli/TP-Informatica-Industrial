@@ -5,37 +5,65 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="918456d250b24ffa8293d3fbfde1b554" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="8" PointY="9.625" />
-        <EntityTypeShape EntityType="Model.conversion" Width="1.5" PointX="2.75" PointY="24" />
-        <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="0.5" PointY="0.875" />
-        <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="3.5" PointY="6.125" />
-        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="2.75" PointY="13.75" />
-        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="8" PointY="13.375" />
-        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8" PointY="31.875" />
-        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="5.75" PointY="12.375" />
-        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="11" PointY="17.5" />
-        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="5.5" PointY="0.5" />
-        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="8.75" PointY="6.25" />
-        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.5" PointY="8.625" />
-        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="11" PointY="14" />
-        <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="0.5" PointY="5.625" />
-        <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.5" PointY="11.375" />
-        <EntityTypeShape EntityType="Model.traduccion" Width="1.5" PointX="5.75" PointY="3.125" />
-        <EntityTypeShape EntityType="Model.unidad_medida" Width="1.5" PointX="0.5" PointY="13.875" />
-        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="5.75" PointY="6.125" />
+        <EntityTypeShape EntityType="Model.almacen" Width="1.5" PointX="6.75" PointY="5.5" />
+        <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="11.25" PointY="9.875" />
+        <EntityTypeShape EntityType="Model.ciclo" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.ciclo_precedente" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.conversion" Width="1.5" PointX="3" PointY="15.5" />
+        <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="4.5" PointY="7" />
+        <EntityTypeShape EntityType="Model.estacion" Width="1.5" PointX="10.5" PointY="25.5" />
+        <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="11.75" PointY="5.125" />
+        <EntityTypeShape EntityType="Model.herramienta" Width="1.5" PointX="12.75" PointY="27.125" />
+        <EntityTypeShape EntityType="Model.historial_txt" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="8.25" PointY="26.875" />
+        <EntityTypeShape EntityType="Model.mantenimiento_maquina" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.maquina" Width="1.5" PointX="12.75" PointY="23.75" />
+        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="13.5" PointY="12.125" />
+        <EntityTypeShape EntityType="Model.operario_estacion" Width="1.5" PointX="12.75" PointY="20.5" />
+        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="8.25" PointY="14.75" />
+        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="35" />
+        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="13.625" />
+        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="11.25" PointY="14.875" />
+        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="8.25" PointY="19.75" />
+        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="6" PointY="20.625" />
+        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="8.25" PointY="11.5" />
+        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="8.25" PointY="24.5" />
+        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="15.75" PointY="17.25" />
+        <EntityTypeShape EntityType="Model.sucursal" Width="1.5" PointX="4.5" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="9.5" PointY="3" />
+        <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.traduccion" Width="1.5" PointX="10.5" PointY="28.875" />
+        <EntityTypeShape EntityType="Model.ubicacion" Width="1.5" PointX="9" PointY="5.75" />
+        <EntityTypeShape EntityType="Model.unidad_medida" Width="1.5" PointX="0.75" PointY="15.25" />
+        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="10.5" PointY="19.25" />
+        <AssociationConnector Association="Model.A_destinoMov" />
+        <AssociationConnector Association="Model.A_origenMov" />
+        <AssociationConnector Association="Model.idAlmacenS" />
+        <AssociationConnector Association="Model.idAlmacenU" />
+        <AssociationConnector Association="Model.idDireccionA" />
+        <AssociationConnector Association="Model.idSucursalA" />
+        <AssociationConnector Association="Model.idArticuloMov" />
         <AssociationConnector Association="Model.idProductoA" />
+        <AssociationConnector Association="Model.ubicacionA" />
         <AssociationConnector Association="Model.usser_updA" />
         <AssociationConnector Association="Model.U_medida" />
         <AssociationConnector Association="Model.U_medida_default" />
         <AssociationConnector Association="Model.Direccion_fac_id" />
         <AssociationConnector Association="Model.Direccion_id" />
         <AssociationConnector Association="Model.Direcion_ent_id" />
+        <AssociationConnector Association="Model.idDireccionS" />
+        <AssociationConnector Association="Model.EstacionHerramienta" />
+        <AssociationConnector Association="Model.EstacionMaquina" />
+        <AssociationConnector Association="Model.EstacionOE" />
         <AssociationConnector Association="Model.idTipo_Externo" />
         <AssociationConnector Association="Model.idLanguage" />
         <AssociationConnector Association="Model.idLanguageT" />
-        <AssociationConnector Association="Model.idProductoM" />
-        <AssociationConnector Association="Model.unidad_medidaM" />
+        <AssociationConnector Association="Model.idProductoMov" />
+        <AssociationConnector Association="Model.S_destinoMov" />
+        <AssociationConnector Association="Model.S_origenMov" />
+        <AssociationConnector Association="Model.U_destinoMov" />
+        <AssociationConnector Association="Model.U_origenMov" />
+        <AssociationConnector Association="Model.UserOE" />
         <AssociationConnector Association="Model.idHijoP" />
         <AssociationConnector Association="Model.idPadreP" />
         <AssociationConnector Association="Model.user_upd" />
@@ -43,17 +71,20 @@
         <AssociationConnector Association="Model.idPadreT" />
         <AssociationConnector Association="Model.idHijoPS" />
         <AssociationConnector Association="Model.idPadrePS" />
+        <AssociationConnector Association="Model.idProductoR" />
+        <AssociationConnector Association="Model.idProductoRD" />
         <AssociationConnector Association="Model.idProductoS" />
         <AssociationConnector Association="Model.idSustitutoPS" />
         <AssociationConnector Association="Model.idTipo" />
         <AssociationConnector Association="Model.Unidad_id_Aplication" />
         <AssociationConnector Association="Model.Unidad_id_Purchase" />
         <AssociationConnector Association="Model.userPS" />
-        <AssociationConnector Association="Model.idRole" />
-        <AssociationConnector Association="Model.User_updS" />
-        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="11" PointY="11.125" />
-        <AssociationConnector Association="Model.idProductoRD" />
+        <AssociationConnector Association="Model.User_updR" />
         <AssociationConnector Association="Model.idRemitoRD" />
+        <AssociationConnector Association="Model.idRole" />
+        <AssociationConnector Association="Model.unidad_medidaS" />
+        <AssociationConnector Association="Model.User_updS" />
+        <AssociationConnector Association="Model.usuarioxrazon" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
