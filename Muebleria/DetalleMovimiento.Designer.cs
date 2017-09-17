@@ -336,6 +336,7 @@
             this.cbProductos.Name = "cbProductos";
             this.cbProductos.Size = new System.Drawing.Size(391, 39);
             this.cbProductos.TabIndex = 0;
+            this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbProductos_SelectedIndexChanged);
             // 
             // panel4
             // 
