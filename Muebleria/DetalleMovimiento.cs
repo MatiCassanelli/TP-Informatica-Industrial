@@ -34,5 +34,13 @@ namespace Muebleria
             if (maskedTextBox1.Text == guiones)
                 gbProductos.Enabled = true;
         }
+
+        private void DetalleMovimiento_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            Menu menu = new Menu();
+            menu.ShowDialog();
+        }
     }
 }

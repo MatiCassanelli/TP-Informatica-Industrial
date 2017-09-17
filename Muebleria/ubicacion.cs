@@ -17,7 +17,6 @@ namespace Muebleria
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ubicacion()
         {
-            this.articulo = new HashSet<articulo>();
             this.movimiento = new HashSet<movimiento>();
             this.movimiento1 = new HashSet<movimiento>();
         }
@@ -29,8 +28,6 @@ namespace Muebleria
         public int z { get; set; }
     
         public virtual almacen almacen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<articulo> articulo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

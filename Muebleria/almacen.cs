@@ -21,6 +21,7 @@ namespace Muebleria
             this.movimiento1 = new HashSet<movimiento>();
             this.stock = new HashSet<stock>();
             this.ubicacion = new HashSet<ubicacion>();
+            this.articulo = new HashSet<articulo>();
         }
     
         public int idAlmacen { get; set; }
@@ -39,5 +40,7 @@ namespace Muebleria
         public virtual ICollection<ubicacion> ubicacion { get; set; }
         public virtual direccion direccion { get; set; }
         public virtual sucursal sucursal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<articulo> articulo { get; set; }
     }
 }

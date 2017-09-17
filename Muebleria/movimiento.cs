@@ -16,7 +16,7 @@ namespace Muebleria
     {
         public int idMovimiento { get; set; }
         public int idProducto { get; set; }
-        public Nullable<int> idArticulo { get; set; }
+        public Nullable<double> idArticulo { get; set; }
         public float cantidad { get; set; }
         public Nullable<int> u_medida { get; set; }
         public int S_origen { get; set; }

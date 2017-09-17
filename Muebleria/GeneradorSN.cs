@@ -16,15 +16,21 @@ namespace Muebleria
 
         }
 
-        private int generarProximoSN()
+        private double generarProximoSN()
         {
-            int ultimoSN = 1000000;
+            List<Double> sn7digitos = new List<Double>();
+            double ultimoSN = 1000000;
             var query = from a in db.articulo
                         orderby a.numero_serie descending
                         select a.numero_serie;
             if (query.Count() > 0)
             {
-                ultimoSN = query.ToList()[0];
+                for (int i = 0; i < query.Count(); i++)
+                {
+                    string aux = query.ToList()[i].ToString().Substring(4, 7);
+                    sn7digitos.Add(double.Parse(aux));
+                }
+                ultimoSN = sn7digitos.Max();
                 ultimoSN++;
             }
             return ultimoSN;
@@ -32,7 +38,7 @@ namespace Muebleria
 
         public double generarSNcompleto(int prod)
         {
-            int sn = generarProximoSN();
+            double sn = generarProximoSN();
             var query = from p in db.producto
                         where prod == p.idProducto
                         select p.Codigo_abreviado;
@@ -46,12 +52,12 @@ namespace Muebleria
                 codAbreviado *= 10;
 
             string rejunte = codAbreviado.ToString()+sn.ToString()+ digitoValidador(sn);
-            double a = int.Parse(rejunte);
+            double a = double.Parse(rejunte);
             return a;
 
         }
         
-        private int digitoValidador(int sn)
+        private int digitoValidador(double sn)
         {
             string par = sn.ToString();
             List<int> aux = new List<int>();

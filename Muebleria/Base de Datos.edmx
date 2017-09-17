@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="numero_serie" />
           </Key>
-          <Property Name="numero_serie" Type="int" Nullable="false" />
+          <Property Name="numero_serie" Type="double" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
           <Property Name="fecha_fabricacion" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="fecha_caducidad" Type="datetime" Precision="0" Nullable="false" />
@@ -146,7 +146,7 @@
           </Key>
           <Property Name="idMovimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
-          <Property Name="idArticulo" Type="int" />
+          <Property Name="idArticulo" Type="double" />
           <Property Name="cantidad" Type="float" Nullable="false" />
           <Property Name="u_medida" Type="int" />
           <Property Name="S_origen" Type="int" Nullable="false" />
@@ -479,7 +479,7 @@ advertencia 6035: La relación 'ciclo_precedente' tiene columnas que no forman p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idArticuloMov">
+        <Association Name="idArtiucloMov">
           <End Role="articulo" Type="Self.articulo" Multiplicity="0..1" />
           <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -849,11 +849,11 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="ubicacionA">
-          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="1" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="1" />
           <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ubicacion">
-              <PropertyRef Name="idUbicacion" />
+            <Principal Role="almacen">
+              <PropertyRef Name="idAlmacen" />
             </Principal>
             <Dependent Role="articulo">
               <PropertyRef Name="ubicacion" />
@@ -1041,7 +1041,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="almacen" EntitySet="almacen" />
             <End Role="ubicacion" EntitySet="ubicacion" />
           </AssociationSet>
-          <AssociationSet Name="idArticuloMov" Association="Self.idArticuloMov">
+          <AssociationSet Name="idArtiucloMov" Association="Self.idArtiucloMov">
             <End Role="articulo" EntitySet="articulo" />
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
@@ -1162,7 +1162,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
           <AssociationSet Name="ubicacionA" Association="Self.ubicacionA">
-            <End Role="ubicacion" EntitySet="ubicacion" />
+            <End Role="almacen" EntitySet="almacen" />
             <End Role="articulo" EntitySet="articulo" />
           </AssociationSet>
           <AssociationSet Name="Unidad_id_Aplication" Association="Self.Unidad_id_Aplication">
@@ -1262,16 +1262,16 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="almacen" EntitySet="almacen" />
           </AssociationSet>
-          <AssociationSet Name="idArticuloMov" Association="Model.idArticuloMov">
+          <AssociationSet Name="ubicacionA" Association="Model.ubicacionA">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="idArtiucloMov" Association="Model.idArtiucloMov">
             <End Role="articulo" EntitySet="articulo" />
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
           <AssociationSet Name="idProductoA" Association="Model.idProductoA">
             <End Role="producto" EntitySet="producto" />
-            <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="ubicacionA" Association="Model.ubicacionA">
-            <End Role="ubicacion" EntitySet="ubicacion" />
             <End Role="articulo" EntitySet="articulo" />
           </AssociationSet>
           <AssociationSet Name="usser_updA" Association="Model.usser_updA">
@@ -1450,12 +1450,13 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <NavigationProperty Name="ubicacion" Relationship="Model.idAlmacenU" FromRole="almacen" ToRole="ubicacion" />
           <NavigationProperty Name="direccion" Relationship="Model.idDireccionA" FromRole="almacen" ToRole="direccion" />
           <NavigationProperty Name="sucursal" Relationship="Model.idSucursalA" FromRole="almacen" ToRole="sucursal" />
+          <NavigationProperty Name="articulo" Relationship="Model.ubicacionA" FromRole="almacen" ToRole="articulo" />
         </EntityType>
         <EntityType Name="articulo">
           <Key>
             <PropertyRef Name="numero_serie" />
           </Key>
-          <Property Name="numero_serie" Type="Int32" Nullable="false" />
+          <Property Name="numero_serie" Type="Double" Nullable="false" />
           <Property Name="idProducto" Type="Int32" Nullable="false" />
           <Property Name="fecha_fabricacion" Type="DateTime" Nullable="false" />
           <Property Name="fecha_caducidad" Type="DateTime" Nullable="false" />
@@ -1463,9 +1464,9 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="ubicacion" Type="Int32" Nullable="false" />
           <Property Name="last_upd" Type="DateTime" Nullable="false" />
           <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="movimiento" Relationship="Model.idArticuloMov" FromRole="articulo" ToRole="movimiento" />
+          <NavigationProperty Name="almacen" Relationship="Model.ubicacionA" FromRole="articulo" ToRole="almacen" />
+          <NavigationProperty Name="movimiento" Relationship="Model.idArtiucloMov" FromRole="articulo" ToRole="movimiento" />
           <NavigationProperty Name="producto" Relationship="Model.idProductoA" FromRole="articulo" ToRole="producto" />
-          <NavigationProperty Name="ubicacion1" Relationship="Model.ubicacionA" FromRole="articulo" ToRole="ubicacion" />
           <NavigationProperty Name="users" Relationship="Model.usser_updA" FromRole="articulo" ToRole="users" />
         </EntityType>
         <EntityType Name="ciclo">
@@ -1604,7 +1605,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="idArticulo" Type="Int32" />
+          <Property Name="idArticulo" Type="Double" />
           <Property Name="cantidad" Type="Single" Nullable="false" />
           <Property Name="u_medida" Type="Int32" />
           <Property Name="S_origen" Type="Int32" Nullable="false" />
@@ -1617,7 +1618,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idRazon" Type="Int32" Nullable="false" />
           <NavigationProperty Name="almacen" Relationship="Model.A_destinoMov" FromRole="movimiento" ToRole="almacen" />
           <NavigationProperty Name="almacen1" Relationship="Model.A_origenMov" FromRole="movimiento" ToRole="almacen" />
-          <NavigationProperty Name="articulo" Relationship="Model.idArticuloMov" FromRole="movimiento" ToRole="articulo" />
+          <NavigationProperty Name="articulo" Relationship="Model.idArtiucloMov" FromRole="movimiento" ToRole="articulo" />
           <NavigationProperty Name="producto" Relationship="Model.idProductoMov" FromRole="movimiento" ToRole="producto" />
           <NavigationProperty Name="sucursal" Relationship="Model.S_destinoMov" FromRole="movimiento" ToRole="sucursal" />
           <NavigationProperty Name="sucursal1" Relationship="Model.S_origenMov" FromRole="movimiento" ToRole="sucursal" />
@@ -1833,7 +1834,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="y" Type="Int32" Nullable="false" />
           <Property Name="z" Type="Int32" Nullable="false" />
           <NavigationProperty Name="almacen" Relationship="Model.idAlmacenU" FromRole="ubicacion" ToRole="almacen" />
-          <NavigationProperty Name="articulo" Relationship="Model.ubicacionA" FromRole="ubicacion" ToRole="articulo" />
           <NavigationProperty Name="movimiento" Relationship="Model.U_destinoMov" FromRole="ubicacion" ToRole="movimiento" />
           <NavigationProperty Name="movimiento1" Relationship="Model.U_origenMov" FromRole="ubicacion" ToRole="movimiento" />
         </EntityType>
@@ -1945,7 +1945,19 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idArticuloMov">
+        <Association Name="ubicacionA">
+          <End Type="Model.almacen" Role="almacen" Multiplicity="1" />
+          <End Type="Model.articulo" Role="articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="almacen">
+              <PropertyRef Name="idAlmacen" />
+            </Principal>
+            <Dependent Role="articulo">
+              <PropertyRef Name="ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idArtiucloMov">
           <End Type="Model.articulo" Role="articulo" Multiplicity="0..1" />
           <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1966,18 +1978,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Principal>
             <Dependent Role="articulo">
               <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ubicacionA">
-          <End Type="Model.ubicacion" Role="ubicacion" Multiplicity="1" />
-          <End Type="Model.articulo" Role="articulo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ubicacion">
-              <PropertyRef Name="idUbicacion" />
-            </Principal>
-            <Dependent Role="articulo">
-              <PropertyRef Name="ubicacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

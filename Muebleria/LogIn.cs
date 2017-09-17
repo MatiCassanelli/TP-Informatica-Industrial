@@ -62,7 +62,7 @@ namespace Muebleria
                                 usuarios.Password == tbpass.Text
                                 select new { id = usuarios.idUsers, idioma = usuarios.idLanguage };
 
-                    try   //si existe algun dato en la lista, es xq el mail existe
+                    if(query.Count()>0)   //si existe algun dato en la lista, es xq el mail existe
                     {
                         foreach (var c in query)
                         {
@@ -75,7 +75,7 @@ namespace Muebleria
                         this.Close();
 
                     }
-                    catch
+                    else
                     {
                         MessageBox.Show("Compruebe los datos y vuelva a intentarlo.");
                         return;

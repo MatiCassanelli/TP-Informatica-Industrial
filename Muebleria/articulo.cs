@@ -20,7 +20,7 @@ namespace Muebleria
             this.movimiento = new HashSet<movimiento>();
         }
     
-        public int numero_serie { get; set; }
+        public double numero_serie { get; set; }
         public int idProducto { get; set; }
         public System.DateTime fecha_fabricacion { get; set; }
         public System.DateTime fecha_caducidad { get; set; }
@@ -29,10 +29,10 @@ namespace Muebleria
         public System.DateTime last_upd { get; set; }
         public int user_upd { get; set; }
     
+        public virtual almacen almacen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimiento> movimiento { get; set; }
         public virtual producto producto { get; set; }
-        public virtual ubicacion ubicacion1 { get; set; }
         public virtual users users { get; set; }
     }
 }

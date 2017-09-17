@@ -81,7 +81,7 @@ namespace Muebleria
             for (int i = 0; i < Convert.ToInt32(tbCantidad.Text); i++)
             {
                 crearArticulo(idProd);
-                //Thread.Sleep(2);
+                Thread.Sleep(10);
             }
             MessageBox.Show("Articulos creados con exito");
             //try
@@ -113,7 +113,15 @@ namespace Muebleria
                 user_upd = LogIn.IdUsuario
             };
             db.articulo.Add(a);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("No anduvo: " + exp.Message);
+            }
+            //db.SaveChanges();
             mostrarCodigoDeBarra(a);
         }
 
