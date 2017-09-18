@@ -110,6 +110,7 @@
     <Compile Include="Composicion.designer.cs">
       <DependentUpon>Composicion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConsultasDetalleMovimiento.cs" />
     <Compile Include="ControllerDetalleMovimiento.cs" />
     <Compile Include="conversion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>

@@ -9,6 +9,7 @@ namespace Muebleria
     class ControllerDetalleMovimiento
     {
         CargarCombos cc = new CargarCombos();
+        ConsultasDetalleMovimiento cdm = new ConsultasDetalleMovimiento();
         public List<string> CargarProductos()
         {
             return cc.CargarProductos();
@@ -23,5 +24,16 @@ namespace Muebleria
         {
             return cc.CargarUM();
         }
+
+        //public movimiento crearMovimiento(string prod, int cant, string um, string razon)
+        //{
+        //    movimiento mov = new movimiento()
+        //    {
+        //        idProducto=cdm.getIDProd(prod),
+
+        //    }
+
+        //    cdm.InsertarMovimiento(mov);
+        //}
     }
 }
