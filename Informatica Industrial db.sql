@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: informatica industrial db
 -- ------------------------------------------------------
--- Server version	5.5.57
+-- Server version	5.5.57-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +33,7 @@ CREATE TABLE `almacen` (
   KEY `idSucursalA_idx` (`idSucursal`),
   CONSTRAINT `idDireccionA` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idSucursalA` FOREIGN KEY (`idSucursal`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `almacen` (
 
 LOCK TABLES `almacen` WRITE;
 /*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
+INSERT INTO `almacen` VALUES (1,1,1,'Almacen 11',1),(2,1,1,'Almacen 21',1),(3,2,2,'Almacen 12',1),(4,3,1,'AlmacenCliente',0),(5,4,2,'AlmacenProv',0),(6,4,2,'AlmacenProv2',0);
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +181,7 @@ CREATE TABLE `direccion` (
   `CodigoPostal` int(11) NOT NULL,
   `Direccioncol` varchar(45) NOT NULL,
   PRIMARY KEY (`idDireccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +190,7 @@ CREATE TABLE `direccion` (
 
 LOCK TABLES `direccion` WRITE;
 /*!40000 ALTER TABLE `direccion` DISABLE KEYS */;
+INSERT INTO `direccion` VALUES (1,'1',1,'1','1','1',5000,'a'),(2,'2',2,'2','2','2',5001,'b'),(3,'3',3,'3','3','3',5002,'c');
 /*!40000 ALTER TABLE `direccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +425,7 @@ CREATE TABLE `movimiento` (
   CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `U_origenMov` FOREIGN KEY (`U_origen`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -660,7 +662,7 @@ CREATE TABLE `remito` (
   `Cliente` varchar(45) NOT NULL,
   `Destino` varchar(45) NOT NULL,
   PRIMARY KEY (`idRemito`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -669,7 +671,6 @@ CREATE TABLE `remito` (
 
 LOCK TABLES `remito` WRITE;
 /*!40000 ALTER TABLE `remito` DISABLE KEYS */;
-INSERT INTO `remito` VALUES (1,'Felipe','Casa'),(2,'5gfd','dfsa'),(3,'fds','gfdsa'),(4,'asd','asd'),(5,'assad','asda'),(6,'sdf','asd');
 /*!40000 ALTER TABLE `remito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -697,7 +698,6 @@ CREATE TABLE `remito_detalle` (
 
 LOCK TABLES `remito_detalle` WRITE;
 /*!40000 ALTER TABLE `remito_detalle` DISABLE KEYS */;
-INSERT INTO `remito_detalle` VALUES (1,10056456,1000000),(6,10056456,1000002);
 /*!40000 ALTER TABLE `remito_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -774,7 +774,7 @@ CREATE TABLE `sucursal` (
   PRIMARY KEY (`idSucursal`),
   KEY `idDireccionS_idx` (`idDireccion`),
   CONSTRAINT `idDireccionS` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -783,6 +783,7 @@ CREATE TABLE `sucursal` (
 
 LOCK TABLES `sucursal` WRITE;
 /*!40000 ALTER TABLE `sucursal` DISABLE KEYS */;
+INSERT INTO `sucursal` VALUES (1,1,'Sucursal 1',1),(2,2,'Sucursal 2',1),(3,3,'Cliente',0),(4,3,'Proveedor',0);
 /*!40000 ALTER TABLE `sucursal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -878,7 +879,7 @@ CREATE TABLE `ubicacion` (
   PRIMARY KEY (`idUbicacion`),
   KEY `idAlmacenU_idx` (`idAlmacen`),
   CONSTRAINT `idAlmacenU` FOREIGN KEY (`idAlmacen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -887,6 +888,7 @@ CREATE TABLE `ubicacion` (
 
 LOCK TABLES `ubicacion` WRITE;
 /*!40000 ALTER TABLE `ubicacion` DISABLE KEYS */;
+INSERT INTO `ubicacion` VALUES (1,1,1,1,1),(2,2,2,2,2),(3,2,3,3,3),(4,3,3,3,3);
 /*!40000 ALTER TABLE `ubicacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -987,4 +989,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-17 15:39:45
+-- Dump completed on 2017-09-19 10:07:55
