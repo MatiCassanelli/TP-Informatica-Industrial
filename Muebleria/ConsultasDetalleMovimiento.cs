@@ -50,6 +50,15 @@ namespace Muebleria
             return query.ToList()[0];
         }
 
+        public int getIDUnidadMedidad(string um)
+        {
+            var query = from p in db.unidad_medida
+                        from t in db.traduccion
+                        where p.idDescriptionUM == t.idDescriptionT && t.Traduccion_str == um
+                        select p.idUnidad_Medida;
+            return query.ToList()[0];
+        }
+
         //public int getIDUbicacion(string suc)
         //{
         //    var query = from s in db.ubicacion

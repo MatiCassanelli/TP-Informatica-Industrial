@@ -53,5 +53,10 @@ namespace Muebleria
             else
                 maskedTextBox1.Enabled = true;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            controller.crearMovimiento(cbProductos.SelectedItem.ToString(), Convert.ToInt32(tbCantidad), cbUM.SelectedItem.ToString(), cbRazon.SelectedItem.ToString());
+        }
     }
 }

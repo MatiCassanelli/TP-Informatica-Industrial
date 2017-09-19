@@ -25,15 +25,16 @@ namespace Muebleria
             return cc.CargarUM();
         }
 
-        //public movimiento crearMovimiento(string prod, int cant, string um, string razon)
-        //{
-        //    movimiento mov = new movimiento()
-        //    {
-        //        idProducto=cdm.getIDProd(prod),
-
-        //    }
-
-        //    cdm.InsertarMovimiento(mov);
-        //}
+        public void crearMovimiento(string prod, int cant, string um, string razon)
+        {
+            movimiento mov = new movimiento()
+            {
+                idProducto = cdm.getIDProd(prod),
+                cantidad = cant,
+                u_medida = cdm.getIDUnidadMedidad(um),
+                idRazon = cdm.getIDRazon(razon)
+            };
+            cdm.InsertarMovimiento(mov);
+        }
     }
 }
