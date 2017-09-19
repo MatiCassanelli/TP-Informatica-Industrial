@@ -110,7 +110,14 @@ namespace Muebleria
 
         private void btnEliminarProducto_Click(object sender, EventArgs e)
         {
-            DataGridDetalles.Rows.Remove(DataGridDetalles.CurrentRow);
+            try
+            {
+                DataGridDetalles.Rows.Remove(DataGridDetalles.CurrentRow);
+            }
+            catch
+            {
+                MessageBox.Show("Seleccione la fila completa");
+            }
         }
 
         private void btnFinalizarDetalle_Click(object sender, EventArgs e)
@@ -160,7 +167,7 @@ namespace Muebleria
             {
                 foreach (DataGridViewRow row in DataGridDetalles.Rows)
                 {
-                    int nroserie = Convert.ToInt32(row.Cells[0].AccessibilityObject.Value);
+                    double nroserie = double.Parse(row.Cells[0].AccessibilityObject.Value);
                     var query = from a in db.articulo
                                 where a.numero_serie == nroserie
                                 select a;
@@ -181,16 +188,11 @@ namespace Muebleria
             {
                 foreach (DataGridViewRow row in DataGridDetalles.Rows)
                 {
-                    int nroserie = Convert.ToInt32(row.Cells[1].AccessibilityObject.Value);
-
-                    var subquery = from a in db.articulo
-                                   where a.numero_serie == nroserie
-                                   select a.idProducto;
-                    int idprod = subquery.ToList()[0];
+                    int idproducto = Convert.ToInt32(row.Cells[1].AccessibilityObject.Value);
 
                     var query = from s in db.stock
-                                where s.idProducto == idprod &&
-                                s.idAlmacen == 1                    //TENGO q poner el almacen por defecto
+                                where s.idProducto == idproducto &&
+                                s.idAlmacen == 2                    //TENGO q poner el almacen por defecto
                                 select s;
 
                     //float cantIngresada = float.Parse(row.Cells[2].AccessibilityObject.Value);
