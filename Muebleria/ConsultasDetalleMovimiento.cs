@@ -16,6 +16,80 @@ namespace Muebleria
             db.SaveChanges();
         }
 
+        public void actualizarStock(movimiento mov)
+        {
+            stock origen = getStock(mov.idProducto, Convert.ToInt32(mov.A_origen));
+            stock destino = getStock(mov.idProducto, Convert.ToInt32(mov.A_destino));
+
+            try
+            {
+                origen.Cantidad -= mov.cantidad;
+            }
+            catch
+            {
+                origen = new stock()
+                {
+                    idProducto = mov.idProducto,
+                    Cantidad = mov.cantidad,
+                    unidad_medida = Convert.ToInt32(mov.u_medida),
+                    idAlmacen = Convert.ToInt32(mov.A_origen),
+                    user_upd = LogIn.IdUsuario,
+                    last_upd = DateTime.Now
+                };
+                db.stock.Add(origen);
+            }
+
+            try
+            {
+                destino.Cantidad += mov.cantidad;
+            }
+            catch
+            {
+                destino = new stock()
+                {
+                    idProducto = mov.idProducto,
+                    Cantidad = mov.cantidad,
+                    unidad_medida = Convert.ToInt32(mov.u_medida),
+                    idAlmacen = Convert.ToInt32(mov.A_destino),
+                    user_upd = LogIn.IdUsuario,
+                    last_upd = DateTime.Now
+                };
+                db.stock.Add(destino);
+            }
+            db.SaveChanges();
+        }
+
+        public void actualizarArticulo(movimiento mov)
+        {
+            articulo art = getArticulo(Convert.ToDouble(mov.idArticulo));
+            art.estado = "asd";
+            art.ubicacion = Convert.ToInt32(mov.A_destino);
+            db.SaveChanges();
+        }
+
+        public articulo getArticulo(double sn)
+        {
+            var query = from a in db.articulo
+                        where a.numero_serie == sn
+                        select a;
+            return query.ToList()[0];
+        }
+
+        public stock getStock(int prod,int almacen)
+        {
+            var query = from s in db.stock
+                        where s.idProducto == prod && s.idAlmacen==almacen
+                        select s;
+            try
+            {
+                return query.ToList()[0];
+            }
+            catch
+            {
+                return new stock();
+            }
+        }
+
         public int getIDRazon(string razon)
         {
             var query = from r in db.razon
@@ -59,12 +133,12 @@ namespace Muebleria
             return query.ToList()[0];
         }
 
-        //public int getIDUbicacion(string suc)
-        //{
-        //    var query = from s in db.ubicacion
-        //                where s.
-        //                select s.idSucursal;
-        //    return query.ToList()[0];
-        //}
+        public int getIDUbicacion(int id)
+        {
+            var query = from s in db.ubicacion
+                        where s.idUbicacion==id
+                        select s.idUbicacion;
+            return query.ToList()[0];
+        }
     }
 }

@@ -56,7 +56,10 @@ namespace Muebleria
 
         private void button1_Click(object sender, EventArgs e)
         {
-            controller.crearMovimiento(cbProductos.SelectedItem.ToString(), Convert.ToInt32(tbCantidad), cbUM.SelectedItem.ToString(), cbRazon.SelectedItem.ToString());
+            controller.crearMovimiento(cbRazon.SelectedItem.ToString(), double.Parse(maskedTextBox1.ToString()), cbProductos.SelectedItem.ToString(),
+                Convert.ToInt32(tbCantidad.Text), cbUM.SelectedItem.ToString(), cbSucursalOrigen.ToString(), cbSucursalDestino.ToString(),
+                cbAlmacenOrigen.SelectedItem.ToString(), cbAlmacenDestino.SelectedItem.ToString(), Convert.ToInt32(cbUbicacionOrigen.SelectedItem.ToString()), Convert.ToInt32(cbUbicacionDestino.SelectedItem.ToString()));
+            //controller.crearMovimiento(cbProductos.SelectedItem.ToString(), Convert.ToInt32(tbCantidad), cbUM.SelectedItem.ToString(), cbRazon.SelectedItem.ToString());
         }
     }
 }
