@@ -34,7 +34,7 @@ namespace Muebleria
             string mascara = maskedTextBox1.Text;
             string recorte = "";
             if (mascara.Length == 14)    //14 para contar los ** y 12 digitos
-                recorte = mascara.Substring(5, 7);  //TENGO Sacar del 1 al 13
+                recorte = mascara.Substring(1, 12);  //TENGO Sacar del 1 al 13
             else
             {
                 maskedTextBox1.Clear();
@@ -54,7 +54,7 @@ namespace Muebleria
                 }
             }
 
-            int nroserie = Convert.ToInt32(recorte);
+            double nroserie = double.Parse(recorte);
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
             var query = from a in db.articulo
                         from t in db.traduccion
@@ -123,7 +123,7 @@ namespace Muebleria
                     remito_detalle NuevoRD = new remito_detalle()
                     {
                         idRemito = Convert.ToInt32(lblRemito.Text),
-                        idArticulo = Convert.ToInt32(row.Cells[0].AccessibilityObject.Value),
+                        idArticulo = double.Parse(row.Cells[0].AccessibilityObject.Value),
                         idProducto = Convert.ToInt32(row.Cells[1].AccessibilityObject.Value),
                     };
                     try

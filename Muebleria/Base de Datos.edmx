@@ -260,7 +260,7 @@
           </Key>
           <Property Name="idRemito" Type="int" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
-          <Property Name="idArticulo" Type="int" Nullable="false" />
+          <Property Name="idArticulo" Type="double" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -1228,7 +1228,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySet Name="producto_sustituto" EntityType="Model.producto_sustituto" />
           <EntitySet Name="razon" EntityType="Model.razon" />
           <EntitySet Name="remito" EntityType="Model.remito" />
-          <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
           <EntitySet Name="role" EntityType="Model.role" />
           <EntitySet Name="stock" EntityType="Model.stock" />
           <EntitySet Name="sucursal" EntityType="Model.sucursal" />
@@ -1382,10 +1381,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="producto" EntitySet="producto" />
             <End Role="razon" EntitySet="razon" />
           </AssociationSet>
-          <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
           <AssociationSet Name="idProductoS" Association="Model.idProductoS">
             <End Role="producto" EntitySet="producto" />
             <End Role="stock" EntitySet="stock" />
@@ -1414,10 +1409,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="users" EntitySet="users" />
             <End Role="razon" EntitySet="razon" />
           </AssociationSet>
-          <AssociationSet Name="idRemitoRD" Association="Model.idRemitoRD">
-            <End Role="remito" EntitySet="remito" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
           <AssociationSet Name="idRole" Association="Model.idRole">
             <End Role="role" EntitySet="role" />
             <End Role="users" EntitySet="users" />
@@ -1433,6 +1424,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <AssociationSet Name="usuarioxrazon" Association="Model.usuarioxrazon">
             <End Role="razon" EntitySet="razon" />
             <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
+          <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="idRemitoRD" Association="Model.idRemitoRD">
+            <End Role="remito" EntitySet="remito" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="almacen">
@@ -1694,12 +1694,12 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <NavigationProperty Name="producto_sustituto" Relationship="Model.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="producto_sustituto1" Relationship="Model.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="razon" Relationship="Model.idProductoR" FromRole="producto" ToRole="razon" />
-          <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
           <NavigationProperty Name="stock" Relationship="Model.idProductoS" FromRole="producto" ToRole="stock" />
           <NavigationProperty Name="producto_sustituto2" Relationship="Model.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="tipo_producto" Relationship="Model.idTipo" FromRole="producto" ToRole="tipo_producto" />
           <NavigationProperty Name="unidad_medida" Relationship="Model.Unidad_id_Aplication" FromRole="producto" ToRole="unidad_medida" />
           <NavigationProperty Name="unidad_medida1" Relationship="Model.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
+          <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
         </EntityType>
         <EntityType Name="producto_sustituto">
           <Key>
@@ -1749,17 +1749,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Destino" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="remito_detalle" Relationship="Model.idRemitoRD" FromRole="remito" ToRole="remito_detalle" />
-        </EntityType>
-        <EntityType Name="remito_detalle">
-          <Key>
-            <PropertyRef Name="idRemito" />
-            <PropertyRef Name="idArticulo" />
-          </Key>
-          <Property Name="idRemito" Type="Int32" Nullable="false" />
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="idArticulo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
-          <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -2305,18 +2294,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoRD">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="remito_detalle">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idProductoS">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
           <End Type="Model.stock" Role="stock" Multiplicity="*" />
@@ -2401,18 +2378,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idRemitoRD">
-          <End Type="Model.remito" Role="remito" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="remito">
-              <PropertyRef Name="idRemito" />
-            </Principal>
-            <Dependent Role="remito_detalle">
-              <PropertyRef Name="idRemito" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idRole">
           <End Type="Model.role" Role="role" Multiplicity="1" />
           <End Type="Model.users" Role="users" Multiplicity="*" />
@@ -2452,6 +2417,41 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
         <Association Name="usuarioxrazon">
           <End Type="Model.razon" Role="razon" Multiplicity="*" />
           <End Type="Model.users" Role="users" Multiplicity="*" />
+        </Association>
+        <EntityType Name="remito_detalle">
+          <Key>
+            <PropertyRef Name="idRemito" />
+            <PropertyRef Name="idArticulo" />
+          </Key>
+          <Property Name="idRemito" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="idArticulo" Type="Double" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
+          <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
+        </EntityType>
+        <Association Name="idProductoRD">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="remito_detalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRemitoRD">
+          <End Type="Model.remito" Role="remito" Multiplicity="1" />
+          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="remito">
+              <PropertyRef Name="idRemito" />
+            </Principal>
+            <Dependent Role="remito_detalle">
+              <PropertyRef Name="idRemito" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -2712,15 +2712,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="remito_detalle">
-            <EntityTypeMapping TypeName="Model.remito_detalle">
-              <MappingFragment StoreEntitySet="remito_detalle">
-                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="role">
             <EntityTypeMapping TypeName="Model.role">
               <MappingFragment StoreEntitySet="role">
@@ -2819,6 +2810,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
               <ScalarProperty Name="idRazon" ColumnName="idRazon" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="remito_detalle">
+            <EntityTypeMapping TypeName="Model.remito_detalle">
+              <MappingFragment StoreEntitySet="remito_detalle">
+                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idRemito" ColumnName="idRemito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

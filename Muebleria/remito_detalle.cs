@@ -16,7 +16,7 @@ namespace Muebleria
     {
         public int idRemito { get; set; }
         public int idProducto { get; set; }
-        public int idArticulo { get; set; }
+        public double idArticulo { get; set; }
     
         public virtual producto producto { get; set; }
         public virtual remito remito { get; set; }

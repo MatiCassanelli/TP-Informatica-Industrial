@@ -152,7 +152,7 @@ namespace Muebleria
             db.movimiento.Add(mov);
             db.SaveChanges();
         }
-        
+
 
         private float obtenerStock(int prod)
         {

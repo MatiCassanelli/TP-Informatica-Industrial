@@ -46,7 +46,6 @@ namespace Muebleria
         public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
         public virtual DbSet<razon> razon { get; set; }
         public virtual DbSet<remito> remito { get; set; }
-        public virtual DbSet<remito_detalle> remito_detalle { get; set; }
         public virtual DbSet<role> role { get; set; }
         public virtual DbSet<stock> stock { get; set; }
         public virtual DbSet<sucursal> sucursal { get; set; }
@@ -56,5 +55,6 @@ namespace Muebleria
         public virtual DbSet<ubicacion> ubicacion { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<remito_detalle> remito_detalle { get; set; }
     }
 }
