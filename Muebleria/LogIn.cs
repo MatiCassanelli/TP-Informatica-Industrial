@@ -78,6 +78,8 @@ namespace Muebleria
                     else
                     {
                         MessageBox.Show("Compruebe los datos y vuelva a intentarlo.");
+                        tbpass.Clear();
+                        tbUsername.Clear();
                         return;
                     }
                 }
@@ -86,6 +88,8 @@ namespace Muebleria
             }
             else
                 MessageBox.Show("Compruebe los datos y vuelva a intentarlo.");
+            tbpass.Clear();
+            tbUsername.Clear();
 
         }
     }

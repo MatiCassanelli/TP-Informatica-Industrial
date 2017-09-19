@@ -69,7 +69,7 @@ namespace Muebleria
                     Cantidad = float.Parse(tbCantidad.Text),
                     unidad_medida = UMU[0],
                     last_upd = DateTime.Now,
-                    idAlmacen=1,
+                    idAlmacen=2,    //almacen 2 es el deposito
                     user_upd = LogIn.IdUsuario
                     
                 };

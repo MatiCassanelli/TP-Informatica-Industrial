@@ -20,7 +20,10 @@ namespace Muebleria
             guiones = maskedTextBox1.Text;
             cbRazon.Items.Add("sad");
             cbProductos.Items.Add("");
-            cbProductos.DataSource = controller.CargarProductos();
+            foreach(string item in controller.CargarProductos())
+            {
+                cbProductos.Items.Add(item);
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -41,6 +44,19 @@ namespace Muebleria
             this.Hide();
             Menu menu = new Menu();
             menu.ShowDialog();
+        }
+
+        private void cbProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbProductos.SelectedIndex != 0)
+                maskedTextBox1.Enabled = false;
+            else
+                maskedTextBox1.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            controller.crearMovimiento(cbProductos.SelectedItem.ToString(), Convert.ToInt32(tbCantidad), cbUM.SelectedItem.ToString(), cbRazon.SelectedItem.ToString());
         }
     }
 }
