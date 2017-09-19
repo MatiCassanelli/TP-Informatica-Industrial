@@ -46,9 +46,36 @@ namespace Muebleria
             return query.ToList();
         }
 
-        //public List<string> CargarRazones()
-        //{
-        //    var query = from r in db.ra
-        //}
+        public List<string> CargarSucursal()
+        {
+            var query = from s in db.sucursal
+                        select s.Nombre;
+
+            return query.ToList();
+        }
+
+        public List<string> CargarAlmacen(int idScucursal)
+        {
+            var query = from a in db.almacen
+                        where a.idSucursal == idScucursal
+                        select a.Nombre;
+
+            return query.ToList();
+        }
+
+        public List<string> CargarUbicacion(int idAlmacen)
+        {
+            var query = from u in db.ubicacion
+                        where u.idAlmacen == idAlmacen
+                        select u.idUbicacion;
+
+            List<string> Final = new List<string>();
+            foreach(var item in query)
+            {
+                Final.Add(item.ToString());
+            }
+
+            return Final;
+        }
     }
 }
