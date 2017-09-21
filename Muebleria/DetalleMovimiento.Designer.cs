@@ -38,7 +38,7 @@
             this.cbSucursalDestino = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCargarDesdeTxt = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbUbicacionOrigen = new System.Windows.Forms.ComboBox();
@@ -55,7 +55,7 @@
             this.cbUM = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbProductos = new System.Windows.Forms.ComboBox();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panelOculto = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,7 +63,7 @@
             this.panelSN.SuspendLayout();
             this.gbProductos.SuspendLayout();
             this.panelCantidades.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.panelOculto.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,7 +84,7 @@
             this.cbRazon.Name = "cbRazon";
             this.cbRazon.Size = new System.Drawing.Size(248, 39);
             this.cbRazon.TabIndex = 27;
-            this.cbRazon.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cbRazon.SelectedIndexChanged += new System.EventHandler(this.cbRazon_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -131,6 +131,7 @@
             this.cbAlmacenDestino.Name = "cbAlmacenDestino";
             this.cbAlmacenDestino.Size = new System.Drawing.Size(229, 39);
             this.cbAlmacenDestino.TabIndex = 3;
+            this.cbAlmacenDestino.SelectedIndexChanged += new System.EventHandler(this.cbAlmacenDestino_SelectedIndexChanged);
             // 
             // cbSucursalDestino
             // 
@@ -140,11 +141,12 @@
             this.cbSucursalDestino.Name = "cbSucursalDestino";
             this.cbSucursalDestino.Size = new System.Drawing.Size(229, 39);
             this.cbSucursalDestino.TabIndex = 2;
+            this.cbSucursalDestino.SelectedIndexChanged += new System.EventHandler(this.cbSucursalDestino_SelectedIndexChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnCancelar);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.btnCargarDesdeTxt);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Location = new System.Drawing.Point(12, 255);
@@ -163,16 +165,16 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnAceptar
             // 
-            this.button1.Location = new System.Drawing.Point(938, 237);
-            this.button1.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(248, 55);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAceptar.Location = new System.Drawing.Point(938, 237);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(248, 55);
+            this.btnAceptar.TabIndex = 38;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCargarDesdeTxt
             // 
@@ -213,6 +215,7 @@
             this.cbAlmacenOrigen.Name = "cbAlmacenOrigen";
             this.cbAlmacenOrigen.Size = new System.Drawing.Size(229, 39);
             this.cbAlmacenOrigen.TabIndex = 3;
+            this.cbAlmacenOrigen.SelectedIndexChanged += new System.EventHandler(this.cbAlmacenOrigen_SelectedIndexChanged);
             // 
             // cbSucursalOrigen
             // 
@@ -222,6 +225,7 @@
             this.cbSucursalOrigen.Name = "cbSucursalOrigen";
             this.cbSucursalOrigen.Size = new System.Drawing.Size(229, 39);
             this.cbSucursalOrigen.TabIndex = 2;
+            this.cbSucursalOrigen.SelectedIndexChanged += new System.EventHandler(this.cbSucursalOrigen_SelectedIndexChanged);
             // 
             // panelSN
             // 
@@ -339,17 +343,17 @@
             this.cbProductos.TabIndex = 0;
             this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbProductos_SelectedIndexChanged);
             // 
-            // panel4
+            // panelOculto
             // 
-            this.panel4.Controls.Add(this.panelSN);
-            this.panel4.Controls.Add(this.groupBox4);
-            this.panel4.Controls.Add(this.gbProductos);
-            this.panel4.Controls.Add(this.groupBox2);
-            this.panel4.Enabled = false;
-            this.panel4.Location = new System.Drawing.Point(12, 102);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1498, 625);
-            this.panel4.TabIndex = 36;
+            this.panelOculto.Controls.Add(this.panelSN);
+            this.panelOculto.Controls.Add(this.groupBox4);
+            this.panelOculto.Controls.Add(this.gbProductos);
+            this.panelOculto.Controls.Add(this.groupBox2);
+            this.panelOculto.Enabled = false;
+            this.panelOculto.Location = new System.Drawing.Point(12, 102);
+            this.panelOculto.Name = "panelOculto";
+            this.panelOculto.Size = new System.Drawing.Size(1498, 625);
+            this.panelOculto.TabIndex = 36;
             // 
             // DetalleMovimiento
             // 
@@ -357,7 +361,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1533, 749);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panelOculto);
             this.Name = "DetalleMovimiento";
             this.Text = "DetalleMovimiento";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DetalleMovimiento_FormClosed);
@@ -372,7 +376,7 @@
             this.gbProductos.PerformLayout();
             this.panelCantidades.ResumeLayout(false);
             this.panelCantidades.PerformLayout();
-            this.panel4.ResumeLayout(false);
+            this.panelOculto.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -402,9 +406,9 @@
         private System.Windows.Forms.ComboBox cbUM;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbProductos;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panelOculto;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCargarDesdeTxt;
     }
 }

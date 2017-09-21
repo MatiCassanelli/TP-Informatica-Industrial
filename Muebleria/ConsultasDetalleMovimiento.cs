@@ -114,6 +114,7 @@ namespace Muebleria
                         where s.Nombre == suc
                         select s.idSucursal;
             return query.ToList()[0];
+
         }
 
         public int getIDAlmacen(string suc)
@@ -133,11 +134,20 @@ namespace Muebleria
             return query.ToList()[0];
         }
 
-        public int getIDUbicacion(int id)
+        public int getIDUbicacion(int? id)
         {
             var query = from s in db.ubicacion
                         where s.idUbicacion==id
                         select s.idUbicacion;
+            return query.ToList()[0];
+        }
+
+        public razon getRazonCompleta(int id)
+        {
+            var query = from r in db.razon
+                        where r.idRazon == id
+                        select r;
+
             return query.ToList()[0];
         }
     }

@@ -25,9 +25,39 @@ namespace Muebleria
             return cc.CargarUM();
         }
 
+        public List<string> CargarRazon()
+        {
+            return cc.CargarRazon();
+        }
+
+        public List<string> CargarSucursal(int ?id=null)
+        {
+            return cc.CargarSucursal(id);
+        }
+
+        public List<string> CargarAlmacen(int suc, int? id=null)
+        {
+            return cc.CargarAlmacen(suc, id);
+        }
+
+        public List<string> CargarAlmacen(string suc)
+        {
+            return cc.CargarAlmacen(Convert.ToInt32(cdm.getIDSucursal(suc)),null);
+        }
+
+        public List<string> CargarUbicacion(int alm, int ?id=null)
+        {
+            return cc.CargarUbicacion(alm, id);
+        }
+
+        public List<string> CargarUbicacion(string alm)
+        {
+            return cc.CargarUbicacion(cdm.getIDAlmacen(alm),null);
+        }
+
         //venta de un articulo determinado a un cliente
-        public void crearMovimiento(string razon, double sn, string prod, int cant, string um, string sucorigen, string sucdestino,
-            string almorigen, string almdestino, int uborigen, int ubdestino)
+        public void crearMovimiento(string razon, string prod, string sucorigen, string sucdestino,
+            string almorigen = null, string almdestino = null, int? uborigen = null, int? ubdestino=null, double? sn=null, int cant=1, string um=null)
         {
             movimiento mov = new movimiento()
             {
@@ -46,6 +76,12 @@ namespace Muebleria
             cdm.InsertarMovimiento(mov);
             cdm.actualizarStock(mov);
             cdm.actualizarArticulo(mov);
+        }
+
+        public razon getRazonCompleta(string razon)
+        {
+            return cdm.getRazonCompleta(cdm.getIDRazon(razon));
+
         }
         
     }

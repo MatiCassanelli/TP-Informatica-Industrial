@@ -22,7 +22,7 @@ namespace Muebleria
     
         public int idRazon { get; set; }
         public int idDescripcion { get; set; }
-        public int idProducto { get; set; }
+        public Nullable<int> idProducto { get; set; }
         public System.DateTime last_upd { get; set; }
         public int user_upd { get; set; }
         public Nullable<int> S_origen { get; set; }
