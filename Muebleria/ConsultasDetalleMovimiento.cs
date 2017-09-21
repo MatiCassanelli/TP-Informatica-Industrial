@@ -150,5 +150,45 @@ namespace Muebleria
 
             return query.ToList()[0];
         }
+
+        public bool existeIdHistorial(int id)
+        {
+            var query = from h in db.historial_txt
+                        where h.idHistorial_txt == id
+                        select h.idHistorial_txt;
+            if (query.Count() > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public void insertIdHistorial(int id)
+        {
+            historial_txt historialTXT = new historial_txt() { idHistorial_txt = id };
+            db.historial_txt.Add(historialTXT);
+            db.SaveChanges();
+        }
+
+        public bool existeIdProducto(int id)
+        {
+            var query = from p in db.producto
+                        where p.idProducto == id
+                        select p.idProducto;
+            if (query.Count() > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool existeSucursal(int id)
+        {
+            var query = from s in db.sucursal
+                        where s.idSucursal == id
+                        select s.idSucursal;
+            if (query.Count() > 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

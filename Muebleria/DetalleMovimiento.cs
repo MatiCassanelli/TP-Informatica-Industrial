@@ -128,6 +128,21 @@ namespace Muebleria
         {
             cbUbicacionOrigen.DataSource = controller.CargarUbicacion(cbAlmacenOrigen.SelectedItem.ToString());
         }
+
+        private void btnCargarDesdeTxt_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
+                string path = openFileDialog1.FileName;
+                ControllerDetalleMovimiento controller = new ControllerDetalleMovimiento();
+                string Mensaje = controller.crearMovimientoTXT(path);
+                sr.Close();
+                MessageBox.Show(Mensaje);
+            }
+
+        }
     }
 }
 

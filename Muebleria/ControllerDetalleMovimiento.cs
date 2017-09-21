@@ -84,5 +84,47 @@ namespace Muebleria
 
         }
         
+        public string crearMovimientoTXT(string path)
+        {
+            Procesador_txt procesadorTxt = new Procesador_txt(path);
+            ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
+            string EstadoFinalizacion = "";
+
+            if(procesadorTxt.getTxtCorrecto() == true)
+            {
+                if (consulta.existeIdHistorial(procesadorTxt.getNumero_archivo()) == false)
+                {
+                    for (int i = 0; i < procesadorTxt.getNumero_filas(); i++)
+                    {
+                        if (consulta.existeIdProducto(procesadorTxt.getProducto(i)) == true &&
+                            consulta.existeSucursal(procesadorTxt.getProveedor()) == true)
+                        {
+                            //CREAR MOVIMIENTO Y AGREGARLOS A LA BD
+                            movimiento mov = new movimiento()
+                            {
+                                idProducto = procesadorTxt.getProducto(i),
+                                cantidad = procesadorTxt.getCantidad(i),
+                                S_origen = procesadorTxt.getProveedor(),
+                                S_destino = 1,
+                                fechaMovimiento = DateTime.Parse(procesadorTxt.getFecha_arribo().ToString()),
+                                idRazon = 3
+                            };
+                            //ACTUALIZACION DE STOCK
+
+
+                        }
+                    }
+
+
+                    consulta.insertIdHistorial(procesadorTxt.getNumero_archivo());
+                    EstadoFinalizacion = "La operacion se realizó correctamente!";
+                }
+                else
+                    EstadoFinalizacion = "El archivo txt ya ha sido cargado";
+            }
+            else
+                EstadoFinalizacion = "El archivo txt está corrupto";
+            return EstadoFinalizacion;
+        }
     }
 }

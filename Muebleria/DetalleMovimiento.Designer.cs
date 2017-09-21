@@ -71,34 +71,38 @@
             this.panel1.Controls.Add(this.cbRazon);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(29, 36);
+            this.panel1.Location = new System.Drawing.Point(11, 15);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(399, 100);
+            this.panel1.Size = new System.Drawing.Size(150, 42);
             this.panel1.TabIndex = 25;
             // 
             // cbRazon
             // 
             this.cbRazon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRazon.FormattingEnabled = true;
-            this.cbRazon.Location = new System.Drawing.Point(106, 31);
+            this.cbRazon.Location = new System.Drawing.Point(40, 13);
+            this.cbRazon.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbRazon.Name = "cbRazon";
-            this.cbRazon.Size = new System.Drawing.Size(248, 39);
+            this.cbRazon.Size = new System.Drawing.Size(96, 21);
             this.cbRazon.TabIndex = 27;
             this.cbRazon.SelectedIndexChanged += new System.EventHandler(this.cbRazon_SelectedIndexChanged);
             // 
             // panel3
             // 
-            this.panel3.Location = new System.Drawing.Point(0, 106);
+            this.panel3.Location = new System.Drawing.Point(0, 44);
+            this.panel3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1250, 510);
+            this.panel3.Size = new System.Drawing.Size(469, 214);
             this.panel3.TabIndex = 28;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 34);
+            this.label2.Location = new System.Drawing.Point(1, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 32);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 26;
             this.label2.Text = "Razón";
             // 
@@ -107,9 +111,11 @@
             this.groupBox4.Controls.Add(this.cbUbicacionDestino);
             this.groupBox4.Controls.Add(this.cbAlmacenDestino);
             this.groupBox4.Controls.Add(this.cbSucursalDestino);
-            this.groupBox4.Location = new System.Drawing.Point(12, 446);
+            this.groupBox4.Location = new System.Drawing.Point(4, 187);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(803, 148);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox4.Size = new System.Drawing.Size(301, 62);
             this.groupBox4.TabIndex = 32;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Ubicacion Destino";
@@ -118,18 +124,20 @@
             // 
             this.cbUbicacionDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUbicacionDestino.FormattingEnabled = true;
-            this.cbUbicacionDestino.Location = new System.Drawing.Point(552, 55);
+            this.cbUbicacionDestino.Location = new System.Drawing.Point(207, 23);
+            this.cbUbicacionDestino.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbUbicacionDestino.Name = "cbUbicacionDestino";
-            this.cbUbicacionDestino.Size = new System.Drawing.Size(229, 39);
+            this.cbUbicacionDestino.Size = new System.Drawing.Size(88, 21);
             this.cbUbicacionDestino.TabIndex = 4;
             // 
             // cbAlmacenDestino
             // 
             this.cbAlmacenDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAlmacenDestino.FormattingEnabled = true;
-            this.cbAlmacenDestino.Location = new System.Drawing.Point(278, 55);
+            this.cbAlmacenDestino.Location = new System.Drawing.Point(104, 23);
+            this.cbAlmacenDestino.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbAlmacenDestino.Name = "cbAlmacenDestino";
-            this.cbAlmacenDestino.Size = new System.Drawing.Size(229, 39);
+            this.cbAlmacenDestino.Size = new System.Drawing.Size(88, 21);
             this.cbAlmacenDestino.TabIndex = 3;
             this.cbAlmacenDestino.SelectedIndexChanged += new System.EventHandler(this.cbAlmacenDestino_SelectedIndexChanged);
             // 
@@ -137,9 +145,10 @@
             // 
             this.cbSucursalDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSucursalDestino.FormattingEnabled = true;
-            this.cbSucursalDestino.Location = new System.Drawing.Point(16, 55);
+            this.cbSucursalDestino.Location = new System.Drawing.Point(6, 23);
+            this.cbSucursalDestino.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbSucursalDestino.Name = "cbSucursalDestino";
-            this.cbSucursalDestino.Size = new System.Drawing.Size(229, 39);
+            this.cbSucursalDestino.Size = new System.Drawing.Size(88, 21);
             this.cbSucursalDestino.TabIndex = 2;
             this.cbSucursalDestino.SelectedIndexChanged += new System.EventHandler(this.cbSucursalDestino_SelectedIndexChanged);
             // 
@@ -149,28 +158,28 @@
             this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.btnCargarDesdeTxt);
             this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 255);
+            this.groupBox2.Location = new System.Drawing.Point(4, 107);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1461, 364);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Size = new System.Drawing.Size(548, 153);
             this.groupBox2.TabIndex = 35;
             this.groupBox2.TabStop = false;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(1202, 237);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.btnCancelar.Location = new System.Drawing.Point(451, 99);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(248, 55);
+            this.btnCancelar.Size = new System.Drawing.Size(93, 23);
             this.btnCancelar.TabIndex = 39;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(938, 237);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.btnAceptar.Location = new System.Drawing.Point(352, 99);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(248, 55);
+            this.btnAceptar.Size = new System.Drawing.Size(93, 23);
             this.btnAceptar.TabIndex = 38;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -178,22 +187,24 @@
             // 
             // btnCargarDesdeTxt
             // 
-            this.btnCargarDesdeTxt.Location = new System.Drawing.Point(938, 143);
-            this.btnCargarDesdeTxt.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.btnCargarDesdeTxt.Location = new System.Drawing.Point(352, 60);
             this.btnCargarDesdeTxt.Name = "btnCargarDesdeTxt";
-            this.btnCargarDesdeTxt.Size = new System.Drawing.Size(512, 55);
+            this.btnCargarDesdeTxt.Size = new System.Drawing.Size(192, 23);
             this.btnCargarDesdeTxt.TabIndex = 37;
             this.btnCargarDesdeTxt.Text = "Cargar desde TXT";
             this.btnCargarDesdeTxt.UseVisualStyleBackColor = true;
+            this.btnCargarDesdeTxt.Click += new System.EventHandler(this.btnCargarDesdeTxt_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.cbUbicacionOrigen);
             this.groupBox3.Controls.Add(this.cbAlmacenOrigen);
             this.groupBox3.Controls.Add(this.cbSucursalOrigen);
-            this.groupBox3.Location = new System.Drawing.Point(0, 37);
+            this.groupBox3.Location = new System.Drawing.Point(0, 16);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(803, 148);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox3.Size = new System.Drawing.Size(301, 62);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ubicacion Origen";
@@ -202,18 +213,20 @@
             // 
             this.cbUbicacionOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUbicacionOrigen.FormattingEnabled = true;
-            this.cbUbicacionOrigen.Location = new System.Drawing.Point(552, 55);
+            this.cbUbicacionOrigen.Location = new System.Drawing.Point(207, 23);
+            this.cbUbicacionOrigen.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbUbicacionOrigen.Name = "cbUbicacionOrigen";
-            this.cbUbicacionOrigen.Size = new System.Drawing.Size(229, 39);
+            this.cbUbicacionOrigen.Size = new System.Drawing.Size(88, 21);
             this.cbUbicacionOrigen.TabIndex = 4;
             // 
             // cbAlmacenOrigen
             // 
             this.cbAlmacenOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAlmacenOrigen.FormattingEnabled = true;
-            this.cbAlmacenOrigen.Location = new System.Drawing.Point(278, 55);
+            this.cbAlmacenOrigen.Location = new System.Drawing.Point(104, 23);
+            this.cbAlmacenOrigen.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbAlmacenOrigen.Name = "cbAlmacenOrigen";
-            this.cbAlmacenOrigen.Size = new System.Drawing.Size(229, 39);
+            this.cbAlmacenOrigen.Size = new System.Drawing.Size(88, 21);
             this.cbAlmacenOrigen.TabIndex = 3;
             this.cbAlmacenOrigen.SelectedIndexChanged += new System.EventHandler(this.cbAlmacenOrigen_SelectedIndexChanged);
             // 
@@ -221,9 +234,10 @@
             // 
             this.cbSucursalOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSucursalOrigen.FormattingEnabled = true;
-            this.cbSucursalOrigen.Location = new System.Drawing.Point(16, 55);
+            this.cbSucursalOrigen.Location = new System.Drawing.Point(6, 23);
+            this.cbSucursalOrigen.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbSucursalOrigen.Name = "cbSucursalOrigen";
-            this.cbSucursalOrigen.Size = new System.Drawing.Size(229, 39);
+            this.cbSucursalOrigen.Size = new System.Drawing.Size(88, 21);
             this.cbSucursalOrigen.TabIndex = 2;
             this.cbSucursalOrigen.SelectedIndexChanged += new System.EventHandler(this.cbSucursalOrigen_SelectedIndexChanged);
             // 
@@ -231,27 +245,29 @@
             // 
             this.panelSN.Controls.Add(this.maskedTextBox1);
             this.panelSN.Controls.Add(this.label5);
-            this.panelSN.Location = new System.Drawing.Point(19, 29);
+            this.panelSN.Location = new System.Drawing.Point(7, 12);
+            this.panelSN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panelSN.Name = "panelSN";
-            this.panelSN.Size = new System.Drawing.Size(509, 100);
+            this.panelSN.Size = new System.Drawing.Size(191, 42);
             this.panelSN.TabIndex = 34;
             // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(261, 30);
-            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.maskedTextBox1.Location = new System.Drawing.Point(98, 13);
+            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.maskedTextBox1.Mask = "*000000000000*";
             this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(220, 38);
+            this.maskedTextBox1.Size = new System.Drawing.Size(85, 20);
             this.maskedTextBox1.TabIndex = 29;
             this.maskedTextBox1.TextChanged += new System.EventHandler(this.maskedTextBox1_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 33);
+            this.label5.Location = new System.Drawing.Point(1, 14);
+            this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(235, 32);
+            this.label5.Size = new System.Drawing.Size(88, 13);
             this.label5.TabIndex = 28;
             this.label5.Text = "Codigo de Barras";
             // 
@@ -260,11 +276,9 @@
             this.gbProductos.Controls.Add(this.panelCantidades);
             this.gbProductos.Controls.Add(this.label1);
             this.gbProductos.Controls.Add(this.cbProductos);
-            this.gbProductos.Location = new System.Drawing.Point(17, 117);
-            this.gbProductos.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.gbProductos.Location = new System.Drawing.Point(6, 49);
             this.gbProductos.Name = "gbProductos";
-            this.gbProductos.Padding = new System.Windows.Forms.Padding(8, 7, 8, 7);
-            this.gbProductos.Size = new System.Drawing.Size(1456, 128);
+            this.gbProductos.Size = new System.Drawing.Size(546, 54);
             this.gbProductos.TabIndex = 33;
             this.gbProductos.TabStop = false;
             // 
@@ -274,18 +288,16 @@
             this.panelCantidades.Controls.Add(this.label3);
             this.panelCantidades.Controls.Add(this.label4);
             this.panelCantidades.Controls.Add(this.cbUM);
-            this.panelCantidades.Location = new System.Drawing.Point(547, 4);
-            this.panelCantidades.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.panelCantidades.Location = new System.Drawing.Point(205, 2);
             this.panelCantidades.Name = "panelCantidades";
-            this.panelCantidades.Size = new System.Drawing.Size(893, 110);
+            this.panelCantidades.Size = new System.Drawing.Size(335, 46);
             this.panelCantidades.TabIndex = 25;
             // 
             // tbCantidad
             // 
-            this.tbCantidad.Location = new System.Drawing.Point(160, 33);
-            this.tbCantidad.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.tbCantidad.Location = new System.Drawing.Point(60, 14);
             this.tbCantidad.Name = "tbCantidad";
-            this.tbCantidad.Size = new System.Drawing.Size(174, 38);
+            this.tbCantidad.Size = new System.Drawing.Size(68, 20);
             this.tbCantidad.TabIndex = 23;
             // 
             // label3
@@ -294,10 +306,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(350, 36);
-            this.label3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label3.Location = new System.Drawing.Point(131, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(246, 32);
+            this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 22;
             this.label3.Text = "Unidad de Medida";
             // 
@@ -307,10 +318,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 38);
-            this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label4.Location = new System.Drawing.Point(4, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 32);
+            this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 21;
             this.label4.Text = "Cantidad";
             // 
@@ -318,18 +328,18 @@
             // 
             this.cbUM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUM.FormattingEnabled = true;
-            this.cbUM.Location = new System.Drawing.Point(612, 29);
-            this.cbUM.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.cbUM.Location = new System.Drawing.Point(230, 12);
             this.cbUM.Name = "cbUM";
-            this.cbUM.Size = new System.Drawing.Size(265, 39);
+            this.cbUM.Size = new System.Drawing.Size(102, 21);
             this.cbUM.TabIndex = 20;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 52);
+            this.label1.Location = new System.Drawing.Point(4, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 32);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Producto";
             // 
@@ -337,9 +347,10 @@
             // 
             this.cbProductos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProductos.FormattingEnabled = true;
-            this.cbProductos.Location = new System.Drawing.Point(145, 45);
+            this.cbProductos.Location = new System.Drawing.Point(54, 19);
+            this.cbProductos.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.cbProductos.Name = "cbProductos";
-            this.cbProductos.Size = new System.Drawing.Size(391, 39);
+            this.cbProductos.Size = new System.Drawing.Size(149, 21);
             this.cbProductos.TabIndex = 0;
             this.cbProductos.SelectedIndexChanged += new System.EventHandler(this.cbProductos_SelectedIndexChanged);
             // 
@@ -350,18 +361,20 @@
             this.panelOculto.Controls.Add(this.gbProductos);
             this.panelOculto.Controls.Add(this.groupBox2);
             this.panelOculto.Enabled = false;
-            this.panelOculto.Location = new System.Drawing.Point(12, 102);
+            this.panelOculto.Location = new System.Drawing.Point(4, 43);
+            this.panelOculto.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panelOculto.Name = "panelOculto";
-            this.panelOculto.Size = new System.Drawing.Size(1498, 625);
+            this.panelOculto.Size = new System.Drawing.Size(562, 262);
             this.panelOculto.TabIndex = 36;
             // 
             // DetalleMovimiento
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1533, 749);
+            this.ClientSize = new System.Drawing.Size(575, 314);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelOculto);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Name = "DetalleMovimiento";
             this.Text = "DetalleMovimiento";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DetalleMovimiento_FormClosed);
