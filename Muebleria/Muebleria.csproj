@@ -208,6 +208,7 @@
     <Compile Include="padre_componente_temporal.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Procesador_txt.cs" />
     <Compile Include="producto.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
