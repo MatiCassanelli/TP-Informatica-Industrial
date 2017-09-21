@@ -16,6 +16,7 @@ namespace Muebleria
 
         public Menu()
         {
+            Procesador_txt ptxt = new Procesador_txt();
             InitializeComponent();
             Codigoidioma = LogIn.IdIdioma;
         }
