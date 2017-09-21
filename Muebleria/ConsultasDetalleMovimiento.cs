@@ -13,50 +13,72 @@ namespace Muebleria
         public void InsertarMovimiento(movimiento mov)
         {
             db.movimiento.Add(mov);
+            try
+            {
             db.SaveChanges();
+            }
+            catch(Exception exc)
+            {
+                
+            }
         }
 
         public void actualizarStock(movimiento mov)
         {
             stock origen = getStock(mov.idProducto, Convert.ToInt32(mov.A_origen));
             stock destino = getStock(mov.idProducto, Convert.ToInt32(mov.A_destino));
+            
+                if (origen.idProducto != 0)
+                    origen.Cantidad -= mov.cantidad;
+                else
+                {
+                    origen = new stock()
+                    {
+                        idProducto = mov.idProducto,
+                        Cantidad = 0,
+                        unidad_medida = Convert.ToInt32(mov.u_medida),
+                        idAlmacen = Convert.ToInt32(mov.A_origen),
+                        user_upd = LogIn.IdUsuario,
+                        last_upd = DateTime.Now
+                    };
+                    origen.Cantidad -= mov.cantidad;
+                    db.stock.Add(origen);
+                }
 
+                if (destino.idProducto != 0)
+                    destino.Cantidad += mov.cantidad;
+                else
+                {
+                    destino = new stock()
+                    {
+                        idProducto = mov.idProducto,
+                        Cantidad = 0,
+                        unidad_medida = Convert.ToInt32(mov.u_medida),
+                        idAlmacen = Convert.ToInt32(mov.A_destino),
+                        user_upd = LogIn.IdUsuario,
+                        last_upd = DateTime.Now
+                    };
+                    destino.Cantidad += mov.cantidad;
+                    db.stock.Add(destino);
+                }
+            
             try
             {
-                origen.Cantidad -= mov.cantidad;
+                db.SaveChanges();
             }
-            catch
+            catch (Exception exc)
             {
-                origen = new stock()
-                {
-                    idProducto = mov.idProducto,
-                    Cantidad = mov.cantidad,
-                    unidad_medida = Convert.ToInt32(mov.u_medida),
-                    idAlmacen = Convert.ToInt32(mov.A_origen),
-                    user_upd = LogIn.IdUsuario,
-                    last_upd = DateTime.Now
-                };
-                db.stock.Add(origen);
-            }
 
-            try
-            {
-                destino.Cantidad += mov.cantidad;
             }
-            catch
-            {
-                destino = new stock()
-                {
-                    idProducto = mov.idProducto,
-                    Cantidad = mov.cantidad,
-                    unidad_medida = Convert.ToInt32(mov.u_medida),
-                    idAlmacen = Convert.ToInt32(mov.A_destino),
-                    user_upd = LogIn.IdUsuario,
-                    last_upd = DateTime.Now
-                };
-                db.stock.Add(destino);
-            }
-            db.SaveChanges();
+        }
+
+        public int esReal(int id)
+        {
+            var query = from s in db.sucursal
+                        from a in db.almacen
+                        where s.idSucursal == a.idSucursal && a.idAlmacen == id && s.Real == 1
+                        select s.Real;
+            return query.ToList()[0];
         }
 
         public void actualizarArticulo(movimiento mov)

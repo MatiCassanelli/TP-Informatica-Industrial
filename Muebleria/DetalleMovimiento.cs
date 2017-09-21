@@ -87,8 +87,9 @@ namespace Muebleria
             //crear una variable para cada parametro inicializada en null. preguntar si ese objeto de la interfaz es distinto a null, si es asi, hacer variable=objeto
 
             string almacenOrigen = null, almacenDestino = null, um = null;
-            int cant = 1, ubicacionOrigen = 0, ubicacionDestino = 0;
-            double sn = 0;
+            int cant = 1;
+            Nullable<int> ubicacionOrigen = null, ubicacionDestino = null;
+            Nullable<double> sn = null;
             if (!String.IsNullOrEmpty(cbAlmacenOrigen.SelectedItem.ToString()))
                 almacenOrigen = cbAlmacenOrigen.SelectedItem.ToString();
             if (!String.IsNullOrEmpty(cbAlmacenDestino.SelectedItem.ToString()))
@@ -104,8 +105,8 @@ namespace Muebleria
             if (maskedTextBox1.Text != guiones)
                 sn = double.Parse(maskedTextBox1.Text);
 
-            controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.ToString()
-, cbSucursalDestino.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+            controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
+, cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
 
         }
 
