@@ -93,10 +93,10 @@ namespace Muebleria
                 U_destino = ubicacionDestino,
                 fechaMovimiento=DateTime.Now             
             };
-            cdm.InsertarMovimiento(mov);
             cdm.actualizarStock(mov);
             if (sn != null)
                 cdm.actualizarArticulo(mov);
+            cdm.InsertarMovimiento(mov);
         }
 
         public razon getRazonCompleta(string razon)

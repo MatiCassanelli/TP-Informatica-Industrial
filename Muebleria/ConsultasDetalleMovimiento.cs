@@ -13,14 +13,7 @@ namespace Muebleria
         public void InsertarMovimiento(movimiento mov)
         {
             db.movimiento.Add(mov);
-            try
-            {
             db.SaveChanges();
-            }
-            catch(Exception exc)
-            {
-                
-            }
         }
 
         public void actualizarStock(movimiento mov)
@@ -84,7 +77,7 @@ namespace Muebleria
         public void actualizarArticulo(movimiento mov)
         {
             articulo art = getArticulo(Convert.ToDouble(mov.idArticulo));
-            art.estado = "asd";
+            art.estado = "Fuera de mi Planta";
             art.ubicacion = Convert.ToInt32(mov.A_destino);
             db.SaveChanges();
         }
