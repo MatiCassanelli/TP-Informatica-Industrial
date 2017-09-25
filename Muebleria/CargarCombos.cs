@@ -35,6 +35,16 @@ namespace Muebleria
             return query.ToList();
         }
 
+        public List<string> CargarProductos(double sn)
+        {
+            var query = from a in db.articulo
+                        from p in db.producto
+                        from t in db.traduccion
+                        where a.numero_serie == sn && a.idProducto == p.idProducto && p.idDescriptionP == t.idDescriptionT
+                        select t.Traduccion_str;
+            return query.ToList();
+        }
+
         public List<string> CargarUM()
         {
             var query = from um in db.unidad_medida

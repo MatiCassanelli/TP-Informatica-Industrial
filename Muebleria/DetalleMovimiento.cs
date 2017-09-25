@@ -38,6 +38,36 @@ namespace Muebleria
             gbProductos.Enabled = false;
             if (maskedTextBox1.Text == guiones)
                 gbProductos.Enabled = true;
+            else
+                gbProductos.Enabled = false;
+
+            if (maskedTextBox1.MaskCompleted == true)
+            {
+                string aux = maskedTextBox1.Text.ToString().Substring(1,12);
+                string prod = null;
+                try
+                {
+                    prod = controller.CargarProductos(double.Parse(aux.ToString()))[0];
+                }
+                catch
+                {
+                    prod = null;
+                }
+                if (prod != null)
+                {
+                    cbProductos.SelectedItem = prod;
+                    cbUM.SelectedItem = "N Numero";
+                    cbProductos.Enabled = false;
+                    tbCantidad.Text = "1";
+                }
+            }
+            else
+            {
+                cbProductos.SelectedIndex = 0;
+                cbProductos.Enabled = true;
+                cbUM.SelectedItem = null;
+                tbCantidad.Clear();
+            }
         }
 
         private void DetalleMovimiento_FormClosed(object sender, FormClosedEventArgs e)
@@ -48,17 +78,14 @@ namespace Muebleria
             menu.ShowDialog();
         }
 
-        private void cbProductos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbProductos.SelectedIndex != 0)
-                maskedTextBox1.Enabled = false;
-            else
-                maskedTextBox1.Enabled = true;
-        }
 
         private void cbRazon_SelectedIndexChanged(object sender, EventArgs e)
         {
             panelOculto.Enabled = true;
+            maskedTextBox1.Clear();
+            cbProductos.SelectedIndex = 0;
+            tbCantidad.Clear();
+            cbUM.SelectedItem = null; 
             razon r = controller.getRazonCompleta(cbRazon.SelectedItem.ToString());
             completarCombosConRazon(r);
         }
@@ -103,7 +130,10 @@ namespace Muebleria
             if (cbUM.SelectedItem != null)
                 um = cbUM.SelectedItem.ToString();
             if (maskedTextBox1.Text != guiones)
-                sn = double.Parse(maskedTextBox1.Text);
+            {
+                string aux = maskedTextBox1.Text.ToString().Substring(1, 12);
+                sn = double.Parse(aux);
+            }                
 
             controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
 , cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
@@ -143,6 +173,11 @@ namespace Muebleria
                 MessageBox.Show(Mensaje);
             }
 
+        }
+
+        private void cbProductos_EnabledChanged(object sender, EventArgs e)
+        {
+            maskedTextBox1.Enabled = true;
         }
     }
 }

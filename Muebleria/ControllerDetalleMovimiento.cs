@@ -20,6 +20,11 @@ namespace Muebleria
             return cc.CargarProductos(indice);
         }
 
+        public List<string> CargarProductos(double sn)
+        {
+            return cc.CargarProductos(sn);
+        }
+
         public List<string> CargarUM()
         {
             return cc.CargarUM();
