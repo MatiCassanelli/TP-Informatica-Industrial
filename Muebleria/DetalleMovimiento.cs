@@ -133,10 +133,18 @@ namespace Muebleria
             {
                 string aux = maskedTextBox1.Text.ToString().Substring(1, 12);
                 sn = double.Parse(aux);
-            }                
+            }
 
-            controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
-, cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+            try
+            {
+                controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
+                , cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+            }
+            catch
+            {
+                MessageBox.Show("No se puede realizar el movimiento. Stock insuficiente");
+            }
+            
 
         }
 

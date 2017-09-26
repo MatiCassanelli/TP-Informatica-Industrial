@@ -37,7 +37,12 @@ namespace Muebleria
 
         public List<string> CargarProductos(double sn)
         {
-            var query = from a in db.articulo
+            var subquery = from a in db.articulo
+                           from alm in db.almacen
+                           where a.ubicacion == alm.idAlmacen && alm.Real == 1
+                           select a;
+
+            var query = from a in subquery
                         from p in db.producto
                         from t in db.traduccion
                         where a.numero_serie == sn && a.idProducto == p.idProducto && p.idDescriptionP == t.idDescriptionT

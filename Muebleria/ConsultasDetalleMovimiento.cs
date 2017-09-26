@@ -20,7 +20,29 @@ namespace Muebleria
         {
             stock origen = getStock(mov.idProducto, Convert.ToInt32(mov.A_origen));
             stock destino = getStock(mov.idProducto, Convert.ToInt32(mov.A_destino));
-            
+
+            int real = 0;
+            try
+            {
+                real = esReal(origen.idAlmacen);
+            }
+            catch
+            {
+                real = 0;
+            }
+            if (real == 1)  
+            {   //quiere decir q estoy vendiendo
+                if (origen.Cantidad - mov.cantidad >= 0)
+                {
+                    origen.Cantidad -= mov.cantidad;
+                    destino.Cantidad += mov.cantidad;
+                }
+                else
+                    throw new Exception("No se puede realizar el movimiento. Stock insuficiente");
+            }
+
+            else
+            {   //estoy comprandole a un proveedor
                 if (origen.idProducto != 0)
                     origen.Cantidad -= mov.cantidad;
                 else
@@ -34,9 +56,10 @@ namespace Muebleria
                         user_upd = LogIn.IdUsuario,
                         last_upd = DateTime.Now
                     };
-                    origen.Cantidad -= mov.cantidad;
-                    db.stock.Add(origen);
+                origen.Cantidad -= mov.cantidad;
+                db.stock.Add(origen);
                 }
+            }
 
                 if (destino.idProducto != 0)
                     destino.Cantidad += mov.cantidad;
@@ -69,7 +92,7 @@ namespace Muebleria
         {
             var query = from s in db.sucursal
                         from a in db.almacen
-                        where s.idSucursal == a.idSucursal && a.idAlmacen == id && s.Real == 1
+                        where s.idSucursal == a.idSucursal && a.idAlmacen == id
                         select s.Real;
             return query.ToList()[0];
         }
@@ -136,7 +159,7 @@ namespace Muebleria
         {
             var query = from s in db.almacen
                         where s.Nombre == suc
-                        select s.idSucursal;
+                        select s.idAlmacen;
             return query.ToList()[0];
         }
 
