@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbRazon = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -56,6 +57,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbProductos = new System.Windows.Forms.ComboBox();
             this.panelOculto = new System.Windows.Forms.Panel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,6 +66,7 @@
             this.gbProductos.SuspendLayout();
             this.panelCantidades.SuspendLayout();
             this.panelOculto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -250,7 +253,7 @@
             this.panelSN.Location = new System.Drawing.Point(19, 29);
             this.panelSN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelSN.Name = "panelSN";
-            this.panelSN.Size = new System.Drawing.Size(509, 100);
+            this.panelSN.Size = new System.Drawing.Size(629, 88);
             this.panelSN.TabIndex = 34;
             // 
             // maskedTextBox1
@@ -261,6 +264,7 @@
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(220, 38);
             this.maskedTextBox1.TabIndex = 29;
+            this.maskedTextBox1.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox1_MaskInputRejected);
             this.maskedTextBox1.TextChanged += new System.EventHandler(this.maskedTextBox1_TextChanged);
             // 
             // label5
@@ -291,10 +295,10 @@
             this.panelCantidades.Controls.Add(this.label3);
             this.panelCantidades.Controls.Add(this.label4);
             this.panelCantidades.Controls.Add(this.cbUM);
-            this.panelCantidades.Location = new System.Drawing.Point(547, 5);
+            this.panelCantidades.Location = new System.Drawing.Point(547, 0);
             this.panelCantidades.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.panelCantidades.Name = "panelCantidades";
-            this.panelCantidades.Size = new System.Drawing.Size(893, 110);
+            this.panelCantidades.Size = new System.Drawing.Size(893, 115);
             this.panelCantidades.TabIndex = 25;
             // 
             // tbCantidad
@@ -374,6 +378,10 @@
             this.panelOculto.Size = new System.Drawing.Size(1499, 625);
             this.panelOculto.TabIndex = 36;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // DetalleMovimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -397,6 +405,7 @@
             this.panelCantidades.ResumeLayout(false);
             this.panelCantidades.PerformLayout();
             this.panelOculto.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -430,5 +439,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCargarDesdeTxt;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

@@ -127,7 +127,7 @@ namespace Muebleria
         {
             var query = from r in db.razon
                         from t in db.traduccion
-                        where r.idDescripcion == t.idDescriptionT && t.idLanguageT==LogIn.IdIdioma
+                        where r.idDescripcion == t.idDescriptionT && t.idLanguageT==LogIn.IdIdioma && r.idRazon!=4  //4 es fabricar
                         select t.Traduccion_str;
 
             return query.ToList();

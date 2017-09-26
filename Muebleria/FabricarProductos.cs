@@ -57,7 +57,10 @@ namespace Muebleria
 
             int idProd = convertirEnID(cbProductos.SelectedItem.ToString());
 
-            var query = db.stock.SqlQuery("select * from stock where idProducto = " + idProd + ";");
+            var query = from s in db.stock
+                        from a in db.almacen
+                        where s.idProducto == idProd && a.idAlmacen==s.idAlmacen && a.Real==1
+                        select s;
             if (query.Count() > 0)
             {
                 float stock = obtenerStock(idProd);
@@ -158,7 +161,7 @@ namespace Muebleria
                 fechaMovimiento = DateTime.Now,
                 cantidad = cant,
                 u_medida = um,
-                idRazon=1                
+                idRazon=4   //4 es el fabricar!!               
             };
             db.movimiento.Add(mov);
             db.SaveChanges();

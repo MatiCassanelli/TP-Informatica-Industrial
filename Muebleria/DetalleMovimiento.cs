@@ -52,6 +52,7 @@ namespace Muebleria
                 catch
                 {
                     prod = null;
+                    errorProvider1.SetError(maskedTextBox1, "Articulo fuera de stock");
                 }
                 if (prod != null)
                 {
@@ -63,6 +64,7 @@ namespace Muebleria
             }
             else
             {
+                errorProvider1.Clear();
                 cbProductos.SelectedIndex = 0;
                 cbProductos.Enabled = true;
                 cbUM.SelectedItem = null;
@@ -186,6 +188,11 @@ namespace Muebleria
         private void cbProductos_EnabledChanged(object sender, EventArgs e)
         {
             maskedTextBox1.Enabled = true;
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
         }
     }
 }
