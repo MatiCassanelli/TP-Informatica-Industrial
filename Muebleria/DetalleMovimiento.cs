@@ -127,16 +127,22 @@ namespace Muebleria
                 ubicacionOrigen = Convert.ToInt32(cbUbicacionOrigen.SelectedItem.ToString());
             if (cbUbicacionDestino.SelectedItem != null)
                 ubicacionDestino = Convert.ToInt32(cbUbicacionDestino.SelectedItem.ToString());
-            if (tbCantidad.Text != null)
+            if (!String.IsNullOrEmpty(tbCantidad.Text.ToString()) && cbUM.SelectedItem != null && cbProductos.SelectedIndex!=0)
+            {
                 cant = int.Parse(tbCantidad.Text);
-            if (cbUM.SelectedItem != null)
                 um = cbUM.SelectedItem.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Complete los datos antes de continuar");
+                return;
+            }
+
             if (maskedTextBox1.Text != guiones)
             {
                 string aux = maskedTextBox1.Text.ToString().Substring(1, 12);
                 sn = double.Parse(aux);
             }
-
             try
             {
                 controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
@@ -146,8 +152,6 @@ namespace Muebleria
             {
                 MessageBox.Show("No se puede realizar el movimiento. Stock insuficiente");
             }
-            
-
         }
 
         private void cbSucursalOrigen_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,6 +197,15 @@ namespace Muebleria
         private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            cbRazon.ResetText();
+            cbProductos.ResetText();
+            tbCantidad.Clear();
+            cbUM.ResetText();
+            maskedTextBox1.Clear();
         }
     }
 }
