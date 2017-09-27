@@ -228,5 +228,37 @@ namespace Muebleria
             else
                 return false;
         }
+
+        public void ActualizarStockTXT(int idProducto, int cant)
+        {
+            stock _stock = getStock(idProducto, 1);
+
+            if (_stock.idProducto != 0)
+                _stock.Cantidad += cant;
+            else
+            {
+                _stock = new stock()
+                {
+                    idProducto = idProducto,
+                    Cantidad = cant,
+                    unidad_medida = 1,
+                    idAlmacen = 1,
+                    user_upd = LogIn.IdUsuario,
+                    last_upd = DateTime.Now
+                };
+                db.stock.Add(_stock);
+            }
+
+
+
+
+
+
+
+
+
+            //_stock.Cantidad += cant;
+            db.SaveChanges();
+        }
     }
 }

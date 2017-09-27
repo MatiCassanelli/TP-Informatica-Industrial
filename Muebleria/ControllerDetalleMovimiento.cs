@@ -107,6 +107,7 @@ namespace Muebleria
         
         public string crearMovimientoTXT(string path)
         {
+            int b = 0;
             Procesador_txt procesadorTxt = new Procesador_txt(path);
             ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
             string EstadoFinalizacion = "";
@@ -118,7 +119,8 @@ namespace Muebleria
                     for (int i = 0; i < procesadorTxt.getNumero_filas(); i++)
                     {
                         if (consulta.existeIdProducto(procesadorTxt.getProducto(i)) == true &&
-                            consulta.existeSucursal(procesadorTxt.getProveedor()) == true)
+                            consulta.existeSucursal(procesadorTxt.getProveedor()) == true &&
+                            procesadorTxt.getNumero_archivo() == procesadorTxt.getNumeroArchivoCuerpo(i))
                         {
                             //CREAR MOVIMIENTO Y AGREGARLOS A LA BD
                             movimiento mov = new movimiento()
@@ -127,18 +129,25 @@ namespace Muebleria
                                 cantidad = procesadorTxt.getCantidad(i),
                                 S_origen = procesadorTxt.getProveedor(),
                                 S_destino = 1,
-                                fechaMovimiento = DateTime.Parse(procesadorTxt.getFecha_arribo().ToString()),
+                                fechaMovimiento = DateTime.Parse(procesadorTxt.getFecha_arribo()),
                                 idRazon = 3
                             };
+                            consulta.InsertarMovimiento(mov);
                             //ACTUALIZACION DE STOCK
+                            consulta.ActualizarStockTXT(procesadorTxt.getProducto(i), procesadorTxt.getCantidad(i));
 
-
+                        }
+                        else
+                        {
+                            b = 1;
+                            EstadoFinalizacion = "Uno o más articulos no han sido cargados correctamente";
                         }
                     }
 
 
                     consulta.insertIdHistorial(procesadorTxt.getNumero_archivo());
-                    EstadoFinalizacion = "La operacion se realizó correctamente!";
+                    if(b == 0)
+                        EstadoFinalizacion = "La operacion se realizó correctamente!";
                 }
                 else
                     EstadoFinalizacion = "El archivo txt ya ha sido cargado";
