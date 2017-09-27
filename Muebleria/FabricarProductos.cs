@@ -19,10 +19,10 @@ namespace Muebleria
             InitializeComponent();
 
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+
             var subquery = from p in db.producto
                            where p.idTipo == 1 || p.idTipo == 3
                            select p.idDescriptionP;
-
 
             var query = from t in db.traduccion
                         from p in subquery
@@ -37,6 +37,11 @@ namespace Muebleria
                     t.idLanguageT == LogIn.IdIdioma
                     select t.Traduccion_str;
             cbUM.DataSource = query.ToList();
+
+            query = from s in db.sucursal
+                    where s.Real==1
+                    select s.Nombre;
+            cbSucursalOrigen.DataSource = query.ToList();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -52,7 +57,10 @@ namespace Muebleria
 
             int idProd = convertirEnID(cbProductos.SelectedItem.ToString());
 
-            var query = db.stock.SqlQuery("select * from stock where idProducto = " + idProd + ";");
+            var query = from s in db.stock
+                        from a in db.almacen
+                        where s.idProducto == idProd && a.idAlmacen==s.idAlmacen && a.Real==1
+                        select s;
             if (query.Count() > 0)
             {
                 float stock = obtenerStock(idProd);
@@ -63,13 +71,15 @@ namespace Muebleria
             }
             else
             {
+                ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();                
+                int almacen = cc.getIDAlmacen(cbAlmacenOrigen.SelectedItem.ToString());
                 stock s = new stock()
                 {
                     idProducto = idProd,
                     Cantidad = float.Parse(tbCantidad.Text),
                     unidad_medida = UMU[0],
                     last_upd = DateTime.Now,
-                    idAlmacen=2,    //almacen 2 es el deposito
+                    idAlmacen=almacen,    //almacen 2 es el deposito
                     user_upd = LogIn.IdUsuario
                     
                 };
@@ -101,6 +111,8 @@ namespace Muebleria
             GeneradorSN gsn = new GeneradorSN();
             double sn = gsn.generarSNcompleto(idProd);
 
+            ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();
+            int almacen = cc.getIDAlmacen(cbAlmacenOrigen.SelectedItem.ToString());
             articulo a = new articulo()
             {
                 numero_serie = sn,
@@ -108,7 +120,7 @@ namespace Muebleria
                 fecha_fabricacion = DateTime.Now,
                 fecha_caducidad = DateTime.Now,
                 estado = "Fabricado",
-                ubicacion = 1,
+                ubicacion = almacen,
                 last_upd = DateTime.Now,
                 user_upd = LogIn.IdUsuario
             };
@@ -139,15 +151,17 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
+            ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();
+            int sucursal = cc.getIDSucursal(cbSucursalOrigen.SelectedItem.ToString());
             movimiento mov = new movimiento()
             {
-                S_origen = 1,
-                S_destino = 2,
+                S_origen = sucursal,
+                S_destino = sucursal,
                 idProducto = idProd,
                 fechaMovimiento = DateTime.Now,
                 cantidad = cant,
                 u_medida = um,
-                idRazon=1                
+                idRazon=4   //4 es el fabricar!!               
             };
             db.movimiento.Add(mov);
             db.SaveChanges();
@@ -188,6 +202,23 @@ namespace Muebleria
             this.Hide();
             Menu menu = new Menu();
             menu.ShowDialog();
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+        
+        private void cbSucursalOrigen_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            ControllerDetalleMovimiento controller = new ControllerDetalleMovimiento();
+            cbAlmacenOrigen.DataSource = controller.CargarAlmacen(cbSucursalOrigen.SelectedItem.ToString());
+        }
+
+        private void cbAlmacenOrigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ControllerDetalleMovimiento controller = new ControllerDetalleMovimiento();
+            cbUbicacionOrigen.DataSource = controller.CargarUbicacion(cbAlmacenOrigen.SelectedItem.ToString());
         }
     }
 }

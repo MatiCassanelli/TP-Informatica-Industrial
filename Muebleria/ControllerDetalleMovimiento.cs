@@ -20,6 +20,11 @@ namespace Muebleria
             return cc.CargarProductos(indice);
         }
 
+        public List<string> CargarProductos(double sn)
+        {
+            return cc.CargarProductos(sn);
+        }
+
         public List<string> CargarUM()
         {
             return cc.CargarUM();
@@ -57,25 +62,41 @@ namespace Muebleria
 
         //venta de un articulo determinado a un cliente
         public void crearMovimiento(string razon, string prod, string sucorigen, string sucdestino,
-            string almorigen = null, string almdestino = null, int? uborigen = null, int? ubdestino=null, double? sn=null, int cant=1, string um=null)
+            string almorigen = null, string almdestino = null, int? uborigen = null, int? ubdestino=null, double? sn=null, int cant=1, string unidadmedida=null)
         {
+            Nullable<int> ubicacionOrigen=null, ubicacionDestino = null, almacenOrigen = null, almacenDestino = null, um = null;
+
+            if (almorigen != null)
+                almacenOrigen = cdm.getIDAlmacen(almorigen);
+            if (almdestino != null)
+                almacenDestino = cdm.getIDAlmacen(almdestino);
+            if (uborigen != null)
+                ubicacionOrigen = cdm.getIDUbicacion(uborigen);
+            if (ubdestino != null)
+                ubicacionDestino = cdm.getIDUbicacion(ubdestino);
+            if (unidadmedida != null)
+                um = cdm.getIDUnidadMedidad(unidadmedida);
+            
+
             movimiento mov = new movimiento()
             {
                 idRazon = cdm.getIDRazon(razon),
-                idArticulo=sn,
+                idArticulo = sn,
                 idProducto = cdm.getIDProd(prod),
                 cantidad = cant,
-                u_medida = cdm.getIDUnidadMedidad(um),
-                S_origen=cdm.getIDSucursal(sucorigen),
-                S_destino=cdm.getIDSucursal(sucdestino),
-                A_origen=cdm.getIDAlmacen(almorigen),
-                A_destino=cdm.getIDAlmacen(almdestino),
-                U_origen=cdm.getIDUbicacion(uborigen),
-                U_destino=cdm.getIDUbicacion(ubdestino)                
+                u_medida = um,
+                S_origen = cdm.getIDSucursal(sucorigen),
+                S_destino = cdm.getIDSucursal(sucdestino),
+                A_origen = almacenOrigen,
+                A_destino = almacenDestino,
+                U_origen = ubicacionOrigen,
+                U_destino = ubicacionDestino,
+                fechaMovimiento=DateTime.Now             
             };
-            cdm.InsertarMovimiento(mov);
             cdm.actualizarStock(mov);
-            cdm.actualizarArticulo(mov);
+            if (sn != null)
+                cdm.actualizarArticulo(mov);
+            cdm.InsertarMovimiento(mov);
         }
 
         public razon getRazonCompleta(string razon)

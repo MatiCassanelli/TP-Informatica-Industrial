@@ -60,8 +60,9 @@ namespace Muebleria
 
             var query = from s in db.stock
                         from p in db.producto
-                        where s.idProducto == p.idProducto && p.idProducto == idSeleccionado
-                        select new { prod = prod, cant = s.Cantidad };
+                        from a in db.almacen
+                        where s.idProducto == p.idProducto && p.idProducto == idSeleccionado && s.idAlmacen==a.idAlmacen && a.Real==1
+                        select new { prod = prod, cant = s.Cantidad, almacen = a.Nombre };
             if (query.Count() > 0)
                 dataGridView1.DataSource = query.ToList();
             else

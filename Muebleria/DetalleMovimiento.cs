@@ -38,6 +38,38 @@ namespace Muebleria
             gbProductos.Enabled = false;
             if (maskedTextBox1.Text == guiones)
                 gbProductos.Enabled = true;
+            else
+                gbProductos.Enabled = false;
+
+            if (maskedTextBox1.MaskCompleted == true)
+            {
+                string aux = maskedTextBox1.Text.ToString().Substring(1,12);
+                string prod = null;
+                try
+                {
+                    prod = controller.CargarProductos(double.Parse(aux.ToString()))[0];
+                }
+                catch
+                {
+                    prod = null;
+                    errorProvider1.SetError(maskedTextBox1, "Articulo fuera de stock");
+                }
+                if (prod != null)
+                {
+                    cbProductos.SelectedItem = prod;
+                    cbUM.SelectedItem = "N Numero";
+                    cbProductos.Enabled = false;
+                    tbCantidad.Text = "1";
+                }
+            }
+            else
+            {
+                errorProvider1.Clear();
+                cbProductos.SelectedIndex = 0;
+                cbProductos.Enabled = true;
+                cbUM.SelectedItem = null;
+                tbCantidad.Clear();
+            }
         }
 
         private void DetalleMovimiento_FormClosed(object sender, FormClosedEventArgs e)
@@ -48,17 +80,14 @@ namespace Muebleria
             menu.ShowDialog();
         }
 
-        private void cbProductos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbProductos.SelectedIndex != 0)
-                maskedTextBox1.Enabled = false;
-            else
-                maskedTextBox1.Enabled = true;
-        }
 
         private void cbRazon_SelectedIndexChanged(object sender, EventArgs e)
         {
             panelOculto.Enabled = true;
+            maskedTextBox1.Clear();
+            cbProductos.SelectedIndex = 0;
+            tbCantidad.Clear();
+            cbUM.SelectedItem = null; 
             razon r = controller.getRazonCompleta(cbRazon.SelectedItem.ToString());
             completarCombosConRazon(r);
         }
@@ -87,8 +116,9 @@ namespace Muebleria
             //crear una variable para cada parametro inicializada en null. preguntar si ese objeto de la interfaz es distinto a null, si es asi, hacer variable=objeto
 
             string almacenOrigen = null, almacenDestino = null, um = null;
-            int cant = 1, ubicacionOrigen = 0, ubicacionDestino = 0;
-            double sn = 0;
+            int cant = 1;
+            Nullable<int> ubicacionOrigen = null, ubicacionDestino = null;
+            Nullable<double> sn = null;
             if (!String.IsNullOrEmpty(cbAlmacenOrigen.SelectedItem.ToString()))
                 almacenOrigen = cbAlmacenOrigen.SelectedItem.ToString();
             if (!String.IsNullOrEmpty(cbAlmacenDestino.SelectedItem.ToString()))
@@ -102,10 +132,21 @@ namespace Muebleria
             if (cbUM.SelectedItem != null)
                 um = cbUM.SelectedItem.ToString();
             if (maskedTextBox1.Text != guiones)
-                sn = double.Parse(maskedTextBox1.Text);
+            {
+                string aux = maskedTextBox1.Text.ToString().Substring(1, 12);
+                sn = double.Parse(aux);
+            }
 
-            controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.ToString()
-, cbSucursalDestino.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+            try
+            {
+                controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
+                , cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+            }
+            catch
+            {
+                MessageBox.Show("No se puede realizar el movimiento. Stock insuficiente");
+            }
+            
 
         }
 
@@ -141,6 +182,16 @@ namespace Muebleria
                 sr.Close();
                 MessageBox.Show(Mensaje);
             }
+
+        }
+
+        private void cbProductos_EnabledChanged(object sender, EventArgs e)
+        {
+            maskedTextBox1.Enabled = true;
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
 
         }
     }
