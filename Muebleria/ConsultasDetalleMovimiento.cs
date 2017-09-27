@@ -108,7 +108,7 @@ namespace Muebleria
         public articulo getArticulo(double sn)
         {
             var query = from a in db.articulo
-                        where a.numero_serie == sn// && a.estado!= "Remito"
+                        where a.numero_serie == sn && a.estado!= "Remito"
                         select a;
             return query.ToList()[0];
         }
