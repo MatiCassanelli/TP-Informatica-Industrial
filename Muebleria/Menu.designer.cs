@@ -35,6 +35,7 @@
             this.btnGrarRemito = new System.Windows.Forms.Button();
             this.btnStock = new System.Windows.Forms.Button();
             this.btnMovimiento = new System.Windows.Forms.Button();
+            this.btnMRP = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCargar
@@ -114,11 +115,23 @@
             this.btnMovimiento.UseVisualStyleBackColor = true;
             this.btnMovimiento.Click += new System.EventHandler(this.btnMovimiento_Click);
             // 
+            // btnMRP
+            // 
+            this.btnMRP.Location = new System.Drawing.Point(329, 316);
+            this.btnMRP.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.btnMRP.Name = "btnMRP";
+            this.btnMRP.Size = new System.Drawing.Size(296, 103);
+            this.btnMRP.TabIndex = 7;
+            this.btnMRP.Text = "MRP";
+            this.btnMRP.UseVisualStyleBackColor = true;
+            this.btnMRP.Click += new System.EventHandler(this.btnMRP_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 496);
+            this.Controls.Add(this.btnMRP);
             this.Controls.Add(this.btnMovimiento);
             this.Controls.Add(this.btnStock);
             this.Controls.Add(this.btnGrarRemito);
@@ -142,5 +155,6 @@
         private System.Windows.Forms.Button btnGrarRemito;
         private System.Windows.Forms.Button btnStock;
         private System.Windows.Forms.Button btnMovimiento;
+        private System.Windows.Forms.Button btnMRP;
     }
 }

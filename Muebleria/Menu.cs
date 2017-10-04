@@ -94,5 +94,13 @@ namespace Muebleria
             DetalleMovimiento dm = new DetalleMovimiento();
             dm.ShowDialog();
         }
+
+        private void btnMRP_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            MRP mrp = new MRP();
+            mrp.ShowDialog();
+        }
     }
 }
