@@ -112,7 +112,7 @@
     </Compile>
     <Compile Include="ConsultasDetalleMovimiento.cs" />
     <Compile Include="ControllerDetalleMovimiento.cs" />
-    <Compile Include="ControllerMRP.cs" />
+    <Compile Include="Controller\ControllerMRP.cs" />
     <Compile Include="conversion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
@@ -187,10 +187,10 @@
     <Compile Include="movimiento.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
-    <Compile Include="MRP.cs">
+    <Compile Include="View\MRP.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MRP.Designer.cs">
+    <Compile Include="View\MRP.Designer.cs">
       <DependentUpon>MRP.cs</DependentUpon>
     </Compile>
     <Compile Include="Nuevo_Detalle_Remito.cs">
@@ -289,7 +289,7 @@
     <EmbeddedResource Include="MostrarCodigoBarras.resx">
       <DependentUpon>MostrarCodigoBarras.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MRP.resx">
+    <EmbeddedResource Include="View\MRP.resx">
       <DependentUpon>MRP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nuevo_Detalle_Remito.resx">
@@ -344,6 +344,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Dao\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
