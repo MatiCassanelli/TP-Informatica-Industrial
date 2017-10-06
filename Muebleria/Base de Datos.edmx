@@ -158,6 +158,24 @@
           <Property Name="fechaMovimiento" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="idRazon" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="necesidadbruta">
+          <Key>
+            <PropertyRef Name="idProductoHijo" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoHijo" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Cant" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="necesidadneta">
+          <Key>
+            <PropertyRef Name="idProductoHijo" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoHijo" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Cant" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="operario_estacion">
           <Key>
             <PropertyRef Name="IdUser" />
@@ -167,6 +185,19 @@
           <Property Name="idEstacion" Type="int" Nullable="false" />
           <Property Name="tiempo_comienzo" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="tiempo_finalizacion" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ordencompra">
+          <Key>
+            <PropertyRef Name="idOrdenCompra" />
+          </Key>
+          <Property Name="idOrdenCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NroOrdenCompra" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idProductoHijo" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Cant" Type="int" Nullable="false" />
+          <Property Name="Proveedor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_upd" Type="int" Nullable="false" />
+          <Property Name="last_upd" Type="timestamp" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="padre-componente-publicado">
           <Key>
@@ -196,6 +227,15 @@
           <Property Name="Cantidad" Type="float" Nullable="false" />
           <Property Name="U_medida_default" Type="int" Nullable="false" />
           <Property Name="U_medida_usada" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pmp">
+          <Key>
+            <PropertyRef Name="idProductoPadre" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoPadre" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Cant" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="producto">
           <Key>
@@ -261,6 +301,18 @@
           <Property Name="idRemito" Type="int" Nullable="false" />
           <Property Name="idProducto" Type="int" Nullable="false" />
           <Property Name="idArticulo" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requerimientos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="Semana" />
+            <PropertyRef Name="Cliente" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Semana" Type="int" Nullable="false" />
+          <Property Name="Cant" Type="int" Nullable="false" />
+          <Property Name="Cliente" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Delta" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -641,15 +693,51 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoR">
-          <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
-          <End Role="razon" Type="Self.razon" Multiplicity="*" />
+        <Association Name="idProductoNB">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="necesidadbruta" Type="Self.necesidadbruta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
             </Principal>
-            <Dependent Role="razon">
+            <Dependent Role="necesidadbruta">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoNN">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="necesidadneta" Type="Self.necesidadneta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
               <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="necesidadneta">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoOC">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ordencompra">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoPMP">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="pmp" Type="Self.pmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="pmp">
+              <PropertyRef Name="idProductoPadre" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -661,6 +749,18 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="remito_detalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoRequerimiento">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="requerimientos" Type="Self.requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="requerimientos">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -932,6 +1032,18 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="userOC">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="ordencompra">
+              <PropertyRef Name="user_upd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="UserOE">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="operario_estacion" Type="Self.operario_estacion" Multiplicity="*" />
@@ -983,14 +1095,19 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySet Name="mantenimiento_maquina" EntityType="Self.mantenimiento_maquina" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="maquina" EntityType="Self.maquina" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="movimiento" EntityType="Self.movimiento" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="necesidadbruta" EntityType="Self.necesidadbruta" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="necesidadneta" EntityType="Self.necesidadneta" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="operario_estacion" EntityType="Self.operario_estacion" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="ordencompra" EntityType="Self.ordencompra" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="padre-componente-publicado" EntityType="Self.padre-componente-publicado" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="padre-componente-temporal" EntityType="Self.padre-componente-temporal" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="pmp" EntityType="Self.pmp" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto" EntityType="Self.producto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto-sustituto" EntityType="Self.producto-sustituto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="razon" EntityType="Self.razon" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="remito" EntityType="Self.remito" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="remito_detalle" EntityType="Self.remito_detalle" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="requerimientos" EntityType="Self.requerimientos" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="role" EntityType="Self.role" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="stock" EntityType="Self.stock" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="sucursal" EntityType="Self.sucursal" Schema="informatica industrial db" store:Type="Tables" />
@@ -1093,13 +1210,29 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="producto" EntitySet="producto" />
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
-          <AssociationSet Name="idProductoR" Association="Self.idProductoR">
+          <AssociationSet Name="idProductoNB" Association="Self.idProductoNB">
             <End Role="producto" EntitySet="producto" />
-            <End Role="razon" EntitySet="razon" />
+            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoNN" Association="Self.idProductoNN">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadneta" EntitySet="necesidadneta" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoOC" Association="Self.idProductoOC">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoPMP" Association="Self.idProductoPMP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="pmp" EntitySet="pmp" />
           </AssociationSet>
           <AssociationSet Name="idProductoRD" Association="Self.idProductoRD">
             <End Role="producto" EntitySet="producto" />
             <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoRequerimiento" Association="Self.idProductoRequerimiento">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="requerimientos" EntitySet="requerimientos" />
           </AssociationSet>
           <AssociationSet Name="idProductoS" Association="Self.idProductoS">
             <End Role="producto" EntitySet="producto" />
@@ -1189,6 +1322,10 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="users" EntitySet="users" />
             <End Role="stock" EntitySet="stock" />
           </AssociationSet>
+          <AssociationSet Name="userOC" Association="Self.userOC">
+            <End Role="users" EntitySet="users" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
+          </AssociationSet>
           <AssociationSet Name="UserOE" Association="Self.UserOE">
             <End Role="users" EntitySet="users" />
             <End Role="operario_estacion" EntitySet="operario_estacion" />
@@ -1221,14 +1358,19 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySet Name="mantenimiento_maquina" EntityType="Model.mantenimiento_maquina" />
           <EntitySet Name="maquina" EntityType="Model.maquina" />
           <EntitySet Name="movimiento" EntityType="Model.movimiento" />
+          <EntitySet Name="necesidadbruta" EntityType="Model.necesidadbruta" />
+          <EntitySet Name="necesidadneta" EntityType="Model.necesidadneta" />
           <EntitySet Name="operario_estacion" EntityType="Model.operario_estacion" />
+          <EntitySet Name="ordencompra" EntityType="Model.ordencompra" />
           <EntitySet Name="padre_componente_publicado" EntityType="Model.padre_componente_publicado" />
           <EntitySet Name="padre_componente_temporal" EntityType="Model.padre_componente_temporal" />
+          <EntitySet Name="pmp" EntityType="Model.pmp" />
           <EntitySet Name="producto" EntityType="Model.producto" />
           <EntitySet Name="producto_sustituto" EntityType="Model.producto_sustituto" />
           <EntitySet Name="razon" EntityType="Model.razon" />
           <EntitySet Name="remito" EntityType="Model.remito" />
           <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
+          <EntitySet Name="requerimientos" EntityType="Model.requerimientos" />
           <EntitySet Name="role" EntityType="Model.role" />
           <EntitySet Name="stock" EntityType="Model.stock" />
           <EntitySet Name="sucursal" EntityType="Model.sucursal" />
@@ -1346,9 +1488,25 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="ubicacion" EntitySet="ubicacion" />
             <End Role="movimiento" EntitySet="movimiento" />
           </AssociationSet>
+          <AssociationSet Name="idProductoNB" Association="Model.idProductoNB">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoNN" Association="Model.idProductoNN">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadneta" EntitySet="necesidadneta" />
+          </AssociationSet>
           <AssociationSet Name="UserOE" Association="Model.UserOE">
             <End Role="users" EntitySet="users" />
             <End Role="operario_estacion" EntitySet="operario_estacion" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoOC" Association="Model.idProductoOC">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
+          </AssociationSet>
+          <AssociationSet Name="userOC" Association="Model.userOC">
+            <End Role="users" EntitySet="users" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
           </AssociationSet>
           <AssociationSet Name="idHijoP" Association="Model.idHijoP">
             <End Role="producto" EntitySet="producto" />
@@ -1370,6 +1528,10 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="producto" EntitySet="producto" />
             <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
           </AssociationSet>
+          <AssociationSet Name="idProductoPMP" Association="Model.idProductoPMP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="pmp" EntitySet="pmp" />
+          </AssociationSet>
           <AssociationSet Name="idHijoPS" Association="Model.idHijoPS">
             <End Role="producto" EntitySet="producto" />
             <End Role="producto_sustituto" EntitySet="producto_sustituto" />
@@ -1378,13 +1540,13 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="producto" EntitySet="producto" />
             <End Role="producto_sustituto" EntitySet="producto_sustituto" />
           </AssociationSet>
-          <AssociationSet Name="idProductoR" Association="Model.idProductoR">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="razon" EntitySet="razon" />
-          </AssociationSet>
           <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
             <End Role="producto" EntitySet="producto" />
             <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoRequerimiento" Association="Model.idProductoRequerimiento">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="requerimientos" EntitySet="requerimientos" />
           </AssociationSet>
           <AssociationSet Name="idProductoS" Association="Model.idProductoS">
             <End Role="producto" EntitySet="producto" />
@@ -1625,6 +1787,26 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <NavigationProperty Name="ubicacion" Relationship="Model.U_destinoMov" FromRole="movimiento" ToRole="ubicacion" />
           <NavigationProperty Name="ubicacion1" Relationship="Model.U_origenMov" FromRole="movimiento" ToRole="ubicacion" />
         </EntityType>
+        <EntityType Name="necesidadbruta">
+          <Key>
+            <PropertyRef Name="idProductoHijo" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Cant" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoNB" FromRole="necesidadbruta" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="necesidadneta">
+          <Key>
+            <PropertyRef Name="idProductoHijo" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Cant" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoNN" FromRole="necesidadneta" ToRole="producto" />
+        </EntityType>
         <EntityType Name="operario_estacion">
           <Key>
             <PropertyRef Name="IdUser" />
@@ -1636,6 +1818,21 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="tiempo_finalizacion" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="estacion" Relationship="Model.EstacionOE" FromRole="operario_estacion" ToRole="estacion" />
           <NavigationProperty Name="users" Relationship="Model.UserOE" FromRole="operario_estacion" ToRole="users" />
+        </EntityType>
+        <EntityType Name="ordencompra">
+          <Key>
+            <PropertyRef Name="idOrdenCompra" />
+          </Key>
+          <Property Name="idOrdenCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NroOrdenCompra" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Cant" Type="Int32" Nullable="false" />
+          <Property Name="Proveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_upd" Type="Int32" Nullable="false" />
+          <Property Name="last_upd" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoOC" FromRole="ordencompra" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Model.userOC" FromRole="ordencompra" ToRole="users" />
         </EntityType>
         <EntityType Name="padre_componente_publicado">
           <Key>
@@ -1671,6 +1868,16 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <NavigationProperty Name="producto" Relationship="Model.idHijoT" FromRole="padre_componente_temporal" ToRole="producto" />
           <NavigationProperty Name="producto1" Relationship="Model.idPadreT" FromRole="padre_componente_temporal" ToRole="producto" />
         </EntityType>
+        <EntityType Name="pmp">
+          <Key>
+            <PropertyRef Name="idProductoPadre" />
+            <PropertyRef Name="Semana" />
+          </Key>
+          <Property Name="idProductoPadre" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Cant" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoPMP" FromRole="pmp" ToRole="producto" />
+        </EntityType>
         <EntityType Name="producto">
           <Key>
             <PropertyRef Name="idProducto" />
@@ -1687,14 +1894,18 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="Codigo_abreviado" Type="Int32" />
           <NavigationProperty Name="articulo" Relationship="Model.idProductoA" FromRole="producto" ToRole="articulo" />
           <NavigationProperty Name="movimiento" Relationship="Model.idProductoMov" FromRole="producto" ToRole="movimiento" />
+          <NavigationProperty Name="necesidadbruta" Relationship="Model.idProductoNB" FromRole="producto" ToRole="necesidadbruta" />
+          <NavigationProperty Name="necesidadneta" Relationship="Model.idProductoNN" FromRole="producto" ToRole="necesidadneta" />
+          <NavigationProperty Name="ordencompra" Relationship="Model.idProductoOC" FromRole="producto" ToRole="ordencompra" />
           <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
           <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
           <NavigationProperty Name="padre_componente_temporal" Relationship="Model.idHijoT" FromRole="producto" ToRole="padre_componente_temporal" />
           <NavigationProperty Name="padre_componente_temporal1" Relationship="Model.idPadreT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="pmp" Relationship="Model.idProductoPMP" FromRole="producto" ToRole="pmp" />
           <NavigationProperty Name="producto_sustituto" Relationship="Model.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="producto_sustituto1" Relationship="Model.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
-          <NavigationProperty Name="razon" Relationship="Model.idProductoR" FromRole="producto" ToRole="razon" />
           <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
+          <NavigationProperty Name="requerimientos" Relationship="Model.idProductoRequerimiento" FromRole="producto" ToRole="requerimientos" />
           <NavigationProperty Name="stock" Relationship="Model.idProductoS" FromRole="producto" ToRole="stock" />
           <NavigationProperty Name="producto_sustituto2" Relationship="Model.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
           <NavigationProperty Name="tipo_producto" Relationship="Model.idTipo" FromRole="producto" ToRole="tipo_producto" />
@@ -1737,7 +1948,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="S_destino" Type="Int32" />
           <Property Name="A_destino" Type="Int32" />
           <Property Name="U_destino" Type="Int32" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoR" FromRole="razon" ToRole="producto" />
           <NavigationProperty Name="users" Relationship="Model.User_updR" FromRole="razon" ToRole="users" />
           <NavigationProperty Name="users1" Relationship="Model.usuarioxrazon" FromRole="razon" ToRole="users" />
         </EntityType>
@@ -1760,6 +1970,19 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idArticulo" Type="Double" Nullable="false" />
           <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
           <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
+        </EntityType>
+        <EntityType Name="requerimientos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="Semana" />
+            <PropertyRef Name="Cliente" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Semana" Type="Int32" Nullable="false" />
+          <Property Name="Cant" Type="Int32" Nullable="false" />
+          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Delta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Model.idProductoRequerimiento" FromRole="requerimientos" ToRole="producto" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -1866,6 +2089,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <NavigationProperty Name="articulo" Relationship="Model.usser_updA" FromRole="users" ToRole="articulo" />
           <NavigationProperty Name="language" Relationship="Model.idLanguage" FromRole="users" ToRole="language" />
           <NavigationProperty Name="operario_estacion" Relationship="Model.UserOE" FromRole="users" ToRole="operario_estacion" />
+          <NavigationProperty Name="ordencompra" Relationship="Model.userOC" FromRole="users" ToRole="ordencompra" />
           <NavigationProperty Name="padre_componente_publicado" Relationship="Model.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
           <NavigationProperty Name="producto_sustituto" Relationship="Model.userPS" FromRole="users" ToRole="producto_sustituto" />
           <NavigationProperty Name="razon" Relationship="Model.User_updR" FromRole="users" ToRole="razon" />
@@ -2197,6 +2421,30 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="idProductoNB">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.necesidadbruta" Role="necesidadbruta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="necesidadbruta">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoNN">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.necesidadneta" Role="necesidadneta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="necesidadneta">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="UserOE">
           <End Type="Model.users" Role="users" Multiplicity="1" />
           <End Type="Model.operario_estacion" Role="operario_estacion" Multiplicity="*" />
@@ -2206,6 +2454,30 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Principal>
             <Dependent Role="operario_estacion">
               <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoOC">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ordencompra">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userOC">
+          <End Type="Model.users" Role="users" Multiplicity="1" />
+          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="ordencompra">
+              <PropertyRef Name="user_upd" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2269,6 +2541,18 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="idProductoPMP">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.pmp" Role="pmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="pmp">
+              <PropertyRef Name="idProductoPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idHijoPS">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
           <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
@@ -2293,18 +2577,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoR">
-          <End Type="Model.producto" Role="producto" Multiplicity="0..1" />
-          <End Type="Model.razon" Role="razon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="razon">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idProductoRD">
           <End Type="Model.producto" Role="producto" Multiplicity="1" />
           <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
@@ -2313,6 +2585,18 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="remito_detalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoRequerimiento">
+          <End Type="Model.producto" Role="producto" Multiplicity="1" />
+          <End Type="Model.requerimientos" Role="requerimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="requerimientos">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -2619,6 +2903,24 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="necesidadbruta">
+            <EntityTypeMapping TypeName="Model.necesidadbruta">
+              <MappingFragment StoreEntitySet="necesidadbruta">
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="necesidadneta">
+            <EntityTypeMapping TypeName="Model.necesidadneta">
+              <MappingFragment StoreEntitySet="necesidadneta">
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="operario_estacion">
             <EntityTypeMapping TypeName="Model.operario_estacion">
               <MappingFragment StoreEntitySet="operario_estacion">
@@ -2626,6 +2928,20 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
                 <ScalarProperty Name="tiempo_comienzo" ColumnName="tiempo_comienzo" />
                 <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordencompra">
+            <EntityTypeMapping TypeName="Model.ordencompra">
+              <MappingFragment StoreEntitySet="ordencompra">
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+                <ScalarProperty Name="NroOrdenCompra" ColumnName="NroOrdenCompra" />
+                <ScalarProperty Name="idOrdenCompra" ColumnName="idOrdenCompra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2653,6 +2969,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="idHijo" ColumnName="idHijo" />
                 <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pmp">
+            <EntityTypeMapping TypeName="Model.pmp">
+              <MappingFragment StoreEntitySet="pmp">
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="idProductoPadre" ColumnName="idProductoPadre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2718,6 +3043,17 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
                 <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idRemito" ColumnName="idRemito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requerimientos">
+            <EntityTypeMapping TypeName="Model.requerimientos">
+              <MappingFragment StoreEntitySet="requerimientos">
+                <ScalarProperty Name="Delta" ColumnName="Delta" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
