@@ -29,24 +29,28 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnCargar = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panelCantidades = new System.Windows.Forms.Panel();
             this.tbCantidad = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbUM = new System.Windows.Forms.ComboBox();
+            this.cbProductos = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbCliente = new System.Windows.Forms.ComboBox();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panelCantidades.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnCancelar);
+            this.panel1.Controls.Add(this.btnCargar);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.panelCantidades);
             this.panel1.Controls.Add(this.groupBox1);
@@ -55,12 +59,50 @@
             this.panel1.Size = new System.Drawing.Size(921, 747);
             this.panel1.TabIndex = 0;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(607, 657);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(139, 55);
+            this.btnCancelar.TabIndex = 31;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnCargar
+            // 
+            this.btnCargar.Location = new System.Drawing.Point(763, 657);
+            this.btnCargar.Name = "btnCargar";
+            this.btnCargar.Size = new System.Drawing.Size(139, 55);
+            this.btnCargar.TabIndex = 30;
+            this.btnCargar.Text = "Cargar";
+            this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.monthCalendar1);
+            this.groupBox2.Location = new System.Drawing.Point(8, 276);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(579, 438);
+            this.groupBox2.TabIndex = 28;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Semana para que lo necesita";
+            // 
+            // monthCalendar1
+            // 
+            this.monthCalendar1.Location = new System.Drawing.Point(25, 40);
+            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(22);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 27;
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
+            // 
             // panelCantidades
             // 
             this.panelCantidades.Controls.Add(this.tbCantidad);
             this.panelCantidades.Controls.Add(this.label3);
             this.panelCantidades.Controls.Add(this.label4);
-            this.panelCantidades.Controls.Add(this.cbUM);
+            this.panelCantidades.Controls.Add(this.cbProductos);
             this.panelCantidades.Location = new System.Drawing.Point(5, 132);
             this.panelCantidades.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.panelCantidades.Name = "panelCantidades";
@@ -74,6 +116,7 @@
             this.tbCantidad.Name = "tbCantidad";
             this.tbCantidad.Size = new System.Drawing.Size(182, 38);
             this.tbCantidad.TabIndex = 23;
+            this.tbCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidad_KeyPress);
             // 
             // label3
             // 
@@ -101,15 +144,15 @@
             this.label4.TabIndex = 21;
             this.label4.Text = "Cantidad";
             // 
-            // cbUM
+            // cbProductos
             // 
-            this.cbUM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUM.FormattingEnabled = true;
-            this.cbUM.Location = new System.Drawing.Point(150, 40);
-            this.cbUM.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
-            this.cbUM.Name = "cbUM";
-            this.cbUM.Size = new System.Drawing.Size(325, 39);
-            this.cbUM.TabIndex = 20;
+            this.cbProductos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProductos.FormattingEnabled = true;
+            this.cbProductos.Location = new System.Drawing.Point(150, 40);
+            this.cbProductos.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.cbProductos.Name = "cbProductos";
+            this.cbProductos.Size = new System.Drawing.Size(325, 39);
+            this.cbProductos.TabIndex = 20;
             // 
             // groupBox1
             // 
@@ -141,23 +184,6 @@
             this.cbCliente.Size = new System.Drawing.Size(298, 39);
             this.cbCliente.TabIndex = 0;
             // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(25, 40);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(22);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 27;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.monthCalendar1);
-            this.groupBox2.Location = new System.Drawing.Point(8, 276);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(687, 438);
-            this.groupBox2.TabIndex = 28;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Semana para que lo necesita";
-            // 
             // CargaVGM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -167,11 +193,11 @@
             this.Name = "CargaVGM";
             this.Text = "CargaVGM";
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.panelCantidades.ResumeLayout(false);
             this.panelCantidades.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -183,11 +209,13 @@
         private System.Windows.Forms.TextBox tbCantidad;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbUM;
+        private System.Windows.Forms.ComboBox cbProductos;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbCliente;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnCargar;
     }
 }

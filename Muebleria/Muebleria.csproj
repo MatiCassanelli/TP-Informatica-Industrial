@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="ConsultasDetalleMovimiento.cs" />
     <Compile Include="ControllerDetalleMovimiento.cs" />
+    <Compile Include="Controller\ControllerCargaVGM.cs" />
     <Compile Include="Controller\ControllerMRP.cs" />
     <Compile Include="conversion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
