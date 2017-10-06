@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="918456d250b24ffa8293d3fbfde1b554" Name="Diagram1" ZoomLevel="10">
+      <Diagram DiagramId="918456d250b24ffa8293d3fbfde1b554" Name="Diagram1" ZoomLevel="48">
         <EntityTypeShape EntityType="Model.almacen" Width="1.5" PointX="13.5" PointY="26.375" />
         <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="8.25" PointY="15.5" />
         <EntityTypeShape EntityType="Model.ciclo" Width="1.5" PointX="0.75" PointY="1.375" />
@@ -85,6 +85,17 @@
         <AssociationConnector Association="Model.unidad_medidaS" />
         <AssociationConnector Association="Model.User_updS" />
         <AssociationConnector Association="Model.usuarioxrazon" />
+        <EntityTypeShape EntityType="Model.necesidadbruta" Width="1.5" PointX="8.25" PointY="30.875" />
+        <EntityTypeShape EntityType="Model.necesidadneta" Width="1.5" PointX="8.25" PointY="23.25" />
+        <EntityTypeShape EntityType="Model.ordencompra" Width="1.5" PointX="18.75" PointY="14" />
+        <EntityTypeShape EntityType="Model.pmp" Width="1.5" PointX="8.25" PointY="7.75" />
+        <EntityTypeShape EntityType="Model.requerimientos" Width="1.5" PointX="8.25" PointY="33.375" />
+        <AssociationConnector Association="Model.idProductoNB" />
+        <AssociationConnector Association="Model.idProductoNN" />
+        <AssociationConnector Association="Model.idProductoOC" />
+        <AssociationConnector Association="Model.userOC" />
+        <AssociationConnector Association="Model.idProductoPMP" />
+        <AssociationConnector Association="Model.idProductoRequerimiento" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

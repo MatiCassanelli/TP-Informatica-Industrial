@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Muebleria.Controller
+namespace Muebleria
 {
     class ControllerCargaVGM
     {
         ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
-        public int CargarVGM(string cliente, string prod, int cant)
+        ControllerMRP controllerMRP = new ControllerMRP();
+        public void CargarVGM(string cliente, string prod, int cant, int semana)
         {
-            return 1;
+            requerimientos req = new requerimientos(cliente, consulta.getIDProd(prod),cant,semana);
+            req.cargarRequerimiento();
+        }
+
+        public void crearRequerimiento(string cliente, string prod, int cant, int semana)
+        {
+            requerimientos req = new requerimientos(cliente, consulta.getIDProd(prod), cant, semana);
+            controllerMRP.traerReqCreado(req);
+
         }
     }
 }

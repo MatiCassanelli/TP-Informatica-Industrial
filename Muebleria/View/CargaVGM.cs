@@ -13,7 +13,8 @@ namespace Muebleria.View
     public partial class CargaVGM : Form
     {
         CargarCombos cc = new CargarCombos();
-        Controller.ControllerCargaVGM controllerCargaVGM = new Controller.ControllerCargaVGM();
+        Fecha f = new Fecha();
+        ControllerCargaVGM controllerCargaVGM = new ControllerCargaVGM();
         public CargaVGM()
         {
             InitializeComponent();
@@ -25,11 +26,10 @@ namespace Muebleria.View
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            int resultado=0;
             if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
             {
-                resultado = controllerCargaVGM.CargarVGM(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text));
-                MessageBox.Show(resultado.ToString());
+                controllerCargaVGM.crearRequerimiento(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text), f.convertir(monthCalendar1.SelectionRange.Start));
+                MessageBox.Show("Si anduvo");
             }
             else
                 MessageBox.Show("No anduvo");

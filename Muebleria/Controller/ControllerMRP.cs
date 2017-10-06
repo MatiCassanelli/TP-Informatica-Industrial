@@ -8,6 +8,10 @@ namespace Muebleria
 {
     class ControllerMRP
     {
+        public requerimientos traerReqCreado(requerimientos req)
+        {
+            return req;
+        }
         public int getRequerimientos()
         {
             return 1;
