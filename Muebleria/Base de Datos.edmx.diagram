@@ -4,98 +4,97 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="918456d250b24ffa8293d3fbfde1b554" Name="Diagram1" ZoomLevel="48">
-        <EntityTypeShape EntityType="Model.almacen" Width="1.5" PointX="13.5" PointY="26.375" />
-        <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="8.25" PointY="15.5" />
-        <EntityTypeShape EntityType="Model.ciclo" Width="1.5" PointX="0.75" PointY="1.375" />
-        <EntityTypeShape EntityType="Model.ciclo_precedente" Width="1.5" PointX="2.75" PointY="1.375" />
-        <EntityTypeShape EntityType="Model.conversion" Width="1.5" PointX="3" PointY="16.25" />
-        <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="11.25" PointY="24.625" />
-        <EntityTypeShape EntityType="Model.estacion" Width="1.5" PointX="13.5" PointY="6.125" />
-        <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="13.5" PointY="21.75" />
-        <EntityTypeShape EntityType="Model.herramienta" Width="1.5" PointX="15.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.historial_txt" Width="1.5" PointX="2.75" PointY="4.375" />
-        <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="11.25" PointY="8.125" />
-        <EntityTypeShape EntityType="Model.mantenimiento_maquina" Width="1.5" PointX="4.75" PointY="1.375" />
-        <EntityTypeShape EntityType="Model.maquina" Width="1.5" PointX="15.75" PointY="4.5" />
-        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="13.5" PointY="15.625" />
-        <EntityTypeShape EntityType="Model.operario_estacion" Width="1.5" PointX="15.75" PointY="10.125" />
-        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="11.25" PointY="19.375" />
-        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="26.875" />
-        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="14.25" />
-        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="11.25" PointY="11.5" />
-        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="8.25" PointY="10.375" />
-        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="9" PointY="20.25" />
-        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="11.25" PointY="16.25" />
-        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="11.25" PointY="5.625" />
-        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="15.75" PointY="13.5" />
-        <EntityTypeShape EntityType="Model.sucursal" Width="1.5" PointX="11.25" PointY="28.875" />
-        <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="11.25" PointY="32.625" />
-        <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.75" PointY="13.375" />
-        <EntityTypeShape EntityType="Model.traduccion" Width="1.5" PointX="13.5" PointY="3.125" />
-        <EntityTypeShape EntityType="Model.ubicacion" Width="1.5" PointX="11.25" PointY="1.875" />
-        <EntityTypeShape EntityType="Model.unidad_medida" Width="1.5" PointX="0.75" PointY="15.875" />
-        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="13.5" PointY="10" />
-        <AssociationConnector Association="Model.A_destinoMov" />
-        <AssociationConnector Association="Model.A_origenMov" />
-        <AssociationConnector Association="Model.idAlmacenS" />
-        <AssociationConnector Association="Model.idAlmacenU" />
-        <AssociationConnector Association="Model.idDireccionA" />
-        <AssociationConnector Association="Model.idSucursalA" />
-        <AssociationConnector Association="Model.ubicacionA" />
-        <AssociationConnector Association="Model.idArtiucloMov" />
-        <AssociationConnector Association="Model.idProductoA" />
-        <AssociationConnector Association="Model.usser_updA" />
-        <AssociationConnector Association="Model.U_medida" />
-        <AssociationConnector Association="Model.U_medida_default" />
-        <AssociationConnector Association="Model.Direccion_fac_id" />
-        <AssociationConnector Association="Model.Direccion_id" />
-        <AssociationConnector Association="Model.Direcion_ent_id" />
-        <AssociationConnector Association="Model.idDireccionS" />
-        <AssociationConnector Association="Model.EstacionHerramienta" />
-        <AssociationConnector Association="Model.EstacionMaquina" />
-        <AssociationConnector Association="Model.EstacionOE" />
-        <AssociationConnector Association="Model.idTipo_Externo" />
-        <AssociationConnector Association="Model.idLanguage" />
-        <AssociationConnector Association="Model.idLanguageT" />
-        <AssociationConnector Association="Model.idProductoMov" />
-        <AssociationConnector Association="Model.S_destinoMov" />
-        <AssociationConnector Association="Model.S_origenMov" />
-        <AssociationConnector Association="Model.U_destinoMov" />
-        <AssociationConnector Association="Model.U_origenMov" />
-        <AssociationConnector Association="Model.UserOE" />
-        <AssociationConnector Association="Model.idHijoP" />
-        <AssociationConnector Association="Model.idPadreP" />
-        <AssociationConnector Association="Model.user_upd" />
-        <AssociationConnector Association="Model.idHijoT" />
-        <AssociationConnector Association="Model.idPadreT" />
-        <AssociationConnector Association="Model.idHijoPS" />
-        <AssociationConnector Association="Model.idPadrePS" />
-        <AssociationConnector Association="Model.idProductoR" />
-        <AssociationConnector Association="Model.idProductoRD" />
-        <AssociationConnector Association="Model.idProductoS" />
-        <AssociationConnector Association="Model.idSustitutoPS" />
-        <AssociationConnector Association="Model.idTipo" />
-        <AssociationConnector Association="Model.Unidad_id_Aplication" />
-        <AssociationConnector Association="Model.Unidad_id_Purchase" />
-        <AssociationConnector Association="Model.userPS" />
-        <AssociationConnector Association="Model.User_updR" />
-        <AssociationConnector Association="Model.idRemitoRD" />
-        <AssociationConnector Association="Model.idRole" />
-        <AssociationConnector Association="Model.unidad_medidaS" />
-        <AssociationConnector Association="Model.User_updS" />
-        <AssociationConnector Association="Model.usuarioxrazon" />
-        <EntityTypeShape EntityType="Model.necesidadbruta" Width="1.5" PointX="8.25" PointY="30.875" />
-        <EntityTypeShape EntityType="Model.necesidadneta" Width="1.5" PointX="8.25" PointY="23.25" />
-        <EntityTypeShape EntityType="Model.ordencompra" Width="1.5" PointX="18.75" PointY="14" />
-        <EntityTypeShape EntityType="Model.pmp" Width="1.5" PointX="8.25" PointY="7.75" />
-        <EntityTypeShape EntityType="Model.requerimientos" Width="1.5" PointX="8.25" PointY="33.375" />
-        <AssociationConnector Association="Model.idProductoNB" />
-        <AssociationConnector Association="Model.idProductoNN" />
-        <AssociationConnector Association="Model.idProductoOC" />
-        <AssociationConnector Association="Model.userOC" />
-        <AssociationConnector Association="Model.idProductoPMP" />
-        <AssociationConnector Association="Model.idProductoRequerimiento" />
+      <Diagram DiagramId="a1bda90306a64171b67940e4334b7b1c" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.almacen" Width="1.5" PointX="9" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.articulo" Width="1.5" PointX="11.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ciclo" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ciclo_precedente" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.conversion" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.direccion" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.estacion" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.externo" Width="1.5" PointX="9" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.herramienta" Width="1.5" PointX="14" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.historial_txt" Width="1.5" PointX="2.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.language" Width="1.5" PointX="3.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.mantenimiento_maquina" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.maquina" Width="1.5" PointX="14" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.movimiento" Width="1.5" PointX="16.5" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.necesidadbruta" Width="1.5" PointX="8.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.necesidadneta" Width="1.5" PointX="8.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.operario_estacion" Width="1.5" PointX="14" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ordencompra" Width="1.5" PointX="11.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.padre_componente_publicado" Width="1.5" PointX="8.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.padre_componente_temporal" Width="1.5" PointX="8.25" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.pmp" Width="1.5" PointX="8.25" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.producto" Width="1.5" PointX="6" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.producto_sustituto" Width="1.5" PointX="8.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.razon" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.remito" Width="1.5" PointX="9" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.remito_detalle" Width="1.5" PointX="11.25" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.requerimientos" Width="1.5" PointX="8.25" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="14.25" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sucursal" Width="1.5" PointX="6.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tipo_externo" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tipo_producto" Width="1.5" PointX="3.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.traduccion" Width="1.5" PointX="6" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ubicacion" Width="1.5" PointX="14.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.unidad_medida" Width="1.5" PointX="0.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.users" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="Model.A_destinoMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.A_origenMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idAlmacenS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idAlmacenU" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idDireccionA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idSucursalA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.ubicacionA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idArtiucloMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.usser_updA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.U_medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.U_medida_default" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direccion_fac_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direccion_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Direcion_ent_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idDireccionS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EstacionHerramienta" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EstacionMaquina" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EstacionOE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idTipo_Externo" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idLanguageT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.S_destinoMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.S_origenMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.U_destinoMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.U_origenMov" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoNB" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoNN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.UserOE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoOC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.userOC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idHijoP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idPadreP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.user_upd" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idHijoT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idPadreT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoPMP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idHijoPS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idPadrePS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoRD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoRequerimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idProductoS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idSustitutoPS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Unidad_id_Aplication" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Unidad_id_Purchase" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.userPS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.User_updR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idRemitoRD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.idRole" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.unidad_medidaS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.User_updS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.usuarioxrazon" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

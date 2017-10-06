@@ -39,14 +39,19 @@ namespace Muebleria
         public virtual DbSet<mantenimiento_maquina> mantenimiento_maquina { get; set; }
         public virtual DbSet<maquina> maquina { get; set; }
         public virtual DbSet<movimiento> movimiento { get; set; }
+        public virtual DbSet<necesidadbruta> necesidadbruta { get; set; }
+        public virtual DbSet<necesidadneta> necesidadneta { get; set; }
         public virtual DbSet<operario_estacion> operario_estacion { get; set; }
+        public virtual DbSet<ordencompra> ordencompra { get; set; }
         public virtual DbSet<padre_componente_publicado> padre_componente_publicado { get; set; }
         public virtual DbSet<padre_componente_temporal> padre_componente_temporal { get; set; }
+        public virtual DbSet<pmp> pmp { get; set; }
         public virtual DbSet<producto> producto { get; set; }
         public virtual DbSet<producto_sustituto> producto_sustituto { get; set; }
         public virtual DbSet<razon> razon { get; set; }
         public virtual DbSet<remito> remito { get; set; }
         public virtual DbSet<remito_detalle> remito_detalle { get; set; }
+        public virtual DbSet<requerimientos> requerimientos { get; set; }
         public virtual DbSet<role> role { get; set; }
         public virtual DbSet<stock> stock { get; set; }
         public virtual DbSet<sucursal> sucursal { get; set; }
@@ -56,10 +61,5 @@ namespace Muebleria
         public virtual DbSet<ubicacion> ubicacion { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<users> users { get; set; }
-        public virtual DbSet<necesidadbruta> necesidadbruta { get; set; }
-        public virtual DbSet<necesidadneta> necesidadneta { get; set; }
-        public virtual DbSet<ordencompra> ordencompra { get; set; }
-        public virtual DbSet<pmp> pmp { get; set; }
-        public virtual DbSet<requerimientos> requerimientos { get; set; }
     }
 }
