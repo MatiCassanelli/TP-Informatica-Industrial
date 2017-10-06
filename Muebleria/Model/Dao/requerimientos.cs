@@ -28,7 +28,7 @@ namespace Muebleria
         {
             List<requerimientos> lista = new List<requerimientos>();
             var query = from req in db.requerimientos
-                        where req.Semana == semana
+                        where req.Delta>0
                         select req;
             if(query.Count()>0)
             {
