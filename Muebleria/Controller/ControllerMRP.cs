@@ -8,6 +8,9 @@ namespace Muebleria
 {
     class ControllerMRP
     {
-
+        public int getRequerimientos()
+        {
+            return 1;
+        }
     }
 }

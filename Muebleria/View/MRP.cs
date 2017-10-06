@@ -18,6 +18,26 @@ namespace Muebleria
             InitializeComponent();
             Fecha fecha = new Fecha();
             label1.Text = fecha.convertir(DateTime.Now).ToString();
+            cargarDataGrid();
+        }
+
+        private void cargarDataGrid()
+        {
+            dataGridView1.DataSource = controller.getRequerimientos();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            View.CargaVGM carga = new View.CargaVGM();
+            carga.ShowDialog();
+        }
+
+        private void MRP_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
+            this.Hide();
+            Menu menu = new Menu();
+            menu.ShowDialog();
         }
     }
 }
