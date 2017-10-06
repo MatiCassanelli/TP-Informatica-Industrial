@@ -12,9 +12,57 @@ namespace Muebleria.View
 {
     public partial class CargaVGM : Form
     {
+        CargarCombos cc = new CargarCombos();
+        Controller.ControllerCargaVGM controllerCargaVGM = new Controller.ControllerCargaVGM();
         public CargaVGM()
         {
             InitializeComponent();
+            cbProductos.DataSource = cc.CargarProductos();
+            cbCliente.Items.Add("Ventas Concretadas");
+            cbCliente.Items.Add("Marketing");
+            cbCliente.Items.Add("Decisión Gerencial");
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            int resultado=0;
+            if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
+            {
+                resultado = controllerCargaVGM.CargarVGM(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text));
+                MessageBox.Show(resultado.ToString());
+            }
+            else
+                MessageBox.Show("No anduvo");
+                
+        }
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            if (DateTime.Now > monthCalendar1.SelectionRange.Start)
+            {
+                MessageBox.Show("No se puede publicar una estructura para una fecha ya pasada");
+                monthCalendar1.SetDate(DateTime.Now);
+            }
+        }
+
+        private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8) //backspace
+            {
+                e.Handled = false;
+                return;
+            }
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            tbCantidad.Clear();
+            cbCliente.ResetText();
+            cbProductos.ResetText();
         }
     }
 }
