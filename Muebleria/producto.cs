@@ -33,11 +33,6 @@ namespace Muebleria
             this.requerimientos = new HashSet<requerimientos>();
             this.stock = new HashSet<stock>();
             this.producto_sustituto2 = new HashSet<producto_sustituto>();
-            this.necesidadbruta = new HashSet<necesidadbruta>();
-            this.necesidadneta = new HashSet<necesidadneta>();
-            this.ordencompra = new HashSet<ordencompra>();
-            this.pmp = new HashSet<pmp>();
-            this.requerimientos = new HashSet<requerimientos>();
         }
     
         public int idProducto { get; set; }
@@ -86,15 +81,5 @@ namespace Muebleria
         public virtual tipo_producto tipo_producto { get; set; }
         public virtual unidad_medida unidad_medida { get; set; }
         public virtual unidad_medida unidad_medida1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<necesidadbruta> necesidadbruta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<necesidadneta> necesidadneta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ordencompra> ordencompra { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pmp> pmp { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<requerimientos> requerimientos { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="almacen">
           <Key>
             <PropertyRef Name="idAlmacen" />
@@ -722,7 +722,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
           <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
-<<<<<<< HEAD
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="ordencompra">
@@ -737,22 +736,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
             </Principal>
-=======
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="ordencompra">
-              <PropertyRef Name="idProductoHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoPMP">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="pmp" Type="Self.pmp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
->>>>>>> 3bce324690fa5f4a4511e4ec9c7d38464d3b86e4
             <Dependent Role="pmp">
               <PropertyRef Name="idProductoPadre" />
             </Dependent>
@@ -1356,293 +1339,11 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="articulo" EntitySet="articulo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="informatica_industrial_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="almacen" EntityType="Model.almacen" />
-          <EntitySet Name="articulo" EntityType="Model.articulo" />
-          <EntitySet Name="ciclo" EntityType="Model.ciclo" />
-          <EntitySet Name="ciclo_precedente" EntityType="Model.ciclo_precedente" />
-          <EntitySet Name="conversion" EntityType="Model.conversion" />
-          <EntitySet Name="direccion" EntityType="Model.direccion" />
-          <EntitySet Name="estacion" EntityType="Model.estacion" />
-          <EntitySet Name="externo" EntityType="Model.externo" />
-          <EntitySet Name="herramienta" EntityType="Model.herramienta" />
-          <EntitySet Name="historial_txt" EntityType="Model.historial_txt" />
-          <EntitySet Name="language" EntityType="Model.language" />
-          <EntitySet Name="mantenimiento_maquina" EntityType="Model.mantenimiento_maquina" />
-          <EntitySet Name="maquina" EntityType="Model.maquina" />
-          <EntitySet Name="movimiento" EntityType="Model.movimiento" />
-          <EntitySet Name="necesidadbruta" EntityType="Model.necesidadbruta" />
-          <EntitySet Name="necesidadneta" EntityType="Model.necesidadneta" />
-          <EntitySet Name="operario_estacion" EntityType="Model.operario_estacion" />
-          <EntitySet Name="ordencompra" EntityType="Model.ordencompra" />
-          <EntitySet Name="padre_componente_publicado" EntityType="Model.padre_componente_publicado" />
-          <EntitySet Name="padre_componente_temporal" EntityType="Model.padre_componente_temporal" />
-          <EntitySet Name="pmp" EntityType="Model.pmp" />
-          <EntitySet Name="producto" EntityType="Model.producto" />
-          <EntitySet Name="producto_sustituto" EntityType="Model.producto_sustituto" />
-          <EntitySet Name="razon" EntityType="Model.razon" />
-          <EntitySet Name="remito" EntityType="Model.remito" />
-          <EntitySet Name="remito_detalle" EntityType="Model.remito_detalle" />
-          <EntitySet Name="requerimientos" EntityType="Model.requerimientos" />
-          <EntitySet Name="role" EntityType="Model.role" />
-          <EntitySet Name="stock" EntityType="Model.stock" />
-          <EntitySet Name="sucursal" EntityType="Model.sucursal" />
-          <EntitySet Name="tipo_externo" EntityType="Model.tipo_externo" />
-          <EntitySet Name="tipo_producto" EntityType="Model.tipo_producto" />
-          <EntitySet Name="traduccion" EntityType="Model.traduccion" />
-          <EntitySet Name="ubicacion" EntityType="Model.ubicacion" />
-          <EntitySet Name="unidad_medida" EntityType="Model.unidad_medida" />
-          <EntitySet Name="users" EntityType="Model.users" />
-          <AssociationSet Name="A_destinoMov" Association="Model.A_destinoMov">
-            <End Role="almacen" EntitySet="almacen" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="A_origenMov" Association="Model.A_origenMov">
-            <End Role="almacen" EntitySet="almacen" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="idAlmacenS" Association="Model.idAlmacenS">
-            <End Role="almacen" EntitySet="almacen" />
-            <End Role="stock" EntitySet="stock" />
-          </AssociationSet>
-          <AssociationSet Name="idAlmacenU" Association="Model.idAlmacenU">
-            <End Role="almacen" EntitySet="almacen" />
-            <End Role="ubicacion" EntitySet="ubicacion" />
-          </AssociationSet>
-          <AssociationSet Name="idDireccionA" Association="Model.idDireccionA">
-            <End Role="direccion" EntitySet="direccion" />
-            <End Role="almacen" EntitySet="almacen" />
-          </AssociationSet>
-          <AssociationSet Name="idSucursalA" Association="Model.idSucursalA">
-            <End Role="sucursal" EntitySet="sucursal" />
-            <End Role="almacen" EntitySet="almacen" />
-          </AssociationSet>
-          <AssociationSet Name="ubicacionA" Association="Model.ubicacionA">
-            <End Role="almacen" EntitySet="almacen" />
-            <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="idArtiucloMov" Association="Model.idArtiucloMov">
-            <End Role="articulo" EntitySet="articulo" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoA" Association="Model.idProductoA">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="usser_updA" Association="Model.usser_updA">
-            <End Role="users" EntitySet="users" />
-            <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="U_medida" Association="Model.U_medida">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="conversion" EntitySet="conversion" />
-          </AssociationSet>
-          <AssociationSet Name="U_medida_default" Association="Model.U_medida_default">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="conversion" EntitySet="conversion" />
-          </AssociationSet>
-          <AssociationSet Name="Direccion_fac_id" Association="Model.Direccion_fac_id">
-            <End Role="direccion" EntitySet="direccion" />
-            <End Role="externo" EntitySet="externo" />
-          </AssociationSet>
-          <AssociationSet Name="Direccion_id" Association="Model.Direccion_id">
-            <End Role="direccion" EntitySet="direccion" />
-            <End Role="externo" EntitySet="externo" />
-          </AssociationSet>
-          <AssociationSet Name="Direcion_ent_id" Association="Model.Direcion_ent_id">
-            <End Role="direccion" EntitySet="direccion" />
-            <End Role="externo" EntitySet="externo" />
-          </AssociationSet>
-          <AssociationSet Name="idDireccionS" Association="Model.idDireccionS">
-            <End Role="direccion" EntitySet="direccion" />
-            <End Role="sucursal" EntitySet="sucursal" />
-          </AssociationSet>
-          <AssociationSet Name="EstacionHerramienta" Association="Model.EstacionHerramienta">
-            <End Role="estacion" EntitySet="estacion" />
-            <End Role="herramienta" EntitySet="herramienta" />
-          </AssociationSet>
-          <AssociationSet Name="EstacionMaquina" Association="Model.EstacionMaquina">
-            <End Role="estacion" EntitySet="estacion" />
-            <End Role="maquina" EntitySet="maquina" />
-          </AssociationSet>
-          <AssociationSet Name="EstacionOE" Association="Model.EstacionOE">
-            <End Role="estacion" EntitySet="estacion" />
-            <End Role="operario_estacion" EntitySet="operario_estacion" />
-          </AssociationSet>
-          <AssociationSet Name="idTipo_Externo" Association="Model.idTipo_Externo">
-            <End Role="tipo_externo" EntitySet="tipo_externo" />
-            <End Role="externo" EntitySet="externo" />
-          </AssociationSet>
-          <AssociationSet Name="idLanguage" Association="Model.idLanguage">
-            <End Role="language" EntitySet="language" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="idLanguageT" Association="Model.idLanguageT">
-            <End Role="language" EntitySet="language" />
-            <End Role="traduccion" EntitySet="traduccion" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoMov" Association="Model.idProductoMov">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="S_destinoMov" Association="Model.S_destinoMov">
-            <End Role="sucursal" EntitySet="sucursal" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="S_origenMov" Association="Model.S_origenMov">
-            <End Role="sucursal" EntitySet="sucursal" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="U_destinoMov" Association="Model.U_destinoMov">
-            <End Role="ubicacion" EntitySet="ubicacion" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="U_origenMov" Association="Model.U_origenMov">
-            <End Role="ubicacion" EntitySet="ubicacion" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoNB" Association="Model.idProductoNB">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoNN" Association="Model.idProductoNN">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="necesidadneta" EntitySet="necesidadneta" />
-          </AssociationSet>
-          <AssociationSet Name="UserOE" Association="Model.UserOE">
-            <End Role="users" EntitySet="users" />
-            <End Role="operario_estacion" EntitySet="operario_estacion" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoOC" Association="Model.idProductoOC">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="ordencompra" EntitySet="ordencompra" />
-          </AssociationSet>
-          <AssociationSet Name="userOC" Association="Model.userOC">
-            <End Role="users" EntitySet="users" />
-            <End Role="ordencompra" EntitySet="ordencompra" />
-          </AssociationSet>
-          <AssociationSet Name="idHijoP" Association="Model.idHijoP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
-          </AssociationSet>
-          <AssociationSet Name="idPadreP" Association="Model.idPadreP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
-          </AssociationSet>
-          <AssociationSet Name="user_upd" Association="Model.user_upd">
-            <End Role="users" EntitySet="users" />
-            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
-          </AssociationSet>
-          <AssociationSet Name="idHijoT" Association="Model.idHijoT">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
-          </AssociationSet>
-          <AssociationSet Name="idPadreT" Association="Model.idPadreT">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoPMP" Association="Model.idProductoPMP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="pmp" EntitySet="pmp" />
-          </AssociationSet>
-          <AssociationSet Name="idHijoPS" Association="Model.idHijoPS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="idPadrePS" Association="Model.idPadrePS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoRD" Association="Model.idProductoRD">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoRequerimiento" Association="Model.idProductoRequerimiento">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="requerimientos" EntitySet="requerimientos" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoS" Association="Model.idProductoS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="stock" EntitySet="stock" />
-          </AssociationSet>
-          <AssociationSet Name="idSustitutoPS" Association="Model.idSustitutoPS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="idTipo" Association="Model.idTipo">
-            <End Role="tipo_producto" EntitySet="tipo_producto" />
-            <End Role="producto" EntitySet="producto" />
-          </AssociationSet>
-          <AssociationSet Name="Unidad_id_Aplication" Association="Model.Unidad_id_Aplication">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="producto" EntitySet="producto" />
-          </AssociationSet>
-          <AssociationSet Name="Unidad_id_Purchase" Association="Model.Unidad_id_Purchase">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="producto" EntitySet="producto" />
-          </AssociationSet>
-          <AssociationSet Name="userPS" Association="Model.userPS">
-            <End Role="users" EntitySet="users" />
-            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="User_updR" Association="Model.User_updR">
-            <End Role="users" EntitySet="users" />
-            <End Role="razon" EntitySet="razon" />
-          </AssociationSet>
-          <AssociationSet Name="idRemitoRD" Association="Model.idRemitoRD">
-            <End Role="remito" EntitySet="remito" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
-          <AssociationSet Name="idRole" Association="Model.idRole">
-            <End Role="role" EntitySet="role" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <AssociationSet Name="unidad_medidaS" Association="Model.unidad_medidaS">
-            <End Role="unidad_medida" EntitySet="unidad_medida" />
-            <End Role="stock" EntitySet="stock" />
-          </AssociationSet>
-          <AssociationSet Name="User_updS" Association="Model.User_updS">
-            <End Role="users" EntitySet="users" />
-            <End Role="stock" EntitySet="stock" />
-          </AssociationSet>
-          <AssociationSet Name="usuarioxrazon" Association="Model.usuarioxrazon">
-            <End Role="razon" EntitySet="razon" />
-            <End Role="users" EntitySet="users" />
-          </AssociationSet>
-          <EntitySet Name="necesidadbruta" EntityType="Model.necesidadbruta" />
-          <EntitySet Name="necesidadneta" EntityType="Model.necesidadneta" />
-          <EntitySet Name="ordencompra" EntityType="Model.ordencompra" />
-          <EntitySet Name="pmp" EntityType="Model.pmp" />
-          <EntitySet Name="requerimientos" EntityType="Model.requerimientos" />
-          <AssociationSet Name="idProductoNB" Association="Model.idProductoNB">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoNN" Association="Model.idProductoNN">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="necesidadneta" EntitySet="necesidadneta" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoOC" Association="Model.idProductoOC">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="ordencompra" EntitySet="ordencompra" />
-          </AssociationSet>
-          <AssociationSet Name="userOC" Association="Model.userOC">
-            <End Role="users" EntitySet="users" />
-            <End Role="ordencompra" EntitySet="ordencompra" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoPMP" Association="Model.idProductoPMP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="pmp" EntitySet="pmp" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoRequerimiento" Association="Model.idProductoRequerimiento">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="requerimientos" EntitySet="requerimientos" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="almacen">
           <Key>
             <PropertyRef Name="idAlmacen" />
@@ -1650,15 +1351,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idAlmacen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idSucursal" Type="Int32" Nullable="false" />
           <Property Name="idDireccion" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Real" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="movimiento" Relationship="Model.A_destinoMov" FromRole="almacen" ToRole="movimiento" />
-          <NavigationProperty Name="movimiento1" Relationship="Model.A_origenMov" FromRole="almacen" ToRole="movimiento" />
-          <NavigationProperty Name="stock" Relationship="Model.idAlmacenS" FromRole="almacen" ToRole="stock" />
-          <NavigationProperty Name="ubicacion" Relationship="Model.idAlmacenU" FromRole="almacen" ToRole="ubicacion" />
-          <NavigationProperty Name="direccion" Relationship="Model.idDireccionA" FromRole="almacen" ToRole="direccion" />
-          <NavigationProperty Name="sucursal" Relationship="Model.idSucursalA" FromRole="almacen" ToRole="sucursal" />
-          <NavigationProperty Name="articulo" Relationship="Model.ubicacionA" FromRole="almacen" ToRole="articulo" />
+          <NavigationProperty Name="movimiento" Relationship="Self.A_destinoMov" FromRole="almacen" ToRole="movimiento" />
+          <NavigationProperty Name="movimiento1" Relationship="Self.A_origenMov" FromRole="almacen" ToRole="movimiento" />
+          <NavigationProperty Name="stock" Relationship="Self.idAlmacenS" FromRole="almacen" ToRole="stock" />
+          <NavigationProperty Name="ubicacion" Relationship="Self.idAlmacenU" FromRole="almacen" ToRole="ubicacion" />
+          <NavigationProperty Name="direccion" Relationship="Self.idDireccionA" FromRole="almacen" ToRole="direccion" />
+          <NavigationProperty Name="sucursal" Relationship="Self.idSucursalA" FromRole="almacen" ToRole="sucursal" />
+          <NavigationProperty Name="articulo" Relationship="Self.ubicacionA" FromRole="almacen" ToRole="articulo" />
         </EntityType>
         <EntityType Name="articulo">
           <Key>
@@ -1668,14 +1369,14 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idProducto" Type="Int32" Nullable="false" />
           <Property Name="fecha_fabricacion" Type="DateTime" Nullable="false" />
           <Property Name="fecha_caducidad" Type="DateTime" Nullable="false" />
-          <Property Name="estado" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ubicacion" Type="Int32" Nullable="false" />
           <Property Name="last_upd" Type="DateTime" Nullable="false" />
           <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.ubicacionA" FromRole="articulo" ToRole="almacen" />
-          <NavigationProperty Name="movimiento" Relationship="Model.idArtiucloMov" FromRole="articulo" ToRole="movimiento" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoA" FromRole="articulo" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.usser_updA" FromRole="articulo" ToRole="users" />
+          <NavigationProperty Name="almacen" Relationship="Self.ubicacionA" FromRole="articulo" ToRole="almacen" />
+          <NavigationProperty Name="movimiento" Relationship="Self.idArtiucloMov" FromRole="articulo" ToRole="movimiento" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoA" FromRole="articulo" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Self.usser_updA" FromRole="articulo" ToRole="users" />
         </EntityType>
         <EntityType Name="ciclo">
           <Key>
@@ -1707,37 +1408,37 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="U_medida_default" Type="Int32" Nullable="false" />
           <Property Name="U_medida" Type="Int32" Nullable="false" />
           <Property Name="Coeficiente" Type="Single" Nullable="false" />
-          <NavigationProperty Name="unidad_medida" Relationship="Model.U_medida" FromRole="conversion" ToRole="unidad_medida" />
-          <NavigationProperty Name="unidad_medida1" Relationship="Model.U_medida_default" FromRole="conversion" ToRole="unidad_medida" />
+          <NavigationProperty Name="unidad_medida" Relationship="Self.U_medida" FromRole="conversion" ToRole="unidad_medida" />
+          <NavigationProperty Name="unidad_medida1" Relationship="Self.U_medida_default" FromRole="conversion" ToRole="unidad_medida" />
         </EntityType>
         <EntityType Name="direccion">
           <Key>
             <PropertyRef Name="idDireccion" />
           </Key>
           <Property Name="idDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Calle" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Calle" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Numero" Type="Int32" Nullable="false" />
-          <Property Name="Barrio" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Ciudad" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Pais" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Barrio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pais" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodigoPostal" Type="Int32" Nullable="false" />
-          <Property Name="Direccioncol" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.idDireccionA" FromRole="direccion" ToRole="almacen" />
-          <NavigationProperty Name="externo" Relationship="Model.Direccion_fac_id" FromRole="direccion" ToRole="externo" />
-          <NavigationProperty Name="externo1" Relationship="Model.Direccion_id" FromRole="direccion" ToRole="externo" />
-          <NavigationProperty Name="externo2" Relationship="Model.Direcion_ent_id" FromRole="direccion" ToRole="externo" />
-          <NavigationProperty Name="sucursal" Relationship="Model.idDireccionS" FromRole="direccion" ToRole="sucursal" />
+          <Property Name="Direccioncol" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="almacen" Relationship="Self.idDireccionA" FromRole="direccion" ToRole="almacen" />
+          <NavigationProperty Name="externo" Relationship="Self.Direccion_fac_id" FromRole="direccion" ToRole="externo" />
+          <NavigationProperty Name="externo1" Relationship="Self.Direccion_id" FromRole="direccion" ToRole="externo" />
+          <NavigationProperty Name="externo2" Relationship="Self.Direcion_ent_id" FromRole="direccion" ToRole="externo" />
+          <NavigationProperty Name="sucursal" Relationship="Self.idDireccionS" FromRole="direccion" ToRole="sucursal" />
         </EntityType>
         <EntityType Name="estacion">
           <Key>
             <PropertyRef Name="idEstacion" />
           </Key>
           <Property Name="idEstacion" Type="Int32" Nullable="false" />
-          <Property Name="Ubicacion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Ubicacion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idDescripcion" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="herramienta" Relationship="Model.EstacionHerramienta" FromRole="estacion" ToRole="herramienta" />
-          <NavigationProperty Name="maquina" Relationship="Model.EstacionMaquina" FromRole="estacion" ToRole="maquina" />
-          <NavigationProperty Name="operario_estacion" Relationship="Model.EstacionOE" FromRole="estacion" ToRole="operario_estacion" />
+          <NavigationProperty Name="herramienta" Relationship="Self.EstacionHerramienta" FromRole="estacion" ToRole="herramienta" />
+          <NavigationProperty Name="maquina" Relationship="Self.EstacionMaquina" FromRole="estacion" ToRole="maquina" />
+          <NavigationProperty Name="operario_estacion" Relationship="Self.EstacionOE" FromRole="estacion" ToRole="operario_estacion" />
         </EntityType>
         <EntityType Name="externo">
           <Key>
@@ -1746,15 +1447,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idExterno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTipo_Externo" Type="Int32" Nullable="false" />
           <Property Name="Description_id" Type="Int32" Nullable="false" />
-          <Property Name="CUIT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Direcion_id" Type="Int32" Nullable="false" />
           <Property Name="Direcion_ent_id" Type="Int32" Nullable="false" />
           <Property Name="Direcion_fac_id" Type="Int32" Nullable="false" />
-          <Property Name="Nac_Ext" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="direccion" Relationship="Model.Direccion_fac_id" FromRole="externo" ToRole="direccion" />
-          <NavigationProperty Name="direccion1" Relationship="Model.Direccion_id" FromRole="externo" ToRole="direccion" />
-          <NavigationProperty Name="direccion2" Relationship="Model.Direcion_ent_id" FromRole="externo" ToRole="direccion" />
-          <NavigationProperty Name="tipo_externo" Relationship="Model.idTipo_Externo" FromRole="externo" ToRole="tipo_externo" />
+          <Property Name="Nac_Ext" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="direccion" Relationship="Self.Direccion_fac_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="direccion1" Relationship="Self.Direccion_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="direccion2" Relationship="Self.Direcion_ent_id" FromRole="externo" ToRole="direccion" />
+          <NavigationProperty Name="tipo_externo" Relationship="Self.idTipo_Externo" FromRole="externo" ToRole="tipo_externo" />
         </EntityType>
         <EntityType Name="herramienta">
           <Key>
@@ -1766,7 +1467,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idEstacion" Type="Int32" Nullable="false" />
           <Property Name="Uso" Type="Single" Nullable="false" />
           <Property Name="UM_uso" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="estacion" Relationship="Model.EstacionHerramienta" FromRole="herramienta" ToRole="estacion" />
+          <NavigationProperty Name="estacion" Relationship="Self.EstacionHerramienta" FromRole="herramienta" ToRole="estacion" />
         </EntityType>
         <EntityType Name="historial_txt">
           <Key>
@@ -1780,8 +1481,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idLanguage" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Language_Desc" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="users" Relationship="Model.idLanguage" FromRole="language" ToRole="users" />
-          <NavigationProperty Name="traduccion" Relationship="Model.idLanguageT" FromRole="language" ToRole="traduccion" />
+          <NavigationProperty Name="users" Relationship="Self.idLanguage" FromRole="language" ToRole="users" />
+          <NavigationProperty Name="traduccion" Relationship="Self.idLanguageT" FromRole="language" ToRole="traduccion" />
         </EntityType>
         <EntityType Name="mantenimiento_maquina">
           <Key>
@@ -1791,7 +1492,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idMantenimiento" Type="Int32" Nullable="false" />
           <Property Name="idMaquina" Type="Int32" Nullable="false" />
           <Property Name="fecha_mantenimiento" Type="DateTime" Nullable="false" />
-          <Property Name="piezas_cambiadas" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="piezas_cambiadas" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="maquina">
           <Key>
@@ -1805,7 +1506,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="UM_uso" Type="Int32" Nullable="false" />
           <Property Name="piezas_producidas" Type="Single" Nullable="false" />
           <Property Name="tiempo_parada" Type="Single" Nullable="false" />
-          <NavigationProperty Name="estacion" Relationship="Model.EstacionMaquina" FromRole="maquina" ToRole="estacion" />
+          <NavigationProperty Name="estacion" Relationship="Self.EstacionMaquina" FromRole="maquina" ToRole="estacion" />
         </EntityType>
         <EntityType Name="movimiento">
           <Key>
@@ -1824,14 +1525,14 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="U_destino" Type="Int32" />
           <Property Name="fechaMovimiento" Type="DateTime" Nullable="false" />
           <Property Name="idRazon" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.A_destinoMov" FromRole="movimiento" ToRole="almacen" />
-          <NavigationProperty Name="almacen1" Relationship="Model.A_origenMov" FromRole="movimiento" ToRole="almacen" />
-          <NavigationProperty Name="articulo" Relationship="Model.idArtiucloMov" FromRole="movimiento" ToRole="articulo" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoMov" FromRole="movimiento" ToRole="producto" />
-          <NavigationProperty Name="sucursal" Relationship="Model.S_destinoMov" FromRole="movimiento" ToRole="sucursal" />
-          <NavigationProperty Name="sucursal1" Relationship="Model.S_origenMov" FromRole="movimiento" ToRole="sucursal" />
-          <NavigationProperty Name="ubicacion" Relationship="Model.U_destinoMov" FromRole="movimiento" ToRole="ubicacion" />
-          <NavigationProperty Name="ubicacion1" Relationship="Model.U_origenMov" FromRole="movimiento" ToRole="ubicacion" />
+          <NavigationProperty Name="almacen" Relationship="Self.A_destinoMov" FromRole="movimiento" ToRole="almacen" />
+          <NavigationProperty Name="almacen1" Relationship="Self.A_origenMov" FromRole="movimiento" ToRole="almacen" />
+          <NavigationProperty Name="articulo" Relationship="Self.idArtiucloMov" FromRole="movimiento" ToRole="articulo" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoMov" FromRole="movimiento" ToRole="producto" />
+          <NavigationProperty Name="sucursal" Relationship="Self.S_destinoMov" FromRole="movimiento" ToRole="sucursal" />
+          <NavigationProperty Name="sucursal1" Relationship="Self.S_origenMov" FromRole="movimiento" ToRole="sucursal" />
+          <NavigationProperty Name="ubicacion" Relationship="Self.U_destinoMov" FromRole="movimiento" ToRole="ubicacion" />
+          <NavigationProperty Name="ubicacion1" Relationship="Self.U_origenMov" FromRole="movimiento" ToRole="ubicacion" />
         </EntityType>
         <EntityType Name="necesidadbruta">
           <Key>
@@ -1841,7 +1542,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
           <Property Name="Semana" Type="Int32" Nullable="false" />
           <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoNB" FromRole="necesidadbruta" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoNB" FromRole="necesidadbruta" ToRole="producto" />
         </EntityType>
         <EntityType Name="necesidadneta">
           <Key>
@@ -1851,7 +1552,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
           <Property Name="Semana" Type="Int32" Nullable="false" />
           <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoNN" FromRole="necesidadneta" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoNN" FromRole="necesidadneta" ToRole="producto" />
         </EntityType>
         <EntityType Name="operario_estacion">
           <Key>
@@ -1862,23 +1563,23 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idEstacion" Type="Int32" Nullable="false" />
           <Property Name="tiempo_comienzo" Type="DateTime" Nullable="false" />
           <Property Name="tiempo_finalizacion" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="estacion" Relationship="Model.EstacionOE" FromRole="operario_estacion" ToRole="estacion" />
-          <NavigationProperty Name="users" Relationship="Model.UserOE" FromRole="operario_estacion" ToRole="users" />
+          <NavigationProperty Name="estacion" Relationship="Self.EstacionOE" FromRole="operario_estacion" ToRole="estacion" />
+          <NavigationProperty Name="users" Relationship="Self.UserOE" FromRole="operario_estacion" ToRole="users" />
         </EntityType>
         <EntityType Name="ordencompra">
           <Key>
             <PropertyRef Name="idOrdenCompra" />
           </Key>
           <Property Name="idOrdenCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NroOrdenCompra" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="NroOrdenCompra" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
           <Property Name="Semana" Type="Int32" Nullable="false" />
           <Property Name="Cant" Type="Int32" Nullable="false" />
-          <Property Name="Proveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="user_upd" Type="Int32" Nullable="false" />
           <Property Name="last_upd" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoOC" FromRole="ordencompra" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.userOC" FromRole="ordencompra" ToRole="users" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoOC" FromRole="ordencompra" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Self.userOC" FromRole="ordencompra" ToRole="users" />
         </EntityType>
         <EntityType Name="padre_componente_publicado">
           <Key>
@@ -1897,9 +1598,9 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="user_upd" Type="Int32" Nullable="false" />
           <Property Name="activado" Type="SByte" Nullable="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idHijoP" FromRole="padre_componente_publicado" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Model.idPadreP" FromRole="padre_componente_publicado" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.user_upd" FromRole="padre_componente_publicado" ToRole="users" />
+          <NavigationProperty Name="producto" Relationship="Self.idHijoP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.idPadreP" FromRole="padre_componente_publicado" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Self.user_upd" FromRole="padre_componente_publicado" ToRole="users" />
         </EntityType>
         <EntityType Name="padre_componente_temporal">
           <Key>
@@ -1911,8 +1612,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="Cantidad" Type="Single" Nullable="false" />
           <Property Name="U_medida_default" Type="Int32" Nullable="false" />
           <Property Name="U_medida_usada" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idHijoT" FromRole="padre_componente_temporal" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Model.idPadreT" FromRole="padre_componente_temporal" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idHijoT" FromRole="padre_componente_temporal" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.idPadreT" FromRole="padre_componente_temporal" ToRole="producto" />
         </EntityType>
         <EntityType Name="pmp">
           <Key>
@@ -1922,7 +1623,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idProductoPadre" Type="Int32" Nullable="false" />
           <Property Name="Semana" Type="Int32" Nullable="false" />
           <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoPMP" FromRole="pmp" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoPMP" FromRole="pmp" ToRole="producto" />
         </EntityType>
         <EntityType Name="producto">
           <Key>
@@ -1938,30 +1639,25 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="Last_Upd" Type="DateTime" />
           <Property Name="User_Upd" Type="Int32" />
           <Property Name="Codigo_abreviado" Type="Int32" />
-          <NavigationProperty Name="articulo" Relationship="Model.idProductoA" FromRole="producto" ToRole="articulo" />
-          <NavigationProperty Name="movimiento" Relationship="Model.idProductoMov" FromRole="producto" ToRole="movimiento" />
-          <NavigationProperty Name="necesidadbruta" Relationship="Model.idProductoNB" FromRole="producto" ToRole="necesidadbruta" />
-          <NavigationProperty Name="necesidadneta" Relationship="Model.idProductoNN" FromRole="producto" ToRole="necesidadneta" />
-          <NavigationProperty Name="ordencompra" Relationship="Model.idProductoOC" FromRole="producto" ToRole="ordencompra" />
-          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
-          <NavigationProperty Name="padre_componente_publicado1" Relationship="Model.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
-          <NavigationProperty Name="padre_componente_temporal" Relationship="Model.idHijoT" FromRole="producto" ToRole="padre_componente_temporal" />
-          <NavigationProperty Name="padre_componente_temporal1" Relationship="Model.idPadreT" FromRole="producto" ToRole="padre_componente_temporal" />
-          <NavigationProperty Name="pmp" Relationship="Model.idProductoPMP" FromRole="producto" ToRole="pmp" />
-          <NavigationProperty Name="producto_sustituto" Relationship="Model.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
-          <NavigationProperty Name="producto_sustituto1" Relationship="Model.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
-          <NavigationProperty Name="remito_detalle" Relationship="Model.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
-          <NavigationProperty Name="requerimientos" Relationship="Model.idProductoRequerimiento" FromRole="producto" ToRole="requerimientos" />
-          <NavigationProperty Name="stock" Relationship="Model.idProductoS" FromRole="producto" ToRole="stock" />
-          <NavigationProperty Name="producto_sustituto2" Relationship="Model.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
-          <NavigationProperty Name="tipo_producto" Relationship="Model.idTipo" FromRole="producto" ToRole="tipo_producto" />
-          <NavigationProperty Name="unidad_medida" Relationship="Model.Unidad_id_Aplication" FromRole="producto" ToRole="unidad_medida" />
-          <NavigationProperty Name="unidad_medida1" Relationship="Model.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
-          <NavigationProperty Name="necesidadbruta" Relationship="Model.idProductoNB" FromRole="producto" ToRole="necesidadbruta" />
-          <NavigationProperty Name="necesidadneta" Relationship="Model.idProductoNN" FromRole="producto" ToRole="necesidadneta" />
-          <NavigationProperty Name="ordencompra" Relationship="Model.idProductoOC" FromRole="producto" ToRole="ordencompra" />
-          <NavigationProperty Name="pmp" Relationship="Model.idProductoPMP" FromRole="producto" ToRole="pmp" />
-          <NavigationProperty Name="requerimientos" Relationship="Model.idProductoRequerimiento" FromRole="producto" ToRole="requerimientos" />
+          <NavigationProperty Name="articulo" Relationship="Self.idProductoA" FromRole="producto" ToRole="articulo" />
+          <NavigationProperty Name="movimiento" Relationship="Self.idProductoMov" FromRole="producto" ToRole="movimiento" />
+          <NavigationProperty Name="necesidadbruta" Relationship="Self.idProductoNB" FromRole="producto" ToRole="necesidadbruta" />
+          <NavigationProperty Name="necesidadneta" Relationship="Self.idProductoNN" FromRole="producto" ToRole="necesidadneta" />
+          <NavigationProperty Name="ordencompra" Relationship="Self.idProductoOC" FromRole="producto" ToRole="ordencompra" />
+          <NavigationProperty Name="padre_componente_publicado" Relationship="Self.idHijoP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="padre_componente_publicado1" Relationship="Self.idPadreP" FromRole="producto" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="padre_componente_temporal" Relationship="Self.idHijoT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="padre_componente_temporal1" Relationship="Self.idPadreT" FromRole="producto" ToRole="padre_componente_temporal" />
+          <NavigationProperty Name="pmp" Relationship="Self.idProductoPMP" FromRole="producto" ToRole="pmp" />
+          <NavigationProperty Name="producto_sustituto" Relationship="Self.idHijoPS" FromRole="producto" ToRole="producto_sustituto" />
+          <NavigationProperty Name="producto_sustituto1" Relationship="Self.idPadrePS" FromRole="producto" ToRole="producto_sustituto" />
+          <NavigationProperty Name="remito_detalle" Relationship="Self.idProductoRD" FromRole="producto" ToRole="remito_detalle" />
+          <NavigationProperty Name="requerimientos" Relationship="Self.idProductoRequerimiento" FromRole="producto" ToRole="requerimientos" />
+          <NavigationProperty Name="stock" Relationship="Self.idProductoS" FromRole="producto" ToRole="stock" />
+          <NavigationProperty Name="producto_sustituto2" Relationship="Self.idSustitutoPS" FromRole="producto" ToRole="producto_sustituto" />
+          <NavigationProperty Name="tipo_producto" Relationship="Self.idTipo" FromRole="producto" ToRole="tipo_producto" />
+          <NavigationProperty Name="unidad_medida" Relationship="Self.Unidad_id_Aplication" FromRole="producto" ToRole="unidad_medida" />
+          <NavigationProperty Name="unidad_medida1" Relationship="Self.Unidad_id_Purchase" FromRole="producto" ToRole="unidad_medida" />
         </EntityType>
         <EntityType Name="producto_sustituto">
           <Key>
@@ -1979,10 +1675,10 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="fecha_aplicacion" Type="Int32" Nullable="false" />
           <Property Name="activado" Type="SByte" Nullable="false" />
           <Property Name="version" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idHijoPS" FromRole="producto_sustituto" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Model.idPadrePS" FromRole="producto_sustituto" ToRole="producto" />
-          <NavigationProperty Name="producto2" Relationship="Model.idSustitutoPS" FromRole="producto_sustituto" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.userPS" FromRole="producto_sustituto" ToRole="users" />
+          <NavigationProperty Name="producto" Relationship="Self.idHijoPS" FromRole="producto_sustituto" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.idPadrePS" FromRole="producto_sustituto" ToRole="producto" />
+          <NavigationProperty Name="producto2" Relationship="Self.idSustitutoPS" FromRole="producto_sustituto" ToRole="producto" />
+          <NavigationProperty Name="users" Relationship="Self.userPS" FromRole="producto_sustituto" ToRole="users" />
         </EntityType>
         <EntityType Name="razon">
           <Key>
@@ -1999,17 +1695,17 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="S_destino" Type="Int32" />
           <Property Name="A_destino" Type="Int32" />
           <Property Name="U_destino" Type="Int32" />
-          <NavigationProperty Name="users" Relationship="Model.User_updR" FromRole="razon" ToRole="users" />
-          <NavigationProperty Name="users1" Relationship="Model.usuarioxrazon" FromRole="razon" ToRole="users" />
+          <NavigationProperty Name="users" Relationship="Self.User_updR" FromRole="razon" ToRole="users" />
+          <NavigationProperty Name="users1" Relationship="Self.usuarioxrazon" FromRole="razon" ToRole="users" />
         </EntityType>
         <EntityType Name="remito">
           <Key>
             <PropertyRef Name="idRemito" />
           </Key>
           <Property Name="idRemito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Destino" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="remito_detalle" Relationship="Model.idRemitoRD" FromRole="remito" ToRole="remito_detalle" />
+          <Property Name="Cliente" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Destino" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="remito_detalle" Relationship="Self.idRemitoRD" FromRole="remito" ToRole="remito_detalle" />
         </EntityType>
         <EntityType Name="remito_detalle">
           <Key>
@@ -2019,8 +1715,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idRemito" Type="Int32" Nullable="false" />
           <Property Name="idProducto" Type="Int32" Nullable="false" />
           <Property Name="idArticulo" Type="Double" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
-          <NavigationProperty Name="remito" Relationship="Model.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoRD" FromRole="remito_detalle" ToRole="producto" />
+          <NavigationProperty Name="remito" Relationship="Self.idRemitoRD" FromRole="remito_detalle" ToRole="remito" />
         </EntityType>
         <EntityType Name="requerimientos">
           <Key>
@@ -2031,9 +1727,9 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idProducto" Type="Int32" Nullable="false" />
           <Property Name="Semana" Type="Int32" Nullable="false" />
           <Property Name="Cant" Type="Int32" Nullable="false" />
-          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Cliente" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Delta" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoRequerimiento" FromRole="requerimientos" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoRequerimiento" FromRole="requerimientos" ToRole="producto" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -2041,7 +1737,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDescriptionR" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="users" Relationship="Model.idRole" FromRole="role" ToRole="users" />
+          <NavigationProperty Name="users" Relationship="Self.idRole" FromRole="role" ToRole="users" />
         </EntityType>
         <EntityType Name="stock">
           <Key>
@@ -2054,10 +1750,10 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idAlmacen" Type="Int32" Nullable="false" />
           <Property Name="last_upd" Type="DateTime" Nullable="false" />
           <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.idAlmacenS" FromRole="stock" ToRole="almacen" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoS" FromRole="stock" ToRole="producto" />
-          <NavigationProperty Name="unidad_medida1" Relationship="Model.unidad_medidaS" FromRole="stock" ToRole="unidad_medida" />
-          <NavigationProperty Name="users" Relationship="Model.User_updS" FromRole="stock" ToRole="users" />
+          <NavigationProperty Name="almacen" Relationship="Self.idAlmacenS" FromRole="stock" ToRole="almacen" />
+          <NavigationProperty Name="producto" Relationship="Self.idProductoS" FromRole="stock" ToRole="producto" />
+          <NavigationProperty Name="unidad_medida1" Relationship="Self.unidad_medidaS" FromRole="stock" ToRole="unidad_medida" />
+          <NavigationProperty Name="users" Relationship="Self.User_updS" FromRole="stock" ToRole="users" />
         </EntityType>
         <EntityType Name="sucursal">
           <Key>
@@ -2065,12 +1761,12 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idSucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDireccion" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Real" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.idSucursalA" FromRole="sucursal" ToRole="almacen" />
-          <NavigationProperty Name="direccion" Relationship="Model.idDireccionS" FromRole="sucursal" ToRole="direccion" />
-          <NavigationProperty Name="movimiento" Relationship="Model.S_destinoMov" FromRole="sucursal" ToRole="movimiento" />
-          <NavigationProperty Name="movimiento1" Relationship="Model.S_origenMov" FromRole="sucursal" ToRole="movimiento" />
+          <NavigationProperty Name="almacen" Relationship="Self.idSucursalA" FromRole="sucursal" ToRole="almacen" />
+          <NavigationProperty Name="direccion" Relationship="Self.idDireccionS" FromRole="sucursal" ToRole="direccion" />
+          <NavigationProperty Name="movimiento" Relationship="Self.S_destinoMov" FromRole="sucursal" ToRole="movimiento" />
+          <NavigationProperty Name="movimiento1" Relationship="Self.S_origenMov" FromRole="sucursal" ToRole="movimiento" />
         </EntityType>
         <EntityType Name="tipo_externo">
           <Key>
@@ -2078,7 +1774,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idTipo_Externo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDescriptionTE" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="externo" Relationship="Model.idTipo_Externo" FromRole="tipo_externo" ToRole="externo" />
+          <NavigationProperty Name="externo" Relationship="Self.idTipo_Externo" FromRole="tipo_externo" ToRole="externo" />
         </EntityType>
         <EntityType Name="tipo_producto">
           <Key>
@@ -2086,7 +1782,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idTipo_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDescriptionTP" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idTipo" FromRole="tipo_producto" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="Self.idTipo" FromRole="tipo_producto" ToRole="producto" />
         </EntityType>
         <EntityType Name="traduccion">
           <Key>
@@ -2095,8 +1791,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </Key>
           <Property Name="idDescriptionT" Type="Int32" Nullable="false" />
           <Property Name="idLanguageT" Type="Int32" Nullable="false" />
-          <Property Name="Traduccion_str" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="language" Relationship="Model.idLanguageT" FromRole="traduccion" ToRole="language" />
+          <Property Name="Traduccion_str" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="language" Relationship="Self.idLanguageT" FromRole="traduccion" ToRole="language" />
         </EntityType>
         <EntityType Name="ubicacion">
           <Key>
@@ -2107,9 +1803,9 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="x" Type="Int32" Nullable="false" />
           <Property Name="y" Type="Int32" Nullable="false" />
           <Property Name="z" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="almacen" Relationship="Model.idAlmacenU" FromRole="ubicacion" ToRole="almacen" />
-          <NavigationProperty Name="movimiento" Relationship="Model.U_destinoMov" FromRole="ubicacion" ToRole="movimiento" />
-          <NavigationProperty Name="movimiento1" Relationship="Model.U_origenMov" FromRole="ubicacion" ToRole="movimiento" />
+          <NavigationProperty Name="almacen" Relationship="Self.idAlmacenU" FromRole="ubicacion" ToRole="almacen" />
+          <NavigationProperty Name="movimiento" Relationship="Self.U_destinoMov" FromRole="ubicacion" ToRole="movimiento" />
+          <NavigationProperty Name="movimiento1" Relationship="Self.U_origenMov" FromRole="ubicacion" ToRole="movimiento" />
         </EntityType>
         <EntityType Name="unidad_medida">
           <Key>
@@ -2118,40 +1814,39 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <Property Name="idUnidad_Medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idDescriptionUM" Type="Int32" Nullable="false" />
           <Property Name="Factor_N" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="conversion" Relationship="Model.U_medida" FromRole="unidad_medida" ToRole="conversion" />
-          <NavigationProperty Name="conversion1" Relationship="Model.U_medida_default" FromRole="unidad_medida" ToRole="conversion" />
-          <NavigationProperty Name="producto" Relationship="Model.Unidad_id_Aplication" FromRole="unidad_medida" ToRole="producto" />
-          <NavigationProperty Name="producto1" Relationship="Model.Unidad_id_Purchase" FromRole="unidad_medida" ToRole="producto" />
-          <NavigationProperty Name="stock" Relationship="Model.unidad_medidaS" FromRole="unidad_medida" ToRole="stock" />
+          <NavigationProperty Name="conversion" Relationship="Self.U_medida" FromRole="unidad_medida" ToRole="conversion" />
+          <NavigationProperty Name="conversion1" Relationship="Self.U_medida_default" FromRole="unidad_medida" ToRole="conversion" />
+          <NavigationProperty Name="producto" Relationship="Self.Unidad_id_Aplication" FromRole="unidad_medida" ToRole="producto" />
+          <NavigationProperty Name="producto1" Relationship="Self.Unidad_id_Purchase" FromRole="unidad_medida" ToRole="producto" />
+          <NavigationProperty Name="stock" Relationship="Self.unidad_medidaS" FromRole="unidad_medida" ToRole="stock" />
         </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="idUsers" />
           </Key>
           <Property Name="idUsers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Sector" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sector" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idRole" Type="Int32" Nullable="false" />
-          <Property Name="Interno" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Mail" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Interno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mail" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idLanguage" Type="Int32" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="articulo" Relationship="Model.usser_updA" FromRole="users" ToRole="articulo" />
-          <NavigationProperty Name="language" Relationship="Model.idLanguage" FromRole="users" ToRole="language" />
-          <NavigationProperty Name="operario_estacion" Relationship="Model.UserOE" FromRole="users" ToRole="operario_estacion" />
-          <NavigationProperty Name="ordencompra" Relationship="Model.userOC" FromRole="users" ToRole="ordencompra" />
-          <NavigationProperty Name="padre_componente_publicado" Relationship="Model.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
-          <NavigationProperty Name="producto_sustituto" Relationship="Model.userPS" FromRole="users" ToRole="producto_sustituto" />
-          <NavigationProperty Name="razon" Relationship="Model.User_updR" FromRole="users" ToRole="razon" />
-          <NavigationProperty Name="role" Relationship="Model.idRole" FromRole="users" ToRole="role" />
-          <NavigationProperty Name="stock" Relationship="Model.User_updS" FromRole="users" ToRole="stock" />
-          <NavigationProperty Name="razon1" Relationship="Model.usuarioxrazon" FromRole="users" ToRole="razon" />
-          <NavigationProperty Name="ordencompra" Relationship="Model.userOC" FromRole="users" ToRole="ordencompra" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="articulo" Relationship="Self.usser_updA" FromRole="users" ToRole="articulo" />
+          <NavigationProperty Name="language" Relationship="Self.idLanguage" FromRole="users" ToRole="language" />
+          <NavigationProperty Name="operario_estacion" Relationship="Self.UserOE" FromRole="users" ToRole="operario_estacion" />
+          <NavigationProperty Name="ordencompra" Relationship="Self.userOC" FromRole="users" ToRole="ordencompra" />
+          <NavigationProperty Name="padre_componente_publicado" Relationship="Self.user_upd" FromRole="users" ToRole="padre_componente_publicado" />
+          <NavigationProperty Name="producto_sustituto" Relationship="Self.userPS" FromRole="users" ToRole="producto_sustituto" />
+          <NavigationProperty Name="razon" Relationship="Self.User_updR" FromRole="users" ToRole="razon" />
+          <NavigationProperty Name="role" Relationship="Self.idRole" FromRole="users" ToRole="role" />
+          <NavigationProperty Name="stock" Relationship="Self.User_updS" FromRole="users" ToRole="stock" />
+          <NavigationProperty Name="razon1" Relationship="Self.usuarioxrazon" FromRole="users" ToRole="razon" />
         </EntityType>
         <Association Name="A_destinoMov">
-          <End Type="Model.almacen" Role="almacen" Multiplicity="0..1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="0..1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="almacen">
               <PropertyRef Name="idAlmacen" />
@@ -2162,8 +1857,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="A_origenMov">
-          <End Type="Model.almacen" Role="almacen" Multiplicity="0..1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="0..1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="almacen">
               <PropertyRef Name="idAlmacen" />
@@ -2174,8 +1869,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idAlmacenS">
-          <End Type="Model.almacen" Role="almacen" Multiplicity="1" />
-          <End Type="Model.stock" Role="stock" Multiplicity="*" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="almacen">
               <PropertyRef Name="idAlmacen" />
@@ -2186,8 +1881,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idAlmacenU">
-          <End Type="Model.almacen" Role="almacen" Multiplicity="1" />
-          <End Type="Model.ubicacion" Role="ubicacion" Multiplicity="*" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="1" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="almacen">
               <PropertyRef Name="idAlmacen" />
@@ -2198,8 +1893,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idDireccionA">
-          <End Type="Model.direccion" Role="direccion" Multiplicity="1" />
-          <End Type="Model.almacen" Role="almacen" Multiplicity="*" />
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="direccion">
               <PropertyRef Name="idDireccion" />
@@ -2210,8 +1905,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idSucursalA">
-          <End Type="Model.sucursal" Role="sucursal" Multiplicity="1" />
-          <End Type="Model.almacen" Role="almacen" Multiplicity="*" />
+          <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sucursal">
               <PropertyRef Name="idSucursal" />
@@ -2222,8 +1917,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="ubicacionA">
-          <End Type="Model.almacen" Role="almacen" Multiplicity="1" />
-          <End Type="Model.articulo" Role="articulo" Multiplicity="*" />
+          <End Role="almacen" Type="Self.almacen" Multiplicity="1" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="almacen">
               <PropertyRef Name="idAlmacen" />
@@ -2234,8 +1929,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idArtiucloMov">
-          <End Type="Model.articulo" Role="articulo" Multiplicity="0..1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="0..1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="articulo">
               <PropertyRef Name="numero_serie" />
@@ -2246,8 +1941,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoA">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.articulo" Role="articulo" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2258,8 +1953,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="usser_updA">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.articulo" Role="articulo" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2270,8 +1965,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="U_medida">
-          <End Type="Model.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="Model.conversion" Role="conversion" Multiplicity="*" />
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="unidad_medida">
               <PropertyRef Name="idUnidad_Medida" />
@@ -2282,8 +1977,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="U_medida_default">
-          <End Type="Model.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="Model.conversion" Role="conversion" Multiplicity="*" />
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="conversion" Type="Self.conversion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="unidad_medida">
               <PropertyRef Name="idUnidad_Medida" />
@@ -2294,8 +1989,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="Direccion_fac_id">
-          <End Type="Model.direccion" Role="direccion" Multiplicity="1" />
-          <End Type="Model.externo" Role="externo" Multiplicity="*" />
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="direccion">
               <PropertyRef Name="idDireccion" />
@@ -2306,8 +2001,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="Direccion_id">
-          <End Type="Model.direccion" Role="direccion" Multiplicity="1" />
-          <End Type="Model.externo" Role="externo" Multiplicity="*" />
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="direccion">
               <PropertyRef Name="idDireccion" />
@@ -2318,8 +2013,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="Direcion_ent_id">
-          <End Type="Model.direccion" Role="direccion" Multiplicity="1" />
-          <End Type="Model.externo" Role="externo" Multiplicity="*" />
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="direccion">
               <PropertyRef Name="idDireccion" />
@@ -2330,8 +2025,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idDireccionS">
-          <End Type="Model.direccion" Role="direccion" Multiplicity="1" />
-          <End Type="Model.sucursal" Role="sucursal" Multiplicity="*" />
+          <End Role="direccion" Type="Self.direccion" Multiplicity="1" />
+          <End Role="sucursal" Type="Self.sucursal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="direccion">
               <PropertyRef Name="idDireccion" />
@@ -2342,8 +2037,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="EstacionHerramienta">
-          <End Type="Model.estacion" Role="estacion" Multiplicity="1" />
-          <End Type="Model.herramienta" Role="herramienta" Multiplicity="*" />
+          <End Role="estacion" Type="Self.estacion" Multiplicity="1" />
+          <End Role="herramienta" Type="Self.herramienta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="estacion">
               <PropertyRef Name="idEstacion" />
@@ -2354,8 +2049,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="EstacionMaquina">
-          <End Type="Model.estacion" Role="estacion" Multiplicity="1" />
-          <End Type="Model.maquina" Role="maquina" Multiplicity="*" />
+          <End Role="estacion" Type="Self.estacion" Multiplicity="1" />
+          <End Role="maquina" Type="Self.maquina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="estacion">
               <PropertyRef Name="idEstacion" />
@@ -2366,8 +2061,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="EstacionOE">
-          <End Type="Model.estacion" Role="estacion" Multiplicity="1" />
-          <End Type="Model.operario_estacion" Role="operario_estacion" Multiplicity="*" />
+          <End Role="estacion" Type="Self.estacion" Multiplicity="1" />
+          <End Role="operario_estacion" Type="Self.operario_estacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="estacion">
               <PropertyRef Name="idEstacion" />
@@ -2378,8 +2073,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idTipo_Externo">
-          <End Type="Model.tipo_externo" Role="tipo_externo" Multiplicity="1" />
-          <End Type="Model.externo" Role="externo" Multiplicity="*" />
+          <End Role="tipo_externo" Type="Self.tipo_externo" Multiplicity="1" />
+          <End Role="externo" Type="Self.externo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tipo_externo">
               <PropertyRef Name="idTipo_Externo" />
@@ -2390,8 +2085,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idLanguage">
-          <End Type="Model.language" Role="language" Multiplicity="1" />
-          <End Type="Model.users" Role="users" Multiplicity="*" />
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="language">
               <PropertyRef Name="idLanguage" />
@@ -2402,8 +2097,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idLanguageT">
-          <End Type="Model.language" Role="language" Multiplicity="1" />
-          <End Type="Model.traduccion" Role="traduccion" Multiplicity="*" />
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="traduccion" Type="Self.traduccion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="language">
               <PropertyRef Name="idLanguage" />
@@ -2414,8 +2109,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoMov">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2426,8 +2121,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="S_destinoMov">
-          <End Type="Model.sucursal" Role="sucursal" Multiplicity="1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sucursal">
               <PropertyRef Name="idSucursal" />
@@ -2438,8 +2133,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="S_origenMov">
-          <End Type="Model.sucursal" Role="sucursal" Multiplicity="1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sucursal">
               <PropertyRef Name="idSucursal" />
@@ -2450,8 +2145,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="U_destinoMov">
-          <End Type="Model.ubicacion" Role="ubicacion" Multiplicity="0..1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="0..1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ubicacion">
               <PropertyRef Name="idUbicacion" />
@@ -2462,8 +2157,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="U_origenMov">
-          <End Type="Model.ubicacion" Role="ubicacion" Multiplicity="0..1" />
-          <End Type="Model.movimiento" Role="movimiento" Multiplicity="*" />
+          <End Role="ubicacion" Type="Self.ubicacion" Multiplicity="0..1" />
+          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ubicacion">
               <PropertyRef Name="idUbicacion" />
@@ -2474,8 +2169,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoNB">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.necesidadbruta" Role="necesidadbruta" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="necesidadbruta" Type="Self.necesidadbruta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2486,8 +2181,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoNN">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.necesidadneta" Role="necesidadneta" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="necesidadneta" Type="Self.necesidadneta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2498,8 +2193,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="UserOE">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.operario_estacion" Role="operario_estacion" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="operario_estacion" Type="Self.operario_estacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2510,8 +2205,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoOC">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2522,8 +2217,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="userOC">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2534,8 +2229,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idHijoP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente_publicado" Type="Self.padre_componente_publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2546,8 +2241,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idPadreP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente_publicado" Type="Self.padre_componente_publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2558,8 +2253,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="user_upd">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.padre_componente_publicado" Role="padre_componente_publicado" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="padre_componente_publicado" Type="Self.padre_componente_publicado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2570,8 +2265,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idHijoT">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_temporal" Role="padre_componente_temporal" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente_temporal" Type="Self.padre_componente_temporal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2582,8 +2277,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idPadreT">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.padre_componente_temporal" Role="padre_componente_temporal" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="padre_componente_temporal" Type="Self.padre_componente_temporal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2594,8 +2289,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoPMP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.pmp" Role="pmp" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="pmp" Type="Self.pmp" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2606,8 +2301,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idHijoPS">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto_sustituto" Type="Self.producto_sustituto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2618,8 +2313,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idPadrePS">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto_sustituto" Type="Self.producto_sustituto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2630,8 +2325,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoRD">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="remito_detalle" Type="Self.remito_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2642,8 +2337,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoRequerimiento">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.requerimientos" Role="requerimientos" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="requerimientos" Type="Self.requerimientos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2654,8 +2349,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idProductoS">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.stock" Role="stock" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2666,8 +2361,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idSustitutoPS">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="producto_sustituto" Type="Self.producto_sustituto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="producto">
               <PropertyRef Name="idProducto" />
@@ -2678,8 +2373,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idTipo">
-          <End Type="Model.tipo_producto" Role="tipo_producto" Multiplicity="1" />
-          <End Type="Model.producto" Role="producto" Multiplicity="*" />
+          <End Role="tipo_producto" Type="Self.tipo_producto" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tipo_producto">
               <PropertyRef Name="idTipo_Producto" />
@@ -2690,8 +2385,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="Unidad_id_Aplication">
-          <End Type="Model.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="Model.producto" Role="producto" Multiplicity="*" />
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="unidad_medida">
               <PropertyRef Name="idUnidad_Medida" />
@@ -2702,8 +2397,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="Unidad_id_Purchase">
-          <End Type="Model.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="Model.producto" Role="producto" Multiplicity="*" />
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="unidad_medida">
               <PropertyRef Name="idUnidad_Medida" />
@@ -2714,8 +2409,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="userPS">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.producto_sustituto" Role="producto_sustituto" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="producto_sustituto" Type="Self.producto_sustituto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2726,8 +2421,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="User_updR">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.razon" Role="razon" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="razon" Type="Self.razon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2738,8 +2433,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idRemitoRD">
-          <End Type="Model.remito" Role="remito" Multiplicity="1" />
-          <End Type="Model.remito_detalle" Role="remito_detalle" Multiplicity="*" />
+          <End Role="remito" Type="Self.remito" Multiplicity="1" />
+          <End Role="remito_detalle" Type="Self.remito_detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="remito">
               <PropertyRef Name="idRemito" />
@@ -2750,8 +2445,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="idRole">
-          <End Type="Model.role" Role="role" Multiplicity="1" />
-          <End Type="Model.users" Role="users" Multiplicity="*" />
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="role">
               <PropertyRef Name="idRole" />
@@ -2762,8 +2457,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="unidad_medidaS">
-          <End Type="Model.unidad_medida" Role="unidad_medida" Multiplicity="1" />
-          <End Type="Model.stock" Role="stock" Multiplicity="*" />
+          <End Role="unidad_medida" Type="Self.unidad_medida" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="unidad_medida">
               <PropertyRef Name="idUnidad_Medida" />
@@ -2774,8 +2469,8 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="User_updS">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.stock" Role="stock" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="users">
               <PropertyRef Name="idUsers" />
@@ -2786,140 +2481,264 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           </ReferentialConstraint>
         </Association>
         <Association Name="usuarioxrazon">
-          <End Type="Model.razon" Role="razon" Multiplicity="*" />
-          <End Type="Model.users" Role="users" Multiplicity="*" />
+          <End Role="razon" Type="Self.razon" Multiplicity="*" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
         </Association>
-        <EntityType Name="necesidadbruta">
-          <Key>
-            <PropertyRef Name="idProductoHijo" />
-            <PropertyRef Name="Semana" />
-          </Key>
-          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
-          <Property Name="Semana" Type="Int32" Nullable="false" />
-          <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoNB" FromRole="necesidadbruta" ToRole="producto" />
-        </EntityType>
-        <EntityType Name="necesidadneta">
-          <Key>
-            <PropertyRef Name="idProductoHijo" />
-            <PropertyRef Name="Semana" />
-          </Key>
-          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
-          <Property Name="Semana" Type="Int32" Nullable="false" />
-          <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoNN" FromRole="necesidadneta" ToRole="producto" />
-        </EntityType>
-        <EntityType Name="ordencompra">
-          <Key>
-            <PropertyRef Name="idOrdenCompra" />
-          </Key>
-          <Property Name="idOrdenCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NroOrdenCompra" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="idProductoHijo" Type="Int32" Nullable="false" />
-          <Property Name="Semana" Type="Int32" Nullable="false" />
-          <Property Name="Cant" Type="Int32" Nullable="false" />
-          <Property Name="Proveedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="user_upd" Type="Int32" Nullable="false" />
-          <Property Name="last_upd" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoOC" FromRole="ordencompra" ToRole="producto" />
-          <NavigationProperty Name="users" Relationship="Model.userOC" FromRole="ordencompra" ToRole="users" />
-        </EntityType>
-        <EntityType Name="pmp">
-          <Key>
-            <PropertyRef Name="idProductoPadre" />
-            <PropertyRef Name="Semana" />
-          </Key>
-          <Property Name="idProductoPadre" Type="Int32" Nullable="false" />
-          <Property Name="Semana" Type="Int32" Nullable="false" />
-          <Property Name="Cant" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoPMP" FromRole="pmp" ToRole="producto" />
-        </EntityType>
-        <EntityType Name="requerimientos">
-          <Key>
-            <PropertyRef Name="idProducto" />
-            <PropertyRef Name="Semana" />
-            <PropertyRef Name="Cliente" />
-          </Key>
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="Semana" Type="Int32" Nullable="false" />
-          <Property Name="Cant" Type="Int32" Nullable="false" />
-          <Property Name="Cliente" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Delta" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Model.idProductoRequerimiento" FromRole="requerimientos" ToRole="producto" />
-        </EntityType>
-        <Association Name="idProductoNB">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.necesidadbruta" Role="necesidadbruta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="necesidadbruta">
-              <PropertyRef Name="idProductoHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoNN">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.necesidadneta" Role="necesidadneta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="necesidadneta">
-              <PropertyRef Name="idProductoHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoOC">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="ordencompra">
-              <PropertyRef Name="idProductoHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="userOC">
-          <End Type="Model.users" Role="users" Multiplicity="1" />
-          <End Type="Model.ordencompra" Role="ordencompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="idUsers" />
-            </Principal>
-            <Dependent Role="ordencompra">
-              <PropertyRef Name="user_upd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoPMP">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.pmp" Role="pmp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="pmp">
-              <PropertyRef Name="idProductoPadre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoRequerimiento">
-          <End Type="Model.producto" Role="producto" Multiplicity="1" />
-          <End Type="Model.requerimientos" Role="requerimientos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="requerimientos">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+        <EntityContainer Name="informatica_industrial_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="almacen" EntityType="Self.almacen" />
+          <EntitySet Name="articulo" EntityType="Self.articulo" />
+          <EntitySet Name="ciclo" EntityType="Self.ciclo" />
+          <EntitySet Name="ciclo_precedente" EntityType="Self.ciclo_precedente" />
+          <EntitySet Name="conversion" EntityType="Self.conversion" />
+          <EntitySet Name="direccion" EntityType="Self.direccion" />
+          <EntitySet Name="estacion" EntityType="Self.estacion" />
+          <EntitySet Name="externo" EntityType="Self.externo" />
+          <EntitySet Name="herramienta" EntityType="Self.herramienta" />
+          <EntitySet Name="historial_txt" EntityType="Self.historial_txt" />
+          <EntitySet Name="language" EntityType="Self.language" />
+          <EntitySet Name="mantenimiento_maquina" EntityType="Self.mantenimiento_maquina" />
+          <EntitySet Name="maquina" EntityType="Self.maquina" />
+          <EntitySet Name="movimiento" EntityType="Self.movimiento" />
+          <EntitySet Name="necesidadbruta" EntityType="Self.necesidadbruta" />
+          <EntitySet Name="necesidadneta" EntityType="Self.necesidadneta" />
+          <EntitySet Name="operario_estacion" EntityType="Self.operario_estacion" />
+          <EntitySet Name="ordencompra" EntityType="Self.ordencompra" />
+          <EntitySet Name="padre_componente_publicado" EntityType="Self.padre_componente_publicado" />
+          <EntitySet Name="padre_componente_temporal" EntityType="Self.padre_componente_temporal" />
+          <EntitySet Name="pmp" EntityType="Self.pmp" />
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="producto_sustituto" EntityType="Self.producto_sustituto" />
+          <EntitySet Name="razon" EntityType="Self.razon" />
+          <EntitySet Name="remito" EntityType="Self.remito" />
+          <EntitySet Name="remito_detalle" EntityType="Self.remito_detalle" />
+          <EntitySet Name="requerimientos" EntityType="Self.requerimientos" />
+          <EntitySet Name="role" EntityType="Self.role" />
+          <EntitySet Name="stock" EntityType="Self.stock" />
+          <EntitySet Name="sucursal" EntityType="Self.sucursal" />
+          <EntitySet Name="tipo_externo" EntityType="Self.tipo_externo" />
+          <EntitySet Name="tipo_producto" EntityType="Self.tipo_producto" />
+          <EntitySet Name="traduccion" EntityType="Self.traduccion" />
+          <EntitySet Name="ubicacion" EntityType="Self.ubicacion" />
+          <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="A_destinoMov" Association="Self.A_destinoMov">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="A_origenMov" Association="Self.A_origenMov">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="idAlmacenS" Association="Self.idAlmacenS">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="idAlmacenU" Association="Self.idAlmacenU">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="ubicacion" EntitySet="ubicacion" />
+          </AssociationSet>
+          <AssociationSet Name="idDireccionA" Association="Self.idDireccionA">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="almacen" EntitySet="almacen" />
+          </AssociationSet>
+          <AssociationSet Name="idSucursalA" Association="Self.idSucursalA">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="almacen" EntitySet="almacen" />
+          </AssociationSet>
+          <AssociationSet Name="ubicacionA" Association="Self.ubicacionA">
+            <End Role="almacen" EntitySet="almacen" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="idArtiucloMov" Association="Self.idArtiucloMov">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoA" Association="Self.idProductoA">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="usser_updA" Association="Self.usser_updA">
+            <End Role="users" EntitySet="users" />
+            <End Role="articulo" EntitySet="articulo" />
+          </AssociationSet>
+          <AssociationSet Name="U_medida" Association="Self.U_medida">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="U_medida_default" Association="Self.U_medida_default">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="conversion" EntitySet="conversion" />
+          </AssociationSet>
+          <AssociationSet Name="Direccion_fac_id" Association="Self.Direccion_fac_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direccion_id" Association="Self.Direccion_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="Direcion_ent_id" Association="Self.Direcion_ent_id">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="idDireccionS" Association="Self.idDireccionS">
+            <End Role="direccion" EntitySet="direccion" />
+            <End Role="sucursal" EntitySet="sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="EstacionHerramienta" Association="Self.EstacionHerramienta">
+            <End Role="estacion" EntitySet="estacion" />
+            <End Role="herramienta" EntitySet="herramienta" />
+          </AssociationSet>
+          <AssociationSet Name="EstacionMaquina" Association="Self.EstacionMaquina">
+            <End Role="estacion" EntitySet="estacion" />
+            <End Role="maquina" EntitySet="maquina" />
+          </AssociationSet>
+          <AssociationSet Name="EstacionOE" Association="Self.EstacionOE">
+            <End Role="estacion" EntitySet="estacion" />
+            <End Role="operario_estacion" EntitySet="operario_estacion" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo_Externo" Association="Self.idTipo_Externo">
+            <End Role="tipo_externo" EntitySet="tipo_externo" />
+            <End Role="externo" EntitySet="externo" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguage" Association="Self.idLanguage">
+            <End Role="language" EntitySet="language" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="idLanguageT" Association="Self.idLanguageT">
+            <End Role="language" EntitySet="language" />
+            <End Role="traduccion" EntitySet="traduccion" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoMov" Association="Self.idProductoMov">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="S_destinoMov" Association="Self.S_destinoMov">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="S_origenMov" Association="Self.S_origenMov">
+            <End Role="sucursal" EntitySet="sucursal" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="U_destinoMov" Association="Self.U_destinoMov">
+            <End Role="ubicacion" EntitySet="ubicacion" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="U_origenMov" Association="Self.U_origenMov">
+            <End Role="ubicacion" EntitySet="ubicacion" />
+            <End Role="movimiento" EntitySet="movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoNB" Association="Self.idProductoNB">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoNN" Association="Self.idProductoNN">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadneta" EntitySet="necesidadneta" />
+          </AssociationSet>
+          <AssociationSet Name="UserOE" Association="Self.UserOE">
+            <End Role="users" EntitySet="users" />
+            <End Role="operario_estacion" EntitySet="operario_estacion" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoOC" Association="Self.idProductoOC">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
+          </AssociationSet>
+          <AssociationSet Name="userOC" Association="Self.userOC">
+            <End Role="users" EntitySet="users" />
+            <End Role="ordencompra" EntitySet="ordencompra" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoP" Association="Self.idHijoP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreP" Association="Self.idPadreP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="user_upd" Association="Self.user_upd">
+            <End Role="users" EntitySet="users" />
+            <End Role="padre_componente_publicado" EntitySet="padre_componente_publicado" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoT" Association="Self.idHijoT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
+          </AssociationSet>
+          <AssociationSet Name="idPadreT" Association="Self.idPadreT">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="padre_componente_temporal" EntitySet="padre_componente_temporal" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoPMP" Association="Self.idProductoPMP">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="pmp" EntitySet="pmp" />
+          </AssociationSet>
+          <AssociationSet Name="idHijoPS" Association="Self.idHijoPS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idPadrePS" Association="Self.idPadrePS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoRD" Association="Self.idProductoRD">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoRequerimiento" Association="Self.idProductoRequerimiento">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="requerimientos" EntitySet="requerimientos" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoS" Association="Self.idProductoS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="idSustitutoPS" Association="Self.idSustitutoPS">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="idTipo" Association="Self.idTipo">
+            <End Role="tipo_producto" EntitySet="tipo_producto" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Aplication" Association="Self.Unidad_id_Aplication">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="Unidad_id_Purchase" Association="Self.Unidad_id_Purchase">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="userPS" Association="Self.userPS">
+            <End Role="users" EntitySet="users" />
+            <End Role="producto_sustituto" EntitySet="producto_sustituto" />
+          </AssociationSet>
+          <AssociationSet Name="User_updR" Association="Self.User_updR">
+            <End Role="users" EntitySet="users" />
+            <End Role="razon" EntitySet="razon" />
+          </AssociationSet>
+          <AssociationSet Name="idRemitoRD" Association="Self.idRemitoRD">
+            <End Role="remito" EntitySet="remito" />
+            <End Role="remito_detalle" EntitySet="remito_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="idRole" Association="Self.idRole">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="unidad_medidaS" Association="Self.unidad_medidaS">
+            <End Role="unidad_medida" EntitySet="unidad_medida" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="User_updS" Association="Self.User_updS">
+            <End Role="users" EntitySet="users" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="usuarioxrazon" Association="Self.usuarioxrazon">
+            <End Role="razon" EntitySet="razon" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2928,103 +2747,103 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySetMapping Name="almacen">
             <EntityTypeMapping TypeName="Model.almacen">
               <MappingFragment StoreEntitySet="almacen">
-                <ScalarProperty Name="Real" ColumnName="Real" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
-                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
                 <ScalarProperty Name="idAlmacen" ColumnName="idAlmacen" />
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Real" ColumnName="Real" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="articulo">
             <EntityTypeMapping TypeName="Model.articulo">
               <MappingFragment StoreEntitySet="articulo">
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="fecha_caducidad" ColumnName="fecha_caducidad" />
-                <ScalarProperty Name="fecha_fabricacion" ColumnName="fecha_fabricacion" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="numero_serie" ColumnName="numero_serie" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="fecha_fabricacion" ColumnName="fecha_fabricacion" />
+                <ScalarProperty Name="fecha_caducidad" ColumnName="fecha_caducidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ciclo">
             <EntityTypeMapping TypeName="Model.ciclo">
               <MappingFragment StoreEntitySet="ciclo">
-                <ScalarProperty Name="tiempo_finalizacion" ColumnName="tiempo_finalizacion" />
-                <ScalarProperty Name="tiempo_operacion" ColumnName="tiempo_operacion" />
-                <ScalarProperty Name="tiempo_setup" ColumnName="tiempo_setup" />
-                <ScalarProperty Name="fecha_hasta" ColumnName="fecha_hasta" />
-                <ScalarProperty Name="fecha_desde" ColumnName="fecha_desde" />
-                <ScalarProperty Name="idSalida" ColumnName="idSalida" />
                 <ScalarProperty Name="idCiclo" ColumnName="idCiclo" />
+                <ScalarProperty Name="idSalida" ColumnName="idSalida" />
+                <ScalarProperty Name="fecha_desde" ColumnName="fecha_desde" />
+                <ScalarProperty Name="fecha_hasta" ColumnName="fecha_hasta" />
+                <ScalarProperty Name="tiempo_setup" ColumnName="tiempo_setup" />
+                <ScalarProperty Name="tiempo_operacion" ColumnName="tiempo_operacion" />
+                <ScalarProperty Name="tiempo_finalizacion" ColumnName="tiempo_finalizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ciclo_precedente">
             <EntityTypeMapping TypeName="Model.ciclo_precedente">
               <MappingFragment StoreEntitySet="ciclo_precedente">
-                <ScalarProperty Name="idCiclo_actual" ColumnName="idCiclo_actual" />
                 <ScalarProperty Name="idCiclo_precedente" ColumnName="idCiclo_precedente" />
+                <ScalarProperty Name="idCiclo_actual" ColumnName="idCiclo_actual" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="conversion">
             <EntityTypeMapping TypeName="Model.conversion">
               <MappingFragment StoreEntitySet="conversion">
-                <ScalarProperty Name="Coeficiente" ColumnName="Coeficiente" />
-                <ScalarProperty Name="U_medida" ColumnName="U_medida" />
                 <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="U_medida" ColumnName="U_medida" />
+                <ScalarProperty Name="Coeficiente" ColumnName="Coeficiente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="direccion">
             <EntityTypeMapping TypeName="Model.direccion">
               <MappingFragment StoreEntitySet="direccion">
-                <ScalarProperty Name="Direccioncol" ColumnName="Direccioncol" />
-                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
-                <ScalarProperty Name="Pais" ColumnName="Pais" />
-                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
-                <ScalarProperty Name="Barrio" ColumnName="Barrio" />
-                <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="Calle" ColumnName="Calle" />
                 <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Barrio" ColumnName="Barrio" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Direccioncol" ColumnName="Direccioncol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="estacion">
             <EntityTypeMapping TypeName="Model.estacion">
               <MappingFragment StoreEntitySet="estacion">
-                <ScalarProperty Name="idDescripcion" ColumnName="idDescripcion" />
-                <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
                 <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
+                <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+                <ScalarProperty Name="idDescripcion" ColumnName="idDescripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="externo">
             <EntityTypeMapping TypeName="Model.externo">
               <MappingFragment StoreEntitySet="externo">
-                <ScalarProperty Name="Nac_Ext" ColumnName="Nac_Ext" />
-                <ScalarProperty Name="Direcion_fac_id" ColumnName="Direcion_fac_id" />
-                <ScalarProperty Name="Direcion_ent_id" ColumnName="Direcion_ent_id" />
-                <ScalarProperty Name="Direcion_id" ColumnName="Direcion_id" />
-                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
-                <ScalarProperty Name="Description_id" ColumnName="Description_id" />
-                <ScalarProperty Name="idTipo_Externo" ColumnName="idTipo_Externo" />
                 <ScalarProperty Name="idExterno" ColumnName="idExterno" />
+                <ScalarProperty Name="idTipo_Externo" ColumnName="idTipo_Externo" />
+                <ScalarProperty Name="Description_id" ColumnName="Description_id" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="Direcion_id" ColumnName="Direcion_id" />
+                <ScalarProperty Name="Direcion_ent_id" ColumnName="Direcion_ent_id" />
+                <ScalarProperty Name="Direcion_fac_id" ColumnName="Direcion_fac_id" />
+                <ScalarProperty Name="Nac_Ext" ColumnName="Nac_Ext" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="herramienta">
             <EntityTypeMapping TypeName="Model.herramienta">
               <MappingFragment StoreEntitySet="herramienta">
-                <ScalarProperty Name="UM_uso" ColumnName="UM_uso" />
-                <ScalarProperty Name="Uso" ColumnName="Uso" />
-                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idHerramienta" ColumnName="idHerramienta" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
+                <ScalarProperty Name="Uso" ColumnName="Uso" />
+                <ScalarProperty Name="UM_uso" ColumnName="UM_uso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3038,357 +2857,305 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySetMapping Name="language">
             <EntityTypeMapping TypeName="Model.language">
               <MappingFragment StoreEntitySet="language">
-                <ScalarProperty Name="Language_Desc" ColumnName="Language_Desc" />
                 <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
+                <ScalarProperty Name="Language_Desc" ColumnName="Language_Desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mantenimiento_maquina">
             <EntityTypeMapping TypeName="Model.mantenimiento_maquina">
               <MappingFragment StoreEntitySet="mantenimiento_maquina">
-                <ScalarProperty Name="piezas_cambiadas" ColumnName="piezas_cambiadas" />
-                <ScalarProperty Name="fecha_mantenimiento" ColumnName="fecha_mantenimiento" />
-                <ScalarProperty Name="idMaquina" ColumnName="idMaquina" />
                 <ScalarProperty Name="idMantenimiento" ColumnName="idMantenimiento" />
+                <ScalarProperty Name="idMaquina" ColumnName="idMaquina" />
+                <ScalarProperty Name="fecha_mantenimiento" ColumnName="fecha_mantenimiento" />
+                <ScalarProperty Name="piezas_cambiadas" ColumnName="piezas_cambiadas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="maquina">
             <EntityTypeMapping TypeName="Model.maquina">
               <MappingFragment StoreEntitySet="maquina">
-                <ScalarProperty Name="tiempo_parada" ColumnName="tiempo_parada" />
-                <ScalarProperty Name="piezas_producidas" ColumnName="piezas_producidas" />
-                <ScalarProperty Name="UM_uso" ColumnName="UM_uso" />
-                <ScalarProperty Name="Uso" ColumnName="Uso" />
-                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idMaquina" ColumnName="idMaquina" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
+                <ScalarProperty Name="Uso" ColumnName="Uso" />
+                <ScalarProperty Name="UM_uso" ColumnName="UM_uso" />
+                <ScalarProperty Name="piezas_producidas" ColumnName="piezas_producidas" />
+                <ScalarProperty Name="tiempo_parada" ColumnName="tiempo_parada" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="movimiento">
             <EntityTypeMapping TypeName="Model.movimiento">
               <MappingFragment StoreEntitySet="movimiento">
-                <ScalarProperty Name="idRazon" ColumnName="idRazon" />
-                <ScalarProperty Name="fechaMovimiento" ColumnName="fechaMovimiento" />
-                <ScalarProperty Name="U_destino" ColumnName="U_destino" />
-                <ScalarProperty Name="A_destino" ColumnName="A_destino" />
-                <ScalarProperty Name="S_destino" ColumnName="S_destino" />
-                <ScalarProperty Name="U_origen" ColumnName="U_origen" />
-                <ScalarProperty Name="A_origen" ColumnName="A_origen" />
-                <ScalarProperty Name="S_origen" ColumnName="S_origen" />
-                <ScalarProperty Name="u_medida" ColumnName="u_medida" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idMovimiento" ColumnName="idMovimiento" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="u_medida" ColumnName="u_medida" />
+                <ScalarProperty Name="S_origen" ColumnName="S_origen" />
+                <ScalarProperty Name="A_origen" ColumnName="A_origen" />
+                <ScalarProperty Name="U_origen" ColumnName="U_origen" />
+                <ScalarProperty Name="S_destino" ColumnName="S_destino" />
+                <ScalarProperty Name="A_destino" ColumnName="A_destino" />
+                <ScalarProperty Name="U_destino" ColumnName="U_destino" />
+                <ScalarProperty Name="fechaMovimiento" ColumnName="fechaMovimiento" />
+                <ScalarProperty Name="idRazon" ColumnName="idRazon" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="necesidadbruta">
             <EntityTypeMapping TypeName="Model.necesidadbruta">
               <MappingFragment StoreEntitySet="necesidadbruta">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
                 <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="necesidadneta">
             <EntityTypeMapping TypeName="Model.necesidadneta">
               <MappingFragment StoreEntitySet="necesidadneta">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
                 <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="operario_estacion">
             <EntityTypeMapping TypeName="Model.operario_estacion">
               <MappingFragment StoreEntitySet="operario_estacion">
-                <ScalarProperty Name="tiempo_finalizacion" ColumnName="tiempo_finalizacion" />
-                <ScalarProperty Name="tiempo_comienzo" ColumnName="tiempo_comienzo" />
-                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="idEstacion" ColumnName="idEstacion" />
+                <ScalarProperty Name="tiempo_comienzo" ColumnName="tiempo_comienzo" />
+                <ScalarProperty Name="tiempo_finalizacion" ColumnName="tiempo_finalizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ordencompra">
             <EntityTypeMapping TypeName="Model.ordencompra">
               <MappingFragment StoreEntitySet="ordencompra">
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
-                <ScalarProperty Name="NroOrdenCompra" ColumnName="NroOrdenCompra" />
                 <ScalarProperty Name="idOrdenCompra" ColumnName="idOrdenCompra" />
+                <ScalarProperty Name="NroOrdenCompra" ColumnName="NroOrdenCompra" />
+                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="padre_componente_publicado">
             <EntityTypeMapping TypeName="Model.padre_componente_publicado">
               <MappingFragment StoreEntitySet="padre-componente-publicado">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="activado" ColumnName="activado" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
-                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
-                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="idHijoP" ColumnName="idHijoP" />
                 <ScalarProperty Name="idPadreP" ColumnName="idPadreP" />
+                <ScalarProperty Name="idHijoP" ColumnName="idHijoP" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
+                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="activado" ColumnName="activado" />
+                <ScalarProperty Name="version" ColumnName="version" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="padre_componente_temporal">
             <EntityTypeMapping TypeName="Model.padre_componente_temporal">
               <MappingFragment StoreEntitySet="padre-componente-temporal">
-                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
-                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
                 <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="U_medida_default" ColumnName="U_medida_default" />
+                <ScalarProperty Name="U_medida_usada" ColumnName="U_medida_usada" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="pmp">
             <EntityTypeMapping TypeName="Model.pmp">
               <MappingFragment StoreEntitySet="pmp">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
                 <ScalarProperty Name="idProductoPadre" ColumnName="idProductoPadre" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="producto">
             <EntityTypeMapping TypeName="Model.producto">
               <MappingFragment StoreEntitySet="producto">
-                <ScalarProperty Name="Codigo_abreviado" ColumnName="Codigo_abreviado" />
-                <ScalarProperty Name="User_Upd" ColumnName="User_Upd" />
-                <ScalarProperty Name="Last_Upd" ColumnName="Last_Upd" />
-                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
-                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-                <ScalarProperty Name="Unidad_id_Aplication" ColumnName="Unidad_id_Aplication" />
-                <ScalarProperty Name="Unidad_id_Purchase" ColumnName="Unidad_id_Purchase" />
-                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
-                <ScalarProperty Name="idDescriptionP" ColumnName="idDescriptionP" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idDescriptionP" ColumnName="idDescriptionP" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="Unidad_id_Purchase" ColumnName="Unidad_id_Purchase" />
+                <ScalarProperty Name="Unidad_id_Aplication" ColumnName="Unidad_id_Aplication" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Last_Upd" ColumnName="Last_Upd" />
+                <ScalarProperty Name="User_Upd" ColumnName="User_Upd" />
+                <ScalarProperty Name="Codigo_abreviado" ColumnName="Codigo_abreviado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="producto_sustituto">
             <EntityTypeMapping TypeName="Model.producto_sustituto">
               <MappingFragment StoreEntitySet="producto-sustituto">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="activado" ColumnName="activado" />
-                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="sustituto" ColumnName="sustituto" />
-                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
                 <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="sustituto" ColumnName="sustituto" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="fecha_aplicacion" ColumnName="fecha_aplicacion" />
+                <ScalarProperty Name="activado" ColumnName="activado" />
+                <ScalarProperty Name="version" ColumnName="version" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="razon">
             <EntityTypeMapping TypeName="Model.razon">
               <MappingFragment StoreEntitySet="razon">
-                <ScalarProperty Name="U_destino" ColumnName="U_destino" />
-                <ScalarProperty Name="A_destino" ColumnName="A_destino" />
-                <ScalarProperty Name="S_destino" ColumnName="S_destino" />
-                <ScalarProperty Name="U_origen" ColumnName="U_origen" />
-                <ScalarProperty Name="A_origen" ColumnName="A_origen" />
-                <ScalarProperty Name="S_origen" ColumnName="S_origen" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="idDescripcion" ColumnName="idDescripcion" />
                 <ScalarProperty Name="idRazon" ColumnName="idRazon" />
+                <ScalarProperty Name="idDescripcion" ColumnName="idDescripcion" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
+                <ScalarProperty Name="S_origen" ColumnName="S_origen" />
+                <ScalarProperty Name="A_origen" ColumnName="A_origen" />
+                <ScalarProperty Name="U_origen" ColumnName="U_origen" />
+                <ScalarProperty Name="S_destino" ColumnName="S_destino" />
+                <ScalarProperty Name="A_destino" ColumnName="A_destino" />
+                <ScalarProperty Name="U_destino" ColumnName="U_destino" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="remito">
             <EntityTypeMapping TypeName="Model.remito">
               <MappingFragment StoreEntitySet="remito">
-                <ScalarProperty Name="Destino" ColumnName="Destino" />
-                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
                 <ScalarProperty Name="idRemito" ColumnName="idRemito" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Destino" ColumnName="Destino" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="remito_detalle">
             <EntityTypeMapping TypeName="Model.remito_detalle">
               <MappingFragment StoreEntitySet="remito_detalle">
-                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="idRemito" ColumnName="idRemito" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="requerimientos">
             <EntityTypeMapping TypeName="Model.requerimientos">
               <MappingFragment StoreEntitySet="requerimientos">
-                <ScalarProperty Name="Delta" ColumnName="Delta" />
-                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Semana" ColumnName="Semana" />
+                <ScalarProperty Name="Cant" ColumnName="Cant" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Delta" ColumnName="Delta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="role">
             <EntityTypeMapping TypeName="Model.role">
               <MappingFragment StoreEntitySet="role">
-                <ScalarProperty Name="idDescriptionR" ColumnName="idDescriptionR" />
                 <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="idDescriptionR" ColumnName="idDescriptionR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="stock">
             <EntityTypeMapping TypeName="Model.stock">
               <MappingFragment StoreEntitySet="stock">
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="idAlmacen" ColumnName="idAlmacen" />
-                <ScalarProperty Name="unidad_medida" ColumnName="unidad_medida" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="unidad_medida" ColumnName="unidad_medida" />
+                <ScalarProperty Name="idAlmacen" ColumnName="idAlmacen" />
+                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
+                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sucursal">
             <EntityTypeMapping TypeName="Model.sucursal">
               <MappingFragment StoreEntitySet="sucursal">
-                <ScalarProperty Name="Real" ColumnName="Real" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
                 <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="idDireccion" ColumnName="idDireccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Real" ColumnName="Real" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tipo_externo">
             <EntityTypeMapping TypeName="Model.tipo_externo">
               <MappingFragment StoreEntitySet="tipo_externo">
-                <ScalarProperty Name="idDescriptionTE" ColumnName="idDescriptionTE" />
                 <ScalarProperty Name="idTipo_Externo" ColumnName="idTipo_Externo" />
+                <ScalarProperty Name="idDescriptionTE" ColumnName="idDescriptionTE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tipo_producto">
             <EntityTypeMapping TypeName="Model.tipo_producto">
               <MappingFragment StoreEntitySet="tipo_producto">
-                <ScalarProperty Name="idDescriptionTP" ColumnName="idDescriptionTP" />
                 <ScalarProperty Name="idTipo_Producto" ColumnName="idTipo_Producto" />
+                <ScalarProperty Name="idDescriptionTP" ColumnName="idDescriptionTP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="traduccion">
             <EntityTypeMapping TypeName="Model.traduccion">
               <MappingFragment StoreEntitySet="traduccion">
-                <ScalarProperty Name="Traduccion_str" ColumnName="Traduccion_str" />
-                <ScalarProperty Name="idLanguageT" ColumnName="idLanguageT" />
                 <ScalarProperty Name="idDescriptionT" ColumnName="idDescriptionT" />
+                <ScalarProperty Name="idLanguageT" ColumnName="idLanguageT" />
+                <ScalarProperty Name="Traduccion_str" ColumnName="Traduccion_str" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ubicacion">
             <EntityTypeMapping TypeName="Model.ubicacion">
               <MappingFragment StoreEntitySet="ubicacion">
-                <ScalarProperty Name="z" ColumnName="z" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="idAlmacen" ColumnName="idAlmacen" />
                 <ScalarProperty Name="idUbicacion" ColumnName="idUbicacion" />
+                <ScalarProperty Name="idAlmacen" ColumnName="idAlmacen" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="z" ColumnName="z" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="unidad_medida">
             <EntityTypeMapping TypeName="Model.unidad_medida">
               <MappingFragment StoreEntitySet="unidad_medida">
-                <ScalarProperty Name="Factor_N" ColumnName="Factor_N" />
-                <ScalarProperty Name="idDescriptionUM" ColumnName="idDescriptionUM" />
                 <ScalarProperty Name="idUnidad_Medida" ColumnName="idUnidad_Medida" />
+                <ScalarProperty Name="idDescriptionUM" ColumnName="idDescriptionUM" />
+                <ScalarProperty Name="Factor_N" ColumnName="Factor_N" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="Model.users">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Interno" ColumnName="Interno" />
-                <ScalarProperty Name="idRole" ColumnName="idRole" />
-                <ScalarProperty Name="Sector" ColumnName="Sector" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="Interno" ColumnName="Interno" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="idLanguage" ColumnName="idLanguage" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="usuarioxrazon" TypeName="Model.usuarioxrazon" StoreEntitySet="usuarioxrazon">
-            <EndProperty Name="users">
-              <ScalarProperty Name="idUsers" ColumnName="idUsuario" />
-            </EndProperty>
             <EndProperty Name="razon">
               <ScalarProperty Name="idRazon" ColumnName="idRazon" />
             </EndProperty>
+            <EndProperty Name="users">
+              <ScalarProperty Name="idUsers" ColumnName="idUsuario" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="necesidadbruta">
-            <EntityTypeMapping TypeName="Model.necesidadbruta">
-              <MappingFragment StoreEntitySet="necesidadbruta">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="necesidadneta">
-            <EntityTypeMapping TypeName="Model.necesidadneta">
-              <MappingFragment StoreEntitySet="necesidadneta">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ordencompra">
-            <EntityTypeMapping TypeName="Model.ordencompra">
-              <MappingFragment StoreEntitySet="ordencompra">
-                <ScalarProperty Name="last_upd" ColumnName="last_upd" />
-                <ScalarProperty Name="user_upd" ColumnName="user_upd" />
-                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProductoHijo" ColumnName="idProductoHijo" />
-                <ScalarProperty Name="NroOrdenCompra" ColumnName="NroOrdenCompra" />
-                <ScalarProperty Name="idOrdenCompra" ColumnName="idOrdenCompra" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="pmp">
-            <EntityTypeMapping TypeName="Model.pmp">
-              <MappingFragment StoreEntitySet="pmp">
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProductoPadre" ColumnName="idProductoPadre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="requerimientos">
-            <EntityTypeMapping TypeName="Model.requerimientos">
-              <MappingFragment StoreEntitySet="requerimientos">
-                <ScalarProperty Name="Delta" ColumnName="Delta" />
-                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
-                <ScalarProperty Name="Cant" ColumnName="Cant" />
-                <ScalarProperty Name="Semana" ColumnName="Semana" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
