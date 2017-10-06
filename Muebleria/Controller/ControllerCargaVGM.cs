@@ -10,11 +10,6 @@ namespace Muebleria
     {
         ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
         ControllerMRP controllerMRP = new ControllerMRP();
-        public void CargarVGM(string cliente, string prod, int cant, int semana)
-        {
-            requerimientos req = new requerimientos(cliente, consulta.getIDProd(prod),cant,semana);
-            req.cargarRequerimiento();
-        }
 
         public void crearRequerimiento(string cliente, string prod, int cant, int semana)
         {

@@ -29,7 +29,7 @@ namespace Muebleria.View
             if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
             {
                 controllerCargaVGM.crearRequerimiento(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text), f.convertir(monthCalendar1.SelectionRange.Start));
-                MessageBox.Show("Si anduvo");
+                this.Close();
             }
             else
                 MessageBox.Show("No anduvo");

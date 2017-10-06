@@ -23,6 +23,24 @@ namespace Muebleria
             db.requerimientos.Add(this);
             db.SaveChanges();
         }
+
+        public List<requerimientos> getRequerimientosCargados(int semana)
+        {
+            List<requerimientos> lista = new List<requerimientos>();
+            var query = from req in db.requerimientos
+                        where req.Semana == semana
+                        select req;
+            if(query.Count()>0)
+            {
+                foreach (requerimientos item in query)
+                {
+                    lista.Add(item);
+                }
+            }
+            return lista;
+                
+
+        }
         
     }
 }

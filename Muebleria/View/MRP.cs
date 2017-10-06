@@ -18,6 +18,7 @@ namespace Muebleria
             InitializeComponent();
             Fecha fecha = new Fecha();
             label1.Text = fecha.convertir(DateTime.Now).ToString();
+
             cargarDataGrid();
         }
 
