@@ -8,13 +8,16 @@ namespace Muebleria
 {
     class ControllerMRP
     {
-        public requerimientos traerReqCreado(requerimientos req)
+        private List<requerimientos> listReq = new List<requerimientos>();
+
+        public void traerReqCreado(requerimientos req)
         {
-            return req;
+            listReq.Add(req);
         }
-        public int getRequerimientos()
+
+        public List<requerimientos> getRequerimientos()
         {
-            return 1;
+            return listReq;
         }
     }
 }
