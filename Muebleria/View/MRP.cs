@@ -40,5 +40,10 @@ namespace Muebleria
             Menu menu = new Menu();
             menu.ShowDialog();
         }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
