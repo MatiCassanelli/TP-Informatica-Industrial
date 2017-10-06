@@ -187,6 +187,12 @@
     <Compile Include="movimiento.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="View\CargaVGM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CargaVGM.Designer.cs">
+      <DependentUpon>CargaVGM.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MRP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MostrarCodigoBarras.resx">
       <DependentUpon>MostrarCodigoBarras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CargaVGM.resx">
+      <DependentUpon>CargaVGM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MRP.resx">
       <DependentUpon>MRP.cs</DependentUpon>
