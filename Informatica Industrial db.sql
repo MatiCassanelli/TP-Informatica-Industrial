@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: informatica industrial db
 -- ------------------------------------------------------
--- Server version	5.5.57-log
+-- Server version	5.5.57
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -78,7 +78,6 @@ CREATE TABLE `articulo` (
 
 LOCK TABLES `articulo` WRITE;
 /*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
-INSERT INTO `articulo` VALUES (100010000008,10056456,'2017-09-26 10:30:52','2017-09-26 10:30:52','Fabricado',1,'2017-09-26 13:30:52',1),(100010000016,10056456,'2017-09-26 10:30:54','2017-09-26 10:30:54','Fabricado',1,'2017-09-26 13:30:54',1),(100010000024,10056456,'2017-09-26 10:30:54','2017-09-26 10:30:54','Fabricado',1,'2017-09-26 13:30:54',1),(100010000032,10056456,'2017-09-26 10:39:47','2017-09-26 10:39:47','Fabricado',1,'2017-09-26 13:39:47',1),(300010000040,10056458,'2017-09-26 10:44:10','2017-09-26 10:44:10','Fabricado',1,'2017-09-26 13:44:10',1),(300010000058,10056458,'2017-09-26 10:44:11','2017-09-26 10:44:11','Fuera de mi Planta',4,'2017-09-26 13:45:30',1);
 /*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,6 +303,7 @@ CREATE TABLE `historial_txt` (
 
 LOCK TABLES `historial_txt` WRITE;
 /*!40000 ALTER TABLE `historial_txt` DISABLE KEYS */;
+INSERT INTO `historial_txt` VALUES (1);
 /*!40000 ALTER TABLE `historial_txt` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,6 +417,8 @@ CREATE TABLE `movimiento` (
   KEY `S_destinoMov_idx` (`S_destino`),
   KEY `A_destinoMov_idx` (`A_destino`),
   KEY `U_destinoMov_idx` (`U_destino`),
+  KEY `idArtiucloMov_idx` (`idArticulo`),
+  CONSTRAINT `idArtiucloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_destinoMov` FOREIGN KEY (`A_destino`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -424,7 +426,7 @@ CREATE TABLE `movimiento` (
   CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `U_origenMov` FOREIGN KEY (`U_origen`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,8 +435,58 @@ CREATE TABLE `movimiento` (
 
 LOCK TABLES `movimiento` WRITE;
 /*!40000 ALTER TABLE `movimiento` DISABLE KEYS */;
-INSERT INTO `movimiento` VALUES (88,10056456,NULL,23,1,4,5,NULL,1,1,NULL,'2017-09-26 13:29:53',1),(89,10056457,NULL,17,1,4,5,NULL,1,1,NULL,'2017-09-26 13:30:13',1),(90,10056456,NULL,3,1,1,NULL,NULL,1,NULL,NULL,'2017-09-26 13:30:52',1),(91,10056456,NULL,1,1,1,NULL,NULL,1,NULL,NULL,'2017-09-26 13:39:47',1),(92,10056458,NULL,2,2,1,NULL,NULL,1,NULL,NULL,'2017-09-26 13:44:10',4),(93,10056458,300010000058,1,1,1,1,NULL,3,4,NULL,'2017-09-26 13:45:30',2),(94,10056456,NULL,3,2,3,4,NULL,2,3,4,'2017-09-26 13:55:44',3);
+INSERT INTO `movimiento` VALUES (121,10056473,NULL,12,1,4,5,NULL,1,1,NULL,'2017-09-27 21:40:53',1),(122,10056473,NULL,5,1,1,1,1,2,3,4,'2017-09-27 21:47:50',3),(123,10056483,NULL,1000030,NULL,4,NULL,NULL,1,NULL,NULL,'2016-10-01 03:00:00',3);
 /*!40000 ALTER TABLE `movimiento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `necesidadbruta`
+--
+
+DROP TABLE IF EXISTS `necesidadbruta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `necesidadbruta` (
+  `idProductoHijo` int(11) NOT NULL,
+  `Semana` int(11) NOT NULL,
+  `Cant` int(11) NOT NULL,
+  PRIMARY KEY (`idProductoHijo`,`Semana`),
+  CONSTRAINT `idProductoNB` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `necesidadbruta`
+--
+
+LOCK TABLES `necesidadbruta` WRITE;
+/*!40000 ALTER TABLE `necesidadbruta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `necesidadbruta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `necesidadneta`
+--
+
+DROP TABLE IF EXISTS `necesidadneta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `necesidadneta` (
+  `idProductoHijo` int(11) NOT NULL,
+  `Semana` int(11) NOT NULL,
+  `Cant` int(11) NOT NULL,
+  PRIMARY KEY (`idProductoHijo`,`Semana`),
+  CONSTRAINT `idProductoNN` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `necesidadneta`
+--
+
+LOCK TABLES `necesidadneta` WRITE;
+/*!40000 ALTER TABLE `necesidadneta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `necesidadneta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -463,6 +515,39 @@ CREATE TABLE `operario_estacion` (
 LOCK TABLES `operario_estacion` WRITE;
 /*!40000 ALTER TABLE `operario_estacion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `operario_estacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ordencompra`
+--
+
+DROP TABLE IF EXISTS `ordencompra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ordencompra` (
+  `idOrdenCompra` int(11) NOT NULL AUTO_INCREMENT,
+  `NroOrdenCompra` varchar(45) NOT NULL,
+  `idProductoHijo` int(11) NOT NULL,
+  `Semana` int(11) NOT NULL,
+  `Cant` int(11) NOT NULL,
+  `Proveedor` varchar(50) NOT NULL,
+  `user_upd` int(11) NOT NULL,
+  `last_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idOrdenCompra`),
+  KEY `idProductoOC_idx` (`idProductoHijo`),
+  KEY `userOC_idx` (`user_upd`),
+  CONSTRAINT `idProductoOC` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `userOC` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordencompra`
+--
+
+LOCK TABLES `ordencompra` WRITE;
+/*!40000 ALTER TABLE `ordencompra` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ordencompra` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -532,6 +617,31 @@ LOCK TABLES `padre-componente-temporal` WRITE;
 /*!40000 ALTER TABLE `padre-componente-temporal` DISABLE KEYS */;
 INSERT INTO `padre-componente-temporal` VALUES (10056457,10056477,5,1,1);
 /*!40000 ALTER TABLE `padre-componente-temporal` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pmp`
+--
+
+DROP TABLE IF EXISTS `pmp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pmp` (
+  `idProductoPadre` int(11) NOT NULL,
+  `Semana` int(11) NOT NULL,
+  `Cant` int(11) NOT NULL,
+  PRIMARY KEY (`idProductoPadre`,`Semana`),
+  CONSTRAINT `idProductoPMP` FOREIGN KEY (`idProductoPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pmp`
+--
+
+LOCK TABLES `pmp` WRITE;
+/*!40000 ALTER TABLE `pmp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pmp` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -635,10 +745,9 @@ CREATE TABLE `razon` (
   KEY `idDescripcionR_idx` (`idDescripcion`),
   KEY `idProductoR_idx` (`idProducto`),
   KEY `User_updR_idx` (`user_upd`),
-  CONSTRAINT `idProductoR` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idDescripcionR` FOREIGN KEY (`idDescripcion`) REFERENCES `traduccion` (`idDescriptionT`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `User_updR` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -647,7 +756,7 @@ CREATE TABLE `razon` (
 
 LOCK TABLES `razon` WRITE;
 /*!40000 ALTER TABLE `razon` DISABLE KEYS */;
-INSERT INTO `razon` VALUES (1,1,NULL,'2017-09-06 03:26:21',1,4,5,NULL,1,1,NULL),(2,3,NULL,'2017-09-06 03:26:21',1,1,1,NULL,3,4,NULL),(3,5,NULL,'2017-09-06 03:26:21',1,NULL,NULL,NULL,NULL,NULL,NULL),(4,7,NULL,'2017-09-06 03:26:21',1,1,NULL,NULL,1,NULL,NULL);
+INSERT INTO `razon` VALUES (1,1,NULL,'2017-09-06 03:26:21',1,4,5,NULL,1,1,NULL),(2,3,NULL,'2017-09-06 03:26:21',1,1,1,NULL,3,4,NULL),(3,5,NULL,'2017-09-06 03:26:21',1,NULL,NULL,NULL,NULL,NULL,NULL),(4,7,NULL,'2017-09-06 03:26:21',1,1,NULL,NULL,1,NULL,NULL),(5,10,NULL,'2017-09-27 21:45:07',1,1,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `razon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,7 +772,7 @@ CREATE TABLE `remito` (
   `Cliente` varchar(45) NOT NULL,
   `Destino` varchar(45) NOT NULL,
   PRIMARY KEY (`idRemito`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -672,6 +781,7 @@ CREATE TABLE `remito` (
 
 LOCK TABLES `remito` WRITE;
 /*!40000 ALTER TABLE `remito` DISABLE KEYS */;
+INSERT INTO `remito` VALUES (1,'as','asd');
 /*!40000 ALTER TABLE `remito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -699,7 +809,35 @@ CREATE TABLE `remito_detalle` (
 
 LOCK TABLES `remito_detalle` WRITE;
 /*!40000 ALTER TABLE `remito_detalle` DISABLE KEYS */;
+INSERT INTO `remito_detalle` VALUES (1,10056456,100010000008);
 /*!40000 ALTER TABLE `remito_detalle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `requerimientos`
+--
+
+DROP TABLE IF EXISTS `requerimientos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `requerimientos` (
+  `idProducto` int(11) NOT NULL,
+  `Semana` int(11) NOT NULL,
+  `Cant` int(11) NOT NULL,
+  `Cliente` varchar(45) NOT NULL,
+  `Delta` int(11) NOT NULL,
+  PRIMARY KEY (`idProducto`,`Semana`,`Cliente`),
+  CONSTRAINT `idProductoRequerimiento` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requerimientos`
+--
+
+LOCK TABLES `requerimientos` WRITE;
+/*!40000 ALTER TABLE `requerimientos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `requerimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -757,7 +895,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (10056456,27,1,1,'2017-09-26 13:39:47',1),(10056456,3,2,3,'2017-09-26 13:55:44',1),(10056456,-3,2,4,'2017-09-26 13:55:44',1),(10056456,26,1,5,'2017-09-26 13:30:52',1),(10056457,17,1,1,'2017-09-26 13:30:13',1),(10056457,-17,1,5,'2017-09-26 13:30:13',1),(10056458,1,2,1,'2017-09-26 13:45:30',1),(10056458,1,1,4,'2017-09-26 13:45:30',1);
+INSERT INTO `stock` VALUES (10056473,7,1,1,'2017-09-27 21:47:50',1),(10056473,5,1,3,'2017-09-27 21:47:50',1),(10056473,-12,1,5,'2017-09-27 21:40:53',1),(10056483,1000030,1,1,'2017-09-27 21:58:09',1);
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -861,7 +999,7 @@ CREATE TABLE `traduccion` (
 
 LOCK TABLES `traduccion` WRITE;
 /*!40000 ALTER TABLE `traduccion` DISABLE KEYS */;
-INSERT INTO `traduccion` VALUES (1022,1,'A'),(1022,2,'A'),(2010,2,'Aglo wood'),(2037,1,'Antideslizante Goma 1'),(2038,1,'Antideslizante Goma 3'),(2039,1,'Antideslizante Goma 3'),(2037,2,'Antiskid Rubber 1'),(2028,2,'Bar B Aglo'),(2026,2,'Bar B Oak'),(2024,2,'Bar B Pino'),(2029,2,'Bar B Plate'),(2027,2,'Bar B Smooth'),(2028,1,'Barra B Aglo'),(2025,1,'Barra B Caoba'),(2027,1,'Barra B Liso'),(2024,1,'Barra B Pino'),(2029,1,'Barra B Placa'),(2026,1,'Barra B Roble'),(2041,2,'Blue paint'),(1004,1,'Bruto'),(2016,1,'Cinta Borde Aglo'),(2013,1,'Cinta Borde Caoba'),(2015,1,'Cinta Borde Liso'),(2012,1,'Cinta Borde Pino'),(2017,1,'Cinta Borde Placa'),(2014,1,'Cinta Borde Roble'),(2074,1,'Clavo Cajonero'),(1201,2,'Client'),(1201,1,'Cliente'),(1013,1,'Cm'),(1013,2,'Cm'),(1018,1,'cm2'),(1018,2,'cm2'),(1015,1,'cm3'),(1015,2,'cm3'),(1,1,'Compra'),(2023,2,'cover Plate'),(2075,1,'Desarrollador'),(2003,2,'desk 2x1'),(2004,2,'desktop 1x30'),(2075,2,'developer'),(1019,1,'Dl'),(1019,2,'Dl'),(1012,1,'Docena'),(1012,2,'Dozen'),(2013,2,'Edge Ribbon Mahogany'),(2016,2,'Edge tape Aglo'),(2014,2,'Edge tape Oak'),(2004,1,'Escritorio 1x30'),(2003,1,'Escritorio 2x1'),(2005,1,'Escritorio Exec'),(2005,2,'Exec desktop'),(7,1,'Fabricar'),(1001,2,'Final product'),(2072,2,'Front side Aglo'),(2069,2,'Front Side Mahogany'),(2068,2,'Front side Pino'),(2073,2,'Front Side Plate'),(2070,2,'Front side Roble'),(2071,2,'Front Side Smooth'),(5,2,'Generic'),(5,1,'Genérica'),(2043,2,'Gray paint'),(2042,2,'Green paint'),(1021,1,'Ha'),(1021,2,'Ha'),(2048,2,'hardware C'),(2046,1,'Herraje A'),(2047,1,'Herraje B'),(2048,1,'Herraje C'),(2049,1,'Herraje D'),(1002,2,'intermediate Buy'),(1003,2,'intermediate Make'),(1002,1,'Intermedio Buy'),(1003,1,'Intermedio Make'),(1020,1,'Km'),(1020,2,'Km'),(2045,1,'Laca Brillante'),(2045,2,'Laca Brillante'),(2044,1,'Laca Opaca'),(2066,2,'Lateral Aglo Fund'),(2054,1,'Lateral Derecho Aglo'),(2051,1,'Lateral Derecho Caoba'),(2053,1,'Lateral Derecho Liso'),(2050,1,'Lateral Derecho Pino'),(2055,1,'Lateral Derecho Placa'),(2052,1,'Lateral Derecho Roble'),(2066,1,'Lateral Fondo Aglo'),(2063,1,'Lateral Fondo Caoba'),(2065,1,'Lateral Fondo Liso'),(2062,1,'Lateral Fondo Pino'),(2067,1,'Lateral Fondo Placa'),(2064,1,'Lateral Fondo Roble'),(2072,1,'Lateral Frente Aglo'),(2069,1,'Lateral Frente Caoba'),(2071,1,'Lateral Frente Liso'),(2068,1,'Lateral Frente Pino'),(2073,1,'Lateral Frente Placa'),(2070,1,'Lateral Frente Roble'),(2060,1,'Lateral Izquierdo Aglo'),(2057,1,'Lateral Izquierdo Caoba'),(2059,1,'Lateral Izquierdo Liso'),(2056,1,'Lateral Izquierdo Pino'),(2061,1,'Lateral Izquierdo Placa'),(2058,1,'Lateral Izquierdo Roble'),(2064,2,'Lateral Oak Fund'),(2062,2,'Lateral Pino Fund'),(2065,2,'Lateral plain background'),(2060,2,'Left side Aglo'),(2057,2,'Left Side Mahogany'),(2056,2,'Left side Pino'),(2061,2,'Left Side plate'),(2058,2,'Left side Roble'),(1011,2,'Liter'),(1011,1,'Litro'),(2033,2,'Long screw'),(1014,1,'M'),(1014,2,'M'),(1017,1,'m2'),(1017,2,'m2'),(1016,1,'m3'),(1016,2,'m3'),(2010,1,'Madera Aglo'),(2007,1,'Madera Caoba'),(2009,1,'Madera Liso'),(2006,1,'Madera Pino'),(2011,1,'Madera Placa'),(2008,1,'Madera Roble'),(2019,2,'Mahogany'),(2025,2,'Mahogany Bar B'),(2051,2,'Mahogany Right Wing'),(2063,2,'Mahogany Side Fund'),(2007,2,'Mahogany wood'),(2002,1,'Mesa Redonda'),(2001,1,'Mesa Tubular'),(1010,2,'N Number'),(1010,1,'N Numero'),(2074,2,'nail cajonero'),(2008,2,'Oak wood'),(2044,2,'Opaque Laca'),(2012,2,'Pine Edge Tape'),(2006,2,'Pine wood'),(2018,2,'Pino top'),(2041,1,'Pintura Azul'),(2043,1,'Pintura Gris'),(2042,1,'Pintura Verde'),(2017,2,'Plate Edge Tape'),(7,2,'Produce'),(1004,2,'product Gross'),(1001,1,'Producto Final'),(1200,1,'Proveedor'),(1200,2,'Provider'),(2,2,'Purchase'),(2055,2,'Right Side Plate'),(2054,2,'Right Wing Aglo'),(2052,2,'Right Wing Oak'),(2050,2,'Right Wing Pino'),(2002,2,'Round table'),(2038,2,'Rubber nonslip 3'),(2039,2,'Rubber nonslip 3'),(4,2,'Sail'),(2030,2,'Screws secured C'),(2031,2,'Screws secured L'),(2046,2,'shoeing A'),(2047,2,'shoeing B'),(2049,2,'shoeing D'),(2032,2,'Short screw'),(2067,2,'Side plate Fund'),(2059,2,'Smooth Left Side'),(2021,2,'Smooth top'),(2009,2,'Smooth wood'),(2035,1,'Soporte T 1'),(2036,1,'Soporte T 1 -1/2'),(2034,1,'Soporte T ½'),(2015,2,'Straight Edge Tape'),(2053,2,'Straight Right Side'),(2030,1,'Sujeta Tornillos C'),(2031,1,'Sujeta Tornillos L'),(2035,2,'Support T 1'),(2036,2,'Support T 1 -1/2'),(2034,2,'Support T ½'),(2022,1,'Tapa Aglo'),(2019,1,'Tapa Caoba'),(2021,1,'Tapa Liso'),(2018,1,'Tapa Pino'),(2023,1,'Tapa Placa'),(2020,1,'Tapa Roble'),(2022,2,'top Aglo'),(2020,2,'top Oak'),(2032,1,'Tornillo Corto'),(2033,1,'Tornillo Largo'),(2040,2,'Tube 6/8 \"'),(2040,1,'Tubo 6/8\"'),(2001,2,'Tubular table'),(3,1,'Venta'),(2011,2,'wood Stove');
+INSERT INTO `traduccion` VALUES (1022,1,'A'),(1022,2,'A'),(2010,2,'Aglo wood'),(2037,1,'Antideslizante Goma 1'),(2038,1,'Antideslizante Goma 3'),(2039,1,'Antideslizante Goma 3'),(2037,2,'Antiskid Rubber 1'),(2028,2,'Bar B Aglo'),(2026,2,'Bar B Oak'),(2024,2,'Bar B Pino'),(2029,2,'Bar B Plate'),(2027,2,'Bar B Smooth'),(2028,1,'Barra B Aglo'),(2025,1,'Barra B Caoba'),(2027,1,'Barra B Liso'),(2024,1,'Barra B Pino'),(2029,1,'Barra B Placa'),(2026,1,'Barra B Roble'),(2041,2,'Blue paint'),(1004,1,'Bruto'),(2016,1,'Cinta Borde Aglo'),(2013,1,'Cinta Borde Caoba'),(2015,1,'Cinta Borde Liso'),(2012,1,'Cinta Borde Pino'),(2017,1,'Cinta Borde Placa'),(2014,1,'Cinta Borde Roble'),(2074,1,'Clavo Cajonero'),(1201,2,'Client'),(1201,1,'Cliente'),(1013,1,'Cm'),(1013,2,'Cm'),(1018,1,'cm2'),(1018,2,'cm2'),(1015,1,'cm3'),(1015,2,'cm3'),(1,1,'Compra'),(2023,2,'cover Plate'),(2075,1,'Desarrollador'),(2003,2,'desk 2x1'),(2004,2,'desktop 1x30'),(2075,2,'developer'),(1019,1,'Dl'),(1019,2,'Dl'),(1012,1,'Docena'),(1012,2,'Dozen'),(2013,2,'Edge Ribbon Mahogany'),(2016,2,'Edge tape Aglo'),(2014,2,'Edge tape Oak'),(2004,1,'Escritorio 1x30'),(2003,1,'Escritorio 2x1'),(2005,1,'Escritorio Exec'),(2005,2,'Exec desktop'),(7,1,'Fabricar'),(1001,2,'Final product'),(2072,2,'Front side Aglo'),(2069,2,'Front Side Mahogany'),(2068,2,'Front side Pino'),(2073,2,'Front Side Plate'),(2070,2,'Front side Roble'),(2071,2,'Front Side Smooth'),(5,2,'Generic'),(5,1,'Genérica'),(2043,2,'Gray paint'),(2042,2,'Green paint'),(1021,1,'Ha'),(1021,2,'Ha'),(2048,2,'hardware C'),(2046,1,'Herraje A'),(2047,1,'Herraje B'),(2048,1,'Herraje C'),(2049,1,'Herraje D'),(1002,2,'intermediate Buy'),(1003,2,'intermediate Make'),(1002,1,'Intermedio Buy'),(1003,1,'Intermedio Make'),(10,2,'intern movement'),(1020,1,'Km'),(1020,2,'Km'),(2045,1,'Laca Brillante'),(2045,2,'Laca Brillante'),(2044,1,'Laca Opaca'),(2066,2,'Lateral Aglo Fund'),(2054,1,'Lateral Derecho Aglo'),(2051,1,'Lateral Derecho Caoba'),(2053,1,'Lateral Derecho Liso'),(2050,1,'Lateral Derecho Pino'),(2055,1,'Lateral Derecho Placa'),(2052,1,'Lateral Derecho Roble'),(2066,1,'Lateral Fondo Aglo'),(2063,1,'Lateral Fondo Caoba'),(2065,1,'Lateral Fondo Liso'),(2062,1,'Lateral Fondo Pino'),(2067,1,'Lateral Fondo Placa'),(2064,1,'Lateral Fondo Roble'),(2072,1,'Lateral Frente Aglo'),(2069,1,'Lateral Frente Caoba'),(2071,1,'Lateral Frente Liso'),(2068,1,'Lateral Frente Pino'),(2073,1,'Lateral Frente Placa'),(2070,1,'Lateral Frente Roble'),(2060,1,'Lateral Izquierdo Aglo'),(2057,1,'Lateral Izquierdo Caoba'),(2059,1,'Lateral Izquierdo Liso'),(2056,1,'Lateral Izquierdo Pino'),(2061,1,'Lateral Izquierdo Placa'),(2058,1,'Lateral Izquierdo Roble'),(2064,2,'Lateral Oak Fund'),(2062,2,'Lateral Pino Fund'),(2065,2,'Lateral plain background'),(2060,2,'Left side Aglo'),(2057,2,'Left Side Mahogany'),(2056,2,'Left side Pino'),(2061,2,'Left Side plate'),(2058,2,'Left side Roble'),(1011,2,'Liter'),(1011,1,'Litro'),(2033,2,'Long screw'),(1014,1,'M'),(1014,2,'M'),(1017,1,'m2'),(1017,2,'m2'),(1016,1,'m3'),(1016,2,'m3'),(2010,1,'Madera Aglo'),(2007,1,'Madera Caoba'),(2009,1,'Madera Liso'),(2006,1,'Madera Pino'),(2011,1,'Madera Placa'),(2008,1,'Madera Roble'),(2019,2,'Mahogany'),(2025,2,'Mahogany Bar B'),(2051,2,'Mahogany Right Wing'),(2063,2,'Mahogany Side Fund'),(2007,2,'Mahogany wood'),(2002,1,'Mesa Redonda'),(2001,1,'Mesa Tubular'),(10,1,'movimiento Interno'),(1010,2,'N Number'),(1010,1,'N Numero'),(2074,2,'nail cajonero'),(2008,2,'Oak wood'),(2044,2,'Opaque Laca'),(2012,2,'Pine Edge Tape'),(2006,2,'Pine wood'),(2018,2,'Pino top'),(2041,1,'Pintura Azul'),(2043,1,'Pintura Gris'),(2042,1,'Pintura Verde'),(2017,2,'Plate Edge Tape'),(7,2,'Produce'),(1004,2,'product Gross'),(1001,1,'Producto Final'),(1200,1,'Proveedor'),(1200,2,'Provider'),(2,2,'Purchase'),(2055,2,'Right Side Plate'),(2054,2,'Right Wing Aglo'),(2052,2,'Right Wing Oak'),(2050,2,'Right Wing Pino'),(2002,2,'Round table'),(2038,2,'Rubber nonslip 3'),(2039,2,'Rubber nonslip 3'),(4,2,'Sail'),(2030,2,'Screws secured C'),(2031,2,'Screws secured L'),(2046,2,'shoeing A'),(2047,2,'shoeing B'),(2049,2,'shoeing D'),(2032,2,'Short screw'),(2067,2,'Side plate Fund'),(2059,2,'Smooth Left Side'),(2021,2,'Smooth top'),(2009,2,'Smooth wood'),(2035,1,'Soporte T 1'),(2036,1,'Soporte T 1 -1/2'),(2034,1,'Soporte T ½'),(2015,2,'Straight Edge Tape'),(2053,2,'Straight Right Side'),(2030,1,'Sujeta Tornillos C'),(2031,1,'Sujeta Tornillos L'),(2035,2,'Support T 1'),(2036,2,'Support T 1 -1/2'),(2034,2,'Support T ½'),(2022,1,'Tapa Aglo'),(2019,1,'Tapa Caoba'),(2021,1,'Tapa Liso'),(2018,1,'Tapa Pino'),(2023,1,'Tapa Placa'),(2020,1,'Tapa Roble'),(2022,2,'top Aglo'),(2020,2,'top Oak'),(2032,1,'Tornillo Corto'),(2033,1,'Tornillo Largo'),(2040,2,'Tube 6/8 \"'),(2040,1,'Tubo 6/8\"'),(2001,2,'Tubular table'),(3,1,'Venta'),(2011,2,'wood Stove');
 /*!40000 ALTER TABLE `traduccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -991,4 +1129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-26 11:00:15
+-- Dump completed on 2017-10-06 11:29:55
