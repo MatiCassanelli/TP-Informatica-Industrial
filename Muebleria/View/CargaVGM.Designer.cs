@@ -91,6 +91,7 @@
             // 
             // monthCalendar1
             // 
+            this.monthCalendar1.FirstDayOfWeek = System.Windows.Forms.Day.Monday;
             this.monthCalendar1.Location = new System.Drawing.Point(25, 40);
             this.monthCalendar1.Margin = new System.Windows.Forms.Padding(22);
             this.monthCalendar1.Name = "monthCalendar1";
