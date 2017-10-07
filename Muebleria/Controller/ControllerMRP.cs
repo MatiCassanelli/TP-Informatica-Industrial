@@ -8,7 +8,8 @@ namespace Muebleria
 {
     class ControllerMRP
     {
-        internal List<requerimientos> formatearLista(List<requerimientos> lista)
+        ConsultasVarias cc = new ConsultasVarias();
+        public List<requerimientos> formatearLista(List<requerimientos> lista)
         {
             List<requerimientos> aux = lista;
             for (int i = 0; i < lista.Count; i++)
@@ -27,9 +28,15 @@ namespace Muebleria
             }
             return lista;
         }
+
+        public string getNombreProducto(int id)
+        {
+            return cc.getNombreProd(id);
+        }
+
         public void cargarRequerimiento(System.Windows.Forms.DataGridViewRow row)
         {
-            requerimientos req = new requerimientos((int) row.Cells["Producto"].Value, (int)row.Cells["SemanaRequerida"].Value, (string)row.Cells["Cliente"].Value, (int)row.Cells["Delta"].Value);
+            requerimientos req = new requerimientos(cc.getIDProd(row.Cells["Producto"].Value.ToString()), (int)row.Cells["SemanaRequerida"].Value, (string)row.Cells["Cliente"].Value, (int)row.Cells["Delta"].Value);
             req.cargarRequerimiento();
         }
     }

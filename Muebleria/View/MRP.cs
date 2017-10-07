@@ -27,7 +27,7 @@ namespace Muebleria
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
             foreach (requerimientos req in lista)
-                dataGridView1.Rows.Add(req.idProducto, req.Semana, req.Cant, req.Cliente, req.Delta);
+                dataGridView1.Rows.Add(controller.getNombreProducto(req.idProducto), req.Semana, req.Cant, req.Cliente, req.Delta);
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)

@@ -8,7 +8,7 @@ namespace Muebleria
 {
     class ControllerCargaVGM
     {
-        ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
+        ConsultasVarias consulta = new ConsultasVarias();
         ControllerMRP controllerMRP = new ControllerMRP();
 
         public requerimientos crearRequerimiento(string prod, int semana,string cliente, int cant)

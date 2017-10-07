@@ -71,7 +71,7 @@ namespace Muebleria
             }
             else
             {
-                ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();                
+                ConsultasVarias cc = new ConsultasVarias();                
                 int almacen = cc.getIDAlmacen(cbAlmacenOrigen.SelectedItem.ToString());
                 stock s = new stock()
                 {
@@ -111,7 +111,7 @@ namespace Muebleria
             GeneradorSN gsn = new GeneradorSN();
             double sn = gsn.generarSNcompleto(idProd);
 
-            ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();
+            ConsultasVarias cc = new ConsultasVarias();
             int almacen = cc.getIDAlmacen(cbAlmacenOrigen.SelectedItem.ToString());
             articulo a = new articulo()
             {
@@ -151,7 +151,7 @@ namespace Muebleria
         {
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
-            ConsultasDetalleMovimiento cc = new ConsultasDetalleMovimiento();
+            ConsultasVarias cc = new ConsultasVarias();
             int sucursal = cc.getIDSucursal(cbSucursalOrigen.SelectedItem.ToString());
             movimiento mov = new movimiento()
             {
