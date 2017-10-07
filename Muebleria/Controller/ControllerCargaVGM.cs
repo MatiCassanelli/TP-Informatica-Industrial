@@ -11,9 +11,9 @@ namespace Muebleria
         ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
         ControllerMRP controllerMRP = new ControllerMRP();
 
-        public requerimientos crearRequerimiento(string cliente, string prod, int cant, int semana)
+        public requerimientos crearRequerimiento(string prod, int semana,string cliente, int cant)
         {
-            requerimientos req = new requerimientos(cliente, consulta.getIDProd(prod), cant, semana);
+            requerimientos req = new requerimientos(consulta.getIDProd(prod), semana, cliente, cant);
             //controllerMRP.traerReqCreado(req);
             return req;
 

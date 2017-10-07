@@ -32,16 +32,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnAceptar = new System.Windows.Forms.Button();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SemanaRequerida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnGenerarReporte = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SemanaRequerida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Delta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -92,9 +92,9 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Producto,
-            this.Cliente,
-            this.Cantidad,
             this.SemanaRequerida,
+            this.Cantidad,
+            this.Cliente,
             this.Delta});
             this.dataGridView1.Location = new System.Drawing.Point(20, 3);
             this.dataGridView1.Name = "dataGridView1";
@@ -102,14 +102,40 @@
             this.dataGridView1.Size = new System.Drawing.Size(877, 632);
             this.dataGridView1.TabIndex = 0;
             // 
-            // btnAceptar
+            // Producto
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(3, 79);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(293, 55);
-            this.btnAceptar.TabIndex = 27;
-            this.btnAceptar.Text = "Generar Reporte";
-            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.Producto.HeaderText = "Producto";
+            this.Producto.Name = "Producto";
+            // 
+            // SemanaRequerida
+            // 
+            this.SemanaRequerida.HeaderText = "SemanaRequerida";
+            this.SemanaRequerida.Name = "SemanaRequerida";
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            // 
+            // Delta
+            // 
+            this.Delta.HeaderText = "Delta";
+            this.Delta.Name = "Delta";
+            // 
+            // btnGenerarReporte
+            // 
+            this.btnGenerarReporte.Location = new System.Drawing.Point(3, 79);
+            this.btnGenerarReporte.Name = "btnGenerarReporte";
+            this.btnGenerarReporte.Size = new System.Drawing.Size(293, 55);
+            this.btnGenerarReporte.TabIndex = 27;
+            this.btnGenerarReporte.Text = "Generar Reporte";
+            this.btnGenerarReporte.UseVisualStyleBackColor = true;
+            this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
             // button1
             // 
@@ -134,7 +160,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.btnNuevo);
-            this.panel2.Controls.Add(this.btnAceptar);
+            this.panel2.Controls.Add(this.btnGenerarReporte);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Location = new System.Drawing.Point(906, 549);
             this.panel2.Name = "panel2";
@@ -153,32 +179,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1227, 686);
             this.panel3.TabIndex = 31;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // Producto
-            // 
-            this.Producto.HeaderText = "Producto";
-            this.Producto.Name = "Producto";
-            // 
-            // Cliente
-            // 
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            // 
-            // SemanaRequerida
-            // 
-            this.SemanaRequerida.HeaderText = "SemanaRequerida";
-            this.SemanaRequerida.Name = "SemanaRequerida";
-            // 
-            // Delta
-            // 
-            this.Delta.HeaderText = "Delta";
-            this.Delta.Name = "Delta";
             // 
             // MRP
             // 
@@ -190,7 +190,6 @@
             this.Name = "MRP";
             this.Text = "MRP";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MRP_FormClosed);
-            this.Load += new System.EventHandler(this.MRP_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -206,15 +205,15 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnGenerarReporte;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn SemanaRequerida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Delta;
     }
 }

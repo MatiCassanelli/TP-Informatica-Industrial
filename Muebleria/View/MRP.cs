@@ -27,7 +27,7 @@ namespace Muebleria
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
             foreach (requerimientos req in lista)
-                dataGridView1.Rows.Add(req.idProducto, req.Cliente, req.Cant, req.Semana, req.Delta);
+                dataGridView1.Rows.Add(req.idProducto, req.Semana, req.Cant, req.Cliente, req.Delta);
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -45,14 +45,19 @@ namespace Muebleria
             Menu menu = new Menu();
             menu.ShowDialog();
         }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
+        
+        private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                DataGridViewRow row = dataGridView1.Rows[i];
+                controller.cargarRequerimiento(row);
+            }
+            MessageBox.Show("Reporte Generado con Exito!");
+            this.Close();
+            this.Hide();
+            Menu menu = new Menu();
+            menu.ShowDialog();
         }
-
-        private void MRP_Load(object sender, EventArgs e)
-        {
-        }
-    }
+}
 }

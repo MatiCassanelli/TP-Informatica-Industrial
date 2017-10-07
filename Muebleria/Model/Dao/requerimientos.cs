@@ -9,19 +9,27 @@ namespace Muebleria
     public partial class requerimientos
     {
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-        public requerimientos(string cliente, int idProd, int cdelta, int csemana)
+        public requerimientos(int idProd, int csemana, string cliente,  int cdelta)
         {
             idProducto = idProd;
             Semana = csemana;
+            Cant = 0;
             Cliente = cliente;
             Delta = cdelta;
-            Cant = 0;
         }
 
         public void cargarRequerimiento()
         {
             db.requerimientos.Add(this);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
+            
         }
 
         public List<requerimientos> getRequerimientosCargados(int semana)
