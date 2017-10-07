@@ -37,9 +37,7 @@ namespace Muebleria
                     lista.Add(item);
                 }
             }
-            return lista;
-                
-
+            return lista;          
         }
         
     }

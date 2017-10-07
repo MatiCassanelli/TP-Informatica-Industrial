@@ -37,6 +37,11 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SemanaRequerida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -85,6 +90,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Producto,
+            this.Cliente,
+            this.Cantidad,
+            this.SemanaRequerida,
+            this.Delta});
             this.dataGridView1.Location = new System.Drawing.Point(20, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 40;
@@ -144,6 +155,31 @@
             this.panel3.TabIndex = 31;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
+            // Producto
+            // 
+            this.Producto.HeaderText = "Producto";
+            this.Producto.Name = "Producto";
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            // 
+            // SemanaRequerida
+            // 
+            this.SemanaRequerida.HeaderText = "SemanaRequerida";
+            this.SemanaRequerida.Name = "SemanaRequerida";
+            // 
+            // Delta
+            // 
+            this.Delta.HeaderText = "Delta";
+            this.Delta.Name = "Delta";
+            // 
             // MRP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -154,6 +190,7 @@
             this.Name = "MRP";
             this.Text = "MRP";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MRP_FormClosed);
+            this.Load += new System.EventHandler(this.MRP_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -174,5 +211,10 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SemanaRequerida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Delta;
     }
 }

@@ -15,6 +15,21 @@ namespace Muebleria.View
         CargarCombos cc = new CargarCombos();
         Fecha f = new Fecha();
         ControllerCargaVGM controllerCargaVGM = new ControllerCargaVGM();
+        private List<requerimientos> lista;
+
+        public List<requerimientos> Lista
+        {
+            get
+            {
+                return lista;
+            }
+
+            set
+            {
+                lista = value;
+            }
+        }
+
         public CargaVGM()
         {
             InitializeComponent();
@@ -24,11 +39,21 @@ namespace Muebleria.View
             cbCliente.Items.Add("Decisión Gerencial");
         }
 
+        public CargaVGM(List<requerimientos> asd)
+        {
+            InitializeComponent();
+            cbProductos.DataSource = cc.CargarProductos();
+            cbCliente.Items.Add("Ventas Concretadas");
+            cbCliente.Items.Add("Marketing");
+            cbCliente.Items.Add("Decisión Gerencial");
+            Lista = asd;
+        }
+
         private void btnCargar_Click(object sender, EventArgs e)
         {
             if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
             {
-                controllerCargaVGM.crearRequerimiento(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text), f.convertir(monthCalendar1.SelectionRange.Start));
+                Lista.Add(controllerCargaVGM.crearRequerimiento(cbCliente.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), int.Parse(tbCantidad.Text), f.convertir(monthCalendar1.SelectionRange.Start)));
                 this.Close();
             }
             else

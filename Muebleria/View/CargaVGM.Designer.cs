@@ -56,12 +56,12 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(921, 747);
+            this.panel1.Size = new System.Drawing.Size(1195, 747);
             this.panel1.TabIndex = 0;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(607, 657);
+            this.btnCancelar.Location = new System.Drawing.Point(850, 657);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(139, 55);
             this.btnCancelar.TabIndex = 31;
@@ -71,7 +71,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(763, 657);
+            this.btnCargar.Location = new System.Drawing.Point(1006, 657);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(139, 55);
             this.btnCargar.TabIndex = 30;
@@ -84,7 +84,7 @@
             this.groupBox2.Controls.Add(this.monthCalendar1);
             this.groupBox2.Location = new System.Drawing.Point(8, 276);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(579, 438);
+            this.groupBox2.Size = new System.Drawing.Size(753, 438);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Semana para que lo necesita";
@@ -188,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(955, 771);
+            this.ClientSize = new System.Drawing.Size(1219, 771);
             this.Controls.Add(this.panel1);
             this.Name = "CargaVGM";
             this.Text = "CargaVGM";
