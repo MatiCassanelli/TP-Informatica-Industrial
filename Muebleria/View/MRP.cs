@@ -27,7 +27,8 @@ namespace Muebleria
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
             foreach (requerimientos req in lista)
-                dataGridView1.Rows.Add(controller.getNombreProducto(req.idProducto), req.Semana, req.Cant, req.Cliente, req.Delta);
+                //dataGridView1.Rows.Add(req.idProducto, req.Semana, req.Cant, req.Cliente, req.Delta);
+            dataGridView1.Rows.Add(controller.getNombreProducto(req.idProducto), req.Semana, req.Cant, req.Cliente, req.Delta);
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -36,6 +37,8 @@ namespace Muebleria
             carga.ShowDialog();
             controller.formatearLista(lista);
             cargarDataGrid(lista);
+            ExplosionClass ec = new ExplosionClass();
+            ec.ConsultarRecursivo(dataGridView1[0, 0].Value.ToString(), dataGridView1[0, 0].Value.ToString(), int.Parse(dataGridView1[1, 0].Value.ToString()));
         }
 
         private void MRP_FormClosed(object sender, FormClosedEventArgs e)

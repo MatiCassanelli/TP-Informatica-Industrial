@@ -114,6 +114,7 @@
     <Compile Include="ControllerDetalleMovimiento.cs" />
     <Compile Include="Controller\ControllerCargaVGM.cs" />
     <Compile Include="Controller\ControllerMRP.cs" />
+    <Compile Include="Controller\ControllerNecesidades.cs" />
     <Compile Include="conversion.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
@@ -180,6 +181,7 @@
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Dao\requerimientos.cs" />
+    <Compile Include="Model\ExplosionClass.cs" />
     <Compile Include="MostrarCodigoBarras.cs">
       <SubType>Form</SubType>
     </Compile>

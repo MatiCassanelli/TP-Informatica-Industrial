@@ -57,7 +57,7 @@ namespace Muebleria.View
                 this.Close();
             }
             else
-                MessageBox.Show("No anduvo");
+                MessageBox.Show("Complete los datos para continuar");
                 
         }
 
