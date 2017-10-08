@@ -48,15 +48,15 @@ namespace Muebleria
             else
             {
                 pmp PMP = new pmp(idProducto, Semana, cant);
-                db.requerimientos.Add(PMP);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
+                db.pmp.Add(PMP);
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
 
-                }
             }
 
         }

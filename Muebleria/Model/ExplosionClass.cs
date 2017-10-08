@@ -9,7 +9,7 @@ namespace Muebleria
     class ExplosionClass
     {
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
-
+        List<PadreHijo> lista = new List<PadreHijo>();
         public void ConsultarRecursivo(string padre, string prodfinal, int semanaBuscada)
         {
             List<PadreHijo> aux = consultarPadre(padre,semanaBuscada);
@@ -19,9 +19,15 @@ namespace Muebleria
                 {
                     //UM_valor umv = consultarUM(item.Hijo);
                     ConsultarRecursivo(item.Hijo, prodfinal, semanaBuscada);
+                    lista.Add(item);
                 }
             }
         }
+        public List<PadreHijo> getListaExplosionada()
+        {
+            return lista;
+        }
+
         private List<PadreHijo> consultarPadre(string padre, int semanaBuscada)
         {
             List<padre_componente_publicado> relleno = ObtenerComponentes(padre, semanaBuscada);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Muebleria.Model
+namespace Muebleria
 {
     class TransformacionReq
     {
@@ -33,9 +33,10 @@ namespace Muebleria.Model
 
             requerimientos R = new requerimientos();
             Requerimientos = R.getRequerimientosSumados();
+            //deltaMenosStock();
         }
 
-        public void deltaMenosStock()
+        private void deltaMenosStock()
         {
             stock S = new stock();
             float cantidad;
@@ -62,7 +63,7 @@ namespace Muebleria.Model
         {
             Fecha fecha = new Fecha();
             int semana = fecha.convertir(DateTime.Now);
-            semana += 3;
+            semana += 3; //periodo de freeze??
 
             foreach(requerimientos row in Requerimientos)
             {
@@ -74,7 +75,6 @@ namespace Muebleria.Model
 
         private void distribuirProduccion(int idProducto, int delta, int semana) //f() recursiva
         {
-
             pmp PMP = new pmp();
             int capMax;
             diccionario.TryGetValue(idProducto, out capMax);

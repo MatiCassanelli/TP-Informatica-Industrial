@@ -37,8 +37,9 @@ namespace Muebleria
             carga.ShowDialog();
             controller.formatearLista(lista);
             cargarDataGrid(lista);
-            ExplosionClass ec = new ExplosionClass();
-            ec.ConsultarRecursivo(dataGridView1[0, 0].Value.ToString(), dataGridView1[0, 0].Value.ToString(), int.Parse(dataGridView1[1, 0].Value.ToString()));
+            //ExplosionClass ec = new ExplosionClass();
+            //ec.ConsultarRecursivo(dataGridView1[0, 0].Value.ToString(), dataGridView1[0, 0].Value.ToString(), int.Parse(dataGridView1[1, 0].Value.ToString()));
+            //ec.getListaExplosionada();
         }
 
         private void MRP_FormClosed(object sender, FormClosedEventArgs e)
@@ -56,6 +57,9 @@ namespace Muebleria
                 DataGridViewRow row = dataGridView1.Rows[i];
                 controller.cargarRequerimiento(row);
             }
+
+            TransformacionReq tr = new TransformacionReq();
+            tr.elaborarPMP();
             MessageBox.Show("Reporte Generado con Exito!");
             this.Close();
             this.Hide();
