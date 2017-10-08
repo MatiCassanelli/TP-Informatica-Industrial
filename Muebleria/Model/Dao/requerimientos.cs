@@ -17,6 +17,10 @@ namespace Muebleria
             Delta = cdelta;
             Cant = 0;
         }
+        public requerimientos()
+        {
+
+        }
 
         public void cargarRequerimiento()
         {
@@ -24,7 +28,7 @@ namespace Muebleria
             db.SaveChanges();
         }
 
-        public List<requerimientos> getRequerimientosCargados(int semana)
+        public List<requerimientos> getRequerimientosCargados()
         {
             List<requerimientos> lista = new List<requerimientos>();
             var query = from req in db.requerimientos
@@ -38,8 +42,20 @@ namespace Muebleria
                 }
             }
             return lista;
-                
 
+            //List<requerimientos> lista = new List<requerimientos>();
+            //var query = from req in db.requerimientos
+            //            where req.Delta > 0
+            //            group req by req.idProducto & req.Semana into g
+            //            select new { idProducto = idProducto, semana = Semana, cant = g.Sum(req => req.Cant) };
+            //if (query.Count() > 0)
+            //{
+            //    foreach (var item in query)
+            //    {
+            //        lista.Add(item);
+            //    }
+            //}
+            //return lista;
         }
         
     }
