@@ -159,14 +159,14 @@
     <Compile Include="Implosion.designer.cs">
       <DependentUpon>Implosion.cs</DependentUpon>
     </Compile>
+    <Compile Include="language.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="language.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="mantenimiento_maquina.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
@@ -181,7 +181,12 @@
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Dao\requerimientos.cs" />
+<<<<<<< HEAD
+    <Compile Include="Model\Dao\stock.cs" />
+    <Compile Include="Model\TransformacionReq.cs" />
+=======
     <Compile Include="Model\ExplosionClass.cs" />
+>>>>>>> master
     <Compile Include="MostrarCodigoBarras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,13 +202,64 @@
     <Compile Include="necesidadneta.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="operario_estacion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ordencompra.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="padre_componente_publicado.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="padre_componente_temporal.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="pmp.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
+    <Compile Include="producto.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="producto_sustituto.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="razon.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="remito.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="remito_detalle.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
     <Compile Include="requerimientos.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="stock.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sucursal.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tipo_externo.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tipo_producto.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="traduccion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ubicacion.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="unidad_medida.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="View\CargaVGM.cs">
@@ -230,63 +286,12 @@
     <Compile Include="Nuevo_Remito.Designer.cs">
       <DependentUpon>Nuevo_Remito.cs</DependentUpon>
     </Compile>
-    <Compile Include="operario_estacion.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="PadreHijo.cs" />
-    <Compile Include="padre_componente_publicado.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="padre_componente_temporal.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="Procesador_txt.cs" />
-    <Compile Include="producto.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="producto_sustituto.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="razon.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="RegexUtilities.cs" />
-    <Compile Include="remito.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="remito_detalle.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="role.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="stock.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sucursal.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tipo_externo.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tipo_producto.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="traduccion.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ubicacion.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <Compile Include="UM_valor.cs" />
-    <Compile Include="unidad_medida.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="users.cs">
-      <DependentUpon>Base de Datos.tt</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="ArticulosEnStock.resx">
       <DependentUpon>ArticulosEnStock.cs</DependentUpon>
     </EmbeddedResource>
@@ -359,6 +364,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Base de Datos.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Base de Datos.edmx</DependentUpon>
@@ -370,10 +378,6 @@
       <LastGenOutput>Base de Datos.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

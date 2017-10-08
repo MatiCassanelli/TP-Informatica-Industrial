@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Muebleria
 {
-    class ConsultasDetalleMovimiento
+    class ConsultasVarias
     {
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
@@ -14,6 +14,21 @@ namespace Muebleria
         {
             db.movimiento.Add(mov);
             db.SaveChanges();
+        }
+
+        public string getNombreProd(int id)
+        {
+            var subquery = from p in db.producto
+                           where p.idProducto==id
+                           select p.idDescriptionP;
+
+            var query = from t in db.traduccion
+                        from p in subquery
+                        where t.idDescriptionT == p &&
+                        t.idLanguageT == LogIn.IdIdioma
+                        select t.Traduccion_str;
+
+            return query.ToList()[0];
         }
 
         public void actualizarStock(movimiento mov)

@@ -9,7 +9,7 @@ namespace Muebleria
     class ControllerDetalleMovimiento
     {
         CargarCombos cc = new CargarCombos();
-        ConsultasDetalleMovimiento cdm = new ConsultasDetalleMovimiento();
+        ConsultasVarias cdm = new ConsultasVarias();
         public List<string> CargarProductos()
         {
             return cc.CargarProductos();
@@ -109,7 +109,7 @@ namespace Muebleria
         {
             int b = 0;
             Procesador_txt procesadorTxt = new Procesador_txt(path);
-            ConsultasDetalleMovimiento consulta = new ConsultasDetalleMovimiento();
+            ConsultasVarias consulta = new ConsultasVarias();
             string EstadoFinalizacion = "";
 
             if(procesadorTxt.getTxtCorrecto() == true)
