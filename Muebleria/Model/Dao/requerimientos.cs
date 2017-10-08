@@ -36,7 +36,7 @@ namespace Muebleria
             
         }
 
-        public List<requerimientos> getRequerimientosCargados(int semana)
+        public List<requerimientos> getRequerimientosCargados()
         {
             List<requerimientos> lista = new List<requerimientos>();
             var query = from req in db.requerimientos
@@ -44,12 +44,24 @@ namespace Muebleria
                         select req;
             if(query.Count()>0)
             {
-                foreach (requerimientos item in query)
-                {
-                    lista.Add(item);
-                }
+                //foreach (requerimientos item in query)
+                //{
+                //    lista.Add(item);
+                //}
+                lista = query.ToList();
             }
             return lista;          
+        }
+
+        public List<requerimientos> getRequerimientosSumados()
+        {
+            List<requerimientos> lista = new List<requerimientos>();
+            var query = db.requerimientos.SqlQuery("SELECT idProducto, Semana, Cant, Cliente, SUM(Delta) as Delta FROM requerimientos WHERE Delta>0 GROUP BY idProducto, Semana;");
+            if(query.Count()>0)
+            {
+                lista = query.ToList();
+            }
+            return lista;
         }
         
     }

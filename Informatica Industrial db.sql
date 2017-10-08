@@ -66,7 +66,6 @@ CREATE TABLE `articulo` (
   KEY `idProductoA_idx` (`idProducto`),
   KEY `usser_updA_idx` (`user_upd`),
   KEY `ubicacionA_idx` (`ubicacion`),
-  CONSTRAINT `idProductoA` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `ubicacionA` FOREIGN KEY (`ubicacion`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `usser_updA` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -418,10 +417,9 @@ CREATE TABLE `movimiento` (
   KEY `A_destinoMov_idx` (`A_destino`),
   KEY `U_destinoMov_idx` (`U_destino`),
   KEY `idArtiucloMov_idx` (`idArticulo`),
-  CONSTRAINT `idArtiucloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_destinoMov` FOREIGN KEY (`A_destino`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `A_origenMov` FOREIGN KEY (`A_origen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idProductoMov` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idArtiucloMov` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`numero_serie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `S_destinoMov` FOREIGN KEY (`S_destino`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `S_origenMov` FOREIGN KEY (`S_origen`) REFERENCES `sucursal` (`idSucursal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `U_destinoMov` FOREIGN KEY (`U_destino`) REFERENCES `ubicacion` (`idUbicacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -451,7 +449,7 @@ CREATE TABLE `necesidadbruta` (
   `Semana` int(11) NOT NULL,
   `Cant` int(11) NOT NULL,
   PRIMARY KEY (`idProductoHijo`,`Semana`),
-  CONSTRAINT `idProductoNB` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idProductoNecesidadBruta` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -476,7 +474,7 @@ CREATE TABLE `necesidadneta` (
   `Semana` int(11) NOT NULL,
   `Cant` int(11) NOT NULL,
   PRIMARY KEY (`idProductoHijo`,`Semana`),
-  CONSTRAINT `idProductoNN` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `idProducto` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -536,7 +534,7 @@ CREATE TABLE `ordencompra` (
   PRIMARY KEY (`idOrdenCompra`),
   KEY `idProductoOC_idx` (`idProductoHijo`),
   KEY `userOC_idx` (`user_upd`),
-  CONSTRAINT `idProductoOC` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idProductoOrdenCompra` FOREIGN KEY (`idProductoHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userOC` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -572,8 +570,6 @@ CREATE TABLE `padre-componente-publicado` (
   KEY `idHijo_idx` (`idHijoP`),
   KEY `user_upd_idx` (`user_upd`),
   KEY `idPadreP_idx` (`idPadreP`),
-  CONSTRAINT `idHijoP` FOREIGN KEY (`idHijoP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idPadreP` FOREIGN KEY (`idPadreP`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_upd` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -603,9 +599,7 @@ CREATE TABLE `padre-componente-temporal` (
   `U_medida_usada` int(11) NOT NULL,
   PRIMARY KEY (`idPadre`,`idHijo`),
   KEY `idHijo_idx` (`idHijo`),
-  KEY `idPadre_idx` (`idPadre`),
-  CONSTRAINT `idHijoT` FOREIGN KEY (`idHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idPadreT` FOREIGN KEY (`idPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `idPadre_idx` (`idPadre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -705,9 +699,6 @@ CREATE TABLE `producto-sustituto` (
   KEY `idHijoPS_idx` (`idHijo`),
   KEY `idSustitutoPS_idx` (`sustituto`),
   KEY `userPS_idx` (`user_upd`),
-  CONSTRAINT `idHijoPS` FOREIGN KEY (`idHijo`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idPadrePS` FOREIGN KEY (`idPadre`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idSustitutoPS` FOREIGN KEY (`sustituto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userPS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -798,7 +789,6 @@ CREATE TABLE `remito_detalle` (
   `idArticulo` double NOT NULL,
   PRIMARY KEY (`idRemito`,`idArticulo`),
   KEY `idProductoRD_idx` (`idProducto`),
-  CONSTRAINT `idProductoRD` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idRemitoRD` FOREIGN KEY (`idRemito`) REFERENCES `remito` (`idRemito`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -837,6 +827,7 @@ CREATE TABLE `requerimientos` (
 
 LOCK TABLES `requerimientos` WRITE;
 /*!40000 ALTER TABLE `requerimientos` DISABLE KEYS */;
+INSERT INTO `requerimientos` VALUES (10056456,3,0,'a',5),(10056456,3,0,'b',5),(10056456,4,0,'a',15),(10056457,3,0,'a',11),(10056457,3,0,'c',11);
 /*!40000 ALTER TABLE `requerimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -883,7 +874,6 @@ CREATE TABLE `stock` (
   KEY `unidad_medidaS_idx` (`unidad_medida`),
   KEY `idAlmacenS_idx` (`idAlmacen`),
   CONSTRAINT `idAlmacenS` FOREIGN KEY (`idAlmacen`) REFERENCES `almacen` (`idAlmacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idProductoS` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `unidad_medidaS` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medida` (`idUnidad_Medida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `User_updS` FOREIGN KEY (`user_upd`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1129,4 +1119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-06 11:29:55
+-- Dump completed on 2017-10-08 15:24:07

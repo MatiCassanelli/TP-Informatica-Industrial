@@ -8,27 +8,40 @@ namespace Muebleria.Model
 {
     class TransformacionReq
     {
+        private Dictionary<int, int> diccionario = new Dictionary<int, int>();
+
         private int cantMesaTubular = 30;
+        private const int idMesaTubular = 10056456;
         private int cantMesaRedonda = 40;
-        private int cantMesa2x1 = 30;
-        private int cantMesa1x30 = 30;
-        private int cantMesaExec = 15;
+        private const int idMesaRedonda = 10056457;
+        private int cantEscritorio2x1 = 30;
+        private const int idEscritorio2x1 = 10056458;
+        private int cantEscritorio1x30 = 30;
+        private const int idEscritorio1x30 = 10056459;
+        private int cantEscritorioExec = 15;
+        private const int idEscritorioExec = 10056460;
 
         private List<requerimientos> Requerimientos;
 
         public TransformacionReq()
         {
+            diccionario.Add(idMesaTubular, cantMesaTubular);
+            diccionario.Add(idMesaRedonda, cantMesaRedonda);
+            diccionario.Add(idEscritorio2x1, cantEscritorio2x1);
+            diccionario.Add(idEscritorio1x30, cantEscritorio1x30);
+            diccionario.Add(idEscritorioExec, cantEscritorioExec);
+
             requerimientos R = new requerimientos();
-            Requerimientos = R.getRequerimientosCargados();
+            Requerimientos = R.getRequerimientosSumados();
         }
 
-        void deltaMenosStock()
+        public void deltaMenosStock()
         {
             stock S = new stock();
             float cantidad;
             foreach (requerimientos r in Requerimientos)
             {
-                if(S.getStockProducto(r.idProducto)>0)
+                if (S.getStockProducto(r.idProducto) > 0)
                 {
                     cantidad = S.getStockProducto(r.idProducto);
                     if (r.Delta - cantidad < 0)
@@ -44,5 +57,44 @@ namespace Muebleria.Model
                 }
             }
         }
+
+        public void elaborarPMP() 
+        {
+            Fecha fecha = new Fecha();
+            int semana = fecha.convertir(DateTime.Now);
+            semana += 3;
+
+            foreach(requerimientos row in Requerimientos)
+            {
+                distribuirProduccion(row.idProducto, row.Delta, semana);
+            }
+
+        }
+
+
+        private void distribuirProduccion(int idProducto, int delta, int semana) //f() recursiva
+        {
+
+            pmp PMP = new pmp();
+            int capMax;
+            diccionario.TryGetValue(idProducto, out capMax);
+            int cantidad = PMP.getCantidad(idProducto, semana);
+            int cantDisp = capMax - cantidad;
+
+            if (cantDisp > 0)
+            {
+                if (delta <= cantDisp)
+                {
+                    PMP.insertOrUpdate(delta, idProducto, semana);
+                    return;
+                }
+                else
+                {
+                    PMP.insertOrUpdate(cantDisp, idProducto, semana);
+                    distribuirProduccion(idProducto, delta - cantDisp, semana + 1);
+                }
+            }
+        }
+
     }
 }
