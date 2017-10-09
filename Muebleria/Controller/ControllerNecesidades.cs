@@ -10,6 +10,7 @@ namespace Muebleria
     {
         ExplosionClass explosion = new ExplosionClass();
         ConsultasVarias cv = new ConsultasVarias();
+        List<necesidadbruta> listaNB = new List<necesidadbruta>();
         private void generarNB()
         {
             pmp PMP = new pmp();
@@ -32,10 +33,32 @@ namespace Muebleria
             foreach (PadreHijo item in lista)
             {
                 necesidadbruta nb = new necesidadbruta(cv.getIDProd(item.Hijo), item.Semana, item.Cantidad);
+                listaNB.Add(nb);
                 nb.cargarNecesidadBruta();
+            }  
+        }
+
+        public void NBmenosStock()
+        {
+            stock S = new stock();
+            float cantidad;
+            foreach (necesidadbruta r in listaNB)
+            {
+                cantidad = S.getStockProducto(r.idProductoHijo);
+                if (cantidad > 0)
+                {
+                    if (r.Cant - cantidad < 0)
+                    {
+                        S.actualizarStock(r.idProductoHijo, cantidad - r.Cant);
+                        r.Cant = 0;
+                    }
+                    else
+                    {
+                        S.actualizarStock(r.idProductoHijo, 0);
+                        r.Cant -= Convert.ToInt32(cantidad);
+                    }
+                }
             }
-            
-            
         }
     }
 }
