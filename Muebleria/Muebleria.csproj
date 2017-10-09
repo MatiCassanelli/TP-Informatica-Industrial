@@ -181,10 +181,12 @@
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Dao\necesidadbruta.cs" />
+    <Compile Include="Model\Dao\necesidadneta.cs" />
     <Compile Include="Model\Dao\pmp.cs" />
     <Compile Include="Model\Dao\requerimientos.cs" />
     <Compile Include="Model\Dao\stock.cs" />
     <Compile Include="Model\ExplosionClass.cs" />
+    <Compile Include="Model\GeneradorOC.cs" />
     <Compile Include="Model\TransformacionReq.cs" />
     <Compile Include="MostrarCodigoBarras.cs">
       <SubType>Form</SubType>
