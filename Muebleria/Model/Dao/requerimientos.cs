@@ -59,6 +59,20 @@ namespace Muebleria
             }
             return lista;
         }
-        
+
+        public void actualizarDelta_Cant()
+        {
+            var query = from Req in db.requerimientos
+                        where Req.Delta > 0
+                        select Req;
+
+            foreach(requerimientos r in query)
+            {
+                r.Cant += r.Delta;
+                r.Delta = 0;
+            }
+            db.SaveChanges();
+        }
+
     }
 }
