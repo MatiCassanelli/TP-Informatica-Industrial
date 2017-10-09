@@ -16,6 +16,7 @@ namespace Muebleria
         private string um;
         private string sustituto;
         private int idSust;
+        private int semana;
 
         public string Padre
         {
@@ -121,6 +122,19 @@ namespace Muebleria
             }
         }
 
+        public int Semana
+        {
+            get
+            {
+                return semana;
+            }
+
+            set
+            {
+                semana = value;
+            }
+        }
+
         public PadreHijo(string cpadre, string chijo, int ccant, string cum)
         {
             padre = cpadre;
@@ -145,6 +159,14 @@ namespace Muebleria
         PadreHijo()
         {
 
+        }
+        public PadreHijo(string cpadre, string chijo, int ccant, string cum, int semana)
+        {
+            padre = cpadre;
+            hijo = chijo;
+            cantidad = ccant;
+            um = cum;
+            Semana = semana;
         }
     }
 }

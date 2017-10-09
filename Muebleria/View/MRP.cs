@@ -60,6 +60,9 @@ namespace Muebleria
 
             TransformacionReq tr = new TransformacionReq();
             tr.elaborarPMP();
+            ControllerNecesidades cn = new ControllerNecesidades();
+            cn.cargarNecesidadBruta();
+
             MessageBox.Show("Reporte Generado con Exito!");
             this.Close();
             this.Hide();

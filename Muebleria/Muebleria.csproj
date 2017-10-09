@@ -180,6 +180,7 @@
     <Compile Include="Menu.designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Dao\necesidadbruta.cs" />
     <Compile Include="Model\Dao\pmp.cs" />
     <Compile Include="Model\Dao\requerimientos.cs" />
     <Compile Include="Model\Dao\stock.cs" />

@@ -10,7 +10,8 @@ namespace Muebleria
     {
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         List<PadreHijo> lista = new List<PadreHijo>();
-        public void ConsultarRecursivo(string padre, string prodfinal, int semanaBuscada)
+        ConsultasVarias cv = new ConsultasVarias();
+        public void Explotar(int padre, int prodfinal, int semanaBuscada)
         {
             List<PadreHijo> aux = consultarPadre(padre,semanaBuscada);
             if (aux.Count > 0)
@@ -18,7 +19,7 @@ namespace Muebleria
                 foreach (PadreHijo item in aux)
                 {
                     //UM_valor umv = consultarUM(item.Hijo);
-                    ConsultarRecursivo(item.Hijo, prodfinal, semanaBuscada);
+                    Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada);
                     lista.Add(item);
                 }
             }
@@ -28,7 +29,7 @@ namespace Muebleria
             return lista;
         }
 
-        private List<PadreHijo> consultarPadre(string padre, int semanaBuscada)
+        private List<PadreHijo> consultarPadre(int padre, int semanaBuscada)
         {
             List<padre_componente_publicado> relleno = ObtenerComponentes(padre, semanaBuscada);
             List<padre_componente_publicado> aux = new List<padre_componente_publicado>();
@@ -69,40 +70,25 @@ namespace Muebleria
 
                 foreach (var item in query2)
                 {
-                    lista.Add(new PadreHijo(padre, item.nombre, Convert.ToInt32(item.cant), item.um));
+                    lista.Add(new PadreHijo(cv.getNombreProd(padre), item.nombre, Convert.ToInt32(item.cant), item.um, semanaBuscada));
                 }
             }
             return lista;
         }
 
-        private List<padre_componente_publicado> ObtenerComponentes(string prod, int semana)
+        private List<padre_componente_publicado> ObtenerComponentes(int prod, int semana)
         {
-            var queryP = from p in db.producto
-                         from t in db.traduccion
-                         where p.idDescriptionP == t.idDescriptionT &&
-                         t.Traduccion_str == prod &&
-                         t.idLanguageT == LogIn.IdIdioma
-                         select p.idProducto;
-            List<int> P = queryP.ToList();
-
-            var componentes = db.padre_componente_publicado.SqlQuery("SELECT pcp.* FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + P[0].ToString() + " and pcp2.fecha_aplicacion = " + traerFechas(prod,semana) + ") as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 WHERE pcp4.idPadreP = " + P[0].ToString() + " and pcp4.fecha_aplicacion = " + traerFechas(prod,semana).ToString() + ");");
+            var componentes = db.padre_componente_publicado.SqlQuery("SELECT pcp.* FROM `padre-componente-publicado` pcp INNER JOIN(SELECT distinct pcp2.idPadreP, pcp2.fecha_aplicacion FROM `padre-componente-publicado` pcp2 WHERE pcp2.idPadreP = " + prod + " and pcp2.fecha_aplicacion = " + traerFechas(prod,semana) + ") as t on pcp.idPadreP = t.idPadreP WHERE pcp.fecha_aplicacion = t.fecha_aplicacion and pcp.version >= all(SELECT distinct pcp4.version FROM `padre-componente-publicado` pcp4 WHERE pcp4.idPadreP = " + prod + " and pcp4.fecha_aplicacion = " + traerFechas(prod,semana).ToString() + ");");
             return componentes.ToList<padre_componente_publicado>();
         }
         
-        private int traerFechas(string prod, int semana)
+        private int traerFechas(int prod, int semana)
         {
             int fecha = semana;
             //var subquery = db.padre_componente_publicado.SqlQuery("select distinct `padre-componente-publicado`.fecha_aplicacion from `padre-componente-publicado` order by fecha_aplicacion desc");
-            var QueryidPadre = from p in db.producto
-                               from t in db.traduccion
-                               where p.idDescriptionP == t.idDescriptionT &&
-                               t.Traduccion_str == prod &&
-                               t.idLanguageT == LogIn.IdIdioma
-                               select p.idProducto;
-
+            
             var subquery = from pc in db.padre_componente_publicado
-                           from qinp in QueryidPadre
-                           where pc.idPadreP == qinp
+                           where pc.idPadreP == prod
                            orderby pc.fecha_aplicacion descending
                            select pc.fecha_aplicacion;
             List<int> fechasconsulta = subquery.ToList();

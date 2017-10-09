@@ -32,6 +32,14 @@ namespace Muebleria
                 return 0;
         }
 
+        public List<pmp> getPMP()
+        {
+            var query = from PMP in db.pmp
+                        select PMP;
+
+            return query.ToList();
+        } 
+
 
         public void insertOrUpdate(int cant, int idProducto, int Semana)
         {
