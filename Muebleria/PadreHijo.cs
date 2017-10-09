@@ -168,5 +168,20 @@ namespace Muebleria
             um = cum;
             Semana = semana;
         }
+
+        public bool esPadre(string Prod)
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            ConsultasVarias cv = new ConsultasVarias();
+            int idProd = cv.getIDProd(Prod);
+            var query = from pcp in db.padre_componente_publicado
+                        where pcp.idPadreP == idProd
+                        select pcp.idPadreP;
+            if (query.Count() > 0)
+                return true;
+            else
+                return false;
+
+        }
     }
 }
