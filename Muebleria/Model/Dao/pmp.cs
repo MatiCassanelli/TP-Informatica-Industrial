@@ -38,7 +38,7 @@ namespace Muebleria
                         select PMP;
 
             return query.ToList();
-        } 
+        }
 
 
         public void insertOrUpdate(int cant, int idProducto, int Semana)
@@ -49,15 +49,11 @@ namespace Muebleria
                         select PMP;
 
             if (query.Count() > 0)
-            {
-                foreach (pmp row in query)
-                    row.Cant += cant;
-            }
+                query.ToList()[0].Cant += cant;
+
             else
-            {
-                pmp PMP = new pmp(idProducto, Semana, cant);
-                db.pmp.Add(PMP);
-            }
+                db.pmp.Add(new pmp(idProducto, Semana, cant));
+
             try
             {
                 db.SaveChanges();

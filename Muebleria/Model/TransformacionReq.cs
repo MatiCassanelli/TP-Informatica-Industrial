@@ -33,7 +33,7 @@ namespace Muebleria
 
             requerimientos R = new requerimientos();
             Requerimientos = R.getRequerimientosSumados();
-            //deltaMenosStock();
+            deltaMenosStock();
         }
 
         private void deltaMenosStock()
@@ -42,9 +42,9 @@ namespace Muebleria
             float cantidad;
             foreach (requerimientos r in Requerimientos)
             {
-                if (S.getStockProducto(r.idProducto) > 0)
+                cantidad = S.getStockProducto(r.idProducto);
+                if (cantidad > 0)
                 {
-                    cantidad = S.getStockProducto(r.idProducto);
                     if (r.Delta - cantidad < 0)
                     {
                         S.actualizarStock(r.idProducto, cantidad - r.Delta);
@@ -52,8 +52,8 @@ namespace Muebleria
                     }
                     else
                     {
-                        S.actualizarStock(r.idProducto, cantidad - r.Delta);
-                        r.Delta = r.Delta - Convert.ToInt32(cantidad);
+                        S.actualizarStock(r.idProducto, 0);
+                        r.Delta -= Convert.ToInt32(cantidad);
                     }
                 }
             }

@@ -21,16 +21,12 @@ namespace Muebleria
                         where s.idProducto == idProducto &&
                         s.idAlmacen == 1
                         select s.Cantidad;
-
-            List<float> lista = new List<float>();
+            
             if (query.Count() > 0)
             {
-                foreach (float item in query)
-                {
-                    lista.Add(item);
-                }
+                return query.ToList()[0];
             }
-            return lista[0];
+            return 0;
         }
 
         public void actualizarStock (int idProducto, float cant)
