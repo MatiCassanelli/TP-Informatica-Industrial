@@ -17,20 +17,29 @@ namespace Muebleria
             if (aux.Count > 0)
             {
                 List<PadreHijo> padresSinFiltro = new List<PadreHijo>();
-                foreach (PadreHijo item in padresSinFiltro)
+                foreach (PadreHijo item in aux)
                 {
                     //UM_valor umv = consultarUM(item.Hijo);
                     Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada, cantidad);
-                    padresSinFiltro.Add(new PadreHijo(cv.getNombreProd(padre), item.Hijo, (Convert.ToInt32(item.Cantidad)*cantidad), item.Um, semanaBuscada));
-                    filtrarPadre(padresSinFiltro);
+                    PadreHijo ph = new PadreHijo(cv.getNombreProd(padre), item.Hijo, (Convert.ToInt32(item.Cantidad) * cantidad), item.Um, semanaBuscada);
+                    if (ph.esPadre(ph.Hijo) == false)
+                        lista.Add(ph);
                 }
+                //lista = filtrarPadre(padresSinFiltro);
             }
         }
 
-        private void filtrarPadre(List<PadreHijo> padresSinFiltro)
-        {
-            throw new NotImplementedException();
-        }
+        //private List<PadreHijo> filtrarPadre(PadreHijo ph)
+        //{
+        //    for (int i = 0; i < padresSinFiltro.Count; i++)
+        //    {
+        //        if (padresSinFiltro[i].esPadre(padresSinFiltro[i].Hijo) == true)
+        //        {
+        //            padresSinFiltro.Remove(padresSinFiltro[i]);
+        //        }
+        //    }
+        //    return padresSinFiltro;
+        //}
 
         public List<PadreHijo> getListaExplosionada()
         {
