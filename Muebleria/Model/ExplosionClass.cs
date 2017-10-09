@@ -11,7 +11,7 @@ namespace Muebleria
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
         List<PadreHijo> lista = new List<PadreHijo>();
         ConsultasVarias cv = new ConsultasVarias();
-        public void Explotar(int padre, int prodfinal, int semanaBuscada)
+        public void Explotar(int padre, int prodfinal, int semanaBuscada,int cantidad)
         {
             List<PadreHijo> aux = consultarPadre(padre,semanaBuscada);
             if (aux.Count > 0)
@@ -19,8 +19,8 @@ namespace Muebleria
                 foreach (PadreHijo item in aux)
                 {
                     //UM_valor umv = consultarUM(item.Hijo);
-                    Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada);
-                    lista.Add(item);
+                    Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada, cantidad);
+                    lista.Add(new PadreHijo(cv.getNombreProd(padre), item.Hijo, (Convert.ToInt32(item.Cantidad)*cantidad), item.Um, semanaBuscada));
                 }
             }
         }

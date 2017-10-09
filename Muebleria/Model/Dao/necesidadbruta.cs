@@ -15,23 +15,24 @@ namespace Muebleria
             Semana = semana;
             Cant = cant;
         }
-
-        public void cargarNecesidadBruta()
+        public necesidadbruta()
         {
-            db.necesidadbruta.Add(this);
-
-            db.SaveChanges();
 
         }
 
-        private bool existeNB(necesidadbruta nb)
+        public void cargarNecesidadBruta()
         {
-            var query = from NB in db.necesidadbruta
-                        select NB;
-            if (query.Contains(nb))
-                return true;
+            var query = from nb in db.necesidadbruta
+                        where this.idProductoHijo == nb.idProductoHijo && this.Semana == nb.Semana
+                        select nb;
+
+            if (query.Count() > 0)
+                query.ToList()[0].Cant+=this.Cant;
             else
-                return false;
+                db.necesidadbruta.Add(this);
+
+            db.SaveChanges();
+
         }
     }
 }

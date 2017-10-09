@@ -15,8 +15,8 @@ namespace Muebleria
             pmp PMP = new pmp();
             List<pmp> listaPMP = PMP.getPMP();
 
-            foreach (pmp item in listaPMP)
-                explosion.Explotar(item.idProductoPadre, item.idProductoPadre, item.Semana);
+            foreach (pmp item in listaPMP)  //ver xq creo q lo hace mas veces de la q deberia
+                explosion.Explotar(item.idProductoPadre, item.idProductoPadre, item.Semana, item.Cant);
         }
 
         private List<PadreHijo> getProdExplotados()
