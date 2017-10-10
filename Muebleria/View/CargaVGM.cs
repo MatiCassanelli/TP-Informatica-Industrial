@@ -51,21 +51,26 @@ namespace Muebleria.View
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
+            if (f.convertir(monthCalendar1.SelectionRange.Start) > (f.convertir(DateTime.Now) + 2))
             {
-                Lista.Add(controllerCargaVGM.crearRequerimiento(cbProductos.SelectedItem.ToString(), f.convertir(monthCalendar1.SelectionRange.Start), cbCliente.SelectedItem.ToString(), int.Parse(tbCantidad.Text)));
-                this.Close();
+                if (cbCliente.SelectedItem != null && cbProductos.SelectedItem != null && !String.IsNullOrEmpty(tbCantidad.Text))
+                {
+                    Lista.Add(controllerCargaVGM.crearRequerimiento(cbProductos.SelectedItem.ToString(), f.convertir(monthCalendar1.SelectionRange.Start), cbCliente.SelectedItem.ToString(), int.Parse(tbCantidad.Text)));
+                    this.Close();
+                }
+                else
+                    MessageBox.Show("Complete los datos para continuar");
             }
             else
-                MessageBox.Show("Complete los datos para continuar");
-                
+                MessageBox.Show("No se permite realizar pedidos dentro del periodo de freeze");
+
         }
 
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
             if (DateTime.Now >= monthCalendar1.SelectionRange.Start)
             {
-                MessageBox.Show("No se puede publicar una estructura para una fecha ya pasada");
+                MessageBox.Show("No se permite realizar pedidos para una fecha ya pasada");
                 monthCalendar1.SetDate(DateTime.Now);
             }
             if ((f.convertir(DateTime.Now) + 2) >= f.convertir(monthCalendar1.SelectionRange.Start))

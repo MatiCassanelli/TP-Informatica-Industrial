@@ -49,34 +49,24 @@ namespace Muebleria
             Menu menu = new Menu();
             menu.ShowDialog();
         }
-        
+
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
+            Fecha f = new Fecha();
             for (int i = 0; i < dataGridView1.RowCount - 1; i++)
             {
                 DataGridViewRow row = dataGridView1.Rows[i];
                 controller.cargarRequerimiento(row);
             }
-            try
-            {
-                TransformacionReq tr = new TransformacionReq();
-                tr.elaborarPMP();
-                ControllerNecesidades cn = new ControllerNecesidades();
-                cn.cargarNecesidadBruta();
-                cn.generarNN();
-                requerimientos req = new requerimientos();
-                req.actualizarDelta_Cant();
-                MessageBox.Show("Reporte Generado con Exito!");
-            }
-            catch
-            {
-                MessageBox.Show("No anduvo");
-            }
+
+            controller.generarReporte();
+            MessageBox.Show("Reporte generado con exito");
 
             this.Close();
             this.Hide();
             Menu menu = new Menu();
             menu.ShowDialog();
         }
+        
 }
 }

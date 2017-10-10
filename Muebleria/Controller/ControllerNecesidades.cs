@@ -30,7 +30,7 @@ namespace Muebleria
             listaExplosionada = explosion.getListaExplosionada();
             return listaExplosionada;
         }
-
+        
         public void cargarNecesidadBruta()
         {
             List<PadreHijo> lista = getProdExplotados();
@@ -42,14 +42,56 @@ namespace Muebleria
                     listaNB.Add(nb);
                     nb.cargarNecesidadBruta();
                 }
-            }  
+            }
+        }
+        public void generarNN()
+        {
+            NBmenosStock();
+            foreach (necesidadbruta nn in listaNN)
+            {
+                necesidadneta NN = new necesidadneta(nn.idProductoHijo, nn.Semana, nn.Cant);
+                necesidadesNetas.Add(NN);
+                NN.InsertOrUpdateNecesidadNeta();
+            }
         }
 
+        private void restarStockPadres()
+        {
+            stock S = new stock();
+            foreach (PadreHijo ph in listaExplosionada)
+            {
+                float cantidad = S.getStockProducto(cv.getIDProd(ph.Hijo));
+                if (cantidad > 0)
+                {
+                    if (ph.Cantidad - cantidad < 0)
+                    {
+                        S.actualizarStock(cv.getIDProd(ph.Hijo), cantidad - ph.Cantidad);
+                        ph.Cantidad = 0;
+                    }
+                    else
+                    {
+                        S.actualizarStock(cv.getIDProd(ph.Hijo), 0);
+                        ph.Cantidad -= Convert.ToInt32(cantidad);
+                    }
+                }
+            }
+        }
+
+        private List<PadreHijo> explotarParaNN()
+        {
+            restarStockPadres();
+            List<PadreHijo> asd = new List<PadreHijo>();
+            foreach (PadreHijo ph in asd)
+                explosion.Explotar(cv.getIDProd(ph.Padre), cv.getIDProd(ph.Padre), ph.Semana, ph.Cantidad);
+
+            return explosion.getListaExplosionada();
+
+        }
         private void NBmenosStock()
         {
             stock S = new stock();
             float cantidad;
-            foreach (PadreHijo ph in listaExplosionada)
+            foreach (PadreHijo ph in explotarParaNN())
             {
                 listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad));
             }
@@ -73,16 +115,7 @@ namespace Muebleria
             }
         }
 
-        public void generarNN()
-        {
-            NBmenosStock();
-            foreach(necesidadbruta nn in listaNN)
-            {
-                necesidadneta NN = new necesidadneta(nn.idProductoHijo, nn.Semana, nn.Cant);
-                necesidadesNetas.Add(NN);
-                NN.InsertOrUpdateNecesidadNeta();
-            }
-        }
+
 
         public List<necesidadneta> getNecesidadesNetas()
         {

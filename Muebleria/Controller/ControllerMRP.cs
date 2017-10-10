@@ -9,6 +9,17 @@ namespace Muebleria
     class ControllerMRP
     {
         ConsultasVarias cc = new ConsultasVarias();
+
+        public void generarReporte()
+        {
+            TransformacionReq tr = new TransformacionReq();
+            tr.elaborarPMP();
+            ControllerNecesidades cn = new ControllerNecesidades();
+            cn.cargarNecesidadBruta();
+            cn.generarNN();
+            requerimientos req = new requerimientos();
+            req.actualizarDelta_Cant();
+        }
         public List<requerimientos> formatearLista(List<requerimientos> lista)
         {
             List<requerimientos> aux = lista;

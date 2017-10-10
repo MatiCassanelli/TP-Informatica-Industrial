@@ -24,16 +24,17 @@ namespace Muebleria
 
         public void cargarRequerimiento()
         {
+            Fecha f = new Fecha();
             var query = from req in db.requerimientos
-                        where this.idProducto == req.idProducto && this.Semana == req.Semana && this.Cliente==req.Cliente
+                        where this.idProducto == req.idProducto && this.Semana == req.Semana && this.Cliente == req.Cliente
                         select req;
+
             if (query.Count() > 0)
                 query.ToList()[0].Delta += this.Delta;
             else
                 db.requerimientos.Add(this);
 
             db.SaveChanges();
-                        
         }
 
         public List<requerimientos> getRequerimientosCargados()

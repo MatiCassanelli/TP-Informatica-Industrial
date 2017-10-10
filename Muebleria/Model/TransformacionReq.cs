@@ -81,7 +81,7 @@ namespace Muebleria
             int cantidad = PMP.getCantidad(idProducto, semana);
             int cantDisp = capMax - cantidad;
 
-            if (cantDisp > 0)
+            if (cantDisp >= 0)
             {
                 if (delta <= cantDisp)
                 {
