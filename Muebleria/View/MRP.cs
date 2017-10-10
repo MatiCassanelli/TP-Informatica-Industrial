@@ -62,6 +62,7 @@ namespace Muebleria
             tr.elaborarPMP();
             ControllerNecesidades cn = new ControllerNecesidades();
             cn.cargarNecesidadBruta();
+            cn.generarNN();
 
             MessageBox.Show("Reporte Generado con Exito!");
             this.Close();

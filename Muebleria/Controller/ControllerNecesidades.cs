@@ -12,6 +12,7 @@ namespace Muebleria
         ConsultasVarias cv = new ConsultasVarias();
         List<necesidadbruta> listaNB = new List<necesidadbruta>();
         List<necesidadbruta> listaNN = new List<necesidadbruta>();
+        List<necesidadneta> necesidadesNetas = new List<necesidadneta>();
 
         private void generarNB()
         {
@@ -40,7 +41,7 @@ namespace Muebleria
             }  
         }
 
-        public void NBmenosStock()
+        private void NBmenosStock()
         {
             stock S = new stock();
             float cantidad;
@@ -66,11 +67,18 @@ namespace Muebleria
 
         public void generarNN()
         {
+            NBmenosStock();
             foreach(necesidadbruta nn in listaNN)
             {
                 necesidadneta NN = new necesidadneta(nn.idProductoHijo, nn.Semana, nn.Cant);
+                necesidadesNetas.Add(NN);
                 NN.InsertOrUpdateNecesidadNeta();
             }
+        }
+
+        public List<necesidadneta> getNecesidadesNetas()
+        {
+            return necesidadesNetas;
         }
     }
 }

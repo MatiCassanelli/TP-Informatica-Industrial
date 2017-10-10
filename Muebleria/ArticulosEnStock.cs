@@ -23,7 +23,7 @@ namespace Muebleria
             informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
             var subquery = from p in db.producto
-                           where p.idTipo == 1 || p.idTipo == 3
+                           //where p.idTipo == 1 || p.idTipo == 3
                            select p.idDescriptionP;
 
             var query = from t in db.traduccion
