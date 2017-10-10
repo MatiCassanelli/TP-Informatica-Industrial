@@ -37,9 +37,11 @@ namespace Muebleria
             foreach (PadreHijo item in lista)
             {
                 necesidadbruta nb = new necesidadbruta(cv.getIDProd(item.Hijo), item.Semana, item.Cantidad);
-                if(!item.esPadre(item.Hijo))
+                if (!item.esPadre(item.Hijo))
+                {
                     listaNB.Add(nb);
-                nb.cargarNecesidadBruta();
+                    nb.cargarNecesidadBruta();
+                }
             }  
         }
 

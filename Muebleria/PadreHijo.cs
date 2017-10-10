@@ -181,7 +181,20 @@ namespace Muebleria
                 return true;
             else
                 return false;
+        }
 
+        public bool esHijo(string Prod)
+        {
+            informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
+            ConsultasVarias cv = new ConsultasVarias();
+            int idProd = cv.getIDProd(Prod);
+            var query = from pcp in db.padre_componente_publicado
+                        where pcp.idHijoP == idProd
+                        select pcp.idHijoP;
+            if (query.Count() > 0)
+                return true;
+            else
+                return false;
         }
     }
 }
