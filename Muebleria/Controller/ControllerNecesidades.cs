@@ -10,6 +10,7 @@ namespace Muebleria
     {
         ExplosionClass explosion = new ExplosionClass();
         ConsultasVarias cv = new ConsultasVarias();
+        List<PadreHijo> listaExplosionada = new List<PadreHijo>();
         List<necesidadbruta> listaNB = new List<necesidadbruta>();
         List<necesidadbruta> listaNN = new List<necesidadbruta>();
         List<necesidadneta> necesidadesNetas = new List<necesidadneta>();
@@ -19,15 +20,15 @@ namespace Muebleria
             pmp PMP = new pmp();
             List<pmp> listaPMP = PMP.getPMP();
 
-            foreach (pmp item in listaPMP)  //ver xq creo q lo hace mas veces de la q deberia
+            foreach (pmp item in listaPMP) 
                 explosion.Explotar(item.idProductoPadre, item.idProductoPadre, item.Semana, item.Cant);
         }
 
         private List<PadreHijo> getProdExplotados()
         {
             generarNB();
-            List<PadreHijo> asd = explosion.getListaExplosionada();
-            return asd;
+            listaExplosionada = explosion.getListaExplosionada();
+            return listaExplosionada;
         }
 
         public void cargarNecesidadBruta()
@@ -36,7 +37,8 @@ namespace Muebleria
             foreach (PadreHijo item in lista)
             {
                 necesidadbruta nb = new necesidadbruta(cv.getIDProd(item.Hijo), item.Semana, item.Cantidad);
-                listaNB.Add(nb);
+                if(!item.esPadre(item.Hijo))
+                    listaNB.Add(nb);
                 nb.cargarNecesidadBruta();
             }  
         }
@@ -45,7 +47,11 @@ namespace Muebleria
         {
             stock S = new stock();
             float cantidad;
-            listaNN = listaNB;
+            foreach (PadreHijo ph in listaExplosionada)
+            {
+                listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Padre), ph.Semana, ph.Cantidad));
+            }
+            
             foreach (necesidadbruta nb in listaNN)
             {
                 cantidad = S.getStockProducto(nb.idProductoHijo);

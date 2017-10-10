@@ -22,8 +22,8 @@ namespace Muebleria
                     //UM_valor umv = consultarUM(item.Hijo);
                     Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada, cantidad);
                     PadreHijo ph = new PadreHijo(cv.getNombreProd(padre), item.Hijo, (Convert.ToInt32(item.Cantidad) * cantidad), item.Um, semanaBuscada);
-                    if (ph.esPadre(ph.Hijo) == false)
-                        lista.Add(ph);
+                    //if (ph.esPadre(ph.Hijo) == false)
+                    lista.Add(ph);
                 }
                 //lista = filtrarPadre(padresSinFiltro);
             }

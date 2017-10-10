@@ -57,14 +57,22 @@ namespace Muebleria
                 DataGridViewRow row = dataGridView1.Rows[i];
                 controller.cargarRequerimiento(row);
             }
-
-            TransformacionReq tr = new TransformacionReq();
-            tr.elaborarPMP();
-            ControllerNecesidades cn = new ControllerNecesidades();
-            cn.cargarNecesidadBruta();
-            cn.generarNN();
-
+            try
+            {
+                TransformacionReq tr = new TransformacionReq();
+                tr.elaborarPMP();
+                ControllerNecesidades cn = new ControllerNecesidades();
+                cn.cargarNecesidadBruta();
+                cn.generarNN();
+                requerimientos req = new requerimientos();
+                req.actualizarDelta_Cant();
             MessageBox.Show("Reporte Generado con Exito!");
+            }
+            catch
+            {
+                MessageBox.Show("No anduvo");
+            }
+
             this.Close();
             this.Hide();
             Menu menu = new Menu();

@@ -147,6 +147,7 @@ namespace Muebleria
             {
                 controller.crearMovimiento(cbRazon.SelectedItem.ToString(), cbProductos.SelectedItem.ToString(), cbSucursalOrigen.SelectedItem.ToString()
                 , cbSucursalDestino.SelectedItem.ToString(), almacenOrigen, almacenDestino, ubicacionOrigen, ubicacionDestino, sn, cant, um);
+                MessageBox.Show("Movimiento generado con exito");
             }
             catch
             {

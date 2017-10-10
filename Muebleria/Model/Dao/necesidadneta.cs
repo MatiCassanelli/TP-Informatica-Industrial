@@ -29,5 +29,10 @@ namespace Muebleria
             db.SaveChanges();
         }
 
+        public necesidadneta()
+        {
+
+        }
+
     }
 }
