@@ -49,7 +49,7 @@ namespace Muebleria
             float cantidad;
             foreach (PadreHijo ph in listaExplosionada)
             {
-                listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Padre), ph.Semana, ph.Cantidad));
+                listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad));
             }
             
             foreach (necesidadbruta nb in listaNN)

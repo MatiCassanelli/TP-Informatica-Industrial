@@ -66,7 +66,7 @@ namespace Muebleria
                 cn.generarNN();
                 requerimientos req = new requerimientos();
                 req.actualizarDelta_Cant();
-            MessageBox.Show("Reporte Generado con Exito!");
+                MessageBox.Show("Reporte Generado con Exito!");
             }
             catch
             {
