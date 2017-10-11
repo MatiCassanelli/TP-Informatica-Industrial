@@ -17,6 +17,8 @@ namespace Muebleria.Model
         public GeneradorOC()
         {
             listaNN = necesidadNeta.getAll();
+            realizarPedido();
+            generarTXT();
         }
         public void realizarPedido()
         {
@@ -26,7 +28,7 @@ namespace Muebleria.Model
                 int cantProveedores = proveedorProducto.getCantProveedores(idProducto);
                 if (cantProveedores == 1)    //1 solo proveedor
                 {
-                    string nombreProveedor = proveedorProducto.getProveedores(nn.idProductoHijo.ToString())[0].ToString();
+                    string nombreProveedor = proveedorProducto.getProveedores(nn.idProductoHijo.ToString())[0].nombreProveedor.ToString();
                     ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, nn.Cant, nombreProveedor);
                     ListaordenCompra.Add(oc);
                 }
@@ -111,12 +113,12 @@ namespace Muebleria.Model
             {
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine(ListaordenCompra[0].NroOrdenCompra + "/n");
+                    sw.WriteLine(ListaordenCompra[0].NroOrdenCompra + "\n");
                     
                     foreach (ordencompra oc in ListaordenCompra)
                     {
-                        sw.WriteLine(oc.idProductoHijo.ToString() + "/t" + oc.Proveedor + 
-                            "/t" + oc.Semana.ToString() + "/t" + oc.Cant.ToString());
+                        sw.WriteLine(oc.idProductoHijo.ToString() + "\t Proveedor: " + oc.Proveedor + 
+                            "\t Semana: " + oc.Semana.ToString() + "\t Cantidad: " + oc.Cant.ToString());
                     }
                 
                 }

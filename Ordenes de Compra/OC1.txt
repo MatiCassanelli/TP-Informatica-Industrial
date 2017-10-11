@@ -1,0 +1,5 @@
+OC1
+
+10056468	 Proveedor: Accesorios plasticos	 Semana: 44	 Cantidad: 120
+10056468	 Proveedor: Accesorios plasticos	 Semana: 45	 Cantidad: 95
+10056468	 Proveedor: Accesorios plasticos	 Semana: 46	 Cantidad: 31

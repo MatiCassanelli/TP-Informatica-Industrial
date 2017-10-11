@@ -33,7 +33,7 @@ namespace Muebleria
             if (query.Count() > 0)
             {
                 string oc = query.ToList()[0];
-                oc.Substring(2);                                    //PROBAR SI ESTO SACA "OC"
+                oc = oc.Substring(2);                                    //PROBAR SI ESTO SACA "OC"
                 int nro = Convert.ToInt32(oc);
                 nro++;
                 return nro;
