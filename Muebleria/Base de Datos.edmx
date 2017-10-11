@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="almacen">
           <Key>
             <PropertyRef Name="idAlmacen" />
@@ -268,6 +268,18 @@
           <Property Name="fecha_aplicacion" Type="int" Nullable="false" />
           <Property Name="activado" Type="tinyint" Nullable="false" />
           <Property Name="version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proveedorproducto">
+          <Key>
+            <PropertyRef Name="idProveedorProducto" />
+          </Key>
+          <Property Name="idProveedorProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigoProveedor" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nombreProveedor" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="codigoProducto" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nombreProducto" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="capProductiva" Type="int" Nullable="false" />
+          <Property Name="precio" Type="double" Nullable="false" />
         </EntityType>
         <EntityType Name="razon">
           <Key>
@@ -573,42 +585,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idHijoP">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente-publicado" Type="Self.padre-componente-publicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre-componente-publicado">
-              <PropertyRef Name="idHijoP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idHijoPS">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="producto-sustituto">
-              <PropertyRef Name="idHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idHijoT">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente-temporal" Type="Self.padre-componente-temporal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre-componente-temporal">
-              <PropertyRef Name="idHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idLanguage">
           <End Role="language" Type="Self.language" Multiplicity="1" />
           <End Role="users" Type="Self.users" Multiplicity="*" />
@@ -633,79 +609,7 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idPadreP">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente-publicado" Type="Self.padre-componente-publicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre-componente-publicado">
-              <PropertyRef Name="idPadreP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idPadrePS">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="producto-sustituto">
-              <PropertyRef Name="idPadre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idPadreT">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="padre-componente-temporal" Type="Self.padre-componente-temporal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="padre-componente-temporal">
-              <PropertyRef Name="idPadre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoA">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="articulo" Type="Self.articulo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="articulo">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoMov">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="movimiento" Type="Self.movimiento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="movimiento">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoNB">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="necesidadbruta" Type="Self.necesidadbruta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="necesidadbruta">
-              <PropertyRef Name="idProductoHijo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoNN">
+        <Association Name="idProducto">
           <End Role="producto" Type="Self.producto" Multiplicity="1" />
           <End Role="necesidadneta" Type="Self.necesidadneta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -717,7 +621,19 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoOC">
+        <Association Name="idProductoNecesidadBruta">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="necesidadbruta" Type="Self.necesidadbruta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="necesidadbruta">
+              <PropertyRef Name="idProductoHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idProductoOrdenCompra">
           <End Role="producto" Type="Self.producto" Multiplicity="1" />
           <End Role="ordencompra" Type="Self.ordencompra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -741,18 +657,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idProductoRD">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="remito_detalle" Type="Self.remito_detalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="remito_detalle">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idProductoRequerimiento">
           <End Role="producto" Type="Self.producto" Multiplicity="1" />
           <End Role="requerimientos" Type="Self.requerimientos" Multiplicity="*" />
@@ -761,18 +665,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
               <PropertyRef Name="idProducto" />
             </Principal>
             <Dependent Role="requerimientos">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idProductoS">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="stock" Type="Self.stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="stock">
               <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
@@ -822,18 +714,6 @@ advertencia 6035: La relación 'idDescriptionP' tiene columnas que no forman par
             </Principal>
             <Dependent Role="almacen">
               <PropertyRef Name="idSucursal" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idSustitutoPS">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="producto-sustituto" Type="Self.producto-sustituto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="producto-sustituto">
-              <PropertyRef Name="sustituto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1104,6 +984,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <EntitySet Name="pmp" EntityType="Self.pmp" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto" EntityType="Self.producto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="producto-sustituto" EntityType="Self.producto-sustituto" Schema="informatica industrial db" store:Type="Tables" />
+          <EntitySet Name="proveedorproducto" EntityType="Self.proveedorproducto" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="razon" EntityType="Self.razon" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="remito" EntityType="Self.remito" Schema="informatica industrial db" store:Type="Tables" />
           <EntitySet Name="remito_detalle" EntityType="Self.remito_detalle" Schema="informatica industrial db" store:Type="Tables" />
@@ -1170,18 +1051,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="direccion" EntitySet="direccion" />
             <End Role="sucursal" EntitySet="sucursal" />
           </AssociationSet>
-          <AssociationSet Name="idHijoP" Association="Self.idHijoP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
-          </AssociationSet>
-          <AssociationSet Name="idHijoPS" Association="Self.idHijoPS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="idHijoT" Association="Self.idHijoT">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente-temporal" EntitySet="padre-componente-temporal" />
-          </AssociationSet>
           <AssociationSet Name="idLanguage" Association="Self.idLanguage">
             <End Role="language" EntitySet="language" />
             <End Role="users" EntitySet="users" />
@@ -1190,35 +1059,15 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="language" EntitySet="language" />
             <End Role="traduccion" EntitySet="traduccion" />
           </AssociationSet>
-          <AssociationSet Name="idPadreP" Association="Self.idPadreP">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente-publicado" EntitySet="padre-componente-publicado" />
-          </AssociationSet>
-          <AssociationSet Name="idPadrePS" Association="Self.idPadrePS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
-          </AssociationSet>
-          <AssociationSet Name="idPadreT" Association="Self.idPadreT">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="padre-componente-temporal" EntitySet="padre-componente-temporal" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoA" Association="Self.idProductoA">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="articulo" EntitySet="articulo" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoMov" Association="Self.idProductoMov">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="movimiento" EntitySet="movimiento" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoNB" Association="Self.idProductoNB">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoNN" Association="Self.idProductoNN">
+          <AssociationSet Name="idProducto" Association="Self.idProducto">
             <End Role="producto" EntitySet="producto" />
             <End Role="necesidadneta" EntitySet="necesidadneta" />
           </AssociationSet>
-          <AssociationSet Name="idProductoOC" Association="Self.idProductoOC">
+          <AssociationSet Name="idProductoNecesidadBruta" Association="Self.idProductoNecesidadBruta">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="necesidadbruta" EntitySet="necesidadbruta" />
+          </AssociationSet>
+          <AssociationSet Name="idProductoOrdenCompra" Association="Self.idProductoOrdenCompra">
             <End Role="producto" EntitySet="producto" />
             <End Role="ordencompra" EntitySet="ordencompra" />
           </AssociationSet>
@@ -1226,17 +1075,9 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="producto" EntitySet="producto" />
             <End Role="pmp" EntitySet="pmp" />
           </AssociationSet>
-          <AssociationSet Name="idProductoRD" Association="Self.idProductoRD">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="remito_detalle" EntitySet="remito_detalle" />
-          </AssociationSet>
           <AssociationSet Name="idProductoRequerimiento" Association="Self.idProductoRequerimiento">
             <End Role="producto" EntitySet="producto" />
             <End Role="requerimientos" EntitySet="requerimientos" />
-          </AssociationSet>
-          <AssociationSet Name="idProductoS" Association="Self.idProductoS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="stock" EntitySet="stock" />
           </AssociationSet>
           <AssociationSet Name="idRazonUXR" Association="Self.idRazonUXR">
             <End Role="razon" EntitySet="razon" />
@@ -1253,10 +1094,6 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
           <AssociationSet Name="idSucursalA" Association="Self.idSucursalA">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="almacen" EntitySet="almacen" />
-          </AssociationSet>
-          <AssociationSet Name="idSustitutoPS" Association="Self.idSustitutoPS">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="producto-sustituto" EntitySet="producto-sustituto" />
           </AssociationSet>
           <AssociationSet Name="idTipo" Association="Self.idTipo">
             <End Role="tipo_producto" EntitySet="tipo_producto" />
@@ -1339,8 +1176,7 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="articulo" EntitySet="articulo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2737,7 +2573,20 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
             <End Role="razon" EntitySet="razon" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
+          <EntitySet Name="proveedorproducto" EntityType="Model.proveedorproducto" />
         </EntityContainer>
+        <EntityType Name="proveedorproducto">
+          <Key>
+            <PropertyRef Name="idProveedorProducto" />
+          </Key>
+          <Property Name="idProveedorProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigoProveedor" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nombreProveedor" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigoProducto" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nombreProducto" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="capProductiva" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3156,6 +3005,19 @@ advertencia 6035: La relación 'MaquinaMM' tiene columnas que no forman parte de
               <ScalarProperty Name="idUsers" ColumnName="idUsuario" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="proveedorproducto">
+            <EntityTypeMapping TypeName="Model.proveedorproducto">
+              <MappingFragment StoreEntitySet="proveedorproducto">
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="capProductiva" ColumnName="capProductiva" />
+                <ScalarProperty Name="nombreProducto" ColumnName="nombreProducto" />
+                <ScalarProperty Name="codigoProducto" ColumnName="codigoProducto" />
+                <ScalarProperty Name="nombreProveedor" ColumnName="nombreProveedor" />
+                <ScalarProperty Name="codigoProveedor" ColumnName="codigoProveedor" />
+                <ScalarProperty Name="idProveedorProducto" ColumnName="idProveedorProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

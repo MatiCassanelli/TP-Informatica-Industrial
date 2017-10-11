@@ -61,5 +61,6 @@ namespace Muebleria
         public virtual DbSet<ubicacion> ubicacion { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<proveedorproducto> proveedorproducto { get; set; }
     }
 }

@@ -15,6 +15,11 @@ namespace Muebleria
             Semana = semana;
             Cant = cant;
         }
+
+        public necesidadneta()
+        {
+
+        }
         public void InsertOrUpdateNecesidadNeta()
         {
             var query = from nn in db.necesidadneta
@@ -27,6 +32,13 @@ namespace Muebleria
                 db.necesidadneta.Add(this);
 
             db.SaveChanges();
+        }
+
+        public List<necesidadneta> getAll()
+        {
+            var query = from nn in db.necesidadneta
+                        select nn;
+            return query.ToList();
         }
 
     }
