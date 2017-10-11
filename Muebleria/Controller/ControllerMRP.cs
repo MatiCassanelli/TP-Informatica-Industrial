@@ -20,6 +20,7 @@ namespace Muebleria
             requerimientos req = new requerimientos();
             req.actualizarDelta_Cant();
         }
+
         public List<requerimientos> formatearLista(List<requerimientos> lista)
         {
             List<requerimientos> aux = lista;
