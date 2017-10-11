@@ -182,7 +182,9 @@
     </Compile>
     <Compile Include="Model\Dao\necesidadbruta.cs" />
     <Compile Include="Model\Dao\necesidadneta.cs" />
+    <Compile Include="Model\Dao\ordencompra.cs" />
     <Compile Include="Model\Dao\pmp.cs" />
+    <Compile Include="Model\Dao\proveedorproducto.cs" />
     <Compile Include="Model\Dao\requerimientos.cs" />
     <Compile Include="Model\Dao\stock.cs" />
     <Compile Include="Model\ExplosionClass.cs" />
@@ -207,6 +209,9 @@
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="pmp.cs">
+      <DependentUpon>Base de Datos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="proveedorproducto.cs">
       <DependentUpon>Base de Datos.tt</DependentUpon>
     </Compile>
     <Compile Include="requerimientos.cs">

@@ -95,6 +95,7 @@
         <AssociationConnector Association="Model.unidad_medidaS" ManuallyRouted="false" />
         <AssociationConnector Association="Model.User_updS" ManuallyRouted="false" />
         <AssociationConnector Association="Model.usuarioxrazon" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.proveedorproducto" Width="1.5" PointX="3.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

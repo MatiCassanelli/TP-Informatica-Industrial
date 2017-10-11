@@ -34,11 +34,17 @@ namespace Muebleria
             db.SaveChanges();
         }
 
+<<<<<<< HEAD
+        public necesidadneta()
+        {
+
+=======
         public List<necesidadneta> getAll()
         {
             var query = from nn in db.necesidadneta
                         select nn;
             return query.ToList();
+>>>>>>> felipe
         }
 
     }

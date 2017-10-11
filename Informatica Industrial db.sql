@@ -714,6 +714,35 @@ INSERT INTO `producto-sustituto` VALUES (10056456,10056461,10056462,'2017-09-06 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `proveedorproducto`
+--
+
+DROP TABLE IF EXISTS `proveedorproducto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `proveedorproducto` (
+  `idProveedorProducto` int(11) NOT NULL AUTO_INCREMENT,
+  `codigoProveedor` varchar(45) NOT NULL,
+  `nombreProveedor` varchar(60) NOT NULL,
+  `codigoProducto` varchar(45) NOT NULL,
+  `nombreProducto` varchar(45) NOT NULL,
+  `capProductiva` int(11) NOT NULL,
+  `precio` double NOT NULL,
+  PRIMARY KEY (`idProveedorProducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `proveedorproducto`
+--
+
+LOCK TABLES `proveedorproducto` WRITE;
+/*!40000 ALTER TABLE `proveedorproducto` DISABLE KEYS */;
+INSERT INTO `proveedorproducto` VALUES (1,'P01010','LAFABRICA Pinturas','10056499','Laca Opaca',30,24),(2,'P01010','LAFABRICA Pinturas','10056500','Laca Brillante',60,26),(3,'P01010','LAFABRICA Pinturas','10056530','Cola',100,7),(4,'P01013','Pinturerias CASA MOLINA','10056499','Laca Opaca',100,30),(5,'P01013','Pinturerias CASA MOLINA','10056500','Laca Brillante',200,30),(6,'P02000','Madereras del norte','10056474','Tapa Caoba',20,55),(7,'P02000','Madereras del norte','10056475','Tapa Roble',35,45),(8,'P02000','Madereras del norte','10056480','Barra B Caoba',1000,12),(9,'P02000','Madereras del norte','10056481','Barra B Roble',1000,11),(10,'P02000','Madereras del norte','10056506','Lateral Derecho Caoba',50,8),(11,'P02000','Madereras del norte','10056507','Lateral Derecho Roble',50,7),(12,'P02000','Madereras del norte','10056512','Lateral Izquierdo Caoba',50,8),(13,'P02000','Madereras del norte','10056513','Lateral Izquierdo Roble',50,7),(14,'P02000','Madereras del norte','10056518','Lateral Fondo Caoba',50,8),(15,'P02000','Madereras del norte','10056519','Lateral Fondo Roble',50,7),(16,'P02000','Madereras del norte','10056524','Lateral Frente Caoba',50,13),(17,'P02000','Madereras del norte','10056525','Lateral Frente Roble',50,11),(18,'P02001','Maderas Rio Negro','10056473','Tapa Pino',40,35),(19,'P02001','Maderas Rio Negro','10056474','Tapa Caoba',40,50),(20,'P02001','Maderas Rio Negro','10056475','Tapa Roble',40,49),(21,'P02001','Maderas Rio Negro','10056479','Barra B Pino',1000,10),(22,'P02001','Maderas Rio Negro','10056480','Barra B Caoba',1000,12),(23,'P02001','Maderas Rio Negro','10056481','Barra B Roble',1000,12),(24,'P02001','Maderas Rio Negro','10056505','Lateral Derecho Pino',100,5),(25,'P02001','Maderas Rio Negro','10056506','Lateral Derecho Caoba',100,9),(26,'P02001','Maderas Rio Negro','10056507','Lateral Derecho Roble',100,8),(27,'P02001','Maderas Rio Negro','10056511','Lateral Izquierdo Pino',100,5),(28,'P02001','Maderas Rio Negro','10056512','Lateral Izquierdo Caoba',100,9),(29,'P02001','Maderas Rio Negro','10056513','Lateral Izquierdo Roble',100,8),(30,'P02001','Maderas Rio Negro','10056517','Lateral Fondo Pino',100,5),(31,'P02001','Maderas Rio Negro','10056518','Lateral Fondo Caoba',100,9),(32,'P02001','Maderas Rio Negro','10056519','Lateral Fondo Roble',100,8),(33,'P02001','Maderas Rio Negro','10056523','Lateral Frente Pino',100,7),(34,'P02001','Maderas Rio Negro','10056524','Lateral Frente Caoba',100,17),(35,'P02001','Maderas Rio Negro','10056525','Lateral Frente Roble',100,15),(36,'P05000','Metales Fergun','10056487','Tornillo Corto',14400,0.08),(37,'P05000','Metales Fergun','10056488','Tornillo Largo',14400,0.09),(38,'P05000','Metales Fergun','10056489','Soporte T 1/2',14400,0.1),(39,'P05000','Metales Fergun','10056501','Herraje A',14400,1.5),(40,'P05000','Metales Fergun','10056529','Clavo Cajonero',14400,0.01),(41,'P02002','Accesorios plasticos','10056467','Cinta Borde Pino',1000,2),(42,'P02002','Accesorios plasticos','10056468','Cinta Borde Caoba',1000,2),(43,'P02002','Accesorios plasticos','10056469','Cinta Borde Roble',1000,2);
+/*!40000 ALTER TABLE `proveedorproducto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `razon`
 --
 
@@ -1119,4 +1148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-08 15:24:07
+-- Dump completed on 2017-10-10 11:30:55
