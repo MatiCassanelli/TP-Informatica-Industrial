@@ -134,7 +134,7 @@ namespace Muebleria
                 MessageBox.Show("No anduvo: " + exp.Message);
             }
             //db.SaveChanges();
-            mostrarCodigoDeBarra(a);
+            //mostrarCodigoDeBarra(a);
         }
 
         private void mostrarCodigoDeBarra(articulo a)
