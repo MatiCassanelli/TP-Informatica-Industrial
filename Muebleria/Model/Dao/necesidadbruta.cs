@@ -34,7 +34,7 @@ namespace Muebleria
             db.SaveChanges();
         }
 
-        public int getDiferenciaCantidad(int prod, int semana)
+        public int getCantidad(int prod, int semana)
         {
             var query = from nb in db.necesidadbruta
                         where nb.idProductoHijo == prod && nb.Semana == semana

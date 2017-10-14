@@ -8,15 +8,43 @@ namespace Muebleria
 {
     class ControllerNecesidades
     {
-        ExplosionClass explosion = new ExplosionClass();
         ConsultasVarias cv = new ConsultasVarias();
+
+        ExplosionClass explosion = new ExplosionClass();
+
         List<PadreHijo> listaExplosionada = new List<PadreHijo>();
         List<PadreHijo> listaPadres = new List<PadreHijo>();
         List<necesidadbruta> listaNB = new List<necesidadbruta>();
         List<necesidadbruta> listaNN = new List<necesidadbruta>();
         List<necesidadneta> necesidadesNetas = new List<necesidadneta>();
 
-        private void generarNB()
+        public void cargarNecesidadBruta()  //1
+        {
+            getProdExplotados();
+            foreach (PadreHijo item in listaExplosionada)
+            {
+                necesidadbruta nb = new necesidadbruta();
+                nb = new necesidadbruta(cv.getIDProd(item.Hijo), item.Semana,
+                    (item.Cantidad - nb.getCantidad(cv.getIDProd(item.Hijo), item.Semana)));
+                listaNB.Add(nb);
+
+                if (!item.esPadre(item.Hijo))
+                    nb.cargarNecesidadBruta();
+                else
+                {
+                    necesidadneta nn = new necesidadneta();     //lo de necesidad neta me hace RUIDO
+                    item.Cantidad -= nn.getDiferenciaCantidad(cv.getIDProd(item.Hijo), item.Semana);    //con los valores q siempre cargo, da 18 xq hace 30-12. No deberia hacer 30-12, sino q deberia hacer 27-12 para q de lo q tiene q dar. o sino, 5 de la semana q viene - 3 q ya produje
+                    listaPadres.Add(item);                                                              //tiene en cuenta las 5 mesa tubulares producidas, pero no las 3 tp q ya produje. siempre me termina haciendo 40 del req total - 5 mt hechas. 
+                }
+            }
+        }
+        private void getProdExplotados() //2
+        {
+            generarNB();
+            listaExplosionada = explosion.getListaExplosionada();
+        }
+
+        private void generarNB()    //3
         {
             pmp PMP = new pmp();
             List<pmp> listaPMP = PMP.getPMP();
@@ -25,33 +53,7 @@ namespace Muebleria
                 explosion.Explotar(item.idProductoPadre, item.idProductoPadre, item.Semana, item.Cant);
         }
 
-        private List<PadreHijo> getProdExplotados()
-        {
-            generarNB();
-            listaExplosionada = explosion.getListaExplosionada();
-            return listaExplosionada;
-        }
-        
-        public void cargarNecesidadBruta()
-        {
-            List<PadreHijo> lista = getProdExplotados();
-            foreach (PadreHijo item in lista)
-            {
-                necesidadbruta nb = new necesidadbruta();
-                nb = new necesidadbruta(cv.getIDProd(item.Hijo), item.Semana, (item.Cantidad - nb.getDiferenciaCantidad(cv.getIDProd(item.Hijo),item.Semana)));
-
-                listaNB.Add(nb);
-                if (!item.esPadre(item.Hijo))
-                    nb.cargarNecesidadBruta();
-                else
-                {
-                    necesidadneta nn = new necesidadneta();
-                    item.Cantidad -= nn.getDiferenciaCantidad(cv.getIDProd(item.Hijo), item.Semana);    //con los valores q siempre cargo, da 18 xq hace 30-12. No deberia hacer 30-12, sino q deberia hacer 27-12 para q de lo q tiene q dar. o sino, 5 de la semana q viene - 3 q ya produje
-                    listaPadres.Add(item);                                                              //tiene en cuenta las 5 mesa tubulares producidas, pero no las 3 tp q ya produje. siempre me termina haciendo 40 del req total - 5 mt hechas. 
-                }
-            }
-        }
-        public void generarNN()
+        public void generarNN() //4
         {
             NBmenosStock();
             foreach (necesidadbruta nn in listaNN)
@@ -62,7 +64,60 @@ namespace Muebleria
             }
         }
 
-        private void restarStockPadres()
+        private void NBmenosStock() //5
+        {
+            stock S = new stock();
+            float cantidad;
+            limpiarLista();
+            foreach (PadreHijo ph in listaExplosionada)
+            {
+                listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad));
+            }
+
+            foreach (necesidadbruta nb in listaNN)
+            {
+                cantidad = S.getStockProducto(nb.idProductoHijo);
+                if (cantidad > 0)
+                {
+                    if (nb.Cant - cantidad < 0)
+                    {
+                        S.actualizarStock(nb.idProductoHijo, cantidad - nb.Cant);
+                        nb.Cant = 0;
+                    }
+                    else
+                    {
+                        S.actualizarStock(nb.idProductoHijo, 0);
+                        nb.Cant -= Convert.ToInt32(cantidad);
+                    }
+                }
+            }
+        }
+
+        private void limpiarLista() //6
+        {
+            foreach (PadreHijo ph in explotarParaNN())
+            {
+                for (int i = 0; i < listaExplosionada.Count; i++)
+                {
+                    if (ph.Padre == listaExplosionada[i].Padre && ph.Hijo == listaExplosionada[i].Hijo &&
+                        ph.Semana == listaExplosionada[i].Semana)
+                        listaExplosionada[i].Cantidad = ph.Cantidad;
+                }
+            }
+        }
+
+        private List<PadreHijo> explotarParaNN()    //7
+        {
+            restarStockPadres();
+            ExplosionClass exp = new ExplosionClass();
+            //List<PadreHijo> asd = new List<PadreHijo>();
+            foreach (PadreHijo ph in listaPadres)//listaExplosionada)
+                exp.Explotar(cv.getIDProd(ph.Hijo), cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad);
+
+            return exp.getListaExplosionada();
+        }
+
+        private void restarStockPadres()    //8
         {
             stock S = new stock();
             foreach (PadreHijo ph in listaPadres )// listaExplosionada)
@@ -87,64 +142,9 @@ namespace Muebleria
             }
         }
 
-        private List<PadreHijo> explotarParaNN()
-        {
-            restarStockPadres();
-            ExplosionClass exp = new ExplosionClass();
-            //List<PadreHijo> asd = new List<PadreHijo>();
-            foreach (PadreHijo ph in listaPadres)//listaExplosionada)
-                exp.Explotar(cv.getIDProd(ph.Hijo), cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad);
-
-            return exp.getListaExplosionada();
-        }
-        
-        private void limpiarLista()
-        {
-            foreach(PadreHijo ph in explotarParaNN())
-            {
-                for (int i = 0; i < listaExplosionada.Count; i++)
-                {
-                    if (ph.Padre == listaExplosionada[i].Padre && ph.Hijo == listaExplosionada[i].Hijo && ph.Semana == listaExplosionada[i].Semana)
-                        listaExplosionada[i].Cantidad = ph.Cantidad;
-                }
-            }
-        }
-
-        private void NBmenosStock()
-        {
-            stock S = new stock();
-            float cantidad;
-            limpiarLista();
-            List<PadreHijo> asd = listaExplosionada;
-            foreach (PadreHijo ph in asd)
-            {
-                listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad));
-            }
-            
-            foreach (necesidadbruta nb in listaNN)
-            {
-                cantidad = S.getStockProducto(nb.idProductoHijo);
-                if (cantidad > 0)
-                {
-                    if (nb.Cant - cantidad < 0)
-                    {
-                        S.actualizarStock(nb.idProductoHijo, cantidad - nb.Cant);
-                        nb.Cant = 0;
-                    }
-                    else
-                    {
-                        S.actualizarStock(nb.idProductoHijo, 0);
-                        nb.Cant -= Convert.ToInt32(cantidad);
-                    }
-                }
-            }
-        }
-
-
-
-        public List<necesidadneta> getNecesidadesNetas()
-        {
-            return necesidadesNetas;
-        }
+        //public List<necesidadneta> getNecesidadesNetas()
+        //{
+        //    return necesidadesNetas;
+        //}
     }
 }

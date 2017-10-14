@@ -19,7 +19,7 @@ namespace Muebleria
             cn.generarNN();
             requerimientos req = new requerimientos();
             req.actualizarDelta_Cant();
-            GeneradorOC generadorOC = new GeneradorOC();
+            //GeneradorOC generadorOC = new GeneradorOC();
         }
 
         public List<requerimientos> formatearLista(List<requerimientos> lista)
