@@ -108,7 +108,7 @@ namespace Muebleria.Model
         {
             ordenCompra.insertarOC(ListaordenCompra);
 
-            string path = @"C:\Users\Felipe\Desktop\Ingeniería\4to año 2do semestre\Informática Industrial\TP6\Ordenes de Compra\"+ListaordenCompra[0].NroOrdenCompra+".txt";
+            string path = @"D:\Mati\Facu\4° Año\2° Semestre\Informatica Industrial\Ordenes de Compra\" + ListaordenCompra[0].NroOrdenCompra+".txt";
             if (!File.Exists(path))
             {
                 using (StreamWriter sw = File.CreateText(path))

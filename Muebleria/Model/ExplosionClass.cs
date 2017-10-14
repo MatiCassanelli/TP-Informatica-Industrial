@@ -16,7 +16,6 @@ namespace Muebleria
             List<PadreHijo> aux = consultarPadre(padre,semanaBuscada);
             if (aux.Count > 0)
             {
-                List<PadreHijo> padresSinFiltro = new List<PadreHijo>();
                 foreach (PadreHijo item in aux)
                 {
                     Explotar(cv.getIDProd(item.Hijo), prodfinal, semanaBuscada, cantidad);

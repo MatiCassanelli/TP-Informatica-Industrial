@@ -18,8 +18,8 @@ namespace Muebleria
             cn.cargarNecesidadBruta();
             cn.generarNN();
             requerimientos req = new requerimientos();
+            //Model.GeneradorOC generadorOC = new Model.GeneradorOC();
             req.actualizarDelta_Cant();
-            Model.GeneradorOC generadorOC = new Model.GeneradorOC();
         }
 
         public List<requerimientos> formatearLista(List<requerimientos> lista)

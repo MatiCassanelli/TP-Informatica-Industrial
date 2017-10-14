@@ -27,12 +27,23 @@ namespace Muebleria
                         select nb;
 
             if (query.Count() > 0)
-                query.ToList()[0].Cant+=this.Cant;
+                query.ToList()[0].Cant += this.Cant;
             else
                 db.necesidadbruta.Add(this);
 
             db.SaveChanges();
+        }
 
+        public int getDiferenciaCantidad(int prod, int semana)
+        {
+            var query = from nb in db.necesidadbruta
+                        where nb.idProductoHijo == prod && nb.Semana == semana
+                        select nb.Cant;
+            if (query.Count() > 0)
+                return query.ToList()[0];
+            else
+                return 0;
+            
         }
     }
 }
