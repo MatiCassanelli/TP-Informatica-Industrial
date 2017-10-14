@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Muebleria.Model
+namespace Muebleria
 {
     class GeneradorOC
     {
@@ -14,9 +14,10 @@ namespace Muebleria.Model
         proveedorproducto proveedorProducto = new proveedorproducto();
         ordencompra ordenCompra = new ordencompra();
         List<ordencompra> ListaordenCompra = new List<ordencompra>();
-        public GeneradorOC()
+        public GeneradorOC()//List<necesidadneta> list)
         {
             listaNN = necesidadNeta.getAll();
+            //listaNN = list;
             realizarPedido();
             generarTXT();
         }

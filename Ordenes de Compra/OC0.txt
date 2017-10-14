@@ -1,3 +1,5 @@
-OC0/n
-10056468/tAccesorios plasticos/t44/t60
-10056468/tAccesorios plasticos/t45/t35
+OC0
+
+10056468	 Proveedor: Accesorios plasticos	 Semana: 44	 Cantidad: 1
+10056473	 Proveedor: Maderas Rio Negro	 Semana: 44	 Cantidad: 1
+10056505	 Proveedor: Maderas Rio Negro	 Semana: 44	 Cantidad: 3
