@@ -63,6 +63,7 @@ namespace Muebleria
             MessageBox.Show("Reporte generado con exito");
 
             this.Close();
+            this.Hide();
             Menu menu = new Menu();
             menu.ShowDialog();
         }

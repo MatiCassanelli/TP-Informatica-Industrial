@@ -54,9 +54,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1131, 0);
+            this.label1.Location = new System.Drawing.Point(424, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 32);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
@@ -66,10 +67,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(884, 0);
-            this.label7.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label7.Location = new System.Drawing.Point(332, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(236, 32);
+            this.label7.Size = new System.Drawing.Size(89, 13);
             this.label7.TabIndex = 25;
             this.label7.Text = "Semana Numero:";
             // 
@@ -79,9 +79,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(12, 75);
+            this.panel1.Location = new System.Drawing.Point(4, 31);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(900, 639);
+            this.panel1.Size = new System.Drawing.Size(551, 282);
             this.panel1.TabIndex = 26;
             // 
             // dataGridView1
@@ -96,10 +97,11 @@
             this.Cantidad,
             this.Cliente,
             this.Delta});
-            this.dataGridView1.Location = new System.Drawing.Point(20, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 1);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 40;
-            this.dataGridView1.Size = new System.Drawing.Size(877, 632);
+            this.dataGridView1.Size = new System.Drawing.Size(542, 279);
             this.dataGridView1.TabIndex = 0;
             // 
             // Producto
@@ -129,9 +131,10 @@
             // 
             // btnGenerarReporte
             // 
-            this.btnGenerarReporte.Location = new System.Drawing.Point(3, 79);
+            this.btnGenerarReporte.Location = new System.Drawing.Point(1, 33);
+            this.btnGenerarReporte.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.btnGenerarReporte.Name = "btnGenerarReporte";
-            this.btnGenerarReporte.Size = new System.Drawing.Size(293, 55);
+            this.btnGenerarReporte.Size = new System.Drawing.Size(110, 23);
             this.btnGenerarReporte.TabIndex = 27;
             this.btnGenerarReporte.Text = "Generar Reporte";
             this.btnGenerarReporte.UseVisualStyleBackColor = true;
@@ -139,18 +142,20 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(155, 7);
+            this.button1.Location = new System.Drawing.Point(58, 3);
+            this.button1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 55);
+            this.button1.Size = new System.Drawing.Size(52, 23);
             this.button1.TabIndex = 28;
             this.button1.Text = "Eliminar";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(1, 7);
+            this.btnNuevo.Location = new System.Drawing.Point(0, 3);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(139, 55);
+            this.btnNuevo.Size = new System.Drawing.Size(52, 23);
             this.btnNuevo.TabIndex = 29;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
@@ -162,9 +167,10 @@
             this.panel2.Controls.Add(this.btnNuevo);
             this.panel2.Controls.Add(this.btnGenerarReporte);
             this.panel2.Controls.Add(this.button1);
-            this.panel2.Location = new System.Drawing.Point(906, 549);
+            this.panel2.Location = new System.Drawing.Point(567, 244);
+            this.panel2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(311, 148);
+            this.panel2.Size = new System.Drawing.Size(117, 62);
             this.panel2.TabIndex = 30;
             // 
             // panel3
@@ -175,18 +181,20 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.panel2);
-            this.panel3.Location = new System.Drawing.Point(12, 28);
+            this.panel3.Location = new System.Drawing.Point(4, 12);
+            this.panel3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1227, 686);
+            this.panel3.Size = new System.Drawing.Size(687, 302);
             this.panel3.TabIndex = 31;
             // 
             // MRP
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1302, 751);
+            this.ClientSize = new System.Drawing.Size(701, 329);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Name = "MRP";
             this.Text = "MRP";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MRP_FormClosed);
