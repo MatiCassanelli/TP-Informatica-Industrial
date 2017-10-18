@@ -16,7 +16,18 @@ namespace Muebleria
         List<PadreHijo> listaPadres = new List<PadreHijo>();
         List<necesidadbruta> listaNB = new List<necesidadbruta>();
         List<necesidadbruta> listaNN = new List<necesidadbruta>();
+        List<necesidadbruta> listaDiferencias = new List<necesidadbruta>();
+        List<necesidadbruta> listaNBviejas = new List<necesidadbruta>();
+        List<necesidadneta> listaNNviejas = new List<necesidadneta>();
         List<necesidadneta> necesidadesNetas = new List<necesidadneta>();
+
+        public ControllerNecesidades()
+        {
+            necesidadbruta nb = new necesidadbruta();   
+            listaNBviejas = nb.getAll();
+            necesidadneta nn = new necesidadneta();
+            listaNNviejas = nn.getAll();
+        }
 
         public void cargarNecesidadBruta()  //1
         {
@@ -28,14 +39,18 @@ namespace Muebleria
                     (item.Cantidad - nb.getCantidad(cv.getIDProd(item.Hijo), item.Semana)));
                 listaNB.Add(nb);
 
-                if (!item.esPadre(item.Hijo))
-                    nb.cargarNecesidadBruta();
-                else
-                {
-                    necesidadneta nn = new necesidadneta();     //lo de necesidad neta me hace RUIDO
-                    item.Cantidad -= nn.getDiferenciaCantidad(cv.getIDProd(item.Hijo), item.Semana);    //con los valores q siempre cargo, da 18 xq hace 30-12. No deberia hacer 30-12, sino q deberia hacer 27-12 para q de lo q tiene q dar. o sino, 5 de la semana q viene - 3 q ya produje
-                    listaPadres.Add(item);                                                              //tiene en cuenta las 5 mesa tubulares producidas, pero no las 3 tp q ya produje. siempre me termina haciendo 40 del req total - 5 mt hechas. 
-                }
+                nb.cargarNecesidadBruta();
+
+                if (item.esPadre(item.Hijo))
+                    listaPadres.Add(item);
+                //if (!item.esPadre(item.Hijo))
+                //    nb.cargarNecesidadBruta();
+                //else
+                //{
+                //    necesidadneta nn = new necesidadneta();     //lo de necesidad neta me hace RUIDO
+                //    item.Cantidad -= nn.getDiferenciaCantidad(cv.getIDProd(item.Hijo), item.Semana);    //con los valores q siempre cargo, da 18 xq hace 30-12. No deberia hacer 30-12, sino q deberia hacer 27-12 para q de lo q tiene q dar. o sino, 5 de la semana q viene - 3 q ya produje
+                //    listaPadres.Add(item);                                                              //tiene en cuenta las 5 mesa tubulares producidas, pero no las 3 tp q ya produje. siempre me termina haciendo 40 del req total - 5 mt hechas. 
+                //}
             }
         }
         private void getProdExplotados() //2
@@ -55,13 +70,118 @@ namespace Muebleria
 
         public void generarNN() //4
         {
-            NBmenosStock();
-            foreach (necesidadbruta nn in listaNN)
+            NBmenosStock(); //hacer metodo para detectar cambios en el stock - comparar listaNN con NB de la bd --> si hay cambios, calcular delta y restar a la nn 
+            restarListas();
+
+            TransformacionReq tr = new TransformacionReq();
+            necesidadbruta nb = new necesidadbruta();
+            List <necesidadbruta> NBnuevas = nb.getAll();
+            necesidadneta nn = new necesidadneta();
+            List<necesidadneta> NNviejas = nn.getAll();
+
+            for (int i = 0; i < listaNB.Count(); i++)
             {
-                necesidadneta NN = new necesidadneta(nn.idProductoHijo, nn.Semana, nn.Cant);
-                necesidadesNetas.Add(NN);
-                NN.InsertOrUpdateNecesidadNeta();
+                int idPadre = devolveridPadre(NBnuevas[i].idProductoHijo, NBnuevas[i].Semana);
+                int capXcant = devolverCantidadNecesaria(NBnuevas[i].idProductoHijo, NBnuevas[i].Semana) * tr.getCapacidad(idPadre);
+                if (NBnuevas[i].Cant == capXcant)
+                {
+                    int aux = capXcant - getCantidadNBVieja(NBnuevas[i].idProductoHijo) - getDiferencia(NBnuevas[i].idProductoHijo) + getCantidadNNVieja(NBnuevas[i].idProductoHijo);
+                    nn = new necesidadneta(NBnuevas[i].idProductoHijo, NBnuevas[i].Semana, aux);
+                    necesidadesNetas.Add(nn);
+                    nn.InsertOrUpdateNecesidadNeta();
+                }
+                else
+                {
+                    nn = new necesidadneta(NBnuevas[i].idProductoHijo, NBnuevas[i].Semana, NBnuevas[i].Cant - getDiferencia(NBnuevas[i].idProductoHijo)); //- listaDiferencias[i].Cant);
+                    necesidadesNetas.Add(nn);
+                    nn.InsertOrUpdateNecesidadNeta();
+                }
             }
+            
+
+
+            //foreach (necesidadbruta nn in listaNN)      //traerme la tabla de NB de la bd
+            //{
+            //    necesidadneta NN = new necesidadneta(nn.idProductoHijo, nn.Semana, nn.Cant);
+            //    necesidadesNetas.Add(NN);
+            //    NN.InsertOrUpdateNecesidadNeta();
+            //}
+            //NBmenosStock deberia ir aca
+        }
+        private int getCantidadNBVieja(int idproducto)
+        {
+            var query = listaNBviejas.Where(x => x.idProductoHijo == idproducto);
+            if (query.Count() > 0)
+                return query.ToList()[0].Cant;
+            else
+                return 0;
+        }
+        private int getCantidadNNVieja(int idproducto)
+        {
+            var query = listaNNviejas.Where(x => x.idProductoHijo == idproducto);
+            if (query.Count() > 0)
+                return query.ToList()[0].Cant;
+            else
+                return 0;
+        }
+        private int getDiferencia(int idproducto)
+        {
+            return listaDiferencias.Where(x => x.idProductoHijo == idproducto).ToList()[0].Cant;
+        }
+        private void restarListas()
+        {
+            int aux;
+            necesidadbruta nb = new necesidadbruta();
+            List<necesidadbruta> NBnuevas = nb.getAll();
+            for (int i = 0; i < listaNN.Count(); i++)
+            {
+                if (listaNB[i].Cant - listaNN[i].Cant <= 0)
+                    aux = 0;
+                else
+                    aux = listaNB[i].Cant - listaNN[i].Cant;
+                necesidadbruta nn = new necesidadbruta(listaNN[i].idProductoHijo, listaNN[i].Semana, aux);
+                listaDiferencias.Add(nn);
+            }
+        }
+        private int devolverCantidadNecesaria (int idproductoHijo, int semana)
+        {
+            string nombreProducto = cv.getNombreProd(idproductoHijo);
+            var query = from le in listaExplosionada
+                        where le.Hijo == nombreProducto &&
+                        le.Semana == semana
+                        select le.Padre;
+
+            int idPadre = cv.getIDProd(query.ToList()[0]);
+            return cv.getCantidadPadreComponente(idPadre, idproductoHijo);
+        }
+
+        private int devolveridPadre(int idproductoHijo, int semana)
+        {
+            string nombreProducto = cv.getNombreProd(idproductoHijo);
+            var query = from le in listaExplosionada
+                        where le.Hijo == nombreProducto &&
+                        le.Semana == semana
+                        select le.Padre;
+
+            PadreHijo ph = listaPadres.Find(x => x.Hijo == query.ToList()[0]);
+            if (ph != null)
+            {
+                return devolveridPadre(cv.getIDProd(ph.Hijo), semana);
+            }
+            else
+                return cv.getIDProd(query.ToList()[0]);
+        }
+
+        private int devolverCantidadVieja (int idproducto, int semana)
+        {
+            var query = from NBv in listaNBviejas
+                        where NBv.idProductoHijo == idproducto &&
+                        NBv.Semana == semana
+                        select NBv.Cant;
+            if (query.Count() > 0)
+                return query.ToList()[0];
+            else
+                return 0;
         }
 
         private void NBmenosStock() //5
@@ -74,7 +194,7 @@ namespace Muebleria
                 listaNN.Add(new necesidadbruta(cv.getIDProd(ph.Hijo), ph.Semana, ph.Cantidad));
             }
 
-            foreach (necesidadbruta nb in listaNN)
+            foreach (necesidadneta nb in listaNNviejas)
             {
                 cantidad = S.getStockProducto(nb.idProductoHijo);
                 if (cantidad > 0)
@@ -142,9 +262,9 @@ namespace Muebleria
             }
         }
 
-        //public List<necesidadneta> getNecesidadesNetas()
-        //{
-        //    return necesidadesNetas;
-        //}
+        public List<PadreHijo> getListaPadres()
+        {
+            return listaPadres;
+        }
     }
 }

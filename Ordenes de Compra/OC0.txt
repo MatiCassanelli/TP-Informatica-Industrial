@@ -1,5 +1,6 @@
 OC0
 
-10056468	 Proveedor: Accesorios plasticos	 Semana: 44	 Cantidad: 1
-10056473	 Proveedor: Maderas Rio Negro	 Semana: 44	 Cantidad: 1
-10056505	 Proveedor: Maderas Rio Negro	 Semana: 44	 Cantidad: 3
+10056468	 Semana: 45	 Cantidad: 30	 Proveedor: Accesorios plasticos
+10056468	 Semana: 46	 Cantidad: 25	 Proveedor: Accesorios plasticos
+10056505	 Semana: 45	 Cantidad: 81	 Proveedor: Maderas Rio Negro
+10056505	 Semana: 46	 Cantidad: 66	 Proveedor: Maderas Rio Negro

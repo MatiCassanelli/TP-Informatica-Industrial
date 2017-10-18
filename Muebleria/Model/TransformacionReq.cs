@@ -36,6 +36,13 @@ namespace Muebleria
             deltaMenosStock();
         }
 
+        public int getCapacidad (int idProducto)
+        {
+            int cap;
+            diccionario.TryGetValue(idProducto, out cap);
+            return cap;
+        }
+
         private void deltaMenosStock()
         {
             stock S = new stock();

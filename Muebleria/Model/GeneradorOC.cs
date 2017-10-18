@@ -9,84 +9,89 @@ namespace Muebleria
 {
     class GeneradorOC
     {
+        ConsultasVarias cv = new ConsultasVarias();
+        List<PadreHijo> listaPadres = new List<PadreHijo>();
         List<necesidadneta> listaNN = new List<necesidadneta>();
         necesidadneta necesidadNeta = new necesidadneta();
         proveedorproducto proveedorProducto = new proveedorproducto();
         ordencompra ordenCompra = new ordencompra();
         List<ordencompra> ListaordenCompra = new List<ordencompra>();
-        public GeneradorOC()//List<necesidadneta> list)
+        public GeneradorOC(List<PadreHijo> lp)
         {
             listaNN = necesidadNeta.getAll();
-            //listaNN = list;
+            listaPadres = lp;
             realizarPedido();
             generarTXT();
         }
         public void realizarPedido()
         {
-            foreach(necesidadneta nn in listaNN)
+            foreach (necesidadneta nn in listaNN)
             {
-                string idProducto = nn.idProductoHijo.ToString();
-                int cantProveedores = proveedorProducto.getCantProveedores(idProducto);
-                if (cantProveedores == 1)    //1 solo proveedor
+                if (listaPadres.Find(x => x.Hijo == cv.getNombreProd(nn.idProductoHijo)) == null)
                 {
-                    string nombreProveedor = proveedorProducto.getProveedores(nn.idProductoHijo.ToString())[0].nombreProveedor.ToString();
-                    ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, nn.Cant, nombreProveedor);
-                    ListaordenCompra.Add(oc);
-                }
-                else if(cantProveedores == 2)      //2 proveedores
-                {
-                    List<proveedorproducto> listaPP = new List<proveedorproducto>();
-                    listaPP = proveedorProducto.getProveedores(nn.idProductoHijo.ToString());
-                    if(nn.Cant <= listaPP[0].capProductiva*0.7)
+                    string idProducto = nn.idProductoHijo.ToString();
+                    int cantProveedores = proveedorProducto.getCantProveedores(idProducto);
+                    if (cantProveedores == 1)    //1 solo proveedor
                     {
-                        ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, nn.Cant, 
-                            listaPP[0].nombreProveedor);
+                        string nombreProveedor = proveedorProducto.getProveedores(nn.idProductoHijo.ToString())[0].nombreProveedor.ToString();
+                        ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, nn.Cant, nombreProveedor);
                         ListaordenCompra.Add(oc);
                     }
-                    else
+                    else if (cantProveedores == 2)      //2 proveedores
                     {
-                        int capProductiva0 = Convert.ToInt32(listaPP[0].capProductiva * 0.7);
-                        int capProductiva1 = Convert.ToInt32(listaPP[1].capProductiva * 0.3);
-
-                        if (nn.Cant <= capProductiva0 + capProductiva1)
+                        List<proveedorproducto> listaPP = new List<proveedorproducto>();
+                        listaPP = proveedorProducto.getProveedores(nn.idProductoHijo.ToString());
+                        if (nn.Cant <= listaPP[0].capProductiva * 0.7)
                         {
-                            ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                capProductiva0, listaPP[0].nombreProveedor);
+                            ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, nn.Cant,
+                                listaPP[0].nombreProveedor);
                             ListaordenCompra.Add(oc);
-
-                            int cantidadRestante = nn.Cant - capProductiva0;
-
-                            ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                cantidadRestante, listaPP[1].nombreProveedor);
-                            ListaordenCompra.Add(oc2);
                         }
                         else
                         {
-                            int capProductiva02 = Convert.ToInt32(listaPP[0].capProductiva * 0.3);
-                            int capProductiva12 = Convert.ToInt32(listaPP[0].capProductiva * 0.7);
-                            if(nn.Cant <= capProductiva0 + capProductiva1 + capProductiva02)
-                            {
-                                int cantidadRestante = nn.Cant - (capProductiva0 + capProductiva1);
+                            int capProductiva0 = Convert.ToInt32(listaPP[0].capProductiva * 0.7);
+                            int capProductiva1 = Convert.ToInt32(listaPP[1].capProductiva * 0.3);
 
-                                ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                    capProductiva0 + cantidadRestante, listaPP[0].nombreProveedor);
+                            if (nn.Cant <= capProductiva0 + capProductiva1)
+                            {
+                                ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                    capProductiva0, listaPP[0].nombreProveedor);
                                 ListaordenCompra.Add(oc);
 
-                                ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                    capProductiva1, listaPP[1].nombreProveedor);
+                                int cantidadRestante = nn.Cant - capProductiva0;
+
+                                ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                    cantidadRestante, listaPP[1].nombreProveedor);
                                 ListaordenCompra.Add(oc2);
                             }
                             else
                             {
-                                int cantidadRestante = nn.Cant - (capProductiva0 + capProductiva1 + capProductiva02);
+                                int capProductiva02 = Convert.ToInt32(listaPP[0].capProductiva * 0.3);
+                                int capProductiva12 = Convert.ToInt32(listaPP[0].capProductiva * 0.7);
+                                if (nn.Cant <= capProductiva0 + capProductiva1 + capProductiva02)
+                                {
+                                    int cantidadRestante = nn.Cant - (capProductiva0 + capProductiva1);
 
-                                ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                    capProductiva0 + capProductiva02, listaPP[0].nombreProveedor);
-                                ListaordenCompra.Add(oc);
+                                    ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                        capProductiva0 + cantidadRestante, listaPP[0].nombreProveedor);
+                                    ListaordenCompra.Add(oc);
 
-                                ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana, 
-                                    capProductiva1 + cantidadRestante, listaPP[1].nombreProveedor);
-                                ListaordenCompra.Add(oc2);
+                                    ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                        capProductiva1, listaPP[1].nombreProveedor);
+                                    ListaordenCompra.Add(oc2);
+                                }
+                                else
+                                {
+                                    int cantidadRestante = nn.Cant - (capProductiva0 + capProductiva1 + capProductiva02);
+
+                                    ordencompra oc = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                        capProductiva0 + capProductiva02, listaPP[0].nombreProveedor);
+                                    ListaordenCompra.Add(oc);
+
+                                    ordencompra oc2 = new ordencompra(this.generarNroOC(), nn.idProductoHijo, nn.Semana,
+                                        capProductiva1 + cantidadRestante, listaPP[1].nombreProveedor);
+                                    ListaordenCompra.Add(oc2);
+                                }
                             }
                         }
                     }
@@ -109,7 +114,7 @@ namespace Muebleria
         {
             ordenCompra.insertarOC(ListaordenCompra);
 
-            string path = @"D:\Mati\Facu\4° Año\2° Semestre\Informatica Industrial\Ordenes de Compra\" + ListaordenCompra[0].NroOrdenCompra+".txt";
+            string path = @"C:\Users\Felipe\Desktop\Ingeniería\4to año 2do semestre\Informática Industrial\TP6\Ordenes de Compra\" + ListaordenCompra[0].NroOrdenCompra +".txt";
             if (!File.Exists(path))
             {
                 using (StreamWriter sw = File.CreateText(path))
@@ -118,8 +123,8 @@ namespace Muebleria
                     
                     foreach (ordencompra oc in ListaordenCompra)
                     {
-                        sw.WriteLine(oc.idProductoHijo.ToString() + "\t Proveedor: " + oc.Proveedor + 
-                            "\t Semana: " + oc.Semana.ToString() + "\t Cantidad: " + oc.Cant.ToString());
+                        sw.WriteLine(oc.idProductoHijo.ToString() + "\t Semana: " + oc.Semana.ToString() + 
+                            "\t Cantidad: " + oc.Cant.ToString() + "\t Proveedor: " + oc.Proveedor);
                     }
                 
                 }

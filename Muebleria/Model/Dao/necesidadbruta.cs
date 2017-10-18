@@ -45,5 +45,16 @@ namespace Muebleria
                 return 0;
             
         }
+
+        public List<necesidadbruta> getAll()
+        {
+            var query = from nb in db.necesidadbruta
+                        select nb;
+
+            if (query.Count() > 0)
+                return query.ToList();
+            else
+                return new List<necesidadbruta>();
+        }
     }
 }

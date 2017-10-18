@@ -31,14 +31,24 @@ namespace Muebleria
             else
                 db.necesidadneta.Add(this);
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception E)
+            {
+
+            }
         }
 
         public List<necesidadneta> getAll()
         {
             var query = from nn in db.necesidadneta
                         select nn;
-            return query.ToList();
+            if (query.Count() > 0)
+                return query.ToList();
+            else
+                return new List<necesidadneta>();
         }
 
         public int getDiferenciaCantidad(int prod, int semana)

@@ -55,7 +55,7 @@
             this.panel1.Controls.Add(this.panelCantidades);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(4, 5);
-            this.panel1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(448, 313);
             this.panel1.TabIndex = 0;
@@ -63,7 +63,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Location = new System.Drawing.Point(319, 276);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(1);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(52, 23);
             this.btnCancelar.TabIndex = 31;
@@ -74,7 +74,7 @@
             // btnCargar
             // 
             this.btnCargar.Location = new System.Drawing.Point(377, 276);
-            this.btnCargar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnCargar.Margin = new System.Windows.Forms.Padding(1);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(52, 23);
             this.btnCargar.TabIndex = 30;
@@ -86,9 +86,9 @@
             // 
             this.groupBox2.Controls.Add(this.monthCalendar1);
             this.groupBox2.Location = new System.Drawing.Point(3, 116);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox2.Size = new System.Drawing.Size(282, 184);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
@@ -180,7 +180,7 @@
             this.cbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCliente.FormattingEnabled = true;
             this.cbCliente.Location = new System.Drawing.Point(65, 21);
-            this.cbCliente.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.cbCliente.Margin = new System.Windows.Forms.Padding(1);
             this.cbCliente.Name = "cbCliente";
             this.cbCliente.Size = new System.Drawing.Size(114, 21);
             this.cbCliente.TabIndex = 0;
@@ -189,9 +189,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 324);
+            this.ClientSize = new System.Drawing.Size(459, 327);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "CargaVGM";
             this.Text = "CargaVGM";
             this.panel1.ResumeLayout(false);

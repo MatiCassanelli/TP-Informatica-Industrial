@@ -1,0 +1,13 @@
+OC2
+
+10056461	 Semana: 45	 Cantidad: 20	 Proveedor: Accesorios plasticos
+10056461	 Semana: 45	 Cantidad: 10	 Proveedor: Metales Fergun
+10056461	 Semana: 46	 Cantidad: 20	 Proveedor: Accesorios plasticos
+10056461	 Semana: 46	 Cantidad: 10	 Proveedor: Metales Fergun
+10056461	 Semana: 47	 Cantidad: 5	 Proveedor: Accesorios plasticos
+10056468	 Semana: 45	 Cantidad: 30	 Proveedor: Metales Fergun
+10056468	 Semana: 46	 Cantidad: 30	 Proveedor: Metales Fergun
+10056468	 Semana: 47	 Cantidad: 5	 Proveedor: Metales Fergun
+10056505	 Semana: 45	 Cantidad: 90	 Proveedor: Maderas Rio Negro
+10056505	 Semana: 46	 Cantidad: 90	 Proveedor: Maderas Rio Negro
+10056505	 Semana: 47	 Cantidad: 15	 Proveedor: Maderas Rio Negro

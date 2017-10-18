@@ -10,6 +10,17 @@ namespace Muebleria
     {
         informatica_industrial_dbEntities db = new informatica_industrial_dbEntities();
 
+        public int getCantidadPadreComponente(int idPadre, int idHijo)
+        {
+            var query = from pc in db.padre_componente_publicado
+                        where pc.idPadreP == idPadre &&
+                        pc.idHijoP == idHijo &&
+                        pc.activado == 1
+                        orderby pc.version descending
+                        select pc.Cantidad;
+            return Convert.ToInt32(query.ToList()[0]);
+        }
+
         public void InsertarMovimiento(movimiento mov)
         {
             db.movimiento.Add(mov);
